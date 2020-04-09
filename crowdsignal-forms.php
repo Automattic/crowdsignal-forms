@@ -35,5 +35,5 @@ define( 'CROWDSIGNAL_FORMS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 require_once dirname( __FILE__ ) . '/includes/class-crowdsignal-forms.php';
 
-Crowdsignal_Forms\Crowdsignal_Forms::instance();
+Crowdsignal_Forms\Crowdsignal_Forms::init();
 
