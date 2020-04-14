@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        bootstrap="tests/bootstrap.php"
+        backupGlobals="false"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        verbose="true"
+        syntaxCheck="true"
+>
+    <php>
+        <server name='HTTP_HOST' value='http://localhost' />
+        <server name="SERVER_NAME" value="http://example.com"/>
+        <server name="SERVER_PORT" value="80"/>
+        <server name="REMOTE_ADDR" value="127.1.2.3"/>
+    </php>
+    <testsuites>
+        <testsuite name="Crowdsignal Forms Test Suite">
+            <directory suffix=".php">./tests/unit-tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <blacklist>
+            <directory suffix=".php">./tests/</directory>
+            <directory suffix=".php">./build/</directory>
+        </blacklist>
+    </filter>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./includes</directory>
+        </whitelist>
+    </filter>
+</phpunit>
