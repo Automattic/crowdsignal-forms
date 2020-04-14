@@ -80,7 +80,6 @@ final class Crowdsignal_Forms {
 	 * @return $this
 	 */
 	public function bootstrap() {
-		require_once $this->plugin_dir . '/includes/gateways/class-api-gateway-interface.php';
 		return $this;
 	}
 
