@@ -3,6 +3,9 @@
 	"description": "Crowdsignal Forms",
 	"type": "project",
 	"license": "GPLv2",
+	"autoload": {
+		"classmap": [ "includes/" ]
+	},
 	"require-dev": {
 		"phpunit/phpunit": "6.5.14",
 		"phpcompatibility/phpcompatibility-wp": "2.1.0",

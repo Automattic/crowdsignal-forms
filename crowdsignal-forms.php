@@ -32,7 +32,7 @@ define( 'CROWDSIGNAL_FORMS_VERSION', '1.0.0' );
 define( 'CROWDSIGNAL_FORMS_PLUGIN_FILE', __FILE__ );
 define( 'CROWDSIGNAL_FORMS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-require_once dirname( __FILE__ ) . '/includes/class-crowdsignal-forms.php';
+require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
 Crowdsignal_Forms\Crowdsignal_Forms::init();
 
