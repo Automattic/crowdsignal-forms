@@ -8,6 +8,8 @@
 
 namespace Crowdsignal_Forms;
 
+use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -39,6 +41,13 @@ final class Crowdsignal_Forms {
 	 * @var string
 	 */
 	private $plugin_url;
+
+	/**
+	 * Blocks registry.
+	 *
+	 * @var Crowdsignal_Forms_Blocks
+	 */
+	private $blocks;
 
 	/**
 	 * Initialize the singleton instance.
@@ -80,8 +89,11 @@ final class Crowdsignal_Forms {
 	 * @return $this
 	 */
 	public function bootstrap() {
+		$this->blocks = new Crowdsignal_Forms_Blocks();
+
 		return $this;
 	}
+
 
 	/**
 	 * Setup all filters and hooks. For frontend and optionally, admin.
@@ -91,6 +103,10 @@ final class Crowdsignal_Forms {
 	 * @return $this
 	 */
 	public function setup_hooks( $init_all = false ) {
+		if ( is_admin() ) {
+			add_action( 'init', array( $this->blocks, 'register' ) );
+		}
+
 		return $this;
 	}
 

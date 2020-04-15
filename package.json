@@ -1,0 +1,28 @@
+{
+	"name": "@automattic/crowdsignal-forms",
+	"version": "0.1.0",
+	"description": "Crowdsignal powered forms for WordPress",
+	"main": "index.js",
+	"scripts": {
+		"build:editor": "calypso-build --env.WP --output-path='./build' editor=./client/editor.js",
+		"format:js": "wp-scripts format-js ./client",
+		"lint": "wp-scripts lint-js ./client && wp-scripts lint-style ./client",
+		"test": "wp-scripts test-unit-js ./client"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/automattic/crowdsignal-forms.git"
+	},
+	"author": "Automattic",
+	"license": "GPL-2.0+",
+	"bugs": {
+		"url": "https://github.com/automattic/crowdsignal-forms/issues"
+	},
+	"homepage": "https://github.com/automattic/crowdsignal-forms#readme",
+	"devDependencies": {
+		"@automattic/calypso-build": "^6.1.0",
+		"@wordpress/scripts": "^7.2.0",
+		"prettier": "^2.0.4"
+	},
+	"dependencies": {}
+}
