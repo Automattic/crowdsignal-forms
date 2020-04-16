@@ -1,0 +1,29 @@
+os: linux
+dist: bionic
+
+language: php
+php: 7.0
+node_js: 12.13.1
+
+cache:
+  directories:
+    - build
+    - node_modules
+    - vendor
+
+install:
+  - composer install
+  - npm install
+
+jobs:
+  include:
+    - stage: lint
+      script: ./vendor/bin/phpcs
+    # - stage: lint
+    #   script: npm run lint
+    - stage: test
+      script: vendor/bin/phpunit
+    # - stage: test
+    #   script: npm run test
+    - stage: build
+      script: npm run build:editor
