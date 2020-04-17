@@ -1,4 +1,5 @@
 .idea
+*.code-workspace
 vendor
 .env
 node_modules

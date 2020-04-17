@@ -5,8 +5,12 @@
 	"main": "index.js",
 	"scripts": {
 		"build:editor": "calypso-build --env.WP --output-path='./build' editor=./client/editor.js",
+		"build:styles:editor": "node-sass --include-path client --output-style compressed assets/stylesheets/editor.scss build/editor.css",
+		"build:styles:public": "node-sass --include-path client --output-style compressed assets/stylesheets/public.scss build/public.css",
+		"build:styles": "npm run build:styles:editor && npm run build:styles:public",
 		"format:js": "wp-scripts format-js ./client",
-		"lint": "wp-scripts lint-js ./client && wp-scripts lint-style ./client",
+		"lint:js": "wp-scripts lint-js ./client",
+		"lint:styles": "wp-scripts lint-style ./assets/stylesheets ./client",
 		"test": "wp-scripts test-unit-js ./client"
 	},
 	"repository": {
@@ -22,6 +26,7 @@
 	"devDependencies": {
 		"@automattic/calypso-build": "^6.1.0",
 		"@wordpress/scripts": "^7.2.0",
+		"node-sass": "^4.13.1",
 		"prettier": "^2.0.4"
 	},
 	"dependencies": {}

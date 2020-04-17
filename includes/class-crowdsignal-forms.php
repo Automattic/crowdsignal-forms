@@ -103,10 +103,7 @@ final class Crowdsignal_Forms {
 	 * @return $this
 	 */
 	public function setup_hooks( $init_all = false ) {
-		if ( is_admin() ) {
-			add_action( 'init', array( $this->blocks, 'register' ) );
-		}
-
+		add_action( 'init', array( $this->blocks, 'register' ) );
 		return $this;
 	}
 

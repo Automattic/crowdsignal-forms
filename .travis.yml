@@ -20,10 +20,14 @@ jobs:
     - stage: lint
       script: ./vendor/bin/phpcs
     # - stage: lint
-    #   script: npm run lint
+    #   script: npm run lint:js
+    - stage: lint
+      script: npm run lint:styles
     - stage: test
       script: vendor/bin/phpunit
     # - stage: test
     #   script: npm run test
     - stage: build
       script: npm run build:editor
+    - stage: build
+      script: npm run build:styles

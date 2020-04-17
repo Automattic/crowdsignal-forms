@@ -3,6 +3,6 @@
  */
 import React from 'react';
 
-const EditPoll = () => <div>Hello World! (Editor)</div>;
+const EditPoll = ( { className } ) => <div className={ className }>Hello World! (Editor)</div>;
 
 export default EditPoll;
