@@ -73,7 +73,6 @@ class Crowdsignal_Forms_Unit_Tests_Bootstrap {
      * @since 1.0.0
      */
     public function install_plugin() {
-        \Crowdsignal_Forms\Crowdsignal_Forms::init( true );
 
         // Reload capabilities after install, see https://core.trac.wordpress.org/ticket/28374
         if ( version_compare( $GLOBALS['wp_version'], '4.7', '<' ) ) {
