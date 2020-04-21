@@ -56,8 +56,8 @@ class Crowdsignal_Forms_Blocks {
 			'crowdsignal-forms/poll',
 			array(
 				'editor_script' => self::EDITOR_SCRIPT_NAME,
-				'style'         => self::EDITOR_STYLE_NAME,
-				'editor_style'  => self::STYLE_NAME,
+				'editor_style'  => self::EDITOR_STYLE_NAME,
+				'style'         => self::STYLE_NAME,
 			)
 		);
 	}
