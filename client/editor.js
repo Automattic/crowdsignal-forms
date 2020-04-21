@@ -8,11 +8,12 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import Poll from 'blocks/poll';
 import EditPoll from 'blocks/poll/edit';
+import attributes from 'blocks/poll/attributes';
 
 registerBlockType( 'crowdsignal-forms/poll', {
 	title: 'Poll',
 	category: 'widgets',
-	example: {},
+	attributes,
 	edit: EditPoll,
 	save: Poll,
 } );
