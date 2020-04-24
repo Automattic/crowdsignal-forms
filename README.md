@@ -16,8 +16,8 @@ PLUGIN_DIR=`pwd` docker-compose -f scripts/docker-compose.yml up --build --force
 
 You will need to have mysql/mariadb, curl and svn installed on your local machine
 
-Set up the local test env by running `./tests/bin/install.sh crowdsignal_forms_tests` (see install.sh for more info on arguments)
-If on debian, install `php-xml` and `php-mbstring`
-`composer install`
-`./vendor/bin/phpunit`
-`./vendor/bin/phpcs`
+* Set up the local test env by running `./tests/bin/install.sh crowdsignal_forms_tests` (see install.sh for more info on arguments)
+* If on debian, install `php-xml` and `php-mbstring`
+* `composer install`
+* `./vendor/bin/phpunit`
+* `./vendor/bin/phpcs`
