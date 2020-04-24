@@ -1,8 +1,14 @@
 /**
- * External dependencies
+ * Internal dependencies
  */
-import React from 'react';
+import EditPollBlock from './edit';
+import SavePollBlock from './save';
+import attributes from './attributes';
 
-const Poll = () => <div>Hello World! (Client)</div>;
-
-export default Poll;
+export default {
+	title: 'Poll',
+	category: 'widgets',
+	attributes,
+	edit: EditPollBlock,
+	save: SavePollBlock,
+};
