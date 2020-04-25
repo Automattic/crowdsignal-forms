@@ -1,0 +1,12 @@
+{
+  "polls": [
+	{
+	  "id": 1,
+	  "question": "What is your favorite color?"
+	},
+	{
+	  "id": 2,
+	  "question": "What is your favorite 80's disco song?"
+	}
+  ]
+}
