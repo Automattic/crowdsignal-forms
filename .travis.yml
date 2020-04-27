@@ -25,8 +25,8 @@ jobs:
       script: npm run lint:styles
     - stage: test
       script: vendor/bin/phpunit
-    # - stage: test
-    #   script: npm run test
+    - stage: test
+      script: npm run test
     - stage: build
       script: npm run build:editor
     - stage: build

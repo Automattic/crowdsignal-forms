@@ -25,9 +25,10 @@
 	"homepage": "https://github.com/automattic/crowdsignal-forms#readme",
 	"devDependencies": {
 		"@automattic/calypso-build": "^6.1.0",
-		"@wordpress/scripts": "^7.2.0",
+		"@wordpress/scripts": "^8.0.1",
+		"classnames": "^2.2.6",
 		"node-sass": "^4.13.1",
-		"prettier": "^2.0.4"
+		"prettier": "npm:wp-prettier@^2.0.5-alpha-2"
 	},
 	"dependencies": {}
 }

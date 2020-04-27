@@ -41,14 +41,14 @@ class Crowdsignal_Forms_Blocks {
 		wp_register_style(
 			self::EDITOR_STYLE_NAME,
 			plugins_url( 'build/editor.css', CROWDSIGNAL_FORMS_PLUGIN_FILE ),
-			array(),
+			array( 'wp-components' ),
 			$editor_config['version']
 		);
 
 		wp_register_style(
 			self::STYLE_NAME,
 			plugins_url( 'build/public.css', CROWDSIGNAL_FORMS_PLUGIN_FILE ),
-			array(),
+			array( 'wp-components' ),
 			$editor_config['version']
 		);
 

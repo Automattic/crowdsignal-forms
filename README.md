@@ -34,6 +34,7 @@ run
 ```
 PLUGIN_DIR=`pwd` docker-compose -f scripts/docker-compose.yml up --build --force-recreate
 ```
+
 Access the site through http://localhost:8000
 
 Login to the Docker container using this command:
@@ -42,3 +43,13 @@ docker exec -it `docker ps|grep wordpress|awk '{print $1}'` /bin/bash
 ```
 
 This directory is mirrored in the Docker container in /var/www/html/wp-content/plugins/crowdsignal-forms
+
+## Running the PHP linter and tests
+
+You will need to have mysql/mariadb, curl and svn installed on your local machine
+
+* Set up the local test env by running `./tests/bin/install.sh crowdsignal_forms_tests` (see install.sh for more info on arguments)
+* If on debian, install `php-xml` and `php-mbstring`
+* `composer install`
+* `./vendor/bin/phpunit`
+* `./vendor/bin/phpcs`

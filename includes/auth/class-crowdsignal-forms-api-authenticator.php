@@ -47,7 +47,7 @@ class Crowdsignal_Forms_Api_Authenticator {
 	public function get_user_code() {
 		$user_id   = wp_get_current_user()->ID;
 		$user_code = get_user_meta( $user_id, self::USER_CODE_META_NAME, true );
-		if ( false !== $user_code ) {
+		if ( ! empty( $user_code ) ) {
 			return $user_code;
 		}
 
@@ -55,23 +55,5 @@ class Crowdsignal_Forms_Api_Authenticator {
 		update_user_meta( $user_id, self::USER_CODE_META_NAME, $user_code );
 
 		return $user_code;
-	}
-
-	/**
-	 * Get the Crowdsignal API key for the current WordPress user.
-	 *
-	 * @return string the api key
-	 */
-	public function get_api_key() {
-		$user_id = wp_get_current_user()->ID;
-		$api_key = get_user_meta( $user_id, self::API_KEY_META_NAME, true );
-		if ( false !== $api_key ) {
-			return $api_key;
-		}
-
-		$api_key = $this->auth_provider->get_api_key( $user_id );
-		update_user_meta( $user_id, self::API_KEY_META_NAME, $api_key );
-
-		return $api_key;
 	}
 }

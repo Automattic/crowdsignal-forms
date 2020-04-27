@@ -1,0 +1,42 @@
+.wp-block-crowdsignal-forms-poll__answer {
+	align-items: center;
+	display: flex;
+	margin: 0 0 10px;
+	padding: 0 2px;
+	position: relative;
+}
+
+input[type="checkbox"].wp-block-crowdsignal-forms-poll__input,
+input[type="radio"].wp-block-crowdsignal-forms-poll__input {
+	height: 0;
+	opacity: 0;
+	position: absolute;
+	width: 0;
+}
+
+.wp-block-crowdsignal-forms-poll__check {
+	border: 1px solid;
+	border-radius: 10px;
+	display: block;
+	height: 20px;
+	margin: 0 10px 0 0;
+	width: 20px;
+
+	&.is-checkbox {
+		border-radius: 0;
+	}
+}
+
+.wp-block-crowdsignal-forms-poll__answer-label {
+	flex: 1;
+}
+
+.wp-block-crowdsignal-forms-poll__button {
+	border: 0;
+	padding: 0;
+}
+
+.wp-block-crowdsignal-forms-poll__actions {
+	display: flex;
+	justify-content: flex-end;
+}

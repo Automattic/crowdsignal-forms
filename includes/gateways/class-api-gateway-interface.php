@@ -8,6 +8,8 @@
 
 namespace Crowdsignal_Forms\Gateways;
 
+use Crowdsignal_Forms\Models\Poll;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -15,12 +17,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 interface Api_Gateway_Interface {
 
 	/**
+	 * Get polls
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array|\WP_Error
+	 */
+	public function get_polls();
+
+	/**
 	 * Get the poll with specified poll id from the api.
 	 *
 	 * @param int $poll_id The poll id.
 	 * @since 1.0.0
 	 *
-	 * @return object|\WP_Error
+	 * @return Poll|\WP_Error
 	 */
 	public function get_poll( $poll_id );
 
@@ -30,7 +41,7 @@ interface Api_Gateway_Interface {
 	 * @param array $data The poll data.
 	 * @since 1.0.0
 	 *
-	 * @return object|\WP_Error
+	 * @return Poll|\WP_Error
 	 */
 	public function create_poll( array $data );
 }
