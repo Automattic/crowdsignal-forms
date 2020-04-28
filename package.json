@@ -10,7 +10,7 @@
 		"build:styles": "npm run build:styles:editor && npm run build:styles:public",
 		"format:js": "wp-scripts format-js ./client",
 		"lint:js": "wp-scripts lint-js ./client",
-		"lint:styles": "wp-scripts lint-style ./assets/stylesheets ./client",
+		"lint:styles": "wp-scripts lint-style ./assets/stylesheets ./client/**/*.scss",
 		"test": "wp-scripts test-unit-js ./client"
 	},
 	"repository": {
