@@ -10,7 +10,11 @@ import classnames from 'classnames';
  */
 import { Button, Icon } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal dependencies
+ */
+import { __ } from 'lib/i18n';
 
 const EditAnswer = ( {
 	answer,

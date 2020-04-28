@@ -1,1 +1,12 @@
 /* Editor styles */
+.wp-block-crowdsignal-forms__redirect-url input[type="text"] {
+	width: 100%;
+}
+
+.wp-block-crowdsignal-forms__redirect-url__suggestions {
+	width: 260px;
+}
+
+.wp-block-crowdsignal-forms__more-info-link {
+    text-align: right;
+}

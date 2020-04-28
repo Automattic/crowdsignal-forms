@@ -1,7 +1,8 @@
 /**
- * WordPress dependencies
+ * Internal dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { FontFamilyType, ConfirmMessageType } from './constants';
+import { __ } from 'lib/i18n';
 
 export default {
 	pollId: {
@@ -11,6 +12,10 @@ export default {
 	isMultipleChoice: {
 		type: 'boolean',
 		default: false,
+	},
+	title: {
+		type: 'string',
+		default: __( 'Untitled Poll' ),
 	},
 	question: {
 		type: 'string',
@@ -41,8 +46,42 @@ export default {
 		type: 'string',
 		default: __( 'Submit' ),
 	},
-	submitButtonColor: {
+	submitButtonTextColor: {
 		type: 'string',
-		default: 'pink',
+	},
+	submitButtonBackgroundColor: {
+		type: 'string',
+	},
+	confirmMessageType: {
+		type: 'string',
+		default: ConfirmMessageType.RESULTS,
+	},
+	customConfirmMessage: {
+		type: 'string',
+	},
+	redirectAddress: {
+		type: 'string',
+	},
+	textColor: {
+		type: 'string',
+	},
+	backgroundColor: {
+		type: 'string',
+	},
+	fontFamily: {
+		type: 'string',
+		default: FontFamilyType.THEME_DEFAULT,
+	},
+	hasCaptchaProtection: {
+		type: 'boolean',
+		default: false,
+	},
+	hasOneResponsePerComputer: {
+		type: 'boolean',
+		default: false,
+	},
+	hasRandomOrderOfAnswers: {
+		type: 'boolean',
+		default: false,
 	},
 };

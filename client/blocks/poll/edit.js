@@ -8,15 +8,17 @@ import { filter, map, tap } from 'lodash';
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import EditAnswer from './edit-answer';
 import { getEmptyAnswersCount } from './util';
+import SideBar from './sidebar';
+import { __ } from 'lib/i18n';
 
-const EditPoll = ( { attributes, className, isSelected, setAttributes } ) => {
+const EditPoll = ( props ) => {
+	const { attributes, className, isSelected, setAttributes } = props;
 	const handleChangeQuestion = ( question ) => setAttributes( { question } );
 	const handleChangeNote = ( note ) => setAttributes( { note } );
 	const handleChangeSubmitButtonLabel = ( submitButtonLabel ) =>
@@ -45,42 +47,45 @@ const EditPoll = ( { attributes, className, isSelected, setAttributes } ) => {
 			: attributes.answers;
 
 	return (
-		<div className={ className }>
-			<RichText
-				tagName="h2"
-				placeholder={ __( 'Enter your question' ) }
-				onChange={ handleChangeQuestion }
-				value={ attributes.question }
-			/>
-			<RichText
-				tagName="p"
-				placeholder={ __( 'Add a note (optional)' ) }
-				onChange={ handleChangeNote }
-				value={ attributes.note }
-			/>
-
-			<div className="wp-block-crowdsignal-forms-poll__options">
-				{ map( editableAnswers, ( answer, index ) => (
-					<EditAnswer
-						key={ `poll-answer-${ index }` }
-						answer={ answer }
-						index={ index }
-						isEnabled={ isSelected }
-						isMultipleChoice={ attributes.isMultipleChoice }
-						onChange={ handleChangeAnswer }
-						onDelete={ handleDeleteAnswer }
-					/>
-				) ) }
-			</div>
-
-			<div className="wp-block-crowdsignal-forms-poll__actions">
+		<>
+			<SideBar { ...props } />
+			<div className={ className }>
 				<RichText
-					className="wp-block-button__link"
-					onChange={ handleChangeSubmitButtonLabel }
-					value={ attributes.submitButtonLabel }
+					tagName="h2"
+					placeholder={ __( 'Enter your question' ) }
+					onChange={ handleChangeQuestion }
+					value={ attributes.question }
 				/>
+				<RichText
+					tagName="p"
+					placeholder={ __( 'Add a note (optional)' ) }
+					onChange={ handleChangeNote }
+					value={ attributes.note }
+				/>
+
+				<div className="wp-block-crowdsignal-forms-poll__options">
+					{ map( editableAnswers, ( answer, index ) => (
+						<EditAnswer
+							key={ `poll-answer-${ index }` }
+							answer={ answer }
+							index={ index }
+							isEnabled={ isSelected }
+							isMultipleChoice={ attributes.isMultipleChoice }
+							onChange={ handleChangeAnswer }
+							onDelete={ handleDeleteAnswer }
+						/>
+					) ) }
+				</div>
+
+				<div className="wp-block-crowdsignal-forms-poll__actions">
+					<RichText
+						className="wp-block-button__link"
+						onChange={ handleChangeSubmitButtonLabel }
+						value={ attributes.submitButtonLabel }
+					/>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
