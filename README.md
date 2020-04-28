@@ -9,7 +9,6 @@ You will need the following installed locally:
 * PHP
 * composer
 * npm
-* calypso-build
 * Docker
 
 Install PHP and composer using brew:
@@ -18,17 +17,15 @@ brew install composer
 brew install php
 ```
 NPM can be installed from https://www.npmjs.com/get-npm
-Calypso-build can be found at https://www.npmjs.com/package/@automattic/calypso-build
 Get Docker at https://www.docker.com/
 
-```
-composer install
-npm install
-npm run build:editor
-npm run build:styles
-```
+A Makefile is provided to set up Node and PHP.
 
-a docker compose yml file is provided for making local dev easy
+`make install` will install any required Node and PHP modules.
+`make client` will build the CSS and JavaScript files required by the plugin.
+`make clean` will delete the generated CSS and JavaScript files.
+
+A docker compose yml file is provided for making local dev easy
 
 run 
 ```
