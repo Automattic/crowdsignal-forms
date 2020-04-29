@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { filter } from 'lodash';
+const { getComputedStyle, Node } = window;
 
 /**
  * Creates a new Answer object then returns a copy of the passed in `answers` array with the new answer appended to it.
