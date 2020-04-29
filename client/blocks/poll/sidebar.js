@@ -29,27 +29,19 @@ import { includes } from 'lodash';
 import { ConfirmMessageType, FontFamilyType } from './constants';
 import { __ } from 'lib/i18n';
 
-const SideBar = ( { attributes, setAttributes } ) => {
-	const {
-		title,
-		confirmMessageType,
-		redirectAddress,
-		customConfirmMessage,
-		textColor,
-		backgroundColor,
-		fontFamily,
-		hasCaptchaProtection,
-		hasOneResponsePerComputer,
-		hasRandomOrderOfAnswers,
-	} = attributes;
-
-	// todo: get fallback colors -- see https://github.com/Automattic/jetpack/blob/master/extensions/shared/submit-button.js
-
-	const handleChangeTitle = ( title ) =>
-		setAttributes( { title } );
+const SideBar = ( {
+	attributes,
+	setAttributes,
+	fallbackBackgroundColor,
+	fallbackTextColor,
+	fallbackSubmitButtonBackgroundColor,
+	fallbackSubmitButtonTextColor,
+} ) => {
+	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
 	const handleChangeConfirmMessageType = ( type ) =>
-		includes( ConfirmMessageType, type ) && setAttributes( { confirmMessageType: type } );
+		includes( ConfirmMessageType, type ) &&
+		setAttributes( { confirmMessageType: type } );
 
 	const handleChangeCustomConfirmMessage = ( customConfirmMessage ) =>
 		setAttributes( { customConfirmMessage } );
@@ -64,13 +56,15 @@ const SideBar = ( { attributes, setAttributes } ) => {
 		setAttributes( { backgroundColor } );
 
 	const handleChangeFontFamily = ( font ) =>
-		includes( FontFamilyType, font ) && setAttributes( { fontFamily: font } );
+		includes( FontFamilyType, font ) &&
+		setAttributes( { fontFamily: font } );
 
 	const handleChangeHasCaptchaProtection = ( hasCaptchaProtection ) =>
 		setAttributes( { hasCaptchaProtection } );
 
-	const handleChangeHasOneResponsePerComputer = ( hasOneResponsePerComputer ) =>
-		setAttributes( { hasOneResponsePerComputer } );
+	const handleChangeHasOneResponsePerComputer = (
+		hasOneResponsePerComputer
+	) => setAttributes( { hasOneResponsePerComputer } );
 
 	const handleChangeHasRandomOrderOfAnswers = ( hasRandomOrderOfAnswers ) =>
 		setAttributes( { hasRandomOrderOfAnswers } );
@@ -78,8 +72,9 @@ const SideBar = ( { attributes, setAttributes } ) => {
 	const handleChangeSubmitButtonTextColor = ( submitButtonTextColor ) =>
 		setAttributes( { submitButtonTextColor } );
 
-	const handleChangeSubmitButtonBackgroundColor = ( submitButtonBackgroundColor ) =>
-		setAttributes( { submitButtonBackgroundColor } );
+	const handleChangeSubmitButtonBackgroundColor = (
+		submitButtonBackgroundColor
+	) => setAttributes( { submitButtonBackgroundColor } );
 
 	return (
 		<InspectorControls>
@@ -102,7 +97,7 @@ const SideBar = ( { attributes, setAttributes } ) => {
 				</p>
 
 				<TextControl
-					value={ title }
+					value={ attributes.title }
 					label={ __( 'Title of the Poll Block' ) }
 					onChange={ handleChangeTitle }
 				/>
@@ -110,7 +105,7 @@ const SideBar = ( { attributes, setAttributes } ) => {
 				<p className="wp-block-crowdsignal-forms__more-info-link">
 					<ExternalLink
 						href="http://www.crowdsignal.com"
-						style={ { color: 'rgb( 159, 164, 169 )' } }
+						className="wp-block-crowdsiglan-forms__more-info-link-text"
 					>
 						{ __( 'What is Crowdsignal?' ) }
 					</ExternalLink>
@@ -118,7 +113,7 @@ const SideBar = ( { attributes, setAttributes } ) => {
 			</PanelBody>
 			<PanelBody title={ __( 'Confirmation Message' ) }>
 				<SelectControl
-					value={ confirmMessageType }
+					value={ attributes.confirmMessageType }
 					label={ __( 'On Submission' ) }
 					options={ [
 						{
@@ -141,19 +136,21 @@ const SideBar = ( { attributes, setAttributes } ) => {
 					onChange={ handleChangeConfirmMessageType }
 				/>
 
-				{ ConfirmMessageType.CUSTOM_TEXT === confirmMessageType && (
+				{ ConfirmMessageType.CUSTOM_TEXT ===
+					attributes.confirmMessageType && (
 					<TextareaControl
-						value={ customConfirmMessage }
+						value={ attributes.customConfirmMessage }
 						label={ __( 'Message Text' ) }
 						placeholder={ __( 'Thank you for your submission!' ) }
 						onChange={ handleChangeCustomConfirmMessage }
 					/>
 				) }
 
-				{ ConfirmMessageType.REDIRECT === confirmMessageType && (
+				{ ConfirmMessageType.REDIRECT ===
+					attributes.confirmMessageType && (
 					<URLInput
 						className="wp-block-crowdsignal-forms__redirect-url"
-						value={ redirectAddress }
+						value={ attributes.redirectAddress }
 						label={ __( 'Redirect Address' ) }
 						onChange={ handleChangeRedirectAddress }
 					/>
@@ -164,26 +161,42 @@ const SideBar = ( { attributes, setAttributes } ) => {
 				initialOpen={ false }
 				colorSettings={ [
 					{
-						value: textColor,
+						value: attributes.textColor,
 						onChange: handleChangeTextColor,
 						label: __( 'Text Color' ),
 					},
 					{
-						value: backgroundColor,
+						value: attributes.backgroundColor,
 						onChange: handleChangeBackgroundColor,
 						label: __( 'Background Color' ),
+					},
+					{
+						value: attributes.submitButtonTextColor,
+						onChange: handleChangeSubmitButtonTextColor,
+						label: __( 'Submit Button Text Color' ),
+					},
+					{
+						value: attributes.submitButtonBackgroundColor,
+						onChange: handleChangeSubmitButtonBackgroundColor,
+						label: __( 'Submit Button Background Color' ),
 					},
 				] }
 			/>
 			<ContrastChecker
-				textColor={ textColor }
-				backgroundColor={ backgroundColor }
-				fallbackBackgroundColor
-				fallbackTextColor
+				textColor={ attributes.textColor }
+				backgroundColor={ attributes.backgroundColor }
+				fallbackBackgroundColor={ fallbackBackgroundColor }
+				fallbackTextColor={ fallbackTextColor }
+			/>
+			<ContrastChecker
+				textColor={ attributes.submitButtonTextColor }
+				backgroundColor={ attributes.submitButtonBackgroundColor }
+				fallbackBackgroundColor={ fallbackSubmitButtonBackgroundColor }
+				fallbackTextColor={ fallbackSubmitButtonTextColor }
 			/>
 			<PanelBody title={ __( 'Text Settings' ) } initialOpen={ false }>
 				<SelectControl
-					value={ fontFamily }
+					value={ attributes.fontFamily }
 					label={ __( 'Choose Font-Family' ) }
 					options={ [
 						{
@@ -200,43 +213,21 @@ const SideBar = ( { attributes, setAttributes } ) => {
 			</PanelBody>
 			<PanelBody title={ __( 'Answer Settings' ) }>
 				<CheckboxControl
-					checked={ hasCaptchaProtection }
+					checked={ attributes.hasCaptchaProtection }
 					label={ __( 'Enable Captcha Protection' ) }
 					onChange={ handleChangeHasCaptchaProtection }
 				/>
 				<CheckboxControl
-					checked={ hasOneResponsePerComputer }
+					checked={ attributes.hasOneResponsePerComputer }
 					label={ __( 'One Response Per Computer' ) }
 					onChange={ handleChangeHasOneResponsePerComputer }
 				/>
 				<CheckboxControl
-					checked={ hasRandomOrderOfAnswers }
+					checked={ attributes.hasRandomOrderOfAnswers }
 					label={ __( 'Random Order of Answers' ) }
 					onChange={ handleChangeHasRandomOrderOfAnswers }
 				/>
 			</PanelBody>
-			<PanelColorSettings
-				title={ __( 'Submit Button Color Settings' ) }
-				initialOpen={ false }
-				colorSettings={ [
-					{
-						value: attributes.submitButtonTextColor,
-						onChange: handleChangeSubmitButtonTextColor,
-						label: __( 'Text Color' ),
-					},
-					{
-						value: attributes.submitButtonBackgroundColor,
-						onChange: handleChangeSubmitButtonBackgroundColor,
-						label: __( 'Background Color' ),
-					},
-				] }
-			/>
-			<ContrastChecker
-				textColor={ attributes.submitButtonTextColor }
-				backgroundColor={ attributes.submitButtonBackgroundColor }
-				fallbackBackgroundColor
-				fallbackTextColor
-			/>
 		</InspectorControls>
 	);
 };

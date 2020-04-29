@@ -3,19 +3,48 @@
  */
 import React from 'react';
 import { filter, map, tap } from 'lodash';
+const { getComputedStyle } = window;
 
 /**
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
+import { withFallbackStyles } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import EditAnswer from './edit-answer';
-import { getEmptyAnswersCount } from './util';
+import { getEmptyAnswersCount, getNodeBackgroundColor } from './util';
 import SideBar from './sidebar';
 import { __ } from 'lib/i18n';
+
+/**
+ * Retrieves default theme colors as they are when the component is loaded
+ */
+const fallbackStyles = withFallbackStyles( ( node ) => {
+	const textNode = node.querySelector(
+		'.wp-block-crowdsignal-forms-poll [contenteditable="true"]'
+	);
+	const buttonNode = node.querySelector(
+		'.wp-block-crowdsignal-forms-poll__actions [contenteditable="true"]'
+	);
+
+	return {
+		fallbackBackgroundColor: ! textNode
+			? undefined
+			: getNodeBackgroundColor( textNode ),
+		fallbackTextColor: ! textNode
+			? undefined
+			: getComputedStyle( textNode ).color,
+		fallbackSubmitButtonBackgroundColor: ! buttonNode
+			? undefined
+			: getNodeBackgroundColor( buttonNode ),
+		fallbackSubmitButtonTextColor: ! buttonNode
+			? undefined
+			: getComputedStyle( buttonNode ).color,
+	};
+} );
 
 const EditPoll = ( props ) => {
 	const { attributes, className, isSelected, setAttributes } = props;
@@ -46,12 +75,23 @@ const EditPoll = ( props ) => {
 			? [ ...attributes.answers, { isPlaceholder: true } ]
 			: attributes.answers;
 
+	const pollStyle = {
+		backgroundColor: attributes.backgroundColor,
+		color: attributes.textColor,
+	};
+
+	const submitButtonStyle = {
+		backgroundColor: attributes.submitButtonBackgroundColor,
+		color: attributes.submitButtonTextColor,
+	};
+
 	return (
 		<>
 			<SideBar { ...props } />
-			<div className={ className }>
+			<div className={ className } style={ pollStyle }>
 				<RichText
 					tagName="h2"
+					className="wp-block-crowdsignal-forms-poll__question"
 					placeholder={ __( 'Enter your question' ) }
 					onChange={ handleChangeQuestion }
 					value={ attributes.question }
@@ -80,6 +120,7 @@ const EditPoll = ( props ) => {
 				<div className="wp-block-crowdsignal-forms-poll__actions">
 					<RichText
 						className="wp-block-button__link"
+						style={ submitButtonStyle }
 						onChange={ handleChangeSubmitButtonLabel }
 						value={ attributes.submitButtonLabel }
 					/>
@@ -89,4 +130,4 @@ const EditPoll = ( props ) => {
 	);
 };
 
-export default EditPoll;
+export default fallbackStyles( EditPoll );

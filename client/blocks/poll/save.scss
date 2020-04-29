@@ -1,3 +1,11 @@
+.wp-block-crowdsignal-forms-poll {
+	padding: 15px;
+}
+
+.wp-block-crowdsignal-forms-poll__question {
+	margin: 0 !important;
+}
+
 .wp-block-crowdsignal-forms-poll__answer {
 	align-items: center;
 	display: flex;
@@ -39,4 +47,8 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 .wp-block-crowdsignal-forms-poll__actions {
 	display: flex;
 	justify-content: flex-end;
+
+	.wp-block-button {
+		margin: 0;
+	}
 }

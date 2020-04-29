@@ -11,9 +11,21 @@ const SavePoll = ( { attributes, className } ) => {
 	} );
 	const inputType = attributes.isMultipleChoice ? 'checkbox' : 'radio';
 
+	const pollStyle = {
+		backgroundColor: attributes.backgroundColor,
+		color: attributes.textColor,
+	};
+
+	const submitButtonStyle = {
+		backgroundColor: attributes.submitButtonBackgroundColor,
+		color: attributes.submitButtonTextColor,
+	};
+
 	return (
-		<form className={ className }>
-			<h2>{ attributes.question }</h2>
+		<form className={ className } style={ pollStyle }>
+			<h2 className="wp-block-crowdsignal-forms-poll__question">
+				{ attributes.question }
+			</h2>
 
 			{ attributes.note && <p>{ attributes.note }</p> }
 
@@ -40,7 +52,11 @@ const SavePoll = ( { attributes, className } ) => {
 
 			<div className="wp-block-crowdsignal-forms-poll__actions">
 				<div className="wp-block-button">
-					<button type="submit" className="wp-block-button__link">
+					<button
+						type="submit"
+						className="wp-block-button__link"
+						style={ submitButtonStyle }
+					>
 						{ attributes.submitButtonLabel }
 					</button>
 				</div>
