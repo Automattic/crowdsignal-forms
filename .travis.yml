@@ -2,7 +2,7 @@ os: linux
 dist: bionic
 
 language: php
-php: 7.0
+php: 7.4
 node_js: 12.13.1
 
 cache:
@@ -19,8 +19,8 @@ jobs:
   include:
     - stage: lint
       script: ./vendor/bin/phpcs
-    # - stage: lint
-    #   script: npm run lint:js
+    - stage: lint
+      script: npm run lint:js
     - stage: lint
       script: npm run lint:styles
     - stage: test
