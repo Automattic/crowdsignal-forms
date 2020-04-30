@@ -14,10 +14,11 @@ import { withFallbackStyles } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import EditAnswer from './edit-answer';
-import { getEmptyAnswersCount, getNodeBackgroundColor } from './util';
-import SideBar from './sidebar';
 import { __ } from 'lib/i18n';
+import EditAnswer from './edit-answer';
+import SideBar from './sidebar';
+import Toolbar from './toolbar';
+import { getEmptyAnswersCount, getNodeBackgroundColor } from './util';
 
 /**
  * Retrieves default theme colors as they are when the component is loaded
@@ -87,7 +88,9 @@ const EditPoll = ( props ) => {
 
 	return (
 		<>
+			<Toolbar { ...props } />
 			<SideBar { ...props } />
+
 			<div className={ className } style={ pollStyle }>
 				<RichText
 					tagName="h2"

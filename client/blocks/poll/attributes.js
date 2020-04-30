@@ -84,4 +84,8 @@ export default {
 		type: 'boolean',
 		default: false,
 	},
+	blockAlignment: {
+		type: 'string',
+		default: 'center',
+	},
 };
