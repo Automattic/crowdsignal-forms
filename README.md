@@ -6,18 +6,13 @@ is README.txt
 ## Using docker for local dev
 
 You will need the following installed locally:
-* PHP
-* composer
 * npm
 * Docker
 
-Install PHP and composer using brew:
-```
-brew install composer
-brew install php
-```
 NPM can be installed from https://www.npmjs.com/get-npm
 Get Docker at https://www.docker.com/
+
+More info [here](docker/README.md)
 
 A Makefile is provided to set up Node and PHP.
 
