@@ -5,12 +5,41 @@ is README.txt
 
 ## Using docker for local dev
 
-a docker compose yml file is provided for making local dev easy
+You will need the following installed locally:
+* PHP
+* composer
+* npm
+* Docker
+
+Install PHP and composer using brew:
+```
+brew install composer
+brew install php
+```
+NPM can be installed from https://www.npmjs.com/get-npm
+Get Docker at https://www.docker.com/
+
+A Makefile is provided to set up Node and PHP.
+
+`make install` will install any required Node and PHP modules.
+`make client` will build the CSS and JavaScript files required by the plugin.
+`make clean` will delete the generated CSS and JavaScript files.
+
+A docker compose yml file is provided for making local dev easy
 
 run 
 ```
 PLUGIN_DIR=`pwd` docker-compose -f scripts/docker-compose.yml up --build --force-recreate
 ```
+
+Access the site through http://localhost:8000
+
+Login to the Docker container using this command:
+```
+docker exec -it `docker ps|grep wordpress|awk '{print $1}'` /bin/bash
+```
+
+This directory is mirrored in the Docker container in /var/www/html/wp-content/plugins/crowdsignal-forms
 
 ## Running the PHP linter and tests
 
