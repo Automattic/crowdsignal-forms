@@ -1,0 +1,40 @@
+version: '3.3'
+
+volumes:
+  ## For making sure the ./docker dir is not bound recursively.
+  dockerdirectory:
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: cs_forms_mysql
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    restart: always
+    env_file:
+      - default.env
+      - .env
+
+  wordpress:
+    container_name: cs_forms_wordpress
+    depends_on:
+      - db
+    build: .
+    image: cs_forms_wordpress:localbuild
+    volumes:
+      - ..:/var/www/html/wp-content/plugins/crowdsignal-forms
+      ## Kludge for not having docker contain recursive stuff
+      ## You will see on your filesystem that this dir gets created
+      - dockerdirectory:/var/www/html/wp-content/plugins/crowdsignal-forms/docker
+      - ./mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./wordpress-develop:/tmp/wordpress-develop
+      - ./wordpress:/var/www/html
+      - ./logs/apache2/:/var/log/apache2
+      - ./logs/php:/var/log/php
+      - ./bin:/var/scripts
+    ports:
+      - "${PORT_CS_WORDPRESS:-8000}:80"
+    restart: always
+    env_file:
+      - default.env
+      - .env
