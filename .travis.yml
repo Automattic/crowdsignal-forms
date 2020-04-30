@@ -5,6 +5,10 @@ language: php
 php: 7.4
 node_js: 12.13.1
 
+branches:
+  only:
+    - master
+
 cache:
   directories:
     - build
@@ -15,17 +19,20 @@ install:
   - composer install
   - npm install
 
+before_script:
+- bash tests/bin/install.sh crowdsignal_forms_tests root '' localhost latest true
+
 jobs:
   include:
     - stage: lint
-      script: ./vendor/bin/phpcs
+      script: vendor/bin/phpcs --ignore="*/docker/*" .
     - stage: lint
       script: npm run lint:js
     - stage: lint
       script: npm run lint:styles
     - stage: test
-      script: vendor/bin/phpunit
-    - stage: test
+    #   script: vendor/bin/phpunit
+    # - stage: test
       script: npm run test
     - stage: build
       script: npm run build:editor
