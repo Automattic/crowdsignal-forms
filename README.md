@@ -25,9 +25,9 @@ make docker_sh
 
 ### Setting up for JS and CSS
 
-`make install` will install any required Node modules.
-`make client` will build the CSS and JavaScript files required by the plugin.
-`make clean` will delete the generated CSS and JavaScript files.
+* `make install` will install any required Node modules.
+* `make client` will build the CSS and JavaScript files required by the plugin.
+* `make clean` will delete the generated CSS and JavaScript files.
 
 ## Running the PHP linter and tests
 
