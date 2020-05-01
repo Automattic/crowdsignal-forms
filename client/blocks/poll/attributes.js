@@ -1,7 +1,12 @@
 /**
  * Internal dependencies
  */
-import { FontFamilyType, ConfirmMessageType } from './constants';
+import {
+	FontFamilyType,
+	ConfirmMessageType,
+	PollStatus,
+	ClosedPollState,
+} from './constants';
 import { __ } from 'lib/i18n';
 
 export default {
@@ -87,5 +92,17 @@ export default {
 	blockAlignment: {
 		type: 'string',
 		default: 'center',
+	},
+	pollStatus: {
+		type: 'string',
+		default: PollStatus.OPEN,
+	},
+	closedPollState: {
+		type: 'string',
+		default: ClosedPollState.SHOW_RESULTS,
+	},
+	closedAfterDateTime: {
+		type: 'string',
+		default: null,
 	},
 };

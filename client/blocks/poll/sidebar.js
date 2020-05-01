@@ -9,6 +9,7 @@ import React from 'react';
 import {
 	Button,
 	CheckboxControl,
+	TimePicker,
 	ExternalLink,
 	PanelBody,
 	SelectControl,
@@ -26,7 +27,12 @@ import { includes } from 'lodash';
 /**
  * Internal dependencies
  */
-import { ConfirmMessageType, FontFamilyType } from './constants';
+import {
+	ConfirmMessageType,
+	FontFamilyType,
+	PollStatus,
+	ClosedPollState,
+} from './constants';
 import { __ } from 'lib/i18n';
 
 const SideBar = ( {
@@ -75,6 +81,18 @@ const SideBar = ( {
 	const handleChangeSubmitButtonBackgroundColor = (
 		submitButtonBackgroundColor
 	) => setAttributes( { submitButtonBackgroundColor } );
+
+	const handleChangePollStatus = ( pollStatus ) =>
+		includes( PollStatus, pollStatus ) && setAttributes( { pollStatus } );
+
+	const handleChangeClosedPollState = ( closedPollState ) =>
+		includes( ClosedPollState, closedPollState ) &&
+		setAttributes( { closedPollState } );
+
+	const handleChangeCloseAfterDateTime = ( closedAfterDateTime ) => {
+		const dateTime = new Date( closedAfterDateTime );
+		setAttributes( { closedAfterDateTime: dateTime.toISOString() } );
+	};
 
 	return (
 		<InspectorControls>
@@ -153,6 +171,58 @@ const SideBar = ( {
 						value={ attributes.redirectAddress }
 						label={ __( 'Redirect Address' ) }
 						onChange={ handleChangeRedirectAddress }
+					/>
+				) }
+			</PanelBody>
+			<PanelBody title={ __( 'Poll Status' ) }>
+				<SelectControl
+					value={ attributes.pollStatus }
+					label={ __( 'Currently' ) }
+					options={ [
+						{
+							label: __( 'Open' ),
+							value: PollStatus.OPEN,
+						},
+						{
+							label: __( 'Closed After' ),
+							value: PollStatus.CLOSED_AFTER,
+						},
+						{
+							label: __( 'Closed' ),
+							value: PollStatus.CLOSED,
+						},
+					] }
+					onChange={ handleChangePollStatus }
+				/>
+
+				{ PollStatus.CLOSED_AFTER === attributes.pollStatus && (
+					<TimePicker
+						currentTime={ attributes.closedAfterDateTime }
+						label={ __( 'Close poll on' ) }
+						onChange={ handleChangeCloseAfterDateTime }
+						is12Hour={ true }
+					/>
+				) }
+
+				{ PollStatus.OPEN !== attributes.pollStatus && (
+					<SelectControl
+						value={ attributes.closedPollState }
+						label={ __( 'When poll is closed' ) }
+						options={ [
+							{
+								label: __( 'Show Results' ),
+								value: ClosedPollState.SHOW_RESULTS,
+							},
+							{
+								label: __( 'Show Poll With "Closed" Banner' ),
+								value: ClosedPollState.SHOW_CLOSED_BANNER,
+							},
+							{
+								label: __( 'Hide Poll' ),
+								value: ClosedPollState.HIDDEN,
+							},
+						] }
+						onChange={ handleChangeClosedPollState }
 					/>
 				) }
 			</PanelBody>
