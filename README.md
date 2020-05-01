@@ -23,16 +23,11 @@ Login to the Docker container using this command:
 make docker_sh
 ```
 
-### Setting up Node and PHP
+### Setting up for JS and CSS
 
-A Makefile is provided to set up Node and PHP.
-
-`make install` will install any required Node and PHP modules.
+`make install` will install any required Node modules.
 `make client` will build the CSS and JavaScript files required by the plugin.
 `make clean` will delete the generated CSS and JavaScript files.
-
-
-This directory is mirrored in the Docker container in /var/www/html/wp-content/plugins/crowdsignal-forms
 
 ## Running the PHP linter and tests
 
