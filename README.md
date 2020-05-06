@@ -33,6 +33,26 @@ make docker_sh
 
 Assuming you are using the [docker setup](docker/README.md):
 
+* Set up the local test env by running `./tests/bin/install.sh crowdsignal_forms_tests` (see install.sh for more info on arguments)
+* If on debian, install `php-xml` and `php-mbstring`
+* `composer install`
+* `./vendor/bin/phpunit`
+* `./vendor/bin/phpcs`
 * `make composer`
 * `make phpunit`
 * `make phpcs`
+
+## How to set a test usercode for the API
+
+Filter the `crowdsignal_user_code` user meta call to return a test usercode. Add this snippet to the main `crowdsignal-forms.php` file and return your custom usercode string: 
+
+```
+function crowdsignal_get_test_user_code( $check, $object_id, $meta_key, $single ) {
+    if ( 'crowdsignal_user_code' === $meta_key ) {
+        return 'your-custom-user-code-here';
+    }
+
+    return null;
+}
+add_filter( 'get_user_metadata', 'crowdsignal_get_test_user_code', 10, 4 );
+```
