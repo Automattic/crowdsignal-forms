@@ -1,7 +1,13 @@
 /**
  * External dependencies
  */
-import { filter } from 'lodash';
+import classNames from 'classnames';
+import { filter, includes } from 'lodash';
+
+/**
+ * Internal dependencies
+ */
+import { FontFamilyType, FontFamilyMap } from './constants';
 
 /**
  * Creates a new Answer object then returns a copy of the passed in `answers` array with the new answer appended to it.
@@ -47,4 +53,48 @@ export const getNodeBackgroundColor = ( backgroundColorNode ) => {
 			.backgroundColor;
 	}
 	return backgroundColor;
+};
+
+export const getFontFamilyFromType = ( type ) => {
+	if ( ! includes( FontFamilyType, type ) ) {
+		return null;
+	}
+
+	return FontFamilyMap[ type ];
+};
+
+export const getStyleVars = ( attributes ) => {
+	return {
+		'--crowdsignal-forms-font-family': getFontFamilyFromType(
+			attributes.fontFamily
+		),
+		'--crowdsignal-forms-text-color': attributes.textColor,
+		'--crowdsignal-forms-bg-color': attributes.backgroundColor,
+		'--crowdsignal-forms-submit-button-text-color':
+			attributes.submitButtonTextColor,
+		'--crowdsignal-forms-submit-button-bg-color':
+			attributes.submitButtonBackgroundColor,
+	};
+};
+/**
+ * Returns a css 'class' string of overridden styles given a collection of attributes.
+ *
+ * @param {*} attributes The block's attributes
+ * @param  {...any} extraClasses A list of additional classes to add to the class string
+ */
+export const getBlockCssClasses = ( attributes, ...extraClasses ) => {
+	return classNames(
+		{
+			'has-custom-font-family':
+				attributes.fontFamily &&
+				FontFamilyType.THEME_DEFAULT !== attributes.fontFamily,
+			'has-custom-bg-color': attributes.backgroundColor,
+			'has-custom-text-color': attributes.textColor,
+			'has-custom-submit-button-bg-color':
+				attributes.submitButtonBackgroundColor,
+			'has-custom-submit-button-text-color':
+				attributes.submitButtonTextColor,
+		},
+		extraClasses
+	);
 };

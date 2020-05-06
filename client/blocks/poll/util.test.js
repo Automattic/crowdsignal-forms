@@ -5,7 +5,10 @@ import {
 	addAnswer,
 	getEmptyAnswersCount,
 	getNodeBackgroundColor,
+	getFontFamilyFromType,
+	getBlockCssClasses,
 } from './util';
+import { FontFamilyType, FontFamilyMap } from './constants';
 
 test( 'addAnswer returns array of 1 item when original answers is empty', () => {
 	const answers = addAnswer( [], 'test' );
@@ -68,3 +71,58 @@ test( 'getNodeBackgroundColor returns current node background color if backgroun
 
 	expect( getNodeBackgroundColor( node ) ).toEqual( backgroundColor );
 } );
+
+test( 'getFontFamilyFromType returns proper family when valid value is given', () => {
+	expect( getFontFamilyFromType( FontFamilyType.COMIC_SANS ) ).toEqual(
+		FontFamilyMap[ FontFamilyType.COMIC_SANS ]
+	);
+} );
+
+test( 'getFontFamilyFromType returns null when invalid value is given', () => {
+	expect( getFontFamilyFromType( 'invalid-font-type' ) ).toBeNull();
+} );
+
+test( 'getBlockCssClasses returns extra classes when provided', () => {
+	const attributes = {
+		submitButtonBackgroundColor: 'red',
+		submitButtonTextColor: 'black',
+	};
+	const classes = getBlockCssClasses( attributes, 'class1', 'class2' );
+
+	expect( classes ).toContain( 'class1' );
+	expect( classes ).toContain( 'class2' );
+} );
+
+test( 'getBlockCssClasses returns no classes when no attributes or extra classes are provided', () => {
+	expect( getBlockCssClasses( {} ) ).toEqual( '' );
+} );
+
+test( 'getBlockCssClasses does not return font family override if fontFamily is set to `theme-default`', () => {
+	expect(
+		getBlockCssClasses( {
+			fontFamily: FontFamilyType.THEME_DEFAULT,
+		} )
+	).toEqual( '' );
+} );
+
+test.each( [
+	[ 'submitButtonBackgroundColor', 'has-custom-submit-button-bg-color' ],
+	[ 'submitButtonTextColor', 'has-custom-submit-button-text-color' ],
+	[ 'backgroundColor', 'has-custom-bg-color' ],
+	[ 'textColor', 'has-custom-text-color' ],
+	[ 'fontFamily', 'has-custom-font-family' ],
+] )(
+	'getBlockCssClasses when only %s is provided',
+	( attributeName, associatedClass ) => {
+		const attributes = {};
+		attributes[ attributeName ] = 'value';
+
+		const classes = getBlockCssClasses( attributes );
+
+		expect( classes ).toContain( associatedClass );
+		expect( classes.split( ' ' ).length ).toEqual(
+			1,
+			'There should only be 1 class in the returned string.'
+		);
+	}
+);

@@ -274,8 +274,49 @@ const SideBar = ( {
 							value: FontFamilyType.THEME_DEFAULT,
 						},
 						{
+							label: __( 'Georgia' ),
+							value: FontFamilyType.GEORGIA,
+							style: { color: 'red' },
+						},
+						{
+							label: __( 'Palatino' ),
+							value: FontFamilyType.PALATINO,
+						},
+						{
+							label: __( 'Times New Roman' ),
+							value: FontFamilyType.TIMES_NEW_ROMAN,
+						},
+						{
+							label: __( 'Arial' ),
+							value: FontFamilyType.ARIAL,
+						},
+						{
 							label: __( 'Comic Sans' ),
 							value: FontFamilyType.COMIC_SANS,
+						},
+						{
+							label: __( 'Impact' ),
+							value: FontFamilyType.IMPACT,
+						},
+						{
+							label: __( 'Lucida' ),
+							value: FontFamilyType.LUCIDA,
+						},
+						{
+							label: __( 'Tahoma' ),
+							value: FontFamilyType.TAHOMA,
+						},
+						{
+							label: __( 'Trebuchet' ),
+							value: FontFamilyType.TREBUCHET,
+						},
+						{
+							label: __( 'Verdana' ),
+							value: FontFamilyType.VERDANA,
+						},
+						{
+							label: __( 'Courier' ),
+							value: FontFamilyType.COURIER,
 						},
 					] }
 					onChange={ handleChangeFontFamily }

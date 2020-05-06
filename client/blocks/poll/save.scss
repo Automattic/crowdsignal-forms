@@ -1,9 +1,9 @@
 .wp-block-crowdsignal-forms-poll {
 	padding: 15px;
-}
 
-.wp-block-crowdsignal-forms-poll__question {
-	margin: 0 !important;
+	h2.wp-block-crowdsignal-forms-poll__question {
+		margin: 0;
+	}
 }
 
 .wp-block-crowdsignal-forms-poll__answer {
@@ -50,5 +50,45 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 
 	.wp-block-button {
 		margin: 0;
+	}
+}
+
+/* Style rules for sidebar setting variables */
+.wp-block-crowdsignal-forms-poll.has-custom-font-family {
+	font-family: var(--crowdsignal-forms-font-family);
+
+	h2.wp-block-crowdsignal-forms-poll__question {
+		font-family: var(--crowdsignal-forms-font-family);
+	}
+
+	p.wp-block-crowdsignal-forms-poll__note {
+		font-family: var(--crowdsignal-forms-font-family);
+	}
+}
+
+.wp-block-crowdsignal-forms-poll.has-custom-text-color {
+	color: var(--crowdsignal-forms-text-color);
+
+	h2.wp-block-crowdsignal-forms-poll__question {
+		color: var(--crowdsignal-forms-text-color);
+	}
+
+	.wp-block-crowdsignal-forms-poll__answer {
+		color: var(--crowdsignal-forms-text-color);
+	}
+}
+
+.wp-block-crowdsignal-forms-poll.has-custom-bg-color {
+	background-color: var(--crowdsignal-forms-bg-color);
+}
+
+.wp-block-crowdsignal-forms-poll__actions > .wp-block-button > .wp-block-crowdsignal-forms-poll__submit-button {
+
+	.wp-block-crowdsignal-forms-poll.has-custom-submit-button-bg-color & {
+		background-color: var(--crowdsignal-forms-submit-button-bg-color);
+	}
+
+	.wp-block-crowdsignal-forms-poll.has-custom-submit-button-text-color & {
+		color: var(--crowdsignal-forms-submit-button-text-color);
 	}
 }

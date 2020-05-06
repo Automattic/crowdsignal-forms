@@ -18,7 +18,12 @@ import { __ } from 'lib/i18n';
 import EditAnswer from './edit-answer';
 import SideBar from './sidebar';
 import Toolbar from './toolbar';
-import { getEmptyAnswersCount, getNodeBackgroundColor } from './util';
+import {
+	getEmptyAnswersCount,
+	getNodeBackgroundColor,
+	getStyleVars,
+	getBlockCssClasses,
+} from './util';
 
 /**
  * Retrieves default theme colors as they are when the component is loaded
@@ -76,22 +81,15 @@ const EditPoll = ( props ) => {
 			? [ ...attributes.answers, { isPlaceholder: true } ]
 			: attributes.answers;
 
-	const pollStyle = {
-		backgroundColor: attributes.backgroundColor,
-		color: attributes.textColor,
-	};
-
-	const submitButtonStyle = {
-		backgroundColor: attributes.submitButtonBackgroundColor,
-		color: attributes.submitButtonTextColor,
-	};
-
 	return (
 		<>
 			<Toolbar { ...props } />
 			<SideBar { ...props } />
 
-			<div className={ className } style={ pollStyle }>
+			<div
+				className={ getBlockCssClasses( attributes, className ) }
+				style={ getStyleVars( attributes ) }
+			>
 				<RichText
 					tagName="h2"
 					className="wp-block-crowdsignal-forms-poll__question"
@@ -101,6 +99,7 @@ const EditPoll = ( props ) => {
 				/>
 				<RichText
 					tagName="p"
+					className="wp-block-crowdsignal-forms-poll__note"
 					placeholder={ __( 'Add a note (optional)' ) }
 					onChange={ handleChangeNote }
 					value={ attributes.note }
@@ -121,12 +120,13 @@ const EditPoll = ( props ) => {
 				</div>
 
 				<div className="wp-block-crowdsignal-forms-poll__actions">
-					<RichText
-						className="wp-block-button__link"
-						style={ submitButtonStyle }
-						onChange={ handleChangeSubmitButtonLabel }
-						value={ attributes.submitButtonLabel }
-					/>
+					<div className="wp-block-button">
+						<RichText
+							className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
+							onChange={ handleChangeSubmitButtonLabel }
+							value={ attributes.submitButtonLabel }
+						/>
+					</div>
 				</div>
 			</div>
 		</>

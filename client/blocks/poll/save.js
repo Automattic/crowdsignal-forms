@@ -4,6 +4,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { map } from 'lodash';
+import { getStyleVars, getBlockCssClasses } from './util';
 
 const SavePoll = ( { attributes, className } ) => {
 	const inputClasses = classnames( 'wp-block-crowdsignal-forms-poll__check', {
@@ -11,18 +12,11 @@ const SavePoll = ( { attributes, className } ) => {
 	} );
 	const inputType = attributes.isMultipleChoice ? 'checkbox' : 'radio';
 
-	const pollStyle = {
-		backgroundColor: attributes.backgroundColor,
-		color: attributes.textColor,
-	};
-
-	const submitButtonStyle = {
-		backgroundColor: attributes.submitButtonBackgroundColor,
-		color: attributes.submitButtonTextColor,
-	};
-
 	return (
-		<form className={ className } style={ pollStyle }>
+		<form
+			className={ getBlockCssClasses( attributes, className ) }
+			style={ getStyleVars( attributes ) }
+		>
 			<h2 className="wp-block-crowdsignal-forms-poll__question">
 				{ attributes.question }
 			</h2>
@@ -54,8 +48,7 @@ const SavePoll = ( { attributes, className } ) => {
 				<div className="wp-block-button">
 					<button
 						type="submit"
-						className="wp-block-button__link"
-						style={ submitButtonStyle }
+						className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
 					>
 						{ attributes.submitButtonLabel }
 					</button>
