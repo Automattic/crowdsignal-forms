@@ -11,6 +11,7 @@
 		"format:js": "wp-scripts format-js ./client",
 		"lint:js": "wp-scripts lint-js ./client",
 		"lint:styles": "wp-scripts lint-style ./assets/stylesheets ./client/**/*.scss",
+		"lint:all": "npm run lint:js && npm run lint:styles",
 		"test": "wp-scripts test-unit-js ./client"
 	},
 	"repository": {
