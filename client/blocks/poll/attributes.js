@@ -73,6 +73,21 @@ export default {
 	backgroundColor: {
 		type: 'string',
 	},
+	borderColor: {
+		type: 'string',
+	},
+	borderWidth: {
+		type: 'number',
+		default: 0,
+	},
+	borderRadius: {
+		type: 'number',
+		default: 0,
+	},
+	hasBoxShadow: {
+		type: 'boolean',
+		default: false,
+	},
 	fontFamily: {
 		type: 'string',
 		default: FontFamilyType.THEME_DEFAULT,

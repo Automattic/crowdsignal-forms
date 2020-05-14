@@ -14,3 +14,12 @@
 .wp-block-crowdsignal-forms__more-info-link-text {
 	color: rgb(159, 164, 169);
 }
+
+.wp-block-crowdsignal-forms__row {
+	display: flex;
+	flex-direction: row;
+}
+
+.wp-block-crowdsignal-forms__small-text-input input {
+	width: 40px;
+}

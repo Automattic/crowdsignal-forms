@@ -74,6 +74,12 @@ export const getStyleVars = ( attributes ) => {
 			attributes.submitButtonTextColor,
 		'--crowdsignal-forms-submit-button-bg-color':
 			attributes.submitButtonBackgroundColor,
+		'--crowdsignal-forms-border-color': attributes.borderColor,
+		'--crowdsignal-forms-border-radius': `${ attributes.borderRadius }px`,
+		'--crowdsignal-forms-border-width': `${ attributes.borderWidth }px`,
+		'--crowdsignal-forms-box-shadow': attributes.hasBoxShadow
+			? '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'
+			: 'none',
 	};
 };
 /**
@@ -94,6 +100,10 @@ export const getBlockCssClasses = ( attributes, ...extraClasses ) => {
 				attributes.submitButtonBackgroundColor,
 			'has-custom-submit-button-text-color':
 				attributes.submitButtonTextColor,
+			'has-custom-border-color': attributes.borderColor,
+			'has-custom-border-width': attributes.borderWidth,
+			'has-custom-border-radius': attributes.borderRadius,
+			'has-custom-box-shadow': attributes.hasBoxShadow,
 		},
 		extraClasses
 	);

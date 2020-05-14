@@ -61,6 +61,21 @@ const SideBar = ( {
 	const handleChangeBackgroundColor = ( backgroundColor ) =>
 		setAttributes( { backgroundColor } );
 
+	const handleChangeBorderColor = ( borderColor ) =>
+		setAttributes( { borderColor } );
+
+	const handleChangeBorderRadius = ( borderRadius ) => {
+		setAttributes( {
+			borderRadius: parseInt( borderRadius, 10 ) || 0,
+		} );
+	};
+
+	const handleChangeBorderWidth = ( borderWidth ) => {
+		setAttributes( {
+			borderWidth: parseInt( borderWidth, 10 ) || 0,
+		} );
+	};
+
 	const handleChangeFontFamily = ( font ) =>
 		includes( FontFamilyType, font ) &&
 		setAttributes( { fontFamily: font } );
@@ -92,6 +107,10 @@ const SideBar = ( {
 	const handleChangeCloseAfterDateTime = ( closedAfterDateTime ) => {
 		const dateTime = new Date( closedAfterDateTime );
 		setAttributes( { closedAfterDateTime: dateTime.toISOString() } );
+	};
+
+	const handleChangeHasBoxShadow = ( hasBoxShadow ) => {
+		setAttributes( { hasBoxShadow } );
 	};
 
 	return (
@@ -227,7 +246,7 @@ const SideBar = ( {
 				) }
 			</PanelBody>
 			<PanelColorSettings
-				title={ __( 'Color Settings' ) }
+				title={ __( 'Block Styling' ) }
 				initialOpen={ false }
 				colorSettings={ [
 					{
@@ -241,30 +260,18 @@ const SideBar = ( {
 						label: __( 'Background Color' ),
 					},
 					{
-						value: attributes.submitButtonTextColor,
-						onChange: handleChangeSubmitButtonTextColor,
-						label: __( 'Submit Button Text Color' ),
-					},
-					{
-						value: attributes.submitButtonBackgroundColor,
-						onChange: handleChangeSubmitButtonBackgroundColor,
-						label: __( 'Submit Button Background Color' ),
+						value: attributes.borderColor,
+						onChange: handleChangeBorderColor,
+						label: __( 'Border Color' ),
 					},
 				] }
-			/>
-			<ContrastChecker
-				textColor={ attributes.textColor }
-				backgroundColor={ attributes.backgroundColor }
-				fallbackBackgroundColor={ fallbackBackgroundColor }
-				fallbackTextColor={ fallbackTextColor }
-			/>
-			<ContrastChecker
-				textColor={ attributes.submitButtonTextColor }
-				backgroundColor={ attributes.submitButtonBackgroundColor }
-				fallbackBackgroundColor={ fallbackSubmitButtonBackgroundColor }
-				fallbackTextColor={ fallbackSubmitButtonTextColor }
-			/>
-			<PanelBody title={ __( 'Text Settings' ) } initialOpen={ false }>
+			>
+				<ContrastChecker
+					textColor={ attributes.textColor }
+					backgroundColor={ attributes.backgroundColor }
+					fallbackBackgroundColor={ fallbackBackgroundColor }
+					fallbackTextColor={ fallbackTextColor }
+				/>
 				<SelectControl
 					value={ attributes.fontFamily }
 					label={ __( 'Choose Font-Family' ) }
@@ -321,7 +328,51 @@ const SideBar = ( {
 					] }
 					onChange={ handleChangeFontFamily }
 				/>
-			</PanelBody>
+				<div className="wp-block-crowdsignal-forms__row">
+					<TextControl
+						label={ __( 'Border Thickness' ) }
+						value={ attributes.borderWidth }
+						onChange={ handleChangeBorderWidth }
+						className="wp-block-crowdsignal-forms__small-text-input"
+					/>
+					<TextControl
+						label={ __( 'Corner Radius' ) }
+						value={ attributes.borderRadius }
+						onChange={ handleChangeBorderRadius }
+						className="wp-block-crowdsignal-forms__small-text-input"
+					/>
+				</div>
+				<CheckboxControl
+					label={ __( 'Drop Shadow' ) }
+					checked={ attributes.hasBoxShadow }
+					onChange={ handleChangeHasBoxShadow }
+				/>
+			</PanelColorSettings>
+			<PanelColorSettings
+				title={ __( 'Button Styling' ) }
+				initialOpen={ false }
+				colorSettings={ [
+					{
+						value: attributes.submitButtonTextColor,
+						onChange: handleChangeSubmitButtonTextColor,
+						label: __( 'Submit Button Text Color' ),
+					},
+					{
+						value: attributes.submitButtonBackgroundColor,
+						onChange: handleChangeSubmitButtonBackgroundColor,
+						label: __( 'Submit Button Background Color' ),
+					},
+				] }
+			>
+				<ContrastChecker
+					textColor={ attributes.submitButtonTextColor }
+					backgroundColor={ attributes.submitButtonBackgroundColor }
+					fallbackBackgroundColor={
+						fallbackSubmitButtonBackgroundColor
+					}
+					fallbackTextColor={ fallbackSubmitButtonTextColor }
+				/>
+			</PanelColorSettings>
 			<PanelBody title={ __( 'Answer Settings' ) }>
 				<CheckboxControl
 					checked={ attributes.hasCaptchaProtection }
