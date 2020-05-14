@@ -2,7 +2,6 @@
  * Internal dependencies
  */
 import EditPollBlock from './edit';
-import SavePollBlock from './save';
 import attributes from './attributes';
 import { __ } from 'lib/i18n';
 
@@ -14,5 +13,4 @@ export default {
 	category: 'widgets',
 	attributes,
 	edit: EditPollBlock,
-	save: SavePollBlock,
 };

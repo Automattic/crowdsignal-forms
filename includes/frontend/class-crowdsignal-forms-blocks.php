@@ -55,10 +55,21 @@ class Crowdsignal_Forms_Blocks {
 		register_block_type(
 			'crowdsignal-forms/poll',
 			array(
-				'editor_script' => self::EDITOR_SCRIPT_NAME,
-				'editor_style'  => self::EDITOR_STYLE_NAME,
-				'style'         => self::STYLE_NAME,
+				'editor_script'   => self::EDITOR_SCRIPT_NAME,
+				'editor_style'    => self::EDITOR_STYLE_NAME,
+				'style'           => self::STYLE_NAME,
+				'render_callback' => array( $this, 'poll_render_callback' ),
 			)
 		);
 	}
+
+	/**
+	 * Renders the poll dynamic block
+	 *
+	 * @param array $attributes The block's attributes.
+	 */
+	public function poll_render_callback( $attributes ) {
+		return sprintf( '<div data-crowdsignal-poll="%s"></div>', htmlentities( wp_json_encode( $attributes ) ) );
+	}
+
 }
