@@ -25,6 +25,8 @@ wp --allow-root option update blog_public 0
 # https://wordpress.org/plugins/query-monitor/
 wp --allow-root plugin install query-monitor --activate
 
+# Install Application Passwords for easy api access.
+wp --allow-root plugin install application-passwords --activate
 # Activate Crowdsignal Forms
 wp --allow-root plugin activate crowdsignal-forms
 

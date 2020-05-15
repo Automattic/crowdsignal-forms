@@ -56,10 +56,17 @@ make docker_uninstall
 
 WordPress is running at [http://localhost:8000](http://localhost:8000) now.
 
-
 ## Good to know
 
 WordPress’ `WP_SITEURL` and `WP_HOME` constants are configured to be dynamic in `./docker/wordpress/wp-config.php` so you shouldn’t need to change these even if you access the site via different domains.
+
+### Pointing the container to your sandbox instead of production.
+If you want the hosts entry within the container to point to your sandbox, your cna start
+docker-compose like this:
+
+```shell script
+CS_SANDBOX_IP=<your-ip> make docker_up
+```
 
 ### Container Environments
 

@@ -57,18 +57,17 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 			}
 		);
 
-		return ! empty( $found ) ? new Poll( $found[0] ) : new \WP_Error( __( 'Poll not found', 'crowdsignal-forms' ) );
+		return ! empty( $found ) ? Poll::from_array( $found[0] ) : new \WP_Error( __( 'Poll not found', 'crowdsignal-forms' ) );
 	}
 
 	/**
 	 * Call the api to create a poll with the specified data.
 	 *
-	 * @param array $data The poll data.
-	 * @since 1.0.0
-	 *
+	 * @param Poll $poll The poll data.
 	 * @return Poll|\WP_Error
+	 * @since 1.0.0
 	 */
-	public function create_poll( array $data ) {
+	public function create_poll( Poll $poll ) {
 		return new \WP_Error( 'FIXME' );
 	}
 

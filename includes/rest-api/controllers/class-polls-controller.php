@@ -9,6 +9,7 @@
 namespace Crowdsignal_Forms\Rest_Api\Controllers;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
+use Crowdsignal_Forms\Models\Poll;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -52,6 +53,51 @@ class Polls_Controller {
 				),
 			)
 		);
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base,
+			array(
+				array(
+					'methods'             => \WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'create_poll' ),
+					'permission_callback' => array( $this, 'create_poll_permissions_check' ),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Create a new poll.
+	 *
+	 * @param \WP_REST_Request $request The API Request.
+	 * @return \WP_REST_Response|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function create_poll( \WP_REST_Request $request ) {
+		$data              = $request->get_json_params();
+		$poll              = Poll::from_array( $data );
+		$valid_or_wp_error = $poll->validate();
+		if ( is_wp_error( $valid_or_wp_error ) ) {
+			return $valid_or_wp_error;
+		}
+
+		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->create_poll( $poll );
+		if ( is_wp_error( $resulting_poll ) ) {
+			return $resulting_poll;
+		}
+
+		return rest_ensure_response( $resulting_poll->to_array() );
+	}
+
+	/**
+	 * The permission check for creating a new poll.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 **/
+	public function create_poll_permissions_check() {
+		return current_user_can( 'publish_posts' );
 	}
 
 	/**

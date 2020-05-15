@@ -2,3 +2,4 @@
 !.gitignore
 !debug.php
 !avoid-plugin-deletion.php
+!0-force-crowdsignal-forms-api-keys.php

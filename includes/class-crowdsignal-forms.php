@@ -10,7 +10,7 @@ namespace Crowdsignal_Forms;
 
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks;
 use Crowdsignal_Forms\Gateways\Api_Gateway_Interface;
-use Crowdsignal_Forms\Gateways\Canned_Api_Gateway;
+use Crowdsignal_Forms\Gateways\Api_Gateway;
 use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -176,7 +176,7 @@ final class Crowdsignal_Forms {
 	public function get_api_gateway() {
 		if ( null === $this->api_gateway ) {
 			// This is temporary, normally we will be instantiating the actual gateway here.
-			$this->api_gateway = new Canned_Api_Gateway();
+			$this->api_gateway = new Api_Gateway();
 		}
 
 		return $this->api_gateway;

@@ -38,10 +38,9 @@ interface Api_Gateway_Interface {
 	/**
 	 * Call the api to create a poll with the specified data.
 	 *
-	 * @param array $data The poll data.
-	 * @since 1.0.0
-	 *
+	 * @param Poll $poll The poll data.
 	 * @return Poll|\WP_Error
+	 * @since 1.0.0
 	 */
-	public function create_poll( array $data );
+	public function create_poll( Poll $poll);
 }
