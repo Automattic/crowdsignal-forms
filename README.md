@@ -6,7 +6,7 @@ is README.txt
 ## Using docker for local dev
 
 You will need the following installed locally:
-* npm. NPM can be installed from https://www.npmjs.com/get-npm
+* npm >= 6.9.0 - NPM can be installed from https://www.npmjs.com/get-npm
 * Docker. Get Docker at https://www.docker.com/
 
 More info [here](docker/README.md). After you finish with that setup, you 
