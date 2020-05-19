@@ -92,10 +92,6 @@ export default {
 		type: 'string',
 		default: FontFamilyType.THEME_DEFAULT,
 	},
-	hasCaptchaProtection: {
-		type: 'boolean',
-		default: false,
-	},
 	hasOneResponsePerComputer: {
 		type: 'boolean',
 		default: false,

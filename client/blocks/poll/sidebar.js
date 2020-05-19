@@ -80,9 +80,6 @@ const SideBar = ( {
 		includes( FontFamilyType, font ) &&
 		setAttributes( { fontFamily: font } );
 
-	const handleChangeHasCaptchaProtection = ( hasCaptchaProtection ) =>
-		setAttributes( { hasCaptchaProtection } );
-
 	const handleChangeHasOneResponsePerComputer = (
 		hasOneResponsePerComputer
 	) => setAttributes( { hasOneResponsePerComputer } );
@@ -374,11 +371,6 @@ const SideBar = ( {
 				/>
 			</PanelColorSettings>
 			<PanelBody title={ __( 'Answer Settings' ) }>
-				<CheckboxControl
-					checked={ attributes.hasCaptchaProtection }
-					label={ __( 'Enable Captcha Protection' ) }
-					onChange={ handleChangeHasCaptchaProtection }
-				/>
 				<CheckboxControl
 					checked={ attributes.hasOneResponsePerComputer }
 					label={ __( 'One Response Per Computer' ) }
