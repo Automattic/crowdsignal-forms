@@ -63,7 +63,7 @@ export const getFontFamilyFromType = ( type ) => {
 	return FontFamilyMap[ type ];
 };
 
-export const getStyleVars = ( attributes ) => {
+export const getStyleVars = ( attributes, props ) => {
 	return {
 		'--crowdsignal-forms-font-family': getFontFamilyFromType(
 			attributes.fontFamily
@@ -74,19 +74,19 @@ export const getStyleVars = ( attributes ) => {
 			attributes.submitButtonTextColor,
 		'--crowdsignal-forms-submit-button-bg-color':
 			attributes.submitButtonBackgroundColor,
-		'--crowdsignal-forms-border-color': attributes.borderColor,
+		'--crowdsignal-forms-border-color':
+			attributes.borderColor ?? props.fallbackSubmitButtonBackgroundColor,
 		'--crowdsignal-forms-border-radius': `${ attributes.borderRadius }px`,
 		'--crowdsignal-forms-border-width': `${ attributes.borderWidth }px`,
-		'--crowdsignal-forms-box-shadow': attributes.hasBoxShadow
-			? '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'
-			: 'none',
+		'--crowdsignal-forms-fallback-bg-color':
+			props.fallbackSubmitButtonBackgroundColor,
 	};
 };
 /**
  * Returns a css 'class' string of overridden styles given a collection of attributes.
  *
  * @param {*} attributes The block's attributes
- * @param  {...any} extraClasses A list of additional classes to add to the class string
+ * @param {...any} extraClasses A list of additional classes to add to the class string
  */
 export const getBlockCssClasses = ( attributes, ...extraClasses ) => {
 	return classNames(
@@ -100,9 +100,7 @@ export const getBlockCssClasses = ( attributes, ...extraClasses ) => {
 				attributes.submitButtonBackgroundColor,
 			'has-custom-submit-button-text-color':
 				attributes.submitButtonTextColor,
-			'has-custom-border-color': attributes.borderColor,
-			'has-custom-border-width': attributes.borderWidth,
-			'has-custom-border-radius': attributes.borderRadius,
+			'has-custom-border-radius': attributes.borderRadius ?? false,
 			'has-custom-box-shadow': attributes.hasBoxShadow,
 		},
 		extraClasses

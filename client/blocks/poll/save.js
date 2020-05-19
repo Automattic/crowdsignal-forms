@@ -17,9 +17,9 @@ const SavePoll = ( { attributes, className } ) => {
 			className={ getBlockCssClasses( attributes, className ) }
 			style={ getStyleVars( attributes ) }
 		>
-			<h2 className="wp-block-crowdsignal-forms-poll__question">
+			<h3 className="wp-block-crowdsignal-forms-poll__question">
 				{ attributes.question }
-			</h2>
+			</h3>
 
 			{ attributes.note && <p>{ attributes.note }</p> }
 

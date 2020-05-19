@@ -87,11 +87,15 @@ const EditPoll = ( props ) => {
 			<SideBar { ...props } />
 
 			<div
-				className={ getBlockCssClasses( attributes, className ) }
-				style={ getStyleVars( attributes ) }
+				className={ getBlockCssClasses(
+					attributes,
+					className,
+					isSelected ? 'is-selected-in-editor' : null
+				) }
+				style={ getStyleVars( attributes, props ) }
 			>
 				<RichText
-					tagName="h2"
+					tagName="h3"
 					className="wp-block-crowdsignal-forms-poll__question"
 					placeholder={ __( 'Enter your question' ) }
 					onChange={ handleChangeQuestion }

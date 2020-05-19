@@ -111,8 +111,6 @@ test.each( [
 	[ 'backgroundColor', 'has-custom-bg-color' ],
 	[ 'textColor', 'has-custom-text-color' ],
 	[ 'fontFamily', 'has-custom-font-family' ],
-	[ 'borderColor', 'has-custom-border-color' ],
-	[ 'borderWidth', 'has-custom-border-width' ],
 	[ 'borderRadius', 'has-custom-border-radius' ],
 	[ 'hasBoxShadow', 'has-custom-box-shadow' ],
 ] )(

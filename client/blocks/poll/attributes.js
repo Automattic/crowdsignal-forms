@@ -78,7 +78,7 @@ export default {
 	},
 	borderWidth: {
 		type: 'number',
-		default: 0,
+		default: 2,
 	},
 	borderRadius: {
 		type: 'number',
@@ -86,7 +86,7 @@ export default {
 	},
 	hasBoxShadow: {
 		type: 'boolean',
-		default: false,
+		default: true,
 	},
 	fontFamily: {
 		type: 'string',

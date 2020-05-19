@@ -1,17 +1,26 @@
 .wp-block-crowdsignal-forms-poll {
-	padding: 15px;
+	padding: 40px;
+	border-color: var(--crowdsignal-forms-border-color);
+	border-style: solid;
+	border-width: var(--crowdsignal-forms-border-width);
 
-	h2.wp-block-crowdsignal-forms-poll__question {
+	h3.wp-block-crowdsignal-forms-poll__question {
 		margin: 0;
+	}
+
+	p.wp-block-crowdsignal-forms-poll__note {
+		font-style: italic;
+		margin-bottom: 32px;
 	}
 }
 
 .wp-block-crowdsignal-forms-poll__answer {
 	align-items: center;
 	display: flex;
-	margin: 0 0 10px;
+	margin: 0 0 16px;
 	padding: 0 2px;
 	position: relative;
+	font-weight: 600;
 }
 
 input[type="checkbox"].wp-block-crowdsignal-forms-poll__input,
@@ -23,12 +32,12 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 }
 
 .wp-block-crowdsignal-forms-poll__check {
-	border: 1px solid;
-	border-radius: 10px;
+	border: 1.5px solid;
+	border-radius: 0.5em;
 	display: block;
-	height: 20px;
+	height: 1em;
 	margin: 0 10px 0 0;
-	width: 20px;
+	width: 1em;
 
 	&.is-checkbox {
 		border-radius: 0;
@@ -57,7 +66,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 .wp-block-crowdsignal-forms-poll.has-custom-font-family {
 	font-family: var(--crowdsignal-forms-font-family);
 
-	h2.wp-block-crowdsignal-forms-poll__question {
+	h3.wp-block-crowdsignal-forms-poll__question {
 		font-family: var(--crowdsignal-forms-font-family);
 	}
 
@@ -69,7 +78,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 .wp-block-crowdsignal-forms-poll.has-custom-text-color {
 	color: var(--crowdsignal-forms-text-color);
 
-	h2.wp-block-crowdsignal-forms-poll__question {
+	h3.wp-block-crowdsignal-forms-poll__question {
 		color: var(--crowdsignal-forms-text-color);
 	}
 
@@ -93,19 +102,21 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	}
 }
 
-.wp-block-crowdsignal-forms-poll.has-custom-border-width {
-	border-width: var(--crowdsignal-forms-border-width);
-	border-style: solid;
-}
-
-.wp-block-crowdsignal-forms-poll.has-custom-border-color {
-	border-color: var(--crowdsignal-forms-border-color);
-}
-
 .wp-block-crowdsignal-forms-poll.has-custom-border-radius {
 	border-radius: var(--crowdsignal-forms-border-radius);
 }
 
 .wp-block-crowdsignal-forms-poll.has-custom-box-shadow {
-	box-shadow: var(--crowdsignal-forms-box-shadow);
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.wp-block-crowdsignal-forms-poll:not(.is-selected-in-editor) {
+
+	.wp-block-crowdsignal-forms-poll__answer {
+		cursor: pointer;
+
+		&:hover {
+			color: var(--crowdsignal-forms-fallback-bg-color);
+		}
+	}
 }
