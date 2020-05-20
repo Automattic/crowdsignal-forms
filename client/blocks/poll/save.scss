@@ -62,6 +62,13 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	}
 }
 
+.editor-styles-wrapper .wp-block-crowdsignal-forms-poll .wp-block-crowdsignal-forms-poll__actions {
+
+	.wp-block-button.wp-block-crowdsignal-forms-poll__block-button {
+		margin: 0;
+	}
+}
+
 /* Style rules for sidebar setting variables */
 .wp-block-crowdsignal-forms-poll.has-custom-font-family {
 	font-family: var(--crowdsignal-forms-font-family);

@@ -124,7 +124,7 @@ const EditPoll = ( props ) => {
 				</div>
 
 				<div className="wp-block-crowdsignal-forms-poll__actions">
-					<div className="wp-block-button">
+					<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
 						<RichText
 							className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
 							onChange={ handleChangeSubmitButtonLabel }
