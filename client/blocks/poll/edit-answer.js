@@ -32,13 +32,13 @@ const EditAnswer = ( {
 
 	const handleDelete = () => onDelete( index );
 
-	const inputClasses = classnames( 'wp-block-crowdsignal-forms-poll__check', {
-		'is-checkbox': isMultipleChoice,
+	const classes = classnames( 'wp-block-crowdsignal-forms-poll__answer', {
+		'is-multiple-choice': isMultipleChoice,
 	} );
 
 	return (
-		<div className="wp-block-crowdsignal-forms-poll__answer">
-			<div className={ inputClasses }></div>
+		<div className={ classes }>
+			<span className="wp-block-crowdsignal-forms-poll__check" />
 
 			<RichText
 				className="wp-block-crowdsignal-forms-poll__answer-label"

@@ -17,6 +17,7 @@ install-php:
 client:
 	npm run build:styles
 	npm run build:editor
+	npm run build:poll
 
 # Clean the build directory
 clean:

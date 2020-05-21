@@ -22,6 +22,7 @@ class Crowdsignal_Forms_Blocks {
 	const EDITOR_SCRIPT_NAME = 'crowdsignal-forms-blocks';
 	const EDITOR_STYLE_NAME  = 'crowdsignal-forms-blocks';
 	const STYLE_NAME         = 'crowdsignal-forms-public';
+	const POLL_SCRIPT_NAME   = 'crowdsignal-forms-poll';
 
 	/**
 	 * Registers Crowdsignal Forms' custom Gutenberg blocks
@@ -52,11 +53,22 @@ class Crowdsignal_Forms_Blocks {
 			$editor_config['version']
 		);
 
+		// phpcs:ignore
+		$poll_config = include( plugin_dir_path( CROWDSIGNAL_FORMS_PLUGIN_FILE ) . '/build/poll.asset.php' );
+		wp_register_script(
+			self::POLL_SCRIPT_NAME,
+			plugins_url( 'build/poll.js', CROWDSIGNAL_FORMS_PLUGIN_FILE ),
+			$poll_config['dependencies'],
+			$poll_config['version'],
+			true
+		);
+
 		register_block_type(
 			'crowdsignal-forms/poll',
 			array(
 				'editor_script'   => self::EDITOR_SCRIPT_NAME,
 				'editor_style'    => self::EDITOR_STYLE_NAME,
+				'script'          => self::POLL_SCRIPT_NAME,
 				'style'           => self::STYLE_NAME,
 				'render_callback' => array( $this, 'poll_render_callback' ),
 			)
@@ -71,5 +83,4 @@ class Crowdsignal_Forms_Blocks {
 	public function poll_render_callback( $attributes ) {
 		return sprintf( '<div data-crowdsignal-poll="%s"></div>', htmlentities( wp_json_encode( $attributes ) ) );
 	}
-
 }

@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"build:editor": "calypso-build --env.WP --output-path='./build' editor=./client/editor.js",
+		"build:poll": "calypso-build --env.WP --output-path='./build' poll=./client/poll.js",
 		"build:styles:editor": "node-sass --include-path client --output-style compressed assets/stylesheets/editor.scss build/editor.css",
 		"build:styles:public": "node-sass --include-path client --output-style compressed assets/stylesheets/public.scss build/public.css",
 		"build:styles": "npm run build:styles:editor && npm run build:styles:public",
