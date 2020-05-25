@@ -7,8 +7,9 @@ import {
 	getNodeBackgroundColor,
 	getFontFamilyFromType,
 	getBlockCssClasses,
+	isPollClosed,
 } from './util';
-import { FontFamilyType, FontFamilyMap } from './constants';
+import { FontFamilyType, FontFamilyMap, PollStatus } from './constants';
 
 test( 'addAnswer returns array of 1 item when original answers is empty', () => {
 	const answers = addAnswer( [], 'test' );
@@ -126,5 +127,70 @@ test.each( [
 			1,
 			'There should only be 1 class in the returned string.'
 		);
+	}
+);
+
+test.each( [
+	[
+		'poll is open, closed after is not set',
+		false,
+		PollStatus.OPEN,
+		null,
+		null,
+	],
+	[
+		'poll is open, closed after is set and past',
+		false,
+		PollStatus.OPEN,
+		new Date( 2020, 1, 1 ).toISOString(),
+		new Date( 2021, 1, 1 ),
+	],
+	[
+		'poll is closed, closed after is not set',
+		true,
+		PollStatus.CLOSED,
+		null,
+		null,
+	],
+	[
+		'poll is closed, closed after is set but not yet past',
+		true,
+		PollStatus.CLOSED,
+		new Date( 2020, 1, 1 ).toISOString(),
+		new Date( 2019, 1, 1 ),
+	],
+	[
+		'poll is set to PollStatus.CLOSED_AFTER but time has not past yet',
+		false,
+		PollStatus.CLOSED_AFTER,
+		new Date( 2020, 1, 1 ).toISOString(),
+		new Date( 2019, 1, 1 ),
+	],
+	[
+		'poll is set to PollStatus.CLOSED_AFTER and time has past',
+		true,
+		PollStatus.CLOSED_AFTER,
+		new Date( 2020, 1, 1 ).toISOString(),
+		new Date( 2021, 1, 1 ),
+	],
+	[
+		'poll is set to PollStatus.CLOSED_AFTER and current time is the same as closed after time',
+		false,
+		PollStatus.CLOSED_AFTER,
+		new Date( 2020, 1, 1 ).toISOString(),
+		new Date( 2020, 1, 1 ),
+	],
+] )(
+	'isPollClosed when %s, should return %s',
+	(
+		_,
+		expectedIsClosed,
+		pollStatus,
+		closedAfterDateTime,
+		currentDateTime
+	) => {
+		expect(
+			isPollClosed( pollStatus, closedAfterDateTime, currentDateTime )
+		).toEqual( expectedIsClosed );
 	}
 );

@@ -7,7 +7,7 @@ import { filter, includes } from 'lodash';
 /**
  * Internal dependencies
  */
-import { FontFamilyType, FontFamilyMap } from './constants';
+import { FontFamilyType, FontFamilyMap, PollStatus } from './constants';
 
 /**
  * Creates a new Answer object then returns a copy of the passed in `answers` array with the new answer appended to it.
@@ -80,6 +80,8 @@ export const getStyleVars = ( attributes, props ) => {
 		'--crowdsignal-forms-border-width': `${ attributes.borderWidth }px`,
 		'--crowdsignal-forms-fallback-bg-color':
 			props.fallbackSubmitButtonBackgroundColor,
+		'--crowdsignal-forms-fallback-text-color':
+			props.fallbackSubmitButtonTextColor,
 	};
 };
 /**
@@ -105,4 +107,29 @@ export const getBlockCssClasses = ( attributes, ...extraClasses ) => {
 		},
 		extraClasses
 	);
+};
+
+/**
+ * Determines if the poll is closed based on its editor settings.
+ *
+ * @param {string} pollStatus The poll's status, as set in the editor.
+ * @param {string} closedAfterDateTimeUTC The UTC date time string to close the poll after if pollStatus is PollStatus.CLOSED_AFTER.
+ * @param {Date}   currentDateTime  Optionally set the current date that will be used for current time comparisons.
+ */
+export const isPollClosed = (
+	pollStatus,
+	closedAfterDateTimeUTC,
+	currentDateTime = new Date()
+) => {
+	if ( PollStatus.CLOSED === pollStatus ) {
+		return true;
+	}
+
+	if ( PollStatus.CLOSED_AFTER === pollStatus ) {
+		const closedAfterDateTime = new Date( closedAfterDateTimeUTC );
+
+		return closedAfterDateTime < currentDateTime;
+	}
+
+	return false;
 };

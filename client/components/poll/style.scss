@@ -4,7 +4,6 @@
 	border-color: var(--crowdsignal-forms-border-color);
 	border-style: solid;
 	border-width: var(--crowdsignal-forms-border-width);
-	padding: 40px;
 
 	h3.wp-block-crowdsignal-forms-poll__question {
 		margin: 0 0 28px;
@@ -13,6 +12,32 @@
 	p.wp-block-crowdsignal-forms-poll__note {
 		font-style: italic;
 		margin: 0 0 32px;
+	}
+
+	.wp-block-crowdsignal-forms-poll__content {
+		padding: 40px;
+	}
+
+	&.is-closed {
+
+		.wp-block-crowdsignal-forms-poll__content {
+			opacity: 0.5;
+		}
+
+		/*
+		 * Hiding submit button (instead of preventing it from rendering in react so
+		 * it is still rendered for fallback style calculation.
+		 *
+		 * See https://github.com/Automattic/crowdsignal-forms/pull/41#discussion_r428830727 for explanation and future solution.
+		 * See c/FS7W2hys-tr in backlog.
+		 */
+		.wp-block-crowdsignal-forms-poll__submit-button {
+			display: none;
+		}
+	}
+
+	&.is-hidden {
+		opacity: 0.5;
 	}
 }
 
@@ -81,5 +106,15 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 
 	.wp-block-button.wp-block-crowdsignal-forms-poll__block-button {
 		margin: 0;
+	}
+}
+
+.wp-block-crowdsignal-forms-poll__closed-banner {
+	background-color: var(--crowdsignal-forms-fallback-bg-color);
+	text-align: center;
+	color: var(--crowdsignal-forms-fallback-text-color);
+
+	.is-hidden & {
+		font-style: italic;
 	}
 }
