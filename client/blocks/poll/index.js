@@ -2,7 +2,6 @@
  * Internal dependencies
  */
 import EditPollBlock from './edit';
-import attributes from './attributes';
 import { __ } from 'lib/i18n';
 
 export default {
@@ -11,6 +10,5 @@ export default {
 		'Ask a question and offer answer options | powered by Crowdsignal'
 	),
 	category: 'widgets',
-	attributes,
 	edit: EditPollBlock,
 };

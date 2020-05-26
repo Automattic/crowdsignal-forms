@@ -8,6 +8,7 @@
 
 namespace Crowdsignal_Forms;
 
+use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks_Assets;
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks;
 use Crowdsignal_Forms\Gateways\Api_Gateway_Interface;
 use Crowdsignal_Forms\Gateways\Api_Gateway;
@@ -107,6 +108,7 @@ final class Crowdsignal_Forms {
 	 */
 	public function bootstrap() {
 		$this->blocks                    = new Crowdsignal_Forms_Blocks();
+		$this->blocks_assets             = new Crowdsignal_Forms_Blocks_Assets();
 		$this->rest_api_polls_controller = new Polls_Controller();
 
 		return $this;
@@ -121,6 +123,7 @@ final class Crowdsignal_Forms {
 	 * @return $this
 	 */
 	public function setup_hooks( $init_all = false ) {
+		add_action( 'init', array( $this->blocks_assets, 'register' ) );
 		add_action( 'init', array( $this->blocks, 'register' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_api_routes' ) );
 
