@@ -29,6 +29,14 @@ class Api_Gateway implements Api_Gateway_Interface {
 	const API_BASE_URL = 'https://api.crowdsignal.com/v3';
 
 	/**
+	 * A constant flag to mark polls on the API.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	const POLL_SOURCE = 'crowdsignal-forms';
+
+	/**
 	 * Get polls
 	 *
 	 * @since 1.0.0
@@ -48,7 +56,23 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @return Poll|\WP_Error
 	 */
 	public function get_poll( $poll_id ) {
-		return null;
+		$poll_id  = absint( $poll_id );
+		$response = $this->perform_request( 'GET', '/polls/' . $poll_id );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$body          = wp_remote_retrieve_body( $response );
+		$response_data = json_decode( $body, true );
+
+		if ( null === $response_data || ! isset( $response_data['poll'] ) ) {
+			if ( isset( $response_data['error'] ) ) {
+				return new \WP_Error( $response_data['error'], $response_data );
+			}
+			return new \WP_Error( 'decode-failed' );
+		}
+
+		return Poll::from_array( $response_data['poll'] )->to_array();
 	}
 
 	/**
@@ -60,7 +84,12 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 */
 	public function create_poll( Poll $poll ) {
 		$request_data = array( 'poll' => $poll->to_array() );
-		$response     = $this->perform_request( 'POST', '/polls', $request_data );
+
+		// Inject "source" property used on the API v3.
+		$request_data['source'] = self::POLL_SOURCE;
+
+		// Perform the request after injecting the "source" prop.
+		$response = $this->perform_request( 'POST', '/polls', $request_data );
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
@@ -125,4 +154,3 @@ class Api_Gateway implements Api_Gateway_Interface {
 		return wp_remote_request( $base_url . $endpoint, $request_options );
 	}
 }
-

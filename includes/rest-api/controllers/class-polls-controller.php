@@ -64,6 +64,20 @@ class Polls_Controller {
 				),
 			)
 		);
+
+		// GET polls/:poll_id route.
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/(?P<poll_id>\d+)',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_poll' ),
+					'permission_callback' => array( $this, 'get_poll_permissions_check' ),
+					'args'                => $this->get_poll_fetch_params(),
+				),
+			)
+		);
 	}
 
 	/**
@@ -123,6 +137,31 @@ class Polls_Controller {
 	}
 
 	/**
+	 * Get a poll by ID.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param \WP_REST_Request $request
+	 *
+	 * @return \WP_REST_Response
+	 **/
+	public function get_poll( $request ) {
+		$poll_id = $request->get_param( 'poll_id' );
+		return rest_ensure_response( Crowdsignal_Forms::instance()->get_api_gateway()->get_poll( $poll_id ) );
+	}
+
+	/**
+	 * The get-a-poll by ID permission check.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 **/
+	public function get_poll_permissions_check() {
+		return true;
+	}
+
+	/**
 	 * Gets the collection params.
 	 *
 	 * @since 1.0.0
@@ -130,5 +169,22 @@ class Polls_Controller {
 	 */
 	protected function get_collection_params() {
 		return array();
+	}
+
+	/**
+	 * Returns a validator array for the get-a-poll by ID params.
+	 *
+	 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
+	 * @since 1.0.0
+	 * @return array
+	 */
+	protected function get_poll_fetch_params() {
+		return array(
+			'poll_id' => array(
+				'validate_callback' => function( $param, $request, $key ) {
+					return is_numeric( $param );
+				},
+			),
+		);
 	}
 }

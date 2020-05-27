@@ -60,4 +60,15 @@ class Poll_Answer {
 		$answer_text = isset( $data['answer_text'] ) ? $data['answer_text'] : '';
 		return new self( $id, $answer_text );
 	}
+
+	/**
+	 * Transform the object into an array based on the class vars values.
+	 *
+	 * @since 1.0.0
+	 * @param string $context The context which we will be using the array.
+	 * @return array
+	 */
+	public function to_array( $context = 'view' ) {
+		return (array) get_object_vars( $this );
+	}
 }

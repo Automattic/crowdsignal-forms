@@ -138,14 +138,21 @@ class Poll {
 	 * @return array
 	 */
 	public function to_array( $context = 'view' ) {
-		$data = array(
-			'question' => $this->question,
-		);
+		$data = array();
+
 		if ( ! empty( $this->id ) ) {
 			$data['id'] = $this->id;
 		}
 
-		$data['settings'] = array( 'title' => $this->question );
+		$data['question'] = $this->question;
+
+		$data['answers']  = array_map(
+			function( $answer ) use ( $context ) {
+				return $answer->to_array( $context );
+			},
+			$this->answers
+		);
+		$data['settings'] = $this->settings->to_array( $context );
 
 		return $data;
 	}
