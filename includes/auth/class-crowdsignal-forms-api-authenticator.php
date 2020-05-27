@@ -14,7 +14,6 @@ use \Crowdsignal_Forms\Auth\Default_Api_Auth_Provider;
 class Crowdsignal_Forms_Api_Authenticator {
 
 	const USER_CODE_META_NAME = 'crowdsignal_user_code';
-	const API_KEY_META_NAME   = 'crowdsignal_api_key';
 
 	/**
 	 * The Crowdsignal auth provider.
@@ -45,14 +44,16 @@ class Crowdsignal_Forms_Api_Authenticator {
 	 * @return string the user code
 	 */
 	public function get_user_code() {
-		$user_id   = wp_get_current_user()->ID;
-		$user_code = get_user_meta( $user_id, self::USER_CODE_META_NAME, true );
+		// Return the user code if we already retrieved and saved one.
+		$user_code = get_option( self::USER_CODE_META_NAME );
 		if ( ! empty( $user_code ) ) {
 			return $user_code;
 		}
 
+		// No saved user code found. Let's fetch one!
+		$user_id   = wp_get_current_user()->ID;
 		$user_code = $this->auth_provider->get_user_code( $user_id );
-		update_user_meta( $user_id, self::USER_CODE_META_NAME, $user_code );
+		update_option( self::USER_CODE_META_NAME, $user_code );
 
 		return $user_code;
 	}
