@@ -1,7 +1,8 @@
 /**
  * External dependencies
  */
-import React from 'react';
+import React, { useState } from 'react';
+import seedrandom from 'seedrandom';
 
 /**
  * Internal dependencies
@@ -14,9 +15,10 @@ import {
 import { ClosedPollState } from 'blocks/poll/constants';
 import ClosedBanner from './closed-banner';
 import PollVote from './vote';
-import { maybeAddTemporaryAnswerIds } from './util';
+import { maybeAddTemporaryAnswerIds, shuffleWithGenerator } from './util';
 
 const Poll = ( { attributes } ) => {
+	const [ randomAnswerSeed ] = useState( Math.random() );
 	const handleSubmit = ( selectedAnswerIds ) => {
 		// eslint-disable-next-line
 		console.log( `Poll submitted with the following answers ${ JSON.stringify( selectedAnswerIds ) }` );
@@ -43,6 +45,13 @@ const Poll = ( { attributes } ) => {
 		}
 	);
 
+	const answers = shuffleWithGenerator(
+		attributes.answers,
+		attributes.hasRandomOrderOfAnswers
+			? new seedrandom( randomAnswerSeed )
+			: () => 1
+	);
+
 	return (
 		<div className={ classes } style={ getStyleVars( attributes, {} ) }>
 			{ ! showResults && (
@@ -59,9 +68,7 @@ const Poll = ( { attributes } ) => {
 						) }
 
 						<PollVote
-							answers={ maybeAddTemporaryAnswerIds(
-								attributes.answers
-							) }
+							answers={ maybeAddTemporaryAnswerIds( answers ) }
 							isMultipleChoice={ attributes.isMultipleChoice }
 							onSubmit={ handleSubmit }
 							submitButtonLabel={ attributes.submitButtonLabel }
