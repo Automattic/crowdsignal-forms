@@ -8,7 +8,6 @@ import { includes, map, without } from 'lodash';
 /**
  * Internal dependencies
  */
-import { __ } from 'lib/i18n';
 import PollAnswer from './answer';
 
 const PollVote = ( {
@@ -60,7 +59,7 @@ const PollVote = ( {
 						type="submit"
 						className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
 					>
-						{ submitButtonLabel || __( 'Submit' ) }
+						{ submitButtonLabel }
 					</button>
 				</div>
 			</div>
