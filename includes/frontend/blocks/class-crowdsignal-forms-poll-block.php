@@ -142,7 +142,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'hasRandomOrderOfAnswers'     => array(
+			'randomizeAnswers'            => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),

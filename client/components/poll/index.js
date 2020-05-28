@@ -47,7 +47,7 @@ const Poll = ( { attributes } ) => {
 
 	const answers = shuffleWithGenerator(
 		attributes.answers,
-		attributes.hasRandomOrderOfAnswers
+		attributes.randomizeAnswers
 			? new seedrandom( randomAnswerSeed )
 			: () => 1
 	);

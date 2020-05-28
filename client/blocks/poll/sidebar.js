@@ -84,8 +84,8 @@ const SideBar = ( {
 		hasOneResponsePerComputer
 	) => setAttributes( { hasOneResponsePerComputer } );
 
-	const handleChangeHasRandomOrderOfAnswers = ( hasRandomOrderOfAnswers ) =>
-		setAttributes( { hasRandomOrderOfAnswers } );
+	const handleChangeRandomizeAnswers = ( randomizeAnswers ) =>
+		setAttributes( { randomizeAnswers } );
 
 	const handleChangeSubmitButtonTextColor = ( submitButtonTextColor ) =>
 		setAttributes( { submitButtonTextColor } );
@@ -377,9 +377,9 @@ const SideBar = ( {
 					onChange={ handleChangeHasOneResponsePerComputer }
 				/>
 				<CheckboxControl
-					checked={ attributes.hasRandomOrderOfAnswers }
-					label={ __( 'Random Order of Answers' ) }
-					onChange={ handleChangeHasRandomOrderOfAnswers }
+					checked={ attributes.randomizeAnswers }
+					label={ __( 'Randomize Answer Order' ) }
+					onChange={ handleChangeRandomizeAnswers }
 				/>
 			</PanelBody>
 		</InspectorControls>
