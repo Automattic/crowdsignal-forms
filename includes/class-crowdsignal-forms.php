@@ -13,6 +13,7 @@ use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks;
 use Crowdsignal_Forms\Gateways\Api_Gateway_Interface;
 use Crowdsignal_Forms\Gateways\Api_Gateway;
 use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
+use Crowdsignal_Forms\Admin\Admin_Hooks;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -68,6 +69,13 @@ final class Crowdsignal_Forms {
 	private $api_gateway;
 
 	/**
+	 * The admin hooks instance.
+	 *
+	 * @var Admin_Hooks
+	 */
+	private $admin_hooks;
+
+	/**
 	 * Initialize the singleton instance.
 	 *
 	 * @since 1.0.0
@@ -110,6 +118,7 @@ final class Crowdsignal_Forms {
 		$this->blocks                    = new Crowdsignal_Forms_Blocks();
 		$this->blocks_assets             = new Crowdsignal_Forms_Blocks_Assets();
 		$this->rest_api_polls_controller = new Polls_Controller();
+		$this->admin_hooks               = new Admin_Hooks();
 
 		return $this;
 	}
@@ -126,6 +135,8 @@ final class Crowdsignal_Forms {
 		add_action( 'init', array( $this->blocks_assets, 'register' ) );
 		add_action( 'init', array( $this->blocks, 'register' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_api_routes' ) );
+
+		$this->admin_hooks->hook();
 
 		return $this;
 	}

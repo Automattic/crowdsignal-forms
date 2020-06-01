@@ -19,6 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Crowdsignal_Forms\Models
  */
 class Poll {
+	const POLL_ID_BLOCK_ATTRIBUTE   = 'pollId';
+	const ANSWER_ID_BLOCK_ATTRIBUTE = 'answerId';
 
 	/**
 	 * The poll id.
@@ -88,6 +90,32 @@ class Poll {
 	}
 
 	/**
+	 * Creates a new Poll object from a block attribute array.
+	 *
+	 * @param array $attrs The attrs array.
+	 * @return Poll
+	 * @since 1.0.0
+	 */
+	public static function from_block( $attrs ) {
+		$data             = array();
+		$data['id']       = isset( $attrs[ self::POLL_ID_BLOCK_ATTRIBUTE ] ) ? absint( $attrs[ self::POLL_ID_BLOCK_ATTRIBUTE ] ) : 0;
+		$data['question'] = isset( $attrs['question'] ) ? $attrs['question'] : '';
+		$data['note']     = isset( $attrs['note'] ) ? $attrs['note'] : '';
+		$data['answers']  = array_map(
+			function ( $answer_data ) {
+				if ( isset( $answer_data[ self::ANSWER_ID_BLOCK_ATTRIBUTE ] ) && $answer_data[ self::ANSWER_ID_BLOCK_ATTRIBUTE ] > 0 ) {
+					$answer_data['id'] = absint( $answer_data[ self::ANSWER_ID_BLOCK_ATTRIBUTE ] );
+				}
+				$answer_data['answer_text'] = $answer_data['text'];
+				return $answer_data;
+			},
+			isset( $attrs['answers'] ) ? $attrs['answers'] : array()
+		);
+		$data['settings'] = isset( $attrs['settings'] ) ? $attrs['settings'] : array();
+		return self::from_array( $data );
+	}
+
+	/**
 	 * Validates the poll is ok for saving.
 	 *
 	 * @since 1.0.0
@@ -146,14 +174,12 @@ class Poll {
 
 		$data['question'] = $this->question;
 
-		$data['answers']  = array_map(
-			function( $answer ) use ( $context ) {
-				return $answer->to_array( $context );
-			},
-			$this->answers
-		);
 		$data['settings'] = $this->settings->to_array( $context );
+		foreach ( $this->get_answers() as $answer ) {
+			$data['answers'][] = $answer->to_array();
+		}
 
 		return $data;
 	}
+
 }

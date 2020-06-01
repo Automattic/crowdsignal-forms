@@ -71,4 +71,14 @@ class Poll_Answer {
 	public function to_array( $context = 'view' ) {
 		return (array) get_object_vars( $this );
 	}
+
+	/**
+	 * Get the id.
+	 *
+	 * @since 1.0.0
+	 * @return int
+	 */
+	public function get_id() {
+		return $this->id;
+	}
 }

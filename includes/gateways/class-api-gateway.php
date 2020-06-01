@@ -83,26 +83,97 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @since 1.0.0
 	 */
 	public function create_poll( Poll $poll ) {
+		return $this->create_or_update_poll( $poll );
+	}
+
+	/**
+	 * Call the api to update a poll with the specified data.
+	 *
+	 * @param Poll $poll The poll data.
+	 * @return Poll|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function update_poll( Poll $poll ) {
+		return $this->create_or_update_poll( $poll );
+	}
+
+	/**
+	 * Call the api to trash a poll.
+	 *
+	 * @param int $id_to_trash The poll id to trash.
+	 * @return Poll|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function trash_poll( $id_to_trash ) {
+		return new \WP_Error( 'FIXME' );
+	}
+
+	/**
+	 * Common method for either creating or updating a Poll.
+	 *
+	 * @param Poll $poll The poll.
+	 * @return Poll|\WP_Error
+	 * @since 1.0.0
+	 */
+	private function create_or_update_poll( Poll $poll ) {
+		$request_method = 'POST';
+
+		if ( 0 === $poll->get_id() ) {
+			$endpoint = '/polls';
+		} else {
+			$endpoint = '/polls/' . $poll->get_id();
+		}
+
 		$request_data = array( 'poll' => $poll->to_array() );
 
 		// Inject "source" property used on the API v3.
 		$request_data['source'] = self::POLL_SOURCE;
 
 		// Perform the request after injecting the "source" prop.
-		$response = $this->perform_request( 'POST', '/polls', $request_data );
+		$response = $this->perform_request( $request_method, $endpoint, $request_data );
 
 		if ( is_wp_error( $response ) ) {
+			$this->log_webservice_event(
+				'response_error',
+				array(
+					'error' => $response,
+				)
+			);
 			return $response;
 		}
 
 		$body          = wp_remote_retrieve_body( $response );
 		$response_data = json_decode( $body, true );
+
 		if ( null === $response_data || ! isset( $response_data['poll'] ) ) {
 			if ( isset( $response_data['error'] ) ) {
-				return new \WP_Error( $response_data['error'], $response_data );
+				$wp_error = new \WP_Error( $response_data['error'], $response_data );
+				$this->log_webservice_event(
+					'response_error',
+					array(
+						'error' => $wp_error,
+					)
+				);
+				return $wp_error;
 			}
+
+			$this->log_webservice_event(
+				'response_error',
+				array(
+					'error' => 'decode-failed',
+					'body'  => $body,
+				)
+			);
+
 			return new \WP_Error( 'decode-failed' );
 		}
+
+		$this->log_webservice_event(
+			'response_success',
+			array(
+				'data' => $response_data,
+			)
+		);
 
 		return Poll::from_array( $response_data['poll'] );
 	}
@@ -151,6 +222,27 @@ class Api_Gateway implements Api_Gateway_Interface {
 			$request_options['body'] = $body;
 		}
 
+		$this->log_webservice_event(
+			'request_data',
+			array(
+				'endpoint'        => $endpoint,
+				'request_options' => $request_options,
+			)
+		);
+
 		return wp_remote_request( $base_url . $endpoint, $request_options );
+	}
+
+	/**
+	 * Log a webservice event such as an error or a successful request.
+	 *
+	 * @param string $name The event name.
+	 * @param array  $data The event data.
+	 *
+	 * @since 1.0.0
+	 * @return void
+	 */
+	private function log_webservice_event( $name, $data = array() ) {
+		do_action( 'crowdsignal_forms_log_webservice_event', $name, $data );
 	}
 }

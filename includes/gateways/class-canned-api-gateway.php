@@ -99,4 +99,26 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	public function get_polls() {
 		return $this->get_canned_polls();
 	}
+
+	/**
+	 * Call the api to update a poll with the specified data.
+	 *
+	 * @param Poll $poll The poll data.
+	 * @return Poll|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function update_poll( Poll $poll ) {
+		return new \WP_Error( 'FIXME' );
+	}
+
+	/**
+	 * Call the api to trash a poll.
+	 *
+	 * @param int $id_to_trash The poll id to trash.
+	 * @return Poll|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function trash_poll( $id_to_trash ) {
+		return new \WP_Error( 'FIXME' );
+	}
 }

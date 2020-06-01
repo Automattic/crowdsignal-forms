@@ -43,4 +43,22 @@ interface Api_Gateway_Interface {
 	 * @since 1.0.0
 	 */
 	public function create_poll( Poll $poll);
+
+	/**
+	 * Call the api to update a poll with the specified data.
+	 *
+	 * @param Poll $poll The poll data.
+	 * @return Poll|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function update_poll( Poll $poll);
+
+	/**
+	 * Call the api to trash a poll.
+	 *
+	 * @param int $id_to_trash The poll id to trash.
+	 * @return Poll|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function trash_poll( $id_to_trash );
 }
