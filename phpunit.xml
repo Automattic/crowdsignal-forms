@@ -7,7 +7,6 @@
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
         verbose="true"
-        syntaxCheck="true"
 >
     <php>
         <server name='HTTP_HOST' value='http://localhost' />
@@ -20,12 +19,6 @@
             <directory suffix=".php">./tests/unit-tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <blacklist>
-            <directory suffix=".php">./tests/</directory>
-            <directory suffix=".php">./build/</directory>
-        </blacklist>
-    </filter>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./includes</directory>
