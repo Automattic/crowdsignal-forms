@@ -60,7 +60,7 @@ class Polls_Controller {
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => array( $this, 'create_poll' ),
-					'permission_callback' => array( $this, 'create_poll_permissions_check' ),
+					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
 				),
 			)
 		);
@@ -74,6 +74,19 @@ class Polls_Controller {
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_poll' ),
 					'permission_callback' => array( $this, 'get_poll_permissions_check' ),
+					'args'                => $this->get_poll_fetch_params(),
+				),
+			)
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/(?P<poll_id>\d+)',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'update_poll' ),
+					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
 					'args'                => $this->get_poll_fetch_params(),
 				),
 			)
@@ -104,13 +117,36 @@ class Polls_Controller {
 	}
 
 	/**
+	 * Update a poll.
+	 *
+	 * @param \WP_REST_Request $request The API Request.
+	 * @return \WP_REST_Response|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function update_poll( \WP_REST_Request $request ) {
+		$data              = $request->get_json_params();
+		$poll              = Poll::from_array( $data );
+		$valid_or_wp_error = $poll->validate();
+		if ( is_wp_error( $valid_or_wp_error ) ) {
+			return $valid_or_wp_error;
+		}
+
+		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->update_poll( $poll );
+		if ( is_wp_error( $resulting_poll ) ) {
+			return $resulting_poll;
+		}
+
+		return rest_ensure_response( $resulting_poll->to_array() );
+	}
+
+	/**
 	 * The permission check for creating a new poll.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return bool
 	 **/
-	public function create_poll_permissions_check() {
+	public function create_or_update_poll_permissions_check() {
 		return current_user_can( 'publish_posts' );
 	}
 
@@ -143,11 +179,22 @@ class Polls_Controller {
 	 *
 	 * @param \WP_REST_Request $request
 	 *
-	 * @return \WP_REST_Response
+	 * @return \WP_REST_Response|\WP_Error
 	 **/
 	public function get_poll( $request ) {
 		$poll_id = $request->get_param( 'poll_id' );
-		return rest_ensure_response( Crowdsignal_Forms::instance()->get_api_gateway()->get_poll( $poll_id ) );
+		if ( null === $poll_id || ! is_numeric( $poll_id ) ) {
+			return new \WP_Error(
+				'invalid-poll-id',
+				__( 'Invalid poll ID', 'crowdsignal-forms' ),
+				array( 'status' => 400 )
+			);
+		}
+		$poll = Crowdsignal_Forms::instance()->get_api_gateway()->get_poll( $poll_id );
+		if ( is_wp_error( $poll ) ) {
+			return rest_ensure_response( $poll );
+		}
+		return rest_ensure_response( $poll->to_array() );
 	}
 
 	/**

@@ -72,7 +72,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 			return new \WP_Error( 'decode-failed' );
 		}
 
-		return Poll::from_array( $response_data['poll'] )->to_array();
+		return Poll::from_array( $response_data['poll'] );
 	}
 
 	/**
