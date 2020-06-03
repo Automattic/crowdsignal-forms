@@ -20,7 +20,7 @@
 
 	&.is-closed {
 
-		.wp-block-crowdsignal-forms-poll__content {
+		.wp-block-crowdsignal-forms-poll__form {
 			opacity: 0.5;
 		}
 
@@ -45,6 +45,7 @@
 	align-items: center;
 	cursor: pointer;
 	display: flex;
+	font-size: inherit;
 	font-weight: 600;
 	margin: 0 0 16px;
 	padding: 0 2px;
@@ -117,4 +118,117 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	.is-hidden & {
 		font-style: italic;
 	}
+}
+
+.wp-block-crowdsignal-forms-poll__results {
+	margin: 0 0 1em;
+}
+
+.wp-block-crowdsignal-forms-poll__answer-results {
+	display: flex;
+	flex-direction: column;
+	margin: 0 0 16px;
+	width: 100%;
+
+	&:last-child {
+		margin: 0;
+	}
+}
+
+.wp-block-crowdsignal-forms-poll__answer-results-labels {
+	align-items: center;
+	display: flex;
+	height: 18px;
+	margin: 0 0 8px;
+	width: 100%;
+}
+
+.wp-block-crowdsignal-forms-poll__answer-results-answer {
+	flex: 1;
+	font-size: 1em;
+	font-weight: 600;
+}
+
+.wp-block-crowdsignal-forms-poll__answer-results-votes {
+	font-size: 0.75em;
+}
+
+.wp-block-crowdsignal-forms-poll__answer-results-percent {
+	font-weight: 600;
+}
+
+.wp-block-crowdsignal-forms-poll__answer-results-votes,
+.wp-block-crowdsignal-forms-poll__answer-results-percent {
+	margin-left: 20px;
+	transition: opacity 0.3s;
+
+	.wp-block-crowdsignal-forms-poll__answer-results.is-loading & {
+		animation-duration: 1.5s;
+		animation-iteration-count: infinite;
+		animation-name: crowdsignal-forms-animation__pulse;
+		background-color: #000;
+		font-size: 0.7em;
+		height: 1em;
+		width: 50px;
+
+		&:last-child {
+			width: 40px;
+		}
+	}
+}
+
+.wp-block-crowdsignal-forms-poll__answer-results-progress-track {
+	border: 1px solid;
+	border-color: inherit;
+	box-sizing: border-box;
+	height: 1em;
+	width: 100%;
+
+	.wp-block-crowdsignal-forms-poll__answer-results.is-loading & {
+		animation-duration: 1.5s;
+		animation-iteration-count: infinite;
+		animation-name: crowdsignal-forms-animation__pulse;
+		border-color: var(--crowdsignal-forms-fallback-text-color);
+	}
+}
+
+.wp-block-crowdsignal-forms-poll__answer-results-progress-bar {
+	animation-fill-mode: forwards;
+	background-color: #000;
+	height: 100%;
+	transition: background-color 0.3s, width 0.3s;
+
+	.wp-block-crowdsignal-forms-poll__answer-results.is-loading & {
+		width: 25%;
+	}
+
+	.wp-block-crowdsignal-forms-poll__answer-results.is-loading:nth-child(5n+1) & {
+		width: 40%;
+	}
+
+	.wp-block-crowdsignal-forms-poll__answer-results.is-loading:nth-child(5n+2) & {
+		width: 75%;
+	}
+
+	.wp-block-crowdsignal-forms-poll__answer-results.is-loading:nth-child(5n+3) & {
+		width: 50%;
+	}
+
+	.wp-block-crowdsignal-forms-poll__answer-results.is-loading:nth-child(5n+4) & {
+		width: 60%;
+	}
+}
+
+.wp-block-crowdsignal-forms-poll__results-footer {
+	display: flex;
+	font-size: 0.9em;
+}
+
+.wp-block-crowdsignal-forms-poll__results-branding {
+	flex: 1;
+}
+
+.wp-block-crowdsignal-forms-poll__results-total {
+	margin-left: 20px;
+	text-align: right;
 }

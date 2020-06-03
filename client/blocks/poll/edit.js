@@ -7,13 +7,18 @@ const { getComputedStyle } = window;
 /**
  * WordPress dependencies
  */
+import { RichText } from '@wordpress/block-editor';
 import { withFallbackStyles } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
+import PollClosedBanner from 'components/poll/closed-banner';
+import PollResults from 'components/poll/results';
+import { maybeAddTemporaryAnswerIds } from 'components/poll/util';
+import { __ } from 'lib/i18n';
 import { ClosedPollState } from './constants';
-import EditPoll from './edit-poll';
+import EditAnswers from './edit-answers';
 import SideBar from './sidebar';
 import Toolbar from './toolbar';
 import {
@@ -51,7 +56,10 @@ const fallbackStyles = withFallbackStyles( ( node ) => {
 } );
 
 const PollBlock = ( props ) => {
-	const { attributes, className, isSelected } = props;
+	const { attributes, className, isSelected, setAttributes } = props;
+
+	const handleChangeQuestion = ( question ) => setAttributes( { question } );
+	const handleChangeNote = ( note ) => setAttributes( { note } );
 
 	const isClosed = isPollClosed(
 		attributes.pollStatus,
@@ -75,20 +83,34 @@ const PollBlock = ( props ) => {
 				} ) }
 				style={ getStyleVars( attributes, props ) }
 			>
-				{ ! showResults && (
-					<EditPoll
-						{ ...props }
-						isPollClosed={ isClosed }
-						isPollHidden={ isHidden }
+				<div className="wp-block-crowdsignal-forms-poll__content">
+					<RichText
+						tagName="h3"
+						className="wp-block-crowdsignal-forms-poll__question"
+						placeholder={ __( 'Enter your question' ) }
+						onChange={ handleChangeQuestion }
+						value={ attributes.question }
 					/>
-				) }
-				{ showResults && (
-					<div>
-						TODO: Show Results
-						<br />
-						c/RTITc5kn-tr
-					</div>
-				) }
+					<RichText
+						tagName="p"
+						className="wp-block-crowdsignal-forms-poll__note"
+						placeholder={ __( 'Add a note (optional)' ) }
+						onChange={ handleChangeNote }
+						value={ attributes.note }
+					/>
+
+					{ ! showResults && <EditAnswers { ...props } /> }
+
+					{ showResults && (
+						<PollResults
+							answers={ maybeAddTemporaryAnswerIds(
+								attributes.answers
+							) }
+						/>
+					) }
+				</div>
+
+				{ isClosed && <PollClosedBanner isPollHidden={ isHidden } /> }
 			</div>
 		</>
 	);

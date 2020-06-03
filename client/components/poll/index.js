@@ -14,6 +14,7 @@ import {
 } from 'blocks/poll/util';
 import { ClosedPollState } from 'blocks/poll/constants';
 import ClosedBanner from './closed-banner';
+import PollResults from './results';
 import PollVote from './vote';
 import { maybeAddTemporaryAnswerIds, shuffleWithGenerator } from './util';
 
@@ -54,36 +55,34 @@ const Poll = ( { attributes } ) => {
 
 	return (
 		<div className={ classes } style={ getStyleVars( attributes, {} ) }>
-			{ ! showResults && (
-				<>
-					<div className="wp-block-crowdsignal-forms-poll__content">
-						<h3 className="wp-block-crowdsignal-forms-poll__question">
-							{ attributes.question }
-						</h3>
+			<div className="wp-block-crowdsignal-forms-poll__content">
+				<h3 className="wp-block-crowdsignal-forms-poll__question">
+					{ attributes.question }
+				</h3>
 
-						{ attributes.note && (
-							<p className="wp-block-crowdsignal-forms-poll__note">
-								{ attributes.note }
-							</p>
-						) }
+				{ attributes.note && (
+					<p className="wp-block-crowdsignal-forms-poll__note">
+						{ attributes.note }
+					</p>
+				) }
 
-						<PollVote
-							answers={ maybeAddTemporaryAnswerIds( answers ) }
-							isMultipleChoice={ attributes.isMultipleChoice }
-							onSubmit={ handleSubmit }
-							submitButtonLabel={ attributes.submitButtonLabel }
-						/>
-					</div>
-					{ isClosed && <ClosedBanner /> }
-				</>
-			) }
-			{ showResults && (
-				<div>
-					TODO: Show Results
-					<br />
-					c/RTITc5kn-tr
-				</div>
-			) }
+				{ ! showResults && (
+					<PollVote
+						answers={ maybeAddTemporaryAnswerIds( answers ) }
+						isMultipleChoice={ attributes.isMultipleChoice }
+						onSubmit={ handleSubmit }
+						submitButtonLabel={ attributes.submitButtonLabel }
+					/>
+				) }
+
+				{ showResults && (
+					<PollResults
+						answers={ maybeAddTemporaryAnswerIds( answers ) }
+					/>
+				) }
+			</div>
+
+			{ isClosed && <ClosedBanner /> }
 		</div>
 	);
 };
