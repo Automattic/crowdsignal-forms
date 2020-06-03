@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classNames from 'classnames';
-import { filter, includes } from 'lodash';
+import { includes } from 'lodash';
 
 /**
  * Internal dependencies
@@ -23,15 +23,6 @@ export const addAnswer = ( answers, text ) => [
 		text,
 	},
 ];
-
-/**
- * Returns the count of empty answers in the answers array
- *
- * @param  {Array}  answers Answers array
- * @return {number}         Empty answers count
- */
-export const getEmptyAnswersCount = ( answers ) =>
-	filter( answers, ( answer ) => ! answer.text ).length;
 
 /**
  * Traverses the parent chain of the given node to get a 'best guess' of what the background color is if the provided node has a transparent background.

@@ -3,6 +3,7 @@
  */
 import React, { useState } from 'react';
 import seedrandom from 'seedrandom';
+import { filter } from 'lodash';
 
 /**
  * Internal dependencies
@@ -47,7 +48,7 @@ const Poll = ( { attributes } ) => {
 	);
 
 	const answers = shuffleWithGenerator(
-		attributes.answers,
+		filter( attributes.answers, ( answer ) => !! answer.text ),
 		attributes.randomizeAnswers
 			? new seedrandom( randomAnswerSeed )
 			: () => 1

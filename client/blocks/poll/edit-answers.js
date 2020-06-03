@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-import React from 'react';
-import { filter, map, tap } from 'lodash';
+import React, { useRef } from 'react';
+import { filter, last, map, slice, tap } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -13,10 +13,15 @@ import { RichText } from '@wordpress/block-editor';
  * Internal dependencies
  */
 import EditAnswer from './edit-answer';
-import { getEmptyAnswersCount } from './util';
 
-const EditAnswers = ( props ) => {
-	const { attributes, isSelected, setAttributes } = props;
+const shiftAnswerFocus = ( wrapper, index ) =>
+	tap(
+		wrapper.querySelectorAll( '[role=textbox]' )[ index ],
+		( answer ) => answer && answer.focus()
+	);
+
+const EditAnswers = ( { attributes, isSelected, setAttributes } ) => {
+	const answersContainer = useRef();
 
 	const handleChangeSubmitButtonLabel = ( submitButtonLabel ) =>
 		setAttributes( { submitButtonLabel } );
@@ -28,32 +33,61 @@ const EditAnswers = ( props ) => {
 			} ),
 		} );
 
-	const handleDeleteAnswer = ( index ) =>
+	const handleDeleteAnswer = ( index ) => {
+		shiftAnswerFocus( answersContainer.current, Math.max( index - 1, 0 ) );
 		setAttributes( {
 			answers: filter(
 				attributes.answers,
-				( answer ) => answer !== attributes.answers[ index ]
+				( answer ) =>
+					attributes.answers.length <= 2 ||
+					answer !== attributes.answers[ index ]
 			),
 		} );
+	};
+
+	const handleNewAnswer = ( insertAt ) => {
+		if ( insertAt < attributes.answers.length ) {
+			setAttributes( {
+				answers: [
+					...slice( attributes.answers, 0, insertAt ),
+					{},
+					...slice(
+						attributes.answers,
+						insertAt,
+						attributes.answers.length
+					),
+				],
+			} );
+		}
+
+		shiftAnswerFocus(
+			answersContainer.current,
+			Math.min( insertAt, attributes.answers.length )
+		);
+	};
+
 	// Rendering n + 1 answers vs a separate placeholder
 	// prevents the text field from loosing focus when you start typing a new answer.
 	const editableAnswers =
-		isSelected && getEmptyAnswersCount( attributes.answers ) === 0
-			? [ ...attributes.answers, { isPlaceholder: true } ]
+		isSelected && last( attributes.answers ).text
+			? [ ...attributes.answers, {} ]
 			: attributes.answers;
 
 	return (
 		<>
-			<div className="wp-block-crowdsignal-forms-poll__options">
+			<div
+				ref={ answersContainer }
+				className="wp-block-crowdsignal-forms-poll__options"
+			>
 				{ map( editableAnswers, ( answer, index ) => (
 					<EditAnswer
 						key={ `poll-answer-${ index }` }
 						answer={ answer }
 						index={ index }
-						isEnabled={ isSelected }
 						isMultipleChoice={ attributes.isMultipleChoice }
 						onChange={ handleChangeAnswer }
 						onDelete={ handleDeleteAnswer }
+						onNewAnswer={ handleNewAnswer }
 					/>
 				) ) }
 			</div>

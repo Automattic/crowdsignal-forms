@@ -78,7 +78,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 			),
 			'answers'                     => array(
 				'type'    => 'array',
-				'default' => array( array(), array(), array() ),
+				'default' => array( new \stdClass(), new \stdClass(), new \stdClass() ),
 				'items'   => array(
 					'type'       => 'object',
 					'properties' => array(
