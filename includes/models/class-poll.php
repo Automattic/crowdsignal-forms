@@ -55,6 +55,14 @@ class Poll {
 	private $settings = null;
 
 	/**
+	 * The poll source_link.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	private $source_link = '';
+
+	/**
 	 * Poll constructor.
 	 *
 	 * @param int           $id The id.
@@ -86,7 +94,13 @@ class Poll {
 			isset( $data['answers'] ) ? $data['answers'] : array()
 		);
 		$settings = Poll_Settings::from_array( isset( $data['settings'] ) ? $data['settings'] : array() );
-		return new self( $id, $question, $answers, $settings );
+		$poll = new self( $id, $question, $answers, $settings );
+
+		if ( isset( $data['source_link'] ) ) {
+			$poll->set_source_link( $data['source_link'] );
+		}
+
+		return $poll;
 	}
 
 	/**
@@ -122,9 +136,6 @@ class Poll {
 	 * @return bool|\WP_Error
 	 */
 	public function validate() {
-		if ( empty( $this->question ) ) {
-			return new \WP_Error( 'poll-invalid', __( 'Question cannot be empty', 'crowdsignal-forms' ), array( 'status' => 400 ) );
-		}
 		return true;
 	}
 
@@ -159,6 +170,26 @@ class Poll {
 	}
 
 	/**
+	 * Get the source link we set.
+	 *
+	 * @return string
+	 */
+	public function get_source_link() {
+		return $this->source_link;
+	}
+
+	/**
+	 * Set the poll block source link.
+	 *
+	 * @param string $source_link The source link.
+	 * @return $this
+	 */
+	public function set_source_link( $source_link ) {
+		$this->source_link = $source_link;
+		return $this;
+	}
+
+	/**
 	 * Transform the poll into an array for sending to the api or the frontend.
 	 *
 	 * @since 1.0.0
@@ -177,6 +208,10 @@ class Poll {
 		$data['settings'] = $this->settings->to_array( $context );
 		foreach ( $this->get_answers() as $answer ) {
 			$data['answers'][] = $answer->to_array();
+		}
+
+		if ( ! empty( $this->source_link ) ) {
+			$data['source_link'] = $this->get_source_link();
 		}
 
 		return $data;
