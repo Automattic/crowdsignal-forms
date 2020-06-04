@@ -89,6 +89,20 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	}
 
 	/**
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results
+	 *
+	 * @since 1.0.0
+	 */
+	public function test_get_poll_results() {
+		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
+		$req = new \WP_REST_Request( 'GET', '/polls' );
+		$req->set_param( 'poll_id',  1 );
+		$response = $this->controller->get_poll_results( $req );
+		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
+		$this->assertTrue( $response->get_status() === 200 );
+	}
+
+	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::update_poll
 	 *
 	 * @since 1.0.0

@@ -79,6 +79,19 @@ class Polls_Controller {
 			)
 		);
 
+		// GET polls/:poll_id/results route.
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/(?P<poll_id>\d+)/results',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_poll_results' ),
+					'permission_callback' => array( $this, 'get_poll_permissions_check' ),
+				),
+			)
+		);
+
 		register_rest_route(
 			$this->namespace,
 			'/' . $this->rest_base . '/(?P<poll_id>\d+)',
@@ -195,6 +208,20 @@ class Polls_Controller {
 			return rest_ensure_response( $poll );
 		}
 		return rest_ensure_response( $poll->to_array() );
+	}
+
+	/**
+	 * Get poll results by ID.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param \WP_REST_Request $request
+	 *
+	 * @return \WP_REST_Response
+	 **/
+	public function get_poll_results( $request ) {
+		$poll_id = $request->get_param( 'poll_id' );
+		return rest_ensure_response( Crowdsignal_Forms::instance()->get_api_gateway()->get_poll_results( $poll_id ) );
 	}
 
 	/**

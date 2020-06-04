@@ -61,6 +61,25 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	}
 
 	/**
+	 * Get the poll results with specified poll id from the api.
+	 *
+	 * @param int $poll_id The poll id.
+	 * @since 1.0.0
+	 *
+	 * @return Poll|\WP_Error
+	 */
+	public function get_poll_results( $poll_id ) {
+		$found = array_filter(
+			$this->get_polls(),
+			function ( $poll_entry ) use ( $poll_id ) {
+				return $poll_entry['id'] === $poll_id;
+			}
+		);
+
+		return ! empty( $found ) ? $found[0] : new \WP_Error( __( 'Poll not found', 'crowdsignal-forms' ) );
+	}
+
+	/**
 	 * Call the api to create a poll with the specified data.
 	 *
 	 * @param Poll $poll The poll data.
