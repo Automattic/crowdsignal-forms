@@ -12,7 +12,9 @@ import PollAnswer from './answer';
 
 const PollVote = ( {
 	answers,
+	hasVoted,
 	isMultipleChoice,
+	isVoting,
 	onSubmit,
 	submitButtonLabel,
 } ) => {
@@ -48,21 +50,26 @@ const PollVote = ( {
 						isMultipleChoice={ isMultipleChoice }
 						isSelected={ includes( selected, answer.answerId ) }
 						onSelect={ handleSelect }
+						hasVoted={ hasVoted }
+						isVoting={ isVoting }
 						{ ...answer }
 					/>
 				) ) }
 			</div>
 
-			<div className="wp-block-crowdsignal-forms-poll__actions">
-				<div className="wp-block-button">
-					<button
-						type="submit"
-						className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
-					>
-						{ submitButtonLabel }
-					</button>
+			{ ! hasVoted && (
+				<div className="wp-block-crowdsignal-forms-poll__actions">
+					<div className="wp-block-button">
+						<button
+							type="submit"
+							className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
+							disabled={ isVoting }
+						>
+							{ submitButtonLabel }
+						</button>
+					</div>
 				</div>
-			</div>
+			) }
 		</form>
 	);
 };

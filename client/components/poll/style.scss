@@ -23,22 +23,30 @@
 		.wp-block-crowdsignal-forms-poll__form {
 			opacity: 0.5;
 		}
-
-		/*
-		 * Hiding submit button (instead of preventing it from rendering in react so
-		 * it is still rendered for fallback style calculation.
-		 *
-		 * See https://github.com/Automattic/crowdsignal-forms/pull/41#discussion_r428830727 for explanation and future solution.
-		 * See c/FS7W2hys-tr in backlog.
-		 */
-		.wp-block-crowdsignal-forms-poll__submit-button {
-			display: none;
-		}
 	}
 
 	&.is-hidden {
 		opacity: 0.5;
 	}
+}
+
+.wp-block-crowdsignal-forms-poll__submit-button {
+
+	/*
+	 * Hiding submit button (instead of preventing it from rendering in react so
+	 * it is still rendered for fallback style calculation.
+	 *
+	 * See https://github.com/Automattic/crowdsignal-forms/pull/41#discussion_r428830727 for explanation and future solution.
+	 * See c/FS7W2hys-tr in backlog.
+	 */
+	.is-closed & {
+		display: none;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+	}
+
 }
 
 .wp-block-crowdsignal-forms-poll__answer {
@@ -118,6 +126,10 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	.is-hidden & {
 		font-style: italic;
 	}
+}
+
+.wp-block-crowdsignal-forms-poll__error {
+	color: rgb(255, 0, 0);
 }
 
 .wp-block-crowdsignal-forms-poll__results {

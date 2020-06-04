@@ -7,8 +7,10 @@ import classnames from 'classnames';
 
 const PollAnswer = ( {
 	answerId,
+	hasVoted,
 	isMultipleChoice,
 	isSelected,
+	isVoting,
 	onSelect,
 	text,
 } ) => {
@@ -32,6 +34,7 @@ const PollAnswer = ( {
 				selected={ isSelected }
 				type={ isMultipleChoice ? 'checkbox' : 'radio' }
 				value={ answerId }
+				disabled={ hasVoted || isVoting }
 			/>
 
 			<span className="wp-block-crowdsignal-forms-poll__check" />
