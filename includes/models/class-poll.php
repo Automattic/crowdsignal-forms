@@ -94,7 +94,7 @@ class Poll {
 			isset( $data['answers'] ) ? $data['answers'] : array()
 		);
 		$settings = Poll_Settings::from_array( isset( $data['settings'] ) ? $data['settings'] : array() );
-		$poll = new self( $id, $question, $answers, $settings );
+		$poll     = new self( $id, $question, $answers, $settings );
 
 		if ( isset( $data['source_link'] ) ) {
 			$poll->set_source_link( $data['source_link'] );
