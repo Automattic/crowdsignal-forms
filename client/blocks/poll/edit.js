@@ -65,6 +65,7 @@ const PollBlock = ( props ) => {
 		attributes.pollStatus,
 		attributes.closedAfterDateTime
 	);
+	const showNote = attributes.note || isSelected;
 	const showResults =
 		isClosed && ClosedPollState.SHOW_RESULTS === attributes.closedPollState;
 	const isHidden =
@@ -91,13 +92,16 @@ const PollBlock = ( props ) => {
 						onChange={ handleChangeQuestion }
 						value={ attributes.question }
 					/>
-					<RichText
-						tagName="p"
-						className="wp-block-crowdsignal-forms-poll__note"
-						placeholder={ __( 'Add a note (optional)' ) }
-						onChange={ handleChangeNote }
-						value={ attributes.note }
-					/>
+
+					{ showNote && (
+						<RichText
+							tagName="p"
+							className="wp-block-crowdsignal-forms-poll__note"
+							placeholder={ __( 'Add a note (optional)' ) }
+							onChange={ handleChangeNote }
+							value={ attributes.note }
+						/>
+					) }
 
 					{ ! showResults && <EditAnswers { ...props } /> }
 
