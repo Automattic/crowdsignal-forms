@@ -3,7 +3,6 @@
  */
 import {
 	addAnswer,
-	getNodeBackgroundColor,
 	getFontFamilyFromType,
 	getBlockCssClasses,
 	isPollClosed,
@@ -24,34 +23,6 @@ test( 'addAnswer appends new answer to end of array', () => {
 
 	expect( answers.length ).toEqual( originalAnswers.length + 1 );
 	expect( answers[ answers.length - 1 ].text ).toEqual( 'answer 2' );
-} );
-
-test( 'getNodeBackgroundColor returns parent color if passed in node has a transparent background', () => {
-	const parentBackgroundColor = '#00ff00';
-	const parentNode = document.createElement( 'div' );
-	const node = document.createElement( 'div' );
-	parentNode.appendChild( node );
-
-	window.getComputedStyle = ( nodeToCheck ) => {
-		let backgroundColor = 'rgba(0, 0, 0, 0)';
-
-		if ( nodeToCheck === parentNode ) {
-			backgroundColor = parentBackgroundColor;
-		}
-
-		return { backgroundColor };
-	};
-
-	expect( getNodeBackgroundColor( node ) ).toEqual( parentBackgroundColor );
-} );
-
-test( 'getNodeBackgroundColor returns current node background color if background is not transparent', () => {
-	const backgroundColor = '#00ff00';
-	const node = document.createElement( 'div' );
-
-	window.getComputedStyle = () => ( { backgroundColor } );
-
-	expect( getNodeBackgroundColor( node ) ).toEqual( backgroundColor );
 } );
 
 test( 'getFontFamilyFromType returns proper family when valid value is given', () => {

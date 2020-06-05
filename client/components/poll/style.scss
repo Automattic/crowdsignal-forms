@@ -178,7 +178,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 		animation-duration: 1.5s;
 		animation-iteration-count: infinite;
 		animation-name: crowdsignal-forms-animation__pulse;
-		background-color: #000;
+		background-color: var(--crowdsignal-forms-subtle-text-color);
 		font-size: 0.7em;
 		height: 1em;
 		width: 50px;
@@ -191,7 +191,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 
 .wp-block-crowdsignal-forms-poll__answer-results-progress-track {
 	border: 1px solid;
-	border-color: inherit;
+	border-color: var(--crowdsignal-forms-fallback-text-color);
 	box-sizing: border-box;
 	height: 1em;
 	width: 100%;
@@ -200,17 +200,18 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 		animation-duration: 1.5s;
 		animation-iteration-count: infinite;
 		animation-name: crowdsignal-forms-animation__pulse;
-		border-color: var(--crowdsignal-forms-fallback-text-color);
+		border-color: var(--crowdsignal-forms-subtle-text-color);
 	}
 }
 
 .wp-block-crowdsignal-forms-poll__answer-results-progress-bar {
 	animation-fill-mode: forwards;
-	background-color: #000;
+	background-color: var(--crowdsignal-forms-border-color);
 	height: 100%;
 	transition: background-color 0.3s, width 0.3s;
 
 	.wp-block-crowdsignal-forms-poll__answer-results.is-loading & {
+		background-color: var(--crowdsignal-forms-subtle-text-color);
 		width: 25%;
 	}
 

@@ -14,15 +14,17 @@ import {
 	isPollClosed,
 } from 'blocks/poll/util';
 import { ClosedPollState, ConfirmMessageType } from 'blocks/poll/constants';
+import { withFallbackColors } from 'components/with-fallback-colors';
 import ClosedBanner from './closed-banner';
 import PollResults from './results';
 import PollVote from './vote';
+import { PollColors, getPollColors } from './colors';
 import { maybeAddTemporaryAnswerIds, shuffleWithGenerator } from './util';
 import { __ } from 'lib/i18n';
 import { usePollVote } from 'data/hooks';
 import { CrowdsignalFormsError } from 'data/poll';
 
-const Poll = ( { attributes } ) => {
+const Poll = ( { attributes, fallbackColors, renderColorProbe } ) => {
 	const [ randomAnswerSeed ] = useState( Math.random() );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
 	const { hasVoted, isVoting, vote } = usePollVote();
@@ -86,7 +88,10 @@ const Poll = ( { attributes } ) => {
 	);
 
 	return (
-		<div className={ classes } style={ getStyleVars( attributes, {} ) }>
+		<div
+			className={ classes }
+			style={ getStyleVars( attributes, fallbackColors ) }
+		>
 			<div className="wp-block-crowdsignal-forms-poll__content">
 				<h3 className="wp-block-crowdsignal-forms-poll__question">
 					{ attributes.question }
@@ -134,8 +139,10 @@ const Poll = ( { attributes } ) => {
 			</div>
 
 			{ isClosed && <ClosedBanner /> }
+
+			{ renderColorProbe() }
 		</div>
 	);
 };
 
-export default Poll;
+export default withFallbackColors( PollColors, getPollColors )( Poll );

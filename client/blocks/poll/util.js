@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classNames from 'classnames';
-import { includes } from 'lodash';
+import { includes, kebabCase, mapKeys } from 'lodash';
 
 /**
  * Internal dependencies
@@ -24,28 +24,6 @@ export const addAnswer = ( answers, text ) => [
 	},
 ];
 
-/**
- * Traverses the parent chain of the given node to get a 'best guess' of what the background color is if the provided node has a transparent background.
- * Algorithm for traversing parent chain "borrowed" from https://github.com/WordPress/gutenberg/blob/0c6e369/packages/block-editor/src/components/colors/use-colors.js#L201-L216
- *
- * @param  {Element} backgroundColorNode The element to check for background color
- * @return {string}  The background colour of the node
- */
-export const getNodeBackgroundColor = ( backgroundColorNode ) => {
-	let backgroundColor = window.getComputedStyle( backgroundColorNode )
-		.backgroundColor;
-	while (
-		backgroundColor === 'rgba(0, 0, 0, 0)' &&
-		backgroundColorNode.parentNode &&
-		backgroundColorNode.parentNode.nodeType === window.Node.ELEMENT_NODE
-	) {
-		backgroundColorNode = backgroundColorNode.parentNode;
-		backgroundColor = window.getComputedStyle( backgroundColorNode )
-			.backgroundColor;
-	}
-	return backgroundColor;
-};
-
 export const getFontFamilyFromType = ( type ) => {
 	if ( ! includes( FontFamilyType, type ) ) {
 		return null;
@@ -54,27 +32,22 @@ export const getFontFamilyFromType = ( type ) => {
 	return FontFamilyMap[ type ];
 };
 
-export const getStyleVars = ( attributes, props ) => {
-	return {
-		'--crowdsignal-forms-font-family': getFontFamilyFromType(
-			attributes.fontFamily
-		),
-		'--crowdsignal-forms-text-color': attributes.textColor,
-		'--crowdsignal-forms-bg-color': attributes.backgroundColor,
-		'--crowdsignal-forms-submit-button-text-color':
-			attributes.submitButtonTextColor,
-		'--crowdsignal-forms-submit-button-bg-color':
-			attributes.submitButtonBackgroundColor,
-		'--crowdsignal-forms-border-color':
-			attributes.borderColor ?? props.fallbackSubmitButtonBackgroundColor,
-		'--crowdsignal-forms-border-radius': `${ attributes.borderRadius }px`,
-		'--crowdsignal-forms-border-width': `${ attributes.borderWidth }px`,
-		'--crowdsignal-forms-fallback-bg-color':
-			props.fallbackSubmitButtonBackgroundColor,
-		'--crowdsignal-forms-fallback-text-color':
-			props.fallbackSubmitButtonTextColor,
-	};
-};
+export const getStyleVars = ( attributes, fallbackColors ) =>
+	mapKeys(
+		{
+			borderColor: attributes.borderColor ?? fallbackColors.accent,
+			borderRadius: `${ attributes.borderRadius }px`,
+			borderWidth: `${ attributes.borderWidth }px`,
+			bgColor: attributes.backgroundColor,
+			fontFamily: getFontFamilyFromType( attributes.fontFamily ),
+			submitButtonBgColor: attributes.submitButtonBackgroundColor,
+			submitButtonTextColor: attributes.submitButtonTextColor,
+			subtleTextColor: fallbackColors.textSubtle,
+			textColor: attributes.textColor || fallbackColors.text,
+		},
+		( _, key ) => `--crowdsignal-forms-${ kebabCase( key ) }`
+	);
+
 /**
  * Returns a css 'class' string of overridden styles given a collection of attributes.
  *

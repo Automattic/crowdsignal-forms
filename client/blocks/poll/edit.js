@@ -2,61 +2,36 @@
  * External dependencies
  */
 import React from 'react';
-const { getComputedStyle } = window;
 
 /**
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { withFallbackStyles } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import PollClosedBanner from 'components/poll/closed-banner';
+import { PollColors, getPollColors } from 'components/poll/colors';
 import PollResults from 'components/poll/results';
 import { maybeAddTemporaryAnswerIds } from 'components/poll/util';
+import { withFallbackColors } from 'components/with-fallback-colors';
 import { __ } from 'lib/i18n';
 import { ClosedPollState } from './constants';
 import EditAnswers from './edit-answers';
 import SideBar from './sidebar';
 import Toolbar from './toolbar';
-import {
-	getNodeBackgroundColor,
-	getStyleVars,
-	getBlockCssClasses,
-	isPollClosed,
-} from './util';
-
-/**
- * Retrieves default theme colors as they are when the component is loaded
- */
-const fallbackStyles = withFallbackStyles( ( node ) => {
-	const textNode = node.querySelector(
-		'.wp-block-crowdsignal-forms-poll [contenteditable="true"]'
-	);
-	const buttonNode = node.querySelector(
-		'.wp-block-crowdsignal-forms-poll__actions [contenteditable="true"]'
-	);
-
-	return {
-		fallbackBackgroundColor: ! textNode
-			? undefined
-			: getNodeBackgroundColor( textNode ),
-		fallbackTextColor: ! textNode
-			? undefined
-			: getComputedStyle( textNode ).color,
-		fallbackSubmitButtonBackgroundColor: ! buttonNode
-			? undefined
-			: getNodeBackgroundColor( buttonNode ),
-		fallbackSubmitButtonTextColor: ! buttonNode
-			? undefined
-			: getComputedStyle( buttonNode ).color,
-	};
-} );
+import { getStyleVars, getBlockCssClasses, isPollClosed } from './util';
 
 const PollBlock = ( props ) => {
-	const { attributes, className, isSelected, setAttributes } = props;
+	const {
+		attributes,
+		className,
+		fallbackColors,
+		isSelected,
+		setAttributes,
+		renderColorProbe,
+	} = props;
 
 	const handleChangeQuestion = ( question ) => setAttributes( { question } );
 	const handleChangeNote = ( note ) => setAttributes( { note } );
@@ -82,7 +57,7 @@ const PollBlock = ( props ) => {
 					'is-closed': isClosed,
 					'is-hidden': isHidden,
 				} ) }
-				style={ getStyleVars( attributes, props ) }
+				style={ getStyleVars( attributes, fallbackColors ) }
 			>
 				<div className="wp-block-crowdsignal-forms-poll__content">
 					<RichText
@@ -115,9 +90,11 @@ const PollBlock = ( props ) => {
 				</div>
 
 				{ isClosed && <PollClosedBanner isPollHidden={ isHidden } /> }
+
+				{ renderColorProbe() }
 			</div>
 		</>
 	);
 };
 
-export default fallbackStyles( PollBlock );
+export default withFallbackColors( PollColors, getPollColors )( PollBlock );
