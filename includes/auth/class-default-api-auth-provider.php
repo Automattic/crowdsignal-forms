@@ -69,6 +69,6 @@ class Default_Api_Auth_Provider implements Api_Auth_Provider_Interface {
 				'headers' => array( 'Content-Type' => 'application/json' ),
 			)
 		);
-		return json_decode( $data );
+		return json_decode( $data['body'] );
 	}
 }
