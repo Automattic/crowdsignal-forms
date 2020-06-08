@@ -52,7 +52,7 @@ class Crowdsignal_Forms_Api_Authenticator {
 
 		// No saved user code found. Let's fetch one!
 		$user_id   = wp_get_current_user()->ID;
-		$user_code = $this->auth_provider->get_user_code( $user_id );
+		$user_code = $this->auth_provider->fetch_user_code( $user_id );
 		update_option( self::USER_CODE_META_NAME, $user_code );
 
 		return $user_code;
@@ -64,7 +64,7 @@ class Crowdsignal_Forms_Api_Authenticator {
 	 * @param string $api_key api key.
 	 */
 	public function get_user_code_for_key( $api_key ) {
-		$user_code = $this->auth_provider->get_user_code_for_key( $api_key );
+		$user_code = $this->auth_provider->fetch_user_code_for_key( $api_key );
 		update_option( self::USER_CODE_META_NAME, $user_code );
 	}
 }

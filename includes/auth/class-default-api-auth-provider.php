@@ -21,7 +21,7 @@ class Default_Api_Auth_Provider implements Api_Auth_Provider_Interface {
 	 * @param int $user_id int WordPress User ID.
 	 * @return string Crowdsignal user code
 	 */
-	public function get_user_code( $user_id ) {
+	public function fetch_user_code( $user_id ) {
 		// TODO: Implement get_user_code() method.
 		return '';
 	}
@@ -32,7 +32,7 @@ class Default_Api_Auth_Provider implements Api_Auth_Provider_Interface {
 	 * @param string $api_key Crowdsignal API key.
 	 * @return string Crowdsignal user code or false on error.
 	 */
-	public function get_user_code_for_key( $api_key ) {
+	public function fetch_user_code_for_key( $api_key ) {
 		$curl_data = wp_json_encode(
 			array(
 				'pdAccess' => array(
