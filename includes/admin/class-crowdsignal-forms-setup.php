@@ -8,7 +8,7 @@
 namespace Crowdsignal_Forms\Admin;
 
 use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
-use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
+use Crowdsignal_Forms\Auth;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -62,7 +62,7 @@ class Crowdsignal_Forms_Setup {
 		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 			if ( 2 === $step && isset( $_POST['got_api_key'] ) && isset( $_POST['api_key'] ) && get_option( 'crowdsignal_api_key_secret' ) === $_POST['got_api_key'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
 				$api_key           = sanitize_key( wp_unslash( $_POST['api_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
-				$api_auth_provider = new Crowdsignal_Forms_Api_Authenticator();
+				$api_auth_provider = new \Crowdsignal_Forms_Api_Authenticator();
 				$api_auth_provider->get_user_code_for_key( $api_key );
 				delete_option( 'crowdsignal_api_key_secret' );
 			} else {
@@ -72,7 +72,7 @@ class Crowdsignal_Forms_Setup {
 			update_option( 'crowdsignal_api_key_secret', md5( time() . wp_rand() ) );
 
 			$existing_user_code = 0;
-			$api_auth_provider  = new Crowdsignal_Forms_Api_Authenticator();
+			$api_auth_provider  = new \Crowdsignal_Forms_Api_Authenticator();
 			$api_auth_provider->get_user_code();
 			if ( get_option( 'crowdsignal_user_code' ) ) {
 				$existing_user_code = get_option( 'crowdsignal_user_code' );
