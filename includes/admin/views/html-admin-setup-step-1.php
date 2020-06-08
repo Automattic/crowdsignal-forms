@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wrap crowdsignal-settings-wrap">
 	<form class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/">
 	<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
-	<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'index.php?page=crowdsignal-setup' ) ); ?>" />
+	<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'admin.php?page=crowdsignal-forms-setup' ) ); ?>" />
 	<p class="submit">
 		<input type="submit" value="<?php esc_html_e( 'Connect', 'crowdsignal-forms' ); ?>" class="button button-primary" />
 	</p>
