@@ -57,4 +57,14 @@ class Crowdsignal_Forms_Api_Authenticator {
 
 		return $user_code;
 	}
+
+	/**
+	 * Get the Crowdsignal user code for an API key
+	 *
+	 * @param string $api_key api key.
+	 */
+	public function get_user_code_for_key( $api_key ) {
+		$user_code = $this->auth_provider->get_user_code_for_key( $api_key );
+		update_option( self::USER_CODE_META_NAME, $user_code );
+	}
 }

@@ -7,6 +7,9 @@
 
 namespace Crowdsignal_Forms\Admin;
 
+use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin;
+use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -23,6 +26,13 @@ class Admin_Hooks {
 	private $is_hooked = false;
 
 	/**
+	 * The admin page.
+	 *
+	 * @var Crowdsignal_Forms_Admin
+	 */
+	private $admin;
+
+	/**
 	 * Perform any hooks.
 	 *
 	 * @since 1.0.0
@@ -35,6 +45,9 @@ class Admin_Hooks {
 		}
 		$this->is_hooked = true;
 		// Do any hooks required.
+		if ( is_admin() ) {
+			$this->admin = new Crowdsignal_Forms_Admin();
+		}
 
 		return $this;
 	}

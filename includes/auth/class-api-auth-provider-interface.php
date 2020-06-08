@@ -17,4 +17,12 @@ interface Api_Auth_Provider_Interface {
 	 * @return string Crowdsignal user code
 	 */
 	public function get_user_code( $user_id );
+
+	/**
+	 * Return the user code to be used with the Crowdsignal API
+	 *
+	 * @param string $api_key Crowdsignal api key.
+	 * @return string Crowdsignal user code
+	 */
+	public function get_user_code_for_key( $api_key );
 }
