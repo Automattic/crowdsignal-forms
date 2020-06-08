@@ -57,12 +57,14 @@ class Crowdsignal_Forms_Setup {
 	 * Handle request to the setup page.
 	 */
 	public function setup_page() {
+
+		$api_auth_provider = new \Crowdsignal_Forms_Api_Authenticator();
+
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- got_api_key check later
 		$step = ! empty( $_GET['step'] ) ? absint( $_GET['step'] ) : 1;
 		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 			if ( 2 === $step && isset( $_POST['got_api_key'] ) && isset( $_POST['api_key'] ) && get_option( 'crowdsignal_api_key_secret' ) === $_POST['got_api_key'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
-				$api_key           = sanitize_key( wp_unslash( $_POST['api_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
-				$api_auth_provider = new \Crowdsignal_Forms_Api_Authenticator();
+				$api_key = sanitize_key( wp_unslash( $_POST['api_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
 				$api_auth_provider->get_user_code_for_key( $api_key );
 				delete_option( 'crowdsignal_api_key_secret' );
 			} else {
@@ -72,10 +74,8 @@ class Crowdsignal_Forms_Setup {
 			update_option( 'crowdsignal_api_key_secret', md5( time() . wp_rand() ) );
 
 			$existing_user_code = 0;
-			$api_auth_provider  = new \Crowdsignal_Forms_Api_Authenticator();
-			$api_auth_provider->get_user_code();
-			if ( get_option( 'crowdsignal_user_code' ) ) {
-				$existing_user_code = get_option( 'crowdsignal_user_code' );
+			if ( $api_auth_provider->get_user_code() ) {
+				$existing_user_code = $api_auth_provider->get_user_code();
 			} elseif ( get_option( 'pd-usercode-' . wp_get_current_user()->ID ) ) {
 				$existing_user_code = get_option( 'pd-usercode-' . wp_get_current_user()->ID );
 			} else {
@@ -89,7 +89,9 @@ class Crowdsignal_Forms_Setup {
 			}
 
 			if ( $existing_user_code ) {
-				update_option( 'crowdsignal_user_code', $existing_user_code );
+				if ( $api_auth_provider->get_user_code() !== $existing_user_code ) {
+					$api_auth_provider->set_user_code( $existing_user_code );
+				}
 				$step = 3;
 			}
 		}
