@@ -41,7 +41,6 @@ class Crowdsignal_Forms_Admin {
 	 * Constructor.
 	 */
 	public function __construct() {
-		global $wp_version;
 
 		$this->setup_page    = new Crowdsignal_Forms_Setup();
 		$this->settings_page = new Crowdsignal_Forms_Settings();
