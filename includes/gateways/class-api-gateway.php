@@ -155,7 +155,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 		$request_data = array( 'poll' => $poll->to_array() );
 
 		// Inject "source" property used on the API v3.
-		$request_data['source'] = self::POLL_SOURCE;
+		$request_data['poll']['source'] = self::POLL_SOURCE;
 
 		// Perform the request after injecting the "source" prop.
 		$response = $this->perform_request( $request_method, $endpoint, $request_data );
