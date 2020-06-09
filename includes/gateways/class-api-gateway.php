@@ -207,6 +207,32 @@ class Api_Gateway implements Api_Gateway_Interface {
 	}
 
 	/**
+	 * Get the account capabilities for the user.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Capabilities array|\WP_Error
+	 */
+	public function get_capabilities() {
+		$response = $this->perform_request( 'GET', '/account/capabilities' );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$body          = wp_remote_retrieve_body( $response );
+		$response_data = json_decode( $body, true );
+
+		if ( null === $response_data || ! is_array( $response_data ) ) {
+			if ( isset( $response_data['error'] ) ) {
+				return new \WP_Error( $response_data['error'], $response_data );
+			}
+			return new \WP_Error( 'decode-failed' );
+		}
+
+		return $response_data;
+	}
+
+	/**
 	 * Perform an API Request.
 	 *
 	 * @param string     $method The HTTP Method.

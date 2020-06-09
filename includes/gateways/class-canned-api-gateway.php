@@ -25,7 +25,7 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	 *
 	 * @var string
 	 **/
-	const CANNED_DATA_FILE_PATH = 'tests/canned-data/polls.json';
+	const CANNED_DATA_FILE_PATH = 'tests/canned-data/api-data.json';
 
 	/**
 	 * Did we load the file.
@@ -139,5 +139,22 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	 */
 	public function trash_poll( $id_to_trash ) {
 		return new \WP_Error( 'FIXME' );
+	}
+
+	/**
+	 * Get the account capabilities for the user.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Capabilities array|\WP_Error
+	 */
+	public function get_capabilities() {
+		$file_path = trailingslashit( Crowdsignal_Forms::instance()->get_plugin_dir() ) . self::CANNED_DATA_FILE_PATH;
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$contents = file_exists( $file_path ) ? file_get_contents( $file_path ) : '[]';
+		$data     = json_decode( $contents, true );
+
+		return $data['capabilities'];
 	}
 }

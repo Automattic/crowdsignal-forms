@@ -61,4 +61,13 @@ interface Api_Gateway_Interface {
 	 * @since 1.0.0
 	 */
 	public function trash_poll( $id_to_trash );
+
+	/**
+	 * Get the account capabilities for the user.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Capabilities array|\WP_Error
+	 */
+	public function get_capabilities();
 }

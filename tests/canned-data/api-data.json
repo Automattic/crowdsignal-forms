@@ -1,0 +1,68 @@
+{
+  "polls": [
+	{
+	  "id": 1,
+	  "question": "What is your favorite color?",
+	  "answers": [
+		{
+			"id": 123,
+			"answer_text": "blue",
+			"answer_count": 42
+		},
+		{
+			"id": 1234,
+			"answer_text": "green",
+			"answer_count": 11
+		}
+	  ]
+	},
+	{
+	  "id": 2,
+	  "question": "What is your favorite 80's disco song?",
+	  "answers": [
+		{
+			"id": 321,
+			"answer_text": "Disco was in the 70s!",
+			"answer_count": 42
+		},
+		{
+			"id": 3210,
+			"answer_text": "None of the above.",
+			"answer_count": 11
+		}
+	  ]
+	}
+  ],
+  "capabilities": [
+	  "unlimited-questions",
+	  "device-report",
+	  "unlimited-email-responses",
+	  "custom-style",
+	  "feature-poll",
+	  "feature-rating",
+	  "feature-survey",
+	  "feature-quiz",
+	  "dashboard",
+	  "dashboard-migrate",
+	  "map-domain",
+	  "custom-email-notification-address",
+	  "export-pdf",
+	  "export",
+	  "whitelist-maximum-polls",
+	  "survey-custom-finish",
+	  "ssl",
+	  "email",
+	  "hide-branding",
+	  "survey-custom-url",
+	  "survey-responses",
+	  "filter",
+	  "share",
+	  "poll-reports",
+	  "public-json-polls",
+	  "survey-restrictions",
+	  "poll-results-embed",
+	  "poll-restrictions",
+	  "sync-to-external-services",
+	  "survey-timeout"
+	]
+}

@@ -13,6 +13,7 @@ use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks;
 use Crowdsignal_Forms\Gateways\Api_Gateway_Interface;
 use Crowdsignal_Forms\Gateways\Api_Gateway;
 use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
+use Crowdsignal_Forms\Rest_Api\Controllers\Account_Controller;
 use Crowdsignal_Forms\Admin\Admin_Hooks;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -115,10 +116,11 @@ final class Crowdsignal_Forms {
 	 * @return $this
 	 */
 	public function bootstrap() {
-		$this->blocks                    = new Crowdsignal_Forms_Blocks();
-		$this->blocks_assets             = new Crowdsignal_Forms_Blocks_Assets();
-		$this->rest_api_polls_controller = new Polls_Controller();
-		$this->admin_hooks               = new Admin_Hooks();
+		$this->blocks                      = new Crowdsignal_Forms_Blocks();
+		$this->blocks_assets               = new Crowdsignal_Forms_Blocks_Assets();
+		$this->rest_api_polls_controller   = new Polls_Controller();
+		$this->rest_api_account_controller = new Account_Controller();
+		$this->admin_hooks                 = new Admin_Hooks();
 
 		return $this;
 	}
@@ -148,6 +150,7 @@ final class Crowdsignal_Forms {
 	 */
 	public function register_rest_api_routes() {
 		$this->rest_api_polls_controller->register_routes();
+		$this->rest_api_account_controller->register_routes();
 
 		/**
 		 * Any additional controllers from companion plugins can be registered using this hook.
