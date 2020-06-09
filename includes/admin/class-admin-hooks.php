@@ -45,7 +45,7 @@ class Admin_Hooks {
 		}
 		$this->is_hooked = true;
 		// Do any hooks required.
-		if ( is_admin() ) {
+		if ( is_admin() && apply_filters( 'crowdsignal_forms_show_admin', true ) ) {
 			$this->admin = new Crowdsignal_Forms_Admin();
 
 			// admin page.
