@@ -2,7 +2,8 @@
  * External dependencies
  */
 import { times } from 'lodash';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 /**
  * Internal dependencies
@@ -33,17 +34,36 @@ export const usePollResults = ( pollId ) => {
 
 /**
  * React Hook that returns state variables for voting status and a function to perform a vote.
+ *
+ * @param {number} pollId ID of the poll being loaded.
+ * @param {boolean} enableVoteRestriction sets whether or not the vote cookie is read and set
  */
-export const usePollVote = () => {
+export const usePollVote = ( pollId, enableVoteRestriction = false ) => {
+	const cookieName = `cs-poll-${ pollId }`;
 	const [ isVoting, setIsVoting ] = useState( false );
 	const [ hasVoted, setHasVoted ] = useState( false );
 
-	const vote = async ( pollId, selectedAnswerIds ) => {
+	useEffect( () => {
+		if (
+			enableVoteRestriction &&
+			undefined !== Cookies.get( cookieName )
+		) {
+			setHasVoted( true );
+		}
+	}, [] );
+
+	const vote = async ( selectedAnswerIds ) => {
 		try {
 			const nonce = await requestVoteNonce( pollId );
 			await requestVote( nonce, pollId, selectedAnswerIds );
 
 			setHasVoted( true );
+			if ( enableVoteRestriction ) {
+				Cookies.set( cookieName, new Date().getTime(), {
+					sameSite: 'Strict',
+					expires: 365,
+				} );
+			}
 		} finally {
 			setIsVoting( false );
 		}
