@@ -144,52 +144,6 @@ class Crowdsignal_Forms_Settings {
 				</p>
 			</form>
 		</div>
-		<script type="text/javascript">
-			jQuery('.nav-internal').click(function (e) {
-				e.preventDefault();
-				jQuery('.nav-tab-wrapper a[href="' + jQuery(this).attr('href') + '"]').click();
-
-				return false;
-			});
-
-			jQuery('.nav-tab-wrapper a').click(function() {
-				if ( '#' !== jQuery(this).attr( 'href' ).substr( 0, 1 ) ) {
-					return false;
-				}
-				jQuery('.settings_panel').hide();
-				jQuery('.nav-tab-active').removeClass('nav-tab-active');
-				jQuery( jQuery(this).attr('href') ).show();
-				jQuery(this).addClass('nav-tab-active');
-				window.location.hash = jQuery(this).attr('href');
-				jQuery( 'form.crowdsignal-options' ).attr( 'action', 'options.php' + jQuery(this).attr( 'href' ) );
-				window.scrollTo( 0, 0 );
-				return false;
-			});
-			var goto_hash = window.location.hash;
-			if ( '#' === goto_hash.substr( 0, 1 ) ) {
-				jQuery( 'form.crowdsignal-options' ).attr( 'action', 'options.php' + jQuery(this).attr( 'href' ) );
-			}
-			if ( goto_hash ) {
-				var the_tab = jQuery( 'a[href="' + goto_hash + '"]' );
-				if ( the_tab.length > 0 ) {
-					the_tab.click();
-				} else {
-					jQuery( '.nav-tab-wrapper a:first' ).click();
-				}
-			} else {
-				jQuery( '.nav-tab-wrapper a:first' ).click();
-			}
-
-			jQuery( '.sub-settings-expander' ).on( 'change', function() {
-				var $expandable = jQuery(this).parent().siblings( '.sub-settings-expandable' );
-				var checked = jQuery(this).is( ':checked' );
-				if ( checked ) {
-					$expandable.addClass( 'expanded' );
-				} else {
-					$expandable.removeClass( 'expanded' );
-				}
-			} ).trigger( 'change' );
-		</script>
 		<?php
 	}
 
