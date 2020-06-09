@@ -1,8 +1,9 @@
 /**
  * Internal dependencies
  */
-import EditPollBlock from './edit';
 import { __ } from 'lib/i18n';
+import EditPollBlock from './edit';
+import attributes from './attributes';
 
 export default {
 	title: __( 'Poll' ),
@@ -11,4 +12,5 @@ export default {
 	),
 	category: 'widgets',
 	edit: EditPollBlock,
+	attributes,
 };

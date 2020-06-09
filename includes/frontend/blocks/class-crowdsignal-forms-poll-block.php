@@ -52,6 +52,9 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	/**
 	 * Returns the attributes definition array for register_block_type
 	 *
+	 * Note: Any changes to the array returned by this function need to be
+	 *       duplicated in client/blocks/poll/attributes.js.
+	 *
 	 * @return array
 	 */
 	private function attributes() {
