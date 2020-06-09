@@ -8,7 +8,6 @@
 
 namespace Crowdsignal_Forms\Admin;
 
-use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
 use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Setup;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,7 +34,7 @@ class Crowdsignal_Forms_Admin {
 	 *
 	 * @var Crowdsignal_Admin
 	 */
-	private $setup_page;
+	private $setup_page = null;
 
 	/**
 	 * Constructor.
@@ -44,21 +43,20 @@ class Crowdsignal_Forms_Admin {
 
 		$this->setup_page    = new Crowdsignal_Forms_Setup();
 		$this->settings_page = new Crowdsignal_Forms_Settings();
-		Crowdsignal_Forms_Admin_Notices::init();
-
-		add_action( 'admin_init', array( $this, 'admin_init' ) );
-		add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	/**
 	 * Set up actions during admin initialization.
+	 *
+	 * @todo for future use
 	 */
 	public function admin_init() {
 	}
 
 	/**
 	 * Enqueues CSS and JS assets.
+	 *
+	 * @todo for future use
 	 */
 	public function admin_enqueue_scripts() {
 	}
