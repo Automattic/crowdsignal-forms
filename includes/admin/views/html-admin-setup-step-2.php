@@ -9,4 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<h3><?php esc_html_e( "You're ready to start using Crowdsignal!", 'crowdsignal-forms' ); ?></h3>
+<script type='text/javascript'>
+window.close();
+if (window.opener && !window.opener.closed) {
+	window.opener.location.reload();
+}
+</script>
+<noscript><h3><?php esc_html_e( "You're ready to start using Crowdsignal!", 'crowdsignal-forms' ); ?></h3></noscript>
