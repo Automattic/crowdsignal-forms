@@ -49,6 +49,8 @@ class Crowdsignal_Forms_Setup {
 
 	/**
 	 * Enqueues scripts for setup page.
+	 *
+	 * @todo for future use.
 	 */
 	public function admin_enqueue_scripts() {
 	}
