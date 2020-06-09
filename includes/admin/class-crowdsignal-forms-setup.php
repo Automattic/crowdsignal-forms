@@ -39,8 +39,8 @@ class Crowdsignal_Forms_Setup {
 	 * @param bool $show to show the notice or not.
 	 */
 	public function show_setup_notice( $show ) {
-		// TODO: get usercode through authenticator.
-		if ( get_option( 'crowdsignal_user_code' ) ) {
+		$api_auth_provider = new \Crowdsignal_Forms_Api_Authenticator();
+		if ( $api_auth_provider->get_user_code() ) {
 			return false;
 		} else {
 			return true;
