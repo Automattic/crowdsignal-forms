@@ -39,9 +39,10 @@ const PollAnswer = ( {
 
 			<span className="wp-block-crowdsignal-forms-poll__check" />
 
-			<span className="wp-block-crowdsignal-forms-poll__answer-label">
-				{ text }
-			</span>
+			<span
+				className="wp-block-crowdsignal-forms-poll__answer-label"
+				dangerouslySetInnerHTML={ { __html: text } }
+			/>
 		</label>
 	);
 };

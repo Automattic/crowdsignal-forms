@@ -59,13 +59,13 @@ test( 'getBlockCssClasses does not return font family override if fontFamily is 
 } );
 
 test.each( [
-	[ 'submitButtonBackgroundColor', 'has-custom-submit-button-bg-color' ],
-	[ 'submitButtonTextColor', 'has-custom-submit-button-text-color' ],
-	[ 'backgroundColor', 'has-custom-bg-color' ],
-	[ 'textColor', 'has-custom-text-color' ],
-	[ 'fontFamily', 'has-custom-font-family' ],
-	[ 'borderRadius', 'has-custom-border-radius' ],
-	[ 'hasBoxShadow', 'has-custom-box-shadow' ],
+	[ 'submitButtonBackgroundColor', 'has-submit-button-bg-color' ],
+	[ 'submitButtonTextColor', 'has-submit-button-text-color' ],
+	[ 'backgroundColor', 'has-bg-color' ],
+	[ 'textColor', 'has-text-color' ],
+	[ 'fontFamily', 'has-font-family' ],
+	[ 'borderRadius', 'has-border-radius' ],
+	[ 'hasBoxShadow', 'has-box-shadow' ],
 ] )(
 	'getBlockCssClasses when only %s is provided',
 	( attributeName, associatedClass ) => {

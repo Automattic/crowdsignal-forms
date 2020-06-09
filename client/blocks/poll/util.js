@@ -40,9 +40,10 @@ export const getStyleVars = ( attributes, fallbackColors ) =>
 			borderWidth: `${ attributes.borderWidth }px`,
 			bgColor: attributes.backgroundColor,
 			fontFamily: getFontFamilyFromType( attributes.fontFamily ),
-			submitButtonBgColor: attributes.submitButtonBackgroundColor,
-			submitButtonTextColor: attributes.submitButtonTextColor,
-			subtleTextColor: fallbackColors.textSubtle,
+			submitButtonBgColor:
+				attributes.submitButtonBackgroundColor || fallbackColors.accent,
+			submitButtonTextColor:
+				attributes.submitButtonTextColor || fallbackColors.textInverted,
 			textColor: attributes.textColor || fallbackColors.text,
 		},
 		( _, key ) => `--crowdsignal-forms-${ kebabCase( key ) }`
@@ -57,17 +58,16 @@ export const getStyleVars = ( attributes, fallbackColors ) =>
 export const getBlockCssClasses = ( attributes, ...extraClasses ) => {
 	return classNames(
 		{
-			'has-custom-font-family':
+			'has-font-family':
 				attributes.fontFamily &&
 				FontFamilyType.THEME_DEFAULT !== attributes.fontFamily,
-			'has-custom-bg-color': attributes.backgroundColor,
-			'has-custom-text-color': attributes.textColor,
-			'has-custom-submit-button-bg-color':
+			'has-bg-color': attributes.backgroundColor,
+			'has-text-color': attributes.textColor,
+			'has-submit-button-bg-color':
 				attributes.submitButtonBackgroundColor,
-			'has-custom-submit-button-text-color':
-				attributes.submitButtonTextColor,
-			'has-custom-border-radius': attributes.borderRadius ?? false,
-			'has-custom-box-shadow': attributes.hasBoxShadow,
+			'has-submit-button-text-color': attributes.submitButtonTextColor,
+			'has-border-radius': attributes.borderRadius ?? false,
+			'has-box-shadow': attributes.hasBoxShadow,
 		},
 		extraClasses
 	);

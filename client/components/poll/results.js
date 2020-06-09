@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import classnames from 'classnames';
 import { map, sum, values, zipObject } from 'lodash';
 
 /**
@@ -13,6 +14,13 @@ import PollAnswerResults from './answer-results';
 
 const PollResults = ( { answers, pollId } ) => {
 	const { loading, results: tempResults } = usePollResults( pollId );
+
+	const resultsTotalClasses = classnames(
+		'wp-block-crowdsignal-forms-poll__results-total',
+		{
+			'is-loading': loading,
+		}
+	);
 
 	// Because we're not making a real request yet
 	// we need to inject the answer id's into the response.
@@ -35,6 +43,14 @@ const PollResults = ( { answers, pollId } ) => {
 			</div>
 
 			<div className="wp-block-crowdsignal-forms-poll__results-footer">
+				<span className={ resultsTotalClasses }>
+					{ sprintf(
+						// translators: %s: Number of votes
+						_n( '%s total vote', '%s total votes', total ),
+						total ? total.toLocaleString() : 0
+					) }
+				</span>
+
 				<span className="wp-block-crowdsignal-forms-poll__results-branding">
 					<a
 						className="wp-block-crowdsignal-forms-poll__results-cs-link"
@@ -44,15 +60,6 @@ const PollResults = ( { answers, pollId } ) => {
 					>
 						{ __( 'Create your own poll with Crowdsignal' ) }
 					</a>
-				</span>
-
-				<span className="wp-block-crowdsignal-forms-poll__results-total">
-					{ ! loading &&
-						sprintf(
-							// translators: %s: Number of votes
-							_n( '%s total vote', '%s total votes', total ),
-							total.toLocaleString()
-						) }
 				</span>
 			</div>
 		</>

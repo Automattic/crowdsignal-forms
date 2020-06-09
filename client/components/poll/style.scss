@@ -28,25 +28,43 @@
 	&.is-hidden {
 		opacity: 0.5;
 	}
+
+	&.has-font-family,
+	&.has-font-family .wp-block-crowdsignal-forms-poll__question,
+	&.has-font-family .wp-block-crowdsignal-forms-poll__note {
+		font-family: var(--crowdsignal-forms-font-family);
+	}
+
+	&.has-text-color {
+		color: var(--crowdsignal-forms-text-color);
+	}
+
+	&.has-bg-color {
+		background-color: var(--crowdsignal-forms-bg-color);
+	}
+
+	&.has-border-radius {
+		border-radius: var(--crowdsignal-forms-border-radius);
+	}
+
+	&.has-box-shadow {
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+	}
 }
 
 .wp-block-crowdsignal-forms-poll__submit-button {
 
-	/*
-	 * Hiding submit button (instead of preventing it from rendering in react so
-	 * it is still rendered for fallback style calculation.
-	 *
-	 * See https://github.com/Automattic/crowdsignal-forms/pull/41#discussion_r428830727 for explanation and future solution.
-	 * See c/FS7W2hys-tr in backlog.
-	 */
-	.is-closed & {
-		display: none;
-	}
-
 	&:disabled {
-		opacity: 0.5;
+		opacity: 0.7;
 	}
 
+	.wp-block-crowdsignal-forms-poll.has-submit-button-bg-color &.wp-block-button__link {
+		background-color: var(--crowdsignal-forms-submit-button-bg-color);
+	}
+
+	.wp-block-crowdsignal-forms-poll.has-submit-button-text-color &.wp-block-button__link {
+		color: var(--crowdsignal-forms-submit-button-text-color);
+	}
 }
 
 .wp-block-crowdsignal-forms-poll__answer {
@@ -58,6 +76,10 @@
 	margin: 0 0 16px;
 	padding: 0 2px;
 	position: relative;
+
+	&:hover {
+		color: var(--crowdsignal-forms-submit-button-bg-color);
+	}
 }
 
 input[type="checkbox"].wp-block-crowdsignal-forms-poll__input,
@@ -69,27 +91,64 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 }
 
 .wp-block-crowdsignal-forms-poll__check {
-	align-items: center;
-	border: 1.5px solid;
-	border-radius: 0.5em;
-	display: flex;
+	display: inline-block;
 	height: 1em;
-	justify-content: center;
 	margin: 0 10px 0 0;
+	overflow: hidden;
+	position: relative;
 	width: 1em;
 
-	.wp-block-crowdsignal-forms-poll__answer.is-multiple-choice & {
+	&::before {
+		background-color: transparent;
+		border: 1.5px solid var(--crowdsignal-forms-text-color);
+		border-radius: 50%;
+		content: "";
+		display: block;
+		height: 100%;
+		transition: background-color 0.3s, border-color 0.3s;
+		width: 100%;
+	}
+
+	.wp-block-crowdsignal-forms-poll__answer.is-multiple-choice &::before {
 		border-radius: 3px;
 	}
 
-	.wp-block-crowdsignal-forms-poll__answer.is-selected &::before {
+	.wp-block-crowdsignal-forms-poll__answer.is-multiple-choice.is-selected &::before {
+		border-color: var(--crowdsignal-forms-border-color);
+		background-color: var(--crowdsignal-forms-border-color);
+	}
+
+	.wp-block-crowdsignal-forms-poll__answer.is-selected:not(.is-multiple-choice) &::after {
+		animation-duration: 0.3s;
+		animation-name: crowdsignal-forms-animation__pop;
+		animation-iteration-count: 1;
+		background-clip: padding-box;
+		background-color: var(--crowdsignal-forms-border-color);
+		border: 4.5px solid transparent;
+		border-radius: 50%;
+		box-sizing: border-box;
+		content: "";
+		display: block;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+	}
+
+	.wp-block-crowdsignal-forms-poll__answer.is-selected.is-multiple-choice &::after {
+		border-color: var(--crowdsignal-forms-submit-button-text-color);
 		border-style: solid;
 		border-width: 0 0 2px 2px;
 		content: "";
 		display: block;
-		height: 0.25em;
+		height: 25%;
+		margin: -0.1em 0 0 -0.2em;
+		position: absolute;
+		left: 50%;
+		top: 50%;
 		transform: rotateZ(-45deg);
-		width: 0.5em;
+		width: 50%;
 	}
 }
 
@@ -119,9 +178,14 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 }
 
 .wp-block-crowdsignal-forms-poll__closed-banner {
-	background-color: var(--crowdsignal-forms-fallback-bg-color);
-	text-align: center;
-	color: var(--crowdsignal-forms-fallback-text-color);
+	background-color: var(--crowdsignal-forms-border-color);
+	box-sizing: border-box;
+	display: flex;
+	color: var(--crowdsignal-forms-submit-button-text-color);
+	font-family: $font-sans-serif;
+	justify-content: center;
+	padding: 0.2em 0;
+	width: 100%;
 
 	.is-hidden & {
 		font-style: italic;
@@ -171,6 +235,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 
 .wp-block-crowdsignal-forms-poll__answer-results-votes,
 .wp-block-crowdsignal-forms-poll__answer-results-percent {
+	font-family: $font-sans-serif;
 	margin-left: 20px;
 	transition: opacity 0.3s;
 
@@ -178,7 +243,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 		animation-duration: 1.5s;
 		animation-iteration-count: infinite;
 		animation-name: crowdsignal-forms-animation__pulse;
-		background-color: var(--crowdsignal-forms-subtle-text-color);
+		background-color: var(--crowdsignal-forms-text-color);
 		font-size: 0.7em;
 		height: 1em;
 		width: 50px;
@@ -191,7 +256,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 
 .wp-block-crowdsignal-forms-poll__answer-results-progress-track {
 	border: 1px solid;
-	border-color: var(--crowdsignal-forms-fallback-text-color);
+	border-color: var(--crowdsignal-forms-text-color);
 	box-sizing: border-box;
 	height: 1em;
 	width: 100%;
@@ -200,18 +265,17 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 		animation-duration: 1.5s;
 		animation-iteration-count: infinite;
 		animation-name: crowdsignal-forms-animation__pulse;
-		border-color: var(--crowdsignal-forms-subtle-text-color);
 	}
 }
 
 .wp-block-crowdsignal-forms-poll__answer-results-progress-bar {
 	animation-fill-mode: forwards;
-	background-color: var(--crowdsignal-forms-border-color);
+	background-color: var(--crowdsignal-forms-submit-button-bg-color);
 	height: 100%;
 	transition: background-color 0.3s, width 0.3s;
 
 	.wp-block-crowdsignal-forms-poll__answer-results.is-loading & {
-		background-color: var(--crowdsignal-forms-subtle-text-color);
+		background-color: var(--crowdsignal-forms-text-color);
 		width: 25%;
 	}
 
@@ -234,14 +298,46 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 
 .wp-block-crowdsignal-forms-poll__results-footer {
 	display: flex;
+	flex-direction: column;
 	font-size: 0.9em;
 }
 
-.wp-block-crowdsignal-forms-poll__results-branding {
-	flex: 1;
+.wp-block-crowdsignal-forms-poll__results-total {
+	font-family: $font-sans-serif;
+	position: relative;
+	text-align: right;
+	width: 100%;
+
+	&.is-loading {
+		color: transparent;
+	}
+
+	&.is-loading::before {
+		animation-name: crowdsignal-forms-animation__pulse;
+		animation-duration: 1.5s;
+		animation-iteration-count: infinite;
+		background-color: var(--crowdsignal-forms-text-color);
+		content: "";
+		display: block;
+		position: absolute;
+		right: 0;
+		height: 1em;
+		width: 150px;
+	}
 }
 
-.wp-block-crowdsignal-forms-poll__results-total {
-	margin-left: 20px;
-	text-align: right;
+.wp-block-crowdsignal-forms-poll__results-branding {
+	margin: 1.5em 0 0;
+	width: 100%;
+}
+
+.wp-block-crowdsignal-forms-poll__results-cs-link {
+	font-family: $font-sans-serif;
+	text-decoration: none;
+	text-transform: uppercase;
+
+	&:not(:hover) {
+		color: var(--crowdsignal-forms-text-color);
+		opacity: 0.7;
+	}
 }

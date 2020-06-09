@@ -1,4 +1,9 @@
 /* Editor styles */
+
+.editor-styles-wrapper .wp-block-crowdsignal-forms-poll__answer {
+	cursor: text;
+}
+
 .wp-block-crowdsignal-forms__redirect-url input[type="text"] {
 	width: 100%;
 }
