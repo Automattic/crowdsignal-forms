@@ -16,5 +16,13 @@ interface Api_Auth_Provider_Interface {
 	 * @param int $user_id WordPress User ID.
 	 * @return string Crowdsignal user code
 	 */
-	public function get_user_code( $user_id );
+	public function fetch_user_code( $user_id );
+
+	/**
+	 * Return the user code to be used with the Crowdsignal API
+	 *
+	 * @param string $api_key Crowdsignal api key.
+	 * @return string Crowdsignal user code
+	 */
+	public function fetch_user_code_for_key( $api_key );
 }

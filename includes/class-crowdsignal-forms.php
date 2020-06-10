@@ -15,6 +15,8 @@ use Crowdsignal_Forms\Gateways\Api_Gateway;
 use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
 use Crowdsignal_Forms\Rest_Api\Controllers\Account_Controller;
 use Crowdsignal_Forms\Admin\Admin_Hooks;
+use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin;
+use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -70,6 +72,13 @@ final class Crowdsignal_Forms {
 	private $api_gateway;
 
 	/**
+	 * The admin page.
+	 *
+	 * @var Crowdsignal_Admin
+	 */
+	private $admin;
+
+	/**
 	 * The admin hooks instance.
 	 *
 	 * @var Admin_Hooks
@@ -86,6 +95,7 @@ final class Crowdsignal_Forms {
 		$this->plugin_url = untrailingslashit( plugins_url( '', CROWDSIGNAL_FORMS_PLUGIN_BASENAME ) );
 
 		register_deactivation_hook( CROWDSIGNAL_FORMS_PLUGIN_FILE, array( $this, 'deactivation' ) );
+		register_activation_hook( CROWDSIGNAL_FORMS_PLUGIN_FILE, array( $this, 'activate' ) );
 	}
 
 	/**
@@ -98,6 +108,15 @@ final class Crowdsignal_Forms {
 			self::$instance = new self();
 		}
 		return self::$instance;
+	}
+
+	/**
+	 * Run when plugin is activated
+	 *
+	 * @since 1.0.0
+	 */
+	public function activate() {
+		Crowdsignal_Forms_Admin_Notices::add_notice( Crowdsignal_Forms_Admin_Notices::NOTICE_CORE_SETUP );
 	}
 
 	/**
