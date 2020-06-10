@@ -94,8 +94,22 @@ const SideBar = ( {
 		submitButtonBackgroundColor
 	) => setAttributes( { submitButtonBackgroundColor } );
 
-	const handleChangePollStatus = ( pollStatus ) =>
-		includes( PollStatus, pollStatus ) && setAttributes( { pollStatus } );
+	const handleChangePollStatus = ( pollStatus ) => {
+		if ( ! includes( PollStatus, pollStatus ) ) {
+			return;
+		}
+
+		// closedAfterDateTime MUST be set when pollStatus is set to CLOSED_AFTER
+		setAttributes( {
+			closedAfterDateTime:
+				pollStatus === PollStatus.CLOSED_AFTER
+					? new Date(
+							new Date().getTime() + 24 * 60 * 60 * 1000
+					  ).toISOString()
+					: null,
+			pollStatus,
+		} );
+	};
 
 	const handleChangeClosedPollState = ( closedPollState ) =>
 		includes( ClosedPollState, closedPollState ) &&
@@ -112,10 +126,10 @@ const SideBar = ( {
 
 	return (
 		<InspectorControls>
-			<PanelBody title={ __( 'Data Settings' ) }>
+			<PanelBody title={ __( 'Data Settings' ) } initialOpen={ true }>
 				<p>
-					{ __( 'Manage and view the poll results on: ' ) }
-					<ExternalLink href="https://www.crowdsignal.com">
+					{ __( 'Manage results on: ' ) }
+					<ExternalLink href="https://app.crowdsignal.com/polls/null/results">
 						crowdsignal.com
 					</ExternalLink>
 				</p>
@@ -135,17 +149,11 @@ const SideBar = ( {
 					label={ __( 'Title of the Poll Block' ) }
 					onChange={ handleChangeTitle }
 				/>
-
-				<p className="wp-block-crowdsignal-forms__more-info-link">
-					<ExternalLink
-						href="http://www.crowdsignal.com"
-						className="wp-block-crowdsiglan-forms__more-info-link-text"
-					>
-						{ __( 'What is Crowdsignal?' ) }
-					</ExternalLink>
-				</p>
 			</PanelBody>
-			<PanelBody title={ __( 'Confirmation Message' ) }>
+			<PanelBody
+				title={ __( 'Confirmation Message' ) }
+				initialOpen={ false }
+			>
 				<SelectControl
 					value={ attributes.confirmMessageType }
 					label={ __( 'On Submission' ) }
@@ -190,7 +198,7 @@ const SideBar = ( {
 					/>
 				) }
 			</PanelBody>
-			<PanelBody title={ __( 'Poll Status' ) }>
+			<PanelBody title={ __( 'Poll Status' ) } initialOpen={ false }>
 				<SelectControl
 					value={ attributes.pollStatus }
 					label={ __( 'Currently' ) }
@@ -347,7 +355,7 @@ const SideBar = ( {
 			</PanelColorSettings>
 			<PanelColorSettings
 				title={ __( 'Button Styling' ) }
-				initialOpen={ false }
+				initialOpen={ true }
 				colorSettings={ [
 					{
 						value: attributes.submitButtonTextColor,
@@ -370,7 +378,7 @@ const SideBar = ( {
 					fallbackTextColor={ fallbackSubmitButtonTextColor }
 				/>
 			</PanelColorSettings>
-			<PanelBody title={ __( 'Answer Settings' ) }>
+			<PanelBody title={ __( 'Answer Settings' ) } initialOpen={ false }>
 				<CheckboxControl
 					checked={ attributes.hasOneResponsePerComputer }
 					label={ __( 'One Response Per Computer' ) }
