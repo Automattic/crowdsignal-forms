@@ -66,6 +66,7 @@ const PollBlock = ( props ) => {
 						placeholder={ __( 'Enter your question' ) }
 						onChange={ handleChangeQuestion }
 						value={ attributes.question }
+						allowedFormats={ [] }
 					/>
 
 					{ showNote && (
@@ -75,6 +76,7 @@ const PollBlock = ( props ) => {
 							placeholder={ __( 'Add a note (optional)' ) }
 							onChange={ handleChangeNote }
 							value={ attributes.note }
+							allowedFormats={ [] }
 						/>
 					) }
 

@@ -52,6 +52,7 @@ const EditAnswer = ( {
 				onReplace={ noop }
 				onRemove={ handleDelete }
 				value={ answer.text }
+				allowedFormats={ [] }
 				withoutInteractiveFormatting
 			/>
 		</div>

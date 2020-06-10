@@ -98,6 +98,7 @@ const EditAnswers = ( { attributes, isSelected, setAttributes } ) => {
 						className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
 						onChange={ handleChangeSubmitButtonLabel }
 						value={ attributes.submitButtonLabel }
+						allowedFormats={ [] }
 					/>
 				</div>
 			</div>
