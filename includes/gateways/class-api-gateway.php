@@ -65,7 +65,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 		$body          = wp_remote_retrieve_body( $response );
 		$response_data = json_decode( $body, true );
 
-		if ( null === $response_data || ! isset( $response_data['poll'] ) ) {
+		if ( ! $this->is_poll_response_valid( $response_data ) ) {
 			if ( isset( $response_data['error'] ) ) {
 				return new \WP_Error( $response_data['error'], $response_data );
 			}
@@ -93,7 +93,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 		$body          = wp_remote_retrieve_body( $response );
 		$response_data = json_decode( $body, true );
 
-		if ( null === $response_data || ! isset( $response_data['poll'] ) ) {
+		if ( ! $this->is_poll_response_valid( $response_data ) ) {
 			if ( isset( $response_data['error'] ) ) {
 				return new \WP_Error( $response_data['error'], $response_data );
 			}
@@ -126,14 +126,29 @@ class Api_Gateway implements Api_Gateway_Interface {
 	}
 
 	/**
-	 * Call the api to trash a poll.
+	 * Call the api to archive a poll.
 	 *
-	 * @param int $id_to_trash The poll id to trash.
+	 * @param int $id_to_archive The poll id to move to the archive.
 	 * @return Poll|\WP_Error
 	 * @since 1.0.0
 	 */
-	public function trash_poll( $id_to_trash ) {
-		return new \WP_Error( 'FIXME' );
+	public function archive_poll( $id_to_archive ) {
+		$response = $this->perform_request( 'POST', '/polls/' . $id_to_archive . '/archive' );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$body          = wp_remote_retrieve_body( $response );
+		$response_data = json_decode( $body, true );
+
+		if ( ! $this->is_poll_response_valid( $response_data ) ) {
+			if ( isset( $response_data['error'] ) ) {
+				return new \WP_Error( $response_data['error'], $response_data );
+			}
+			return new \WP_Error( 'decode-failed' );
+		}
+
+		return Poll::from_array( $response_data['poll'] );
 	}
 
 	/**
@@ -173,7 +188,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 		$body          = wp_remote_retrieve_body( $response );
 		$response_data = json_decode( $body, true );
 
-		if ( null === $response_data || ! isset( $response_data['poll'] ) ) {
+		if ( ! $this->is_poll_response_valid( $response_data ) ) {
 			if ( isset( $response_data['error'] ) ) {
 				$wp_error = new \WP_Error( $response_data['error'], $response_data );
 				$this->log_webservice_event(
@@ -298,5 +313,17 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 */
 	private function log_webservice_event( $name, $data = array() ) {
 		do_action( 'crowdsignal_forms_log_webservice_event', $name, $data );
+	}
+
+	/**
+	 * Checks if an api response contains a poll object.
+	 *
+	 * @param array $response The event name.
+	 *
+	 * @since 1.0.0
+	 * @return boolean
+	 */
+	private function is_poll_response_valid( $response ) {
+		return null !== $response && isset( $response['poll'] );
 	}
 }

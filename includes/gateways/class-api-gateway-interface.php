@@ -54,13 +54,13 @@ interface Api_Gateway_Interface {
 	public function update_poll( Poll $poll);
 
 	/**
-	 * Call the api to trash a poll.
+	 * Call the api to archive a poll.
 	 *
-	 * @param int $id_to_trash The poll id to trash.
+	 * @param int $id_to_archive The poll id to move to the archive.
 	 * @return Poll|\WP_Error
 	 * @since 1.0.0
 	 */
-	public function trash_poll( $id_to_trash );
+	public function archive_poll( $id_to_archive );
 
 	/**
 	 * Get the account capabilities for the user.

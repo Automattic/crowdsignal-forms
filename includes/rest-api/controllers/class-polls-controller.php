@@ -104,6 +104,18 @@ class Polls_Controller {
 				),
 			)
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/(?P<poll_id>\d+)/archive',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'archive_poll' ),
+					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
+				),
+			)
+		);
 	}
 
 	/**
@@ -145,6 +157,31 @@ class Polls_Controller {
 		}
 
 		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->update_poll( $poll );
+		if ( is_wp_error( $resulting_poll ) ) {
+			return $resulting_poll;
+		}
+
+		return rest_ensure_response( $resulting_poll->to_array() );
+	}
+
+	/**
+	 * Archive a poll (Moves poll to the archive folder, does not delete).
+	 *
+	 * @param \WP_REST_Request $request The API Request.
+	 * @return \WP_REST_Response|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function archive_poll( \WP_REST_Request $request ) {
+		$poll_id = $request->get_param( 'poll_id' );
+		if ( ! isset( $poll_id ) ) {
+			return new \WP_Error(
+				'no-poll-id',
+				__( 'No Poll ID was provided.', 'crowdsignal-forms' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->archive_poll( $poll_id );
 		if ( is_wp_error( $resulting_poll ) ) {
 			return $resulting_poll;
 		}

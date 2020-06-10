@@ -161,4 +161,34 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
 		$this->assertTrue( 200 === $response->get_status() );
 	}
+
+	/**
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::archive_poll
+	 *
+	 * @since 1.0.0
+	 */
+	public function test_archive_poll_400_when_incorrect_user_perms() {
+		$this->login_as_default_user();
+		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
+		$request = new \WP_REST_Request( 'POST', '/crowdsignal-forms/v1/polls/1/archive' );
+
+		$response = $this->server->dispatch( $request );
+		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
+		$this->assertTrue( $response->get_status() === 401 );
+	}
+
+	/**
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::archive_poll
+	 *
+	 * @since 1.0.0
+	 */
+	public function test_archive_poll_succeeded() {
+		$this->login_as_editor();
+		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
+		$request = new \WP_REST_Request( 'POST', '/crowdsignal-forms/v1/polls/1/archive' );
+		$request->set_param( 'poll_id',  1 );
+		$response = $this->server->dispatch( $request );
+		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
+		$this->assertTrue( 200 === $response->get_status() );
+	}
 }

@@ -131,14 +131,17 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	}
 
 	/**
-	 * Call the api to trash a poll.
+	 * Call the api to archive a poll.
 	 *
-	 * @param int $id_to_trash The poll id to trash.
+	 * @param int $id_to_archive The poll id to move to the archive.
 	 * @return Poll|\WP_Error
 	 * @since 1.0.0
 	 */
-	public function trash_poll( $id_to_trash ) {
-		return new \WP_Error( 'FIXME' );
+	public function archive_poll( $id_to_archive ) {
+		// The endpoint just returns the poll object and a 200 if it succeeds.
+		// We'll just simulate that here.
+
+		return $this->get_poll( $id_to_archive );
 	}
 
 	/**
