@@ -7,6 +7,10 @@
 
 	h3.wp-block-crowdsignal-forms-poll__question {
 		margin: 0 0 28px;
+
+		&:first-child {
+			margin-top: 0;
+		}
 	}
 
 	p.wp-block-crowdsignal-forms-poll__note {
@@ -102,6 +106,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 		background-color: transparent;
 		border: 1.5px solid var(--crowdsignal-forms-text-color);
 		border-radius: 50%;
+		box-sizing: border-box;
 		content: "";
 		display: block;
 		height: 100%;
@@ -140,6 +145,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 		border-color: var(--crowdsignal-forms-submit-button-text-color);
 		border-style: solid;
 		border-width: 0 0 2px 2px;
+		box-sizing: border-box;
 		content: "";
 		display: block;
 		height: 25%;

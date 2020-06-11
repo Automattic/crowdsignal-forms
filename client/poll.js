@@ -10,7 +10,7 @@ import { forEach } from 'lodash';
  */
 import Poll from 'components/poll';
 
-window.addEventListener( 'load', () =>
+const initPolls = () =>
 	forEach(
 		document.querySelectorAll( 'div[data-crowdsignal-poll]' ),
 		( element ) => {
@@ -32,5 +32,18 @@ window.addEventListener( 'load', () =>
 				);
 			}
 		}
-	)
-);
+	);
+
+window.addEventListener( 'load', () => {
+	const observer = new window.MutationObserver( initPolls );
+
+	observer.observe( document.body, {
+		attributes: true,
+		attributeFilter: [ 'data-crowdsignal-poll' ],
+		childList: true,
+		subtree: true,
+	} );
+
+	// Run the first pass on load
+	initPolls();
+} );

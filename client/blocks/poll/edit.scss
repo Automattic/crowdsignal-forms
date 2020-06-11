@@ -1,30 +1,33 @@
 /* Editor styles */
 
-.editor-styles-wrapper .wp-block-crowdsignal-forms-poll__answer {
-	cursor: text;
-}
+.editor-styles-wrapper {
 
-.wp-block-crowdsignal-forms__redirect-url input[type="text"] {
-	width: 100%;
-}
+	.wp-block-crowdsignal-forms-poll__answer {
+		cursor: text;
+	}
 
-.wp-block-crowdsignal-forms__redirect-url__suggestions {
-	width: 260px;
-}
+	.wp-block-crowdsignal-forms__redirect-url input[type="text"] {
+		width: 100%;
+	}
 
-.wp-block-crowdsignal-forms__more-info-link {
-	text-align: right;
-}
+	.wp-block-crowdsignal-forms__redirect-url__suggestions {
+		width: 260px;
+	}
 
-.wp-block-crowdsignal-forms__more-info-link-text {
-	color: rgb(159, 164, 169);
-}
+	.wp-block-crowdsignal-forms__more-info-link {
+		text-align: right;
+	}
 
-.wp-block-crowdsignal-forms__row {
-	display: flex;
-	flex-direction: row;
-}
+	.wp-block-crowdsignal-forms__more-info-link-text {
+		color: rgb(159, 164, 169);
+	}
 
-.wp-block-crowdsignal-forms__small-text-input input {
-	width: 40px;
+	.wp-block-crowdsignal-forms__row {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.wp-block-crowdsignal-forms__small-text-input input {
+		width: 40px;
+	}
 }
