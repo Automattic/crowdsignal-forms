@@ -6,7 +6,7 @@
  * @since   1.0.0
  */
 
-use \Crowdsignal_Forms\Auth\Default_Api_Auth_Provider;
+namespace Crowdsignal_Forms\Auth;
 
 /**
  * Class Crowdsignal_Forms_Api_Authenticator
