@@ -8,7 +8,7 @@
 namespace Crowdsignal_Forms\Admin;
 
 use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
-use Crowdsignal_Forms\Auth;
+use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -39,7 +39,7 @@ class Crowdsignal_Forms_Setup {
 	 * @param bool $show to show the notice or not.
 	 */
 	public function show_setup_notice( $show ) {
-		$api_auth_provider = new \Crowdsignal_Forms_Api_Authenticator();
+		$api_auth_provider = new Crowdsignal_Forms_Api_Authenticator();
 		if ( $api_auth_provider->get_user_code() ) {
 			return false;
 		} else {
@@ -60,7 +60,7 @@ class Crowdsignal_Forms_Setup {
 	 */
 	public function setup_page() {
 
-		$api_auth_provider = new \Crowdsignal_Forms_Api_Authenticator();
+		$api_auth_provider = new Crowdsignal_Forms_Api_Authenticator();
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- got_api_key check later
 		$step = ! empty( $_GET['step'] ) ? absint( $_GET['step'] ) : 1;
