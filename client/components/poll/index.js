@@ -25,21 +25,14 @@ import { usePollVote } from 'data/hooks';
 import { CrowdsignalFormsError } from 'data/poll';
 
 const Poll = ( { attributes, fallbackColors, renderColorProbe } ) => {
-	// temporary hard-code for testing ( 1 / 2 )
-	const pollId = 10507885; // attributes.pollId
-	// end temp
 	const [ randomAnswerSeed ] = useState( Math.random() );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
 	const { hasVoted, isVoting, vote } = usePollVote(
-		pollId,
+		attributes.pollId,
 		attributes.hasOneResponsePerComputer
 	);
 
 	const handleSubmit = async ( selectedAnswerIds ) => {
-		// temporary hard-codes for testing ( 2 / 2 )
-		selectedAnswerIds = [ 48608813 ];
-		// END temp
-
 		try {
 			setErrorMessage( '' );
 
