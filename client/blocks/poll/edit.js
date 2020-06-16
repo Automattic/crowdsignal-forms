@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import { map } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -22,6 +23,7 @@ import EditAnswers from './edit-answers';
 import SideBar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars, getBlockCssClasses, isPollClosed } from './util';
+import { useCrowdsignalPoll } from './hooks';
 
 const PollBlock = ( props ) => {
 	const {
@@ -33,8 +35,40 @@ const PollBlock = ( props ) => {
 		renderColorProbe,
 	} = props;
 
-	const handleChangeQuestion = ( question ) => setAttributes( { question } );
-	const handleChangeNote = ( note ) => setAttributes( { note } );
+	const { setOutboundChanges, maybeSyncQueuedChanges } = useCrowdsignalPoll(
+		attributes,
+		{
+			onSyncComplete: ( response, currentAttributes ) => {
+				const { answers } = currentAttributes;
+				const answersWithIds = response.answers
+					? map( answers, ( answer, i ) => {
+							const newAnswer = { ...answer };
+							if ( response.answers[ i ] ) {
+								newAnswer.answerId = response.answers[ i ].id;
+							}
+							return newAnswer;
+					  } )
+					: answers;
+
+				const attrsToSet = { answers: answersWithIds };
+				if ( ! currentAttributes.pollId ) {
+					attrsToSet.pollId = response.id;
+				}
+				setAttributes( attrsToSet );
+			},
+		}
+	);
+
+	maybeSyncQueuedChanges( attributes );
+
+	const setAttributesAndFlagChange = ( attrs ) => {
+		setOutboundChanges( ( n ) => n + 1 );
+		setAttributes( attrs );
+	};
+
+	const handleChangeQuestion = ( question ) =>
+		setAttributesAndFlagChange( { question } );
+	const handleChangeNote = ( note ) => setAttributesAndFlagChange( { note } );
 
 	const isClosed = isPollClosed(
 		attributes.pollStatus,
@@ -80,7 +114,14 @@ const PollBlock = ( props ) => {
 						/>
 					) }
 
-					{ ! showResults && <EditAnswers { ...props } /> }
+					{ ! showResults && (
+						<EditAnswers
+							{ ...props }
+							setAttributesAndFlagChange={
+								setAttributesAndFlagChange
+							}
+						/>
+					) }
 
 					{ showResults && (
 						<PollResults

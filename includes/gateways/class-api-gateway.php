@@ -208,7 +208,13 @@ class Api_Gateway implements Api_Gateway_Interface {
 				)
 			);
 
-			return new \WP_Error( 'decode-failed' );
+			return new \WP_Error(
+				'decode-failed',
+				array(
+					'error' => 'decode-failed',
+					'body'  => $body,
+				)
+			);
 		}
 
 		$this->log_webservice_event(

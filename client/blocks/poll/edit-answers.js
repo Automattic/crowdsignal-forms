@@ -20,14 +20,19 @@ const shiftAnswerFocus = ( wrapper, index ) =>
 		( answer ) => answer && answer.focus()
 	);
 
-const EditAnswers = ( { attributes, isSelected, setAttributes } ) => {
+const EditAnswers = ( {
+	attributes,
+	isSelected,
+	setAttributes,
+	setAttributesAndFlagChange,
+} ) => {
 	const answersContainer = useRef();
 
 	const handleChangeSubmitButtonLabel = ( submitButtonLabel ) =>
 		setAttributes( { submitButtonLabel } );
 
 	const handleChangeAnswer = ( index, answer ) =>
-		setAttributes( {
+		setAttributesAndFlagChange( {
 			answers: tap( [ ...attributes.answers ], ( answers ) => {
 				answers[ index ] = answer;
 			} ),
@@ -35,7 +40,7 @@ const EditAnswers = ( { attributes, isSelected, setAttributes } ) => {
 
 	const handleDeleteAnswer = ( index ) => {
 		shiftAnswerFocus( answersContainer.current, Math.max( index - 1, 0 ) );
-		setAttributes( {
+		setAttributesAndFlagChange( {
 			answers: filter(
 				attributes.answers,
 				( answer ) =>
@@ -47,7 +52,7 @@ const EditAnswers = ( { attributes, isSelected, setAttributes } ) => {
 
 	const handleNewAnswer = ( insertAt ) => {
 		if ( insertAt < attributes.answers.length ) {
-			setAttributes( {
+			setAttributesAndFlagChange( {
 				answers: [
 					...slice( attributes.answers, 0, insertAt ),
 					{},

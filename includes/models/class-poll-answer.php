@@ -69,7 +69,15 @@ class Poll_Answer {
 	 * @return array
 	 */
 	public function to_array( $context = 'view' ) {
-		return (array) get_object_vars( $this );
+		$data = array(
+			'answer_text' => $this->answer_text,
+		);
+
+		if ( $this->get_id() > 0 ) {
+			$data['id'] = $this->get_id();
+		}
+
+		return $data;
 	}
 
 	/**

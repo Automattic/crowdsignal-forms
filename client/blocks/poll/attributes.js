@@ -16,7 +16,7 @@ import { __ } from 'lib/i18n';
  */
 export default {
 	pollId: {
-		type: 'string',
+		type: 'number',
 		default: null,
 	},
 	isMultipleChoice: {
@@ -42,7 +42,7 @@ export default {
 			type: 'object',
 			properties: {
 				answerId: {
-					type: 'string',
+					type: 'number',
 					default: null,
 				},
 				text: {
