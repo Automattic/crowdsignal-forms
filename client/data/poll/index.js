@@ -1,17 +1,40 @@
 /**
  * External dependencies
  */
-const { fetch } = window;
+import { fromPairs, map } from 'lodash';
+
+/**
+ * WordPress dependencies
+ */
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * Internal dependencies
  */
 import { __ } from 'lib/i18n';
 
+/**
+ * Fetch the poll results for the given pollId
+ *
+ * @param  {number}  pollId Poll ID.
+ * @return {Promise}        Promise that resolves to a key-value object with answer IDs and vote counts.
+ */
+export const requestResults = async ( pollId ) =>
+	apiFetch( {
+		path: `/crowdsignal-forms/v1/polls/${ pollId }/results`,
+	} ).then( ( response ) =>
+		fromPairs(
+			map( response.answers, ( answer ) => [
+				answer.id,
+				parseInt( answer.answer_count, 10 ) || 0,
+			] )
+		)
+	);
+
 export const requestVoteNonce = async ( pollId ) => {
 	const hash = '5430eeac3911395001d731d9702fc38b'; // hash not used when format=json is passed
 	const timestamp = new Date().getTime();
-	const respNonce = await fetch(
+	const respNonce = await window.fetch(
 		`https://polldaddy.com/n/${ hash }/${ pollId }?${ timestamp }&format=json`
 	);
 	if ( ! respNonce.ok ) {
@@ -29,7 +52,7 @@ export const requestVoteNonce = async ( pollId ) => {
 
 export const requestVote = async ( nonce, pollId, selectedAnswerIds ) => {
 	const answerString = selectedAnswerIds.join( ',' );
-	const respVote = await fetch(
+	const respVote = await window.fetch(
 		`https://polls.polldaddy.com/vote-js.php?p=${ pollId }&b=1&a=${ answerString }&o=&va=16&cookie=0&n=${ nonce }&url=${ encodeURI(
 			window.location
 		) }&format=json`

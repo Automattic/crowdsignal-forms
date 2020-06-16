@@ -1,29 +1,19 @@
 /**
  * External dependencies
  */
-import { times } from 'lodash';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
 /**
  * Internal dependencies
  */
-import { useFetch } from './util.js';
-import { requestVoteNonce, requestVote } from 'data/poll/index.js';
+import { requestResults, requestVoteNonce, requestVote } from 'data/poll';
+import { useFetch } from './util';
 
 export const usePollResults = ( pollId ) => {
-	const { data, error, loading } = useFetch( () => {
-		// This would be an API fetch call but we're faking it for demonstration purposes
-		return new Promise( ( resolve ) => {
-			setTimeout(
-				() =>
-					resolve(
-						times( 10, () => 300 ) // Return 10 entries with 300 votes each
-					),
-				1500
-			);
-		} );
-	}, [ pollId ] );
+	const { data, error, loading } = useFetch( () => requestResults( pollId ), [
+		pollId,
+	] );
 
 	return {
 		error,

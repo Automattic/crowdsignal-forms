@@ -131,6 +131,7 @@ const Poll = ( { attributes, fallbackColors, renderColorProbe } ) => {
 
 				{ showResults && (
 					<PollResults
+						pollId={ attributes.pollId }
 						answers={ maybeAddTemporaryAnswerIds( answers ) }
 					/>
 				) }

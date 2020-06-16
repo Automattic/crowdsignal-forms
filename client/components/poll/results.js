@@ -2,8 +2,9 @@
  * External dependencies
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { map, sum, values, zipObject } from 'lodash';
+import { map, sum, values } from 'lodash';
 
 /**
  * Internal dependencies
@@ -13,37 +14,41 @@ import { __, _n, sprintf } from 'lib/i18n';
 import PollAnswerResults from './answer-results';
 
 const PollResults = ( { answers, pollId } ) => {
-	const { loading, results: tempResults } = usePollResults( pollId );
+	const { error, loading, results } = usePollResults( pollId );
 
-	const resultsTotalClasses = classnames(
-		'wp-block-crowdsignal-forms-poll__results-total',
-		{
-			'is-loading': loading,
-		}
-	);
-
-	// Because we're not making a real request yet
-	// we need to inject the answer id's into the response.
-	const results = zipObject( map( answers, 'answerId' ), tempResults || {} );
+	const classes = classnames( 'wp-block-crowdsignal-forms-poll__results', {
+		'is-error': !! error,
+		'is-loading': loading,
+	} );
 
 	const total = sum( values( results ) );
 
 	return (
-		<>
-			<div className="wp-block-crowdsignal-forms-poll__results">
+		<div className={ classes }>
+			<div className="wp-block-crowdsignal-forms-poll__results-list">
 				{ map( answers, ( answer ) => (
 					<PollAnswerResults
 						key={ answer.answerId }
+						error={ !! error }
 						loading={ loading }
-						share={ ( results[ answer.answerId ] * 100 ) / total }
 						text={ answer.text }
-						votes={ results[ answer.answerId ] }
+						totalVotes={ total }
+						votes={ results ? results[ answer.answerId ] : 0 }
 					/>
 				) ) }
 			</div>
 
+			{ error && (
+				<div className="wp-block-crowdsignal-forms-poll__results-error">
+					{ __(
+						`Unfortunately, we're having some trouble retrieving ` +
+							`the results for this poll at this time.`
+					) }
+				</div>
+			) }
+
 			<div className="wp-block-crowdsignal-forms-poll__results-footer">
-				<span className={ resultsTotalClasses }>
+				<span className="wp-block-crowdsignal-forms-poll__results-total">
 					{ sprintf(
 						// translators: %s: Number of votes
 						_n( '%s total vote', '%s total votes', total ),
@@ -62,8 +67,18 @@ const PollResults = ( { answers, pollId } ) => {
 					</a>
 				</span>
 			</div>
-		</>
+		</div>
 	);
+};
+
+PollResults.propTypes = {
+	pollId: PropTypes.number.isRequired,
+	answers: PropTypes.arrayOf(
+		PropTypes.shape( {
+			answerId: PropTypes.number.isRequired,
+			text: PropTypes.string,
+		} )
+	).isRequired,
 };
 
 export default PollResults;

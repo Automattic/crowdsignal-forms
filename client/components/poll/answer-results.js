@@ -10,16 +10,21 @@ import classnames from 'classnames';
  */
 import { _n, sprintf } from 'lib/i18n';
 
-const PollAnswerResults = ( { loading, share, text, votes } ) => {
+const PollAnswerResults = ( { error, loading, text, totalVotes, votes } ) => {
 	const classes = classnames(
 		'wp-block-crowdsignal-forms-poll__answer-results',
 		{
+			'is-error': error,
 			'is-loading': loading,
 		}
 	);
 
+	const showResults = ! loading && ! error;
+
+	const answerShare = ( votes * 100 ) / totalVotes;
+
 	const progressBarStyles = {
-		width: `${ parseInt( share, 10 ) }%`,
+		width: `${ parseInt( answerShare, 10 ) }%`,
 	};
 
 	return (
@@ -30,7 +35,7 @@ const PollAnswerResults = ( { loading, share, text, votes } ) => {
 				</span>
 
 				<span className="wp-block-crowdsignal-forms-poll__answer-results-votes">
-					{ ! loading &&
+					{ showResults &&
 						sprintf(
 							// translators: %s: Number of votes.
 							_n( '%s vote', '%s votes', votes ),
@@ -39,7 +44,7 @@ const PollAnswerResults = ( { loading, share, text, votes } ) => {
 				</span>
 
 				<span className="wp-block-crowdsignal-forms-poll__answer-results-percent">
-					{ ! loading && `${ share.toFixed( 2 ) }%` }
+					{ showResults && `${ answerShare.toFixed( 2 ) }%` }
 				</span>
 			</div>
 
@@ -55,8 +60,8 @@ const PollAnswerResults = ( { loading, share, text, votes } ) => {
 
 PollAnswerResults.propTypes = {
 	loading: PropTypes.bool,
-	share: PropTypes.number,
 	text: PropTypes.string.isRequired,
+	totalVotes: PropTypes.number,
 	votes: PropTypes.number,
 };
 

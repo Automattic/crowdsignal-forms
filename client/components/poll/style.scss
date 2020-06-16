@@ -202,8 +202,9 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	color: rgb(255, 0, 0);
 }
 
-.wp-block-crowdsignal-forms-poll__results {
+.wp-block-crowdsignal-forms-poll__results-list {
 	margin: 0 0 1em;
+	position: relative;
 }
 
 .wp-block-crowdsignal-forms-poll__answer-results {
@@ -245,6 +246,10 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	margin-left: 20px;
 	transition: opacity 0.3s;
 
+	.wp-block-crowdsignal-forms-poll__answer-results.is-error & {
+		display: none;
+	}
+
 	.wp-block-crowdsignal-forms-poll__answer-results.is-loading & {
 		animation-duration: 1.5s;
 		animation-iteration-count: infinite;
@@ -280,6 +285,10 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	height: 100%;
 	transition: background-color 0.3s, width 0.3s;
 
+	.wp-block-crowdsignal-forms-poll__answer-results.is-error & {
+		width: 0;
+	}
+
 	.wp-block-crowdsignal-forms-poll__answer-results.is-loading & {
 		background-color: var(--crowdsignal-forms-text-color);
 		width: 25%;
@@ -314,11 +323,11 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	text-align: right;
 	width: 100%;
 
-	&.is-loading {
+	.wp-block-crowdsignal-forms-poll__results.is-loading & {
 		color: transparent;
 	}
 
-	&.is-loading::before {
+	.wp-block-crowdsignal-forms-poll__results.is-loading &::before {
 		animation-name: crowdsignal-forms-animation__pulse;
 		animation-duration: 1.5s;
 		animation-iteration-count: infinite;
