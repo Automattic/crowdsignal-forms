@@ -60,6 +60,14 @@ WordPress is running at [http://localhost:8000](http://localhost:8000) now.
 
 WordPress’ `WP_SITEURL` and `WP_HOME` constants are configured to be dynamic in `./docker/wordpress/wp-config.php` so you shouldn’t need to change these even if you access the site via different domains.
 
+### Pointing auth to your CS account
+To override the Plugin settings (currently API key is not used for self-hosted), add the following `.env` variables. Their values can be retrieved by running `php common/bin/api-get-user-tokens.php <user_id>` in your Crowdsignal sandbox and choosing an appropriate GUID/UserCode pair.
+```
+# CS
+CROWDSIGNAL_FORMS_API_PARTNER_GUID=
+CROWDSIGNAL_FORMS_API_USER_CODE=
+```
+
 ### Pointing the container to your sandbox instead of production.
 If you want the hosts entry within the container to point to your sandbox, your cna start
 docker-compose like this:
@@ -130,7 +138,7 @@ You can also see your database files via local file system at `./docker/data/mys
 ## Must Use Plugins directory
 
 You can add your own PHP code to `./docker/mu-plugins` directory and they will be loaded by WordPress,
-in alphabetical order, before normal plugins, meaning API hooks added in an mu-plugin apply to all other 
+in alphabetical order, before normal plugins, meaning API hooks added in an mu-plugin apply to all other
 plugins even if they run hooked-functions in the global namespace. Read more about [must use plugins](https://codex.wordpress.org/Must_Use_Plugins).
 
 ## Debugging
