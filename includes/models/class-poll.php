@@ -63,16 +63,26 @@ class Poll {
 	private $source_link = '';
 
 	/**
+	 * The poll note.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	private $note = '';
+
+	/**
 	 * Poll constructor.
 	 *
 	 * @param int           $id The id.
 	 * @param string        $question The question.
+	 * @param string        $note The note.
 	 * @param array         $answers The answers.
 	 * @param Poll_Settings $settings The settings.
 	 */
-	public function __construct( $id, $question, array $answers, Poll_Settings $settings ) {
+	public function __construct( $id, $question, $note, array $answers, Poll_Settings $settings ) {
 		$this->id       = $id;
 		$this->question = $question;
+		$this->note     = $note;
 		$this->answers  = $answers;
 		$this->settings = $settings;
 	}
@@ -87,6 +97,7 @@ class Poll {
 	public static function from_array( $data ) {
 		$id       = isset( $data['id'] ) ? absint( $data['id'] ) : 0;
 		$question = isset( $data['question'] ) ? $data['question'] : '';
+		$note     = isset( $data['note'] ) ? $data['note'] : '';
 		$answers  = array_map(
 			function ( $poll_data ) {
 				return Poll_Answer::from_array( $poll_data );
@@ -94,39 +105,13 @@ class Poll {
 			isset( $data['answers'] ) ? $data['answers'] : array()
 		);
 		$settings = Poll_Settings::from_array( isset( $data['settings'] ) ? $data['settings'] : array() );
-		$poll     = new self( $id, $question, $answers, $settings );
+		$poll     = new self( $id, $question, $note, $answers, $settings );
 
 		if ( isset( $data['source_link'] ) ) {
 			$poll->set_source_link( $data['source_link'] );
 		}
 
 		return $poll;
-	}
-
-	/**
-	 * Creates a new Poll object from a block attribute array.
-	 *
-	 * @param array $attrs The attrs array.
-	 * @return Poll
-	 * @since 1.0.0
-	 */
-	public static function from_block( $attrs ) {
-		$data             = array();
-		$data['id']       = isset( $attrs[ self::POLL_ID_BLOCK_ATTRIBUTE ] ) ? absint( $attrs[ self::POLL_ID_BLOCK_ATTRIBUTE ] ) : 0;
-		$data['question'] = isset( $attrs['question'] ) ? $attrs['question'] : '';
-		$data['note']     = isset( $attrs['note'] ) ? $attrs['note'] : '';
-		$data['answers']  = array_map(
-			function ( $answer_data ) {
-				if ( isset( $answer_data[ self::ANSWER_ID_BLOCK_ATTRIBUTE ] ) && $answer_data[ self::ANSWER_ID_BLOCK_ATTRIBUTE ] > 0 ) {
-					$answer_data['id'] = absint( $answer_data[ self::ANSWER_ID_BLOCK_ATTRIBUTE ] );
-				}
-				$answer_data['answer_text'] = $answer_data['text'];
-				return $answer_data;
-			},
-			isset( $attrs['answers'] ) ? $attrs['answers'] : array()
-		);
-		$data['settings'] = isset( $attrs['settings'] ) ? $attrs['settings'] : array();
-		return self::from_array( $data );
 	}
 
 	/**
@@ -204,6 +189,7 @@ class Poll {
 		}
 
 		$data['question'] = $this->question;
+		$data['note']     = $this->note;
 
 		$data['settings'] = $this->settings->to_array( $context );
 		foreach ( $this->get_answers() as $answer ) {

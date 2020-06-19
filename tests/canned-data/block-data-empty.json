@@ -1,0 +1,36 @@
+{
+	"pollId": 1,
+	"isMultipleChoice": false,
+	"title": "Untitled Poll",
+	"question": "",
+	"note": "",
+	"answers": [
+		{
+			"answerId": 1,
+			"text": ""
+		},
+		{
+			"answerId": 2,
+			"text": ""
+		}
+	],
+	"submitButtonLabel": "Submit",
+	"submitButtonTextColor": "",
+	"submitButtonBackgroundColor": "",
+	"confirmMessageType": "results",
+	"customConfirmMessage": "",
+	"redirectAddress": "",
+	"textColor": "",
+	"backgroundColor": "",
+	"borderColor": "",
+	"borderWidth": 2,
+	"borderRadius": 0,
+	"hasBoxShadow": true,
+	"fontFamily": null,
+	"hasOneResponsePerComputer": false,
+	"randomizeAnswers": false,
+	"blockAlignment": "center",
+	"pollStatus": "open",
+	"closedPollState": "show-results",
+	"closedAfterDateTime": null
+}
