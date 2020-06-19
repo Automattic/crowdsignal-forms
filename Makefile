@@ -19,9 +19,17 @@ client:
 	npm run build:editor
 	npm run build:poll
 
+# Package for release
+release: clean-release install-node client
+	./scripts/package-for-release.sh
+
 # Clean the build directory
 clean:
 	rm -rf build
+
+clean-release: clean
+	NODE_ENV=production
+	rm -rf release
 
 docker_build:
 	docker-compose -f docker/docker-compose.yml build
@@ -59,4 +67,4 @@ phpcbf:
 composer:
 	docker-compose -f docker/docker-compose.yml exec wordpress bash -c "cd /var/www/html/wp-content/plugins/crowdsignal-forms && composer install"
 
-.PHONY: install install-node install-php client clean docker_up_d docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpcs phpcbf composer
+.PHONY: install install-node install-php client clean clean-release docker_up_d docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpcs phpcbf composer release

@@ -56,3 +56,7 @@ function crowdsignal_get_test_user_code( $check, $object_id, $meta_key, $single 
 }
 add_filter( 'get_user_metadata', 'crowdsignal_get_test_user_code', 10, 4 );
 ```
+
+## Compile for Release
+
+Run `make release`. This will compile all production files necessary for the plugin, add them to a zip archive, and copy it to the `release` folder.

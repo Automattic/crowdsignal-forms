@@ -4,6 +4,7 @@ vendor
 .env
 node_modules
 build
+release
 ## docker stuff
 /docker/data/mysql/*
 !/docker/data/mysql/.gitkeep
