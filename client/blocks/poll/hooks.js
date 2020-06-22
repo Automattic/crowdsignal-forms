@@ -2,13 +2,29 @@
  * External dependencies
  */
 import { map } from 'lodash';
+
 /**
  * WordPress dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
 import { useEffect, useState } from 'react';
 
+const withTimeout = ( timeout, promise ) => {
+	let timeoutId;
+	return new Promise( ( resolve, reject ) => {
+		timeoutId = setTimeout(
+			() => reject( new Error( 'request timeout' ) ),
+			timeout
+		);
+		promise
+			.then( resolve, reject )
+			.finally( () => clearTimeout( timeoutId ) );
+	} );
+};
+
 const defaultAnswer = { text: '' };
+
+const API_REQUEST_TIMEOUT = 10000;
 
 const toApi = ( { pollId, answers, note, question } ) => {
 	const pollDto = {
@@ -34,24 +50,33 @@ const toApi = ( { pollId, answers, note, question } ) => {
 };
 
 const createPoll = ( data ) =>
-	apiFetch( {
-		path: '/crowdsignal-forms/v1/polls',
-		method: 'POST',
-		data,
-	} );
+	withTimeout(
+		API_REQUEST_TIMEOUT,
+		apiFetch( {
+			path: '/crowdsignal-forms/v1/polls',
+			method: 'POST',
+			data,
+		} )
+	);
 
 const getPoll = ( pollId ) =>
-	apiFetch( {
-		path: `/crowdsignal-forms/v1/polls/${ pollId }`,
-		method: 'GET',
-	} );
+	withTimeout(
+		API_REQUEST_TIMEOUT,
+		apiFetch( {
+			path: `/crowdsignal-forms/v1/polls/${ pollId }`,
+			method: 'GET',
+		} )
+	);
 
 const updatePoll = ( pollId, data ) =>
-	apiFetch( {
-		path: `/crowdsignal-forms/v1/polls/${ pollId }`,
-		method: 'POST',
-		data,
-	} );
+	withTimeout(
+		API_REQUEST_TIMEOUT,
+		apiFetch( {
+			path: `/crowdsignal-forms/v1/polls/${ pollId }`,
+			method: 'POST',
+			data,
+		} )
+	);
 
 const BLOCK_POLL_NOT_SET = {};
 
