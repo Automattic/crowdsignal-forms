@@ -12,7 +12,7 @@ import { RichText } from '@wordpress/block-editor';
 /**
  * Internal dependencies
  */
-import PollClosedBanner from 'components/poll/closed-banner';
+import ClosedBanner from 'components/poll/closed-banner';
 import { PollColors, getPollColors } from 'components/poll/colors';
 import PollResults from 'components/poll/results';
 import { maybeAddTemporaryAnswerIds } from 'components/poll/util';
@@ -132,7 +132,12 @@ const PollBlock = ( props ) => {
 					) }
 				</div>
 
-				{ isClosed && <PollClosedBanner isPollHidden={ isHidden } /> }
+				{ isClosed && (
+					<ClosedBanner
+						isPollHidden={ isHidden }
+						isPollClosed={ isClosed }
+					/>
+				) }
 
 				{ renderColorProbe() }
 			</div>

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { map, sum, values } from 'lodash';
@@ -12,9 +12,21 @@ import { map, sum, values } from 'lodash';
 import { usePollResults } from 'data/hooks';
 import { __, _n, sprintf } from 'lib/i18n';
 import PollAnswerResults from './answer-results';
+import FooterBranding from './footer-branding';
 
-const PollResults = ( { answers, pollId } ) => {
+const PollResults = ( { answers, pollId, setErrorMessage } ) => {
 	const { error, loading, results } = usePollResults( pollId );
+
+	useEffect( () => {
+		setErrorMessage(
+			error
+				? __(
+						`Unfortunately, we're having some trouble retrieving ` +
+							`the results for this poll at this time.`
+				  )
+				: ''
+		);
+	}, [ error ] );
 
 	const classes = classnames( 'wp-block-crowdsignal-forms-poll__results', {
 		'is-error': !! error,
@@ -38,15 +50,6 @@ const PollResults = ( { answers, pollId } ) => {
 				) ) }
 			</div>
 
-			{ error && (
-				<div className="wp-block-crowdsignal-forms-poll__results-error">
-					{ __(
-						`Unfortunately, we're having some trouble retrieving ` +
-							`the results for this poll at this time.`
-					) }
-				</div>
-			) }
-
 			<div className="wp-block-crowdsignal-forms-poll__results-footer">
 				<span className="wp-block-crowdsignal-forms-poll__results-total">
 					{ sprintf(
@@ -55,17 +58,7 @@ const PollResults = ( { answers, pollId } ) => {
 						total ? total.toLocaleString() : 0
 					) }
 				</span>
-
-				<span className="wp-block-crowdsignal-forms-poll__results-branding">
-					<a
-						className="wp-block-crowdsignal-forms-poll__results-cs-link"
-						href="https://crowdsignal.com"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						{ __( 'Create your own poll with Crowdsignal' ) }
-					</a>
-				</span>
+				<FooterBranding />
 			</div>
 		</div>
 	);
@@ -79,6 +72,7 @@ PollResults.propTypes = {
 			text: PropTypes.string,
 		} )
 	).isRequired,
+	setErrorMessage: PropTypes.func.isRequired,
 };
 
 export default PollResults;

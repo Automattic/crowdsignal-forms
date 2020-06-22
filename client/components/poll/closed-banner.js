@@ -8,10 +8,11 @@ import React from 'react';
  */
 import { __ } from 'lib/i18n';
 
-const ClosedBanner = ( { isPollHidden } ) => (
+const ClosedBanner = ( { hasVoted, isPollClosed, isPollHidden } ) => (
 	<div className="wp-block-crowdsignal-forms-poll__closed-banner">
 		{ isPollHidden && __( 'This Poll is Hidden' ) }
-		{ ! isPollHidden && __( 'This Poll is Closed' ) }
+		{ isPollClosed && ! isPollHidden && __( 'This Poll is Closed' ) }
+		{ hasVoted && __( 'Thanks For Voting!' ) }
 	</div>
 );
 
