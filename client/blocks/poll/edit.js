@@ -8,6 +8,7 @@ import { map } from 'lodash';
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
+import { useEntityId } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -35,6 +36,8 @@ const PollBlock = ( props ) => {
 		renderColorProbe,
 	} = props;
 
+	const postId = useEntityId( 'postType', 'post' );
+
 	const { setOutboundChanges, maybeSyncQueuedChanges } = useCrowdsignalPoll(
 		attributes,
 		{
@@ -59,7 +62,7 @@ const PollBlock = ( props ) => {
 		}
 	);
 
-	maybeSyncQueuedChanges( attributes );
+	maybeSyncQueuedChanges( attributes, postId );
 
 	const setAttributesAndFlagChange = ( attrs ) => {
 		setOutboundChanges( ( n ) => n + 1 );

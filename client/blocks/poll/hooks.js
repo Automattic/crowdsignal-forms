@@ -26,7 +26,7 @@ const defaultAnswer = { text: '' };
 
 const API_REQUEST_TIMEOUT = 10000;
 
-const toApi = ( { pollId, answers, note, question } ) => {
+const toApi = ( { pollId, answers, note, question }, postId ) => {
 	const pollDto = {
 		answers: map( answers, ( answer ) => {
 			const answerWithDefaults = { ...defaultAnswer, ...answer };
@@ -44,6 +44,10 @@ const toApi = ( { pollId, answers, note, question } ) => {
 
 	if ( pollId ) {
 		pollDto.id = pollId;
+	}
+
+	if ( postId ) {
+		pollDto.post_id = postId;
 	}
 
 	return pollDto;
@@ -92,17 +96,20 @@ export const useCrowdsignalPoll = ( attributes, { onSyncComplete } ) => {
 	const [ outboundChanges, setOutboundChanges ] = useState( 0 );
 	const [ inboundChanges, setInboundChanges ] = useState( 0 );
 
-	const syncPollApiRequest = ( blockAttributes ) => {
+	const syncPollApiRequest = ( blockAttributes, postId ) => {
 		return ( blockAttributes.pollId
-			? updatePoll( blockAttributes.pollId, toApi( blockAttributes ) )
-			: createPoll( toApi( blockAttributes ) )
+			? updatePoll(
+					blockAttributes.pollId,
+					toApi( blockAttributes, postId )
+			  )
+			: createPoll( toApi( blockAttributes, postId ) )
 		).then( ( response ) => {
 			setPoll( response );
 			setInboundChanges( ( n ) => n + 1 );
 		} );
 	};
 
-	const maybeSyncQueuedChanges = ( freshAttributes ) => {
+	const maybeSyncQueuedChanges = ( freshAttributes, postId ) => {
 		if ( shouldSetPollId( poll, freshAttributes ) ) {
 			// We got a poll from the API, but we need to sync the attributes.
 			onSyncComplete( poll, freshAttributes );
@@ -119,7 +126,7 @@ export const useCrowdsignalPoll = ( attributes, { onSyncComplete } ) => {
 
 		if ( outboundChanges > 0 ) {
 			setOutboundChanges( 0 );
-			wrapRequest( () => syncPollApiRequest( freshAttributes ) );
+			wrapRequest( () => syncPollApiRequest( freshAttributes, postId ) );
 		}
 	};
 
