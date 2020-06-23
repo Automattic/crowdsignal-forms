@@ -7,6 +7,12 @@
 	margin-top: 1.25em;
 	margin-bottom: 1.25em;
 	position: relative;
+	text-align: left;
+
+	.entry-content .alignfull & {
+		border-left-width: 0;
+		border-right-width: 0;
+	}
 
 	h3.wp-block-crowdsignal-forms-poll__question {
 		margin: 0 0 28px;
@@ -23,6 +29,19 @@
 
 	.wp-block-crowdsignal-forms-poll__content {
 		padding: 40px;
+
+		.entry-content .alignfull & {
+			margin: 0 auto;
+			max-width: var(--crowdsignal-forms-content-wide-width);
+		}
+
+		@media screen and (min-width: 660px) {
+
+			.entry-content .alignwide &,
+			.entry-content .alignfull & {
+				padding: 80px;
+			}
+		}
 	}
 
 	&.is-closed {

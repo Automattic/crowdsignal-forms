@@ -46,7 +46,11 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	 * @param array $attributes The block's attributes.
 	 */
 	public function render( $attributes ) {
-		return sprintf( '<div data-crowdsignal-poll="%s"></div>', htmlentities( wp_json_encode( $attributes ) ) );
+		return sprintf(
+			'<div class="align%s" data-crowdsignal-poll="%s"></div>',
+			$attributes['align'],
+			htmlentities( wp_json_encode( $attributes ) )
+		);
 	}
 
 	/**
@@ -149,7 +153,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'blockAlignment'              => array(
+			'align'                       => array(
 				'type'    => 'string',
 				'default' => 'center',
 			),

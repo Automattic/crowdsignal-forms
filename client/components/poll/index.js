@@ -14,11 +14,11 @@ import {
 	isPollClosed,
 } from 'blocks/poll/util';
 import { ClosedPollState, ConfirmMessageType } from 'blocks/poll/constants';
-import { withFallbackColors } from 'components/with-fallback-colors';
+import { withFallbackStyles } from 'components/with-fallback-styles';
 import ClosedBanner from './closed-banner';
 import PollResults from './results';
 import PollVote from './vote';
-import { PollColors, getPollColors } from './colors';
+import { PollStyles, getPollStyles } from './styles';
 import { maybeAddTemporaryAnswerIds, shuffleWithGenerator } from './util';
 import { __ } from 'lib/i18n';
 import { usePollVote } from 'data/hooks';
@@ -26,7 +26,7 @@ import { CrowdsignalFormsError } from 'data/poll';
 import ErrorBanner from './error-banner';
 import SubmitMessage from './submit-message';
 
-const Poll = ( { attributes, fallbackColors, renderColorProbe } ) => {
+const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	const [ randomAnswerSeed ] = useState( Math.random() );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
 	const [ dismissSubmitMessage, setDismissSubmitMessage ] = useState( false );
@@ -99,7 +99,7 @@ const Poll = ( { attributes, fallbackColors, renderColorProbe } ) => {
 	return (
 		<div
 			className={ classes }
-			style={ getStyleVars( attributes, fallbackColors ) }
+			style={ getStyleVars( attributes, fallbackStyles ) }
 		>
 			{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
 
@@ -143,9 +143,9 @@ const Poll = ( { attributes, fallbackColors, renderColorProbe } ) => {
 				<ClosedBanner isPollClosed={ isClosed } hasVoted={ hasVoted } />
 			) }
 
-			{ renderColorProbe() }
+			{ renderStyleProbe() }
 		</div>
 	);
 };
 
-export default withFallbackColors( PollColors, getPollColors )( Poll );
+export default withFallbackStyles( PollStyles, getPollStyles )( Poll );

@@ -45,6 +45,7 @@ export const getStyleVars = ( attributes, fallbackColors ) =>
 			submitButtonTextColor:
 				attributes.submitButtonTextColor || fallbackColors.textInverted,
 			textColor: attributes.textColor || fallbackColors.text,
+			contentWideWidth: fallbackColors.contentWideWidth,
 		},
 		( _, key ) => `--crowdsignal-forms-${ kebabCase( key ) }`
 	);

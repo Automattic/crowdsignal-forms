@@ -14,10 +14,10 @@ import { useEntityId } from '@wordpress/core-data';
  * Internal dependencies
  */
 import ClosedBanner from 'components/poll/closed-banner';
-import { PollColors, getPollColors } from 'components/poll/colors';
+import { PollStyles, getPollStyles } from 'components/poll/styles';
 import PollResults from 'components/poll/results';
 import { maybeAddTemporaryAnswerIds } from 'components/poll/util';
-import { withFallbackColors } from 'components/with-fallback-colors';
+import { withFallbackStyles } from 'components/with-fallback-styles';
 import { __ } from 'lib/i18n';
 import { ClosedPollState } from './constants';
 import EditAnswers from './edit-answers';
@@ -30,10 +30,10 @@ const PollBlock = ( props ) => {
 	const {
 		attributes,
 		className,
-		fallbackColors,
+		fallbackStyles,
 		isSelected,
 		setAttributes,
-		renderColorProbe,
+		renderStyleProbe,
 	} = props;
 
 	const postId = useEntityId( 'postType', 'post' );
@@ -94,7 +94,7 @@ const PollBlock = ( props ) => {
 					'is-closed': isClosed,
 					'is-hidden': isHidden,
 				} ) }
-				style={ getStyleVars( attributes, fallbackColors ) }
+				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
 				<div className="wp-block-crowdsignal-forms-poll__content">
 					<RichText
@@ -142,10 +142,10 @@ const PollBlock = ( props ) => {
 					/>
 				) }
 
-				{ renderColorProbe() }
+				{ renderStyleProbe() }
 			</div>
 		</>
 	);
 };
 
-export default withFallbackColors( PollColors, getPollColors )( PollBlock );
+export default withFallbackStyles( PollStyles, getPollStyles )( PollBlock );

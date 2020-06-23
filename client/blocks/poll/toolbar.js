@@ -7,7 +7,7 @@ import { map } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { BlockAlignmentToolbar, BlockControls } from '@wordpress/block-editor';
+import { BlockControls } from '@wordpress/block-editor';
 import { Toolbar } from '@wordpress/components';
 
 /**
@@ -35,16 +35,9 @@ const PollToolbar = ( { attributes, setAttributes } ) => {
 		onClick: () => setAttributes( { isMultipleChoice: button.value } ),
 	} ) );
 
-	const handleChangeAlignment = ( blockAlignment ) =>
-		setAttributes( { blockAlignment } );
-
 	return (
 		<BlockControls>
 			<Toolbar controls={ multipleChoiceToolbar } />
-			<BlockAlignmentToolbar
-				value={ attributes.blockAlignment }
-				onChange={ handleChangeAlignment }
-			/>
 		</BlockControls>
 	);
 };

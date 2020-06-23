@@ -13,4 +13,10 @@ export default {
 	category: 'widgets',
 	edit: EditPollBlock,
 	attributes,
+	supports: {
+		align: [ 'center', 'wide', 'full' ],
+	},
+	getEditWrapperProps: ( { align } ) => ( {
+		'data-align': align,
+	} ),
 };

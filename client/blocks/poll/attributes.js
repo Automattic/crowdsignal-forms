@@ -105,7 +105,7 @@ export default {
 		type: 'boolean',
 		default: false,
 	},
-	blockAlignment: {
+	align: {
 		type: 'string',
 		default: 'center',
 	},
