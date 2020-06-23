@@ -112,15 +112,14 @@ export const useCrowdsignalPoll = ( attributes, { onSyncComplete } ) => {
 			return;
 		}
 
-		if ( outboundChanges > 0 ) {
-			setOutboundChanges( 0 );
-			wrapRequest( () => syncPollApiRequest( freshAttributes ) );
-			return;
-		}
-
 		if ( inboundChanges > 0 ) {
 			setInboundChanges( ( n ) => n - 1 );
 			onSyncComplete( poll, freshAttributes );
+		}
+
+		if ( outboundChanges > 0 ) {
+			setOutboundChanges( 0 );
+			wrapRequest( () => syncPollApiRequest( freshAttributes ) );
 		}
 	};
 
