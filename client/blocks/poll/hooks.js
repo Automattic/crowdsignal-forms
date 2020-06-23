@@ -26,7 +26,8 @@ const defaultAnswer = { text: '' };
 
 const API_REQUEST_TIMEOUT = 10000;
 
-const toApi = ( { pollId, answers, note, question }, postId ) => {
+const toApi = ( { pollId, answers, note, question, ...settings }, postId ) => {
+	const timestamp = Date.parse( settings.closedAfterDateTime ) || Date.now();
 	const pollDto = {
 		answers: map( answers, ( answer ) => {
 			const answerWithDefaults = { ...defaultAnswer, ...answer };
@@ -40,6 +41,18 @@ const toApi = ( { pollId, answers, note, question }, postId ) => {
 		} ),
 		note,
 		question,
+		settings: {
+			title: settings.title,
+			after_vote: settings.confirmMessageType,
+			after_message: '', // not among the poll properties yet
+			redirect_url: '', // not among the poll properties yet
+			randomize_answers: settings.randomizeAnswers,
+			restrict_vote_repeat: settings.hasOneResponsePerComputer,
+			captcha: false, // v2
+			multiple_choice: settings.isMultipleChoice,
+			close_status: settings.pollStatus,
+			close_after: parseInt( timestamp / 1000, 10 ),
+		},
 	};
 
 	if ( pollId ) {
