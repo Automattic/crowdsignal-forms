@@ -13,7 +13,8 @@ namespace Crowdsignal_Forms\Auth;
  */
 class Crowdsignal_Forms_Api_Authenticator {
 
-	const USER_CODE_META_NAME = 'crowdsignal_user_code';
+	const USER_CODE_NAME = 'crowdsignal_user_code';
+	const API_KEY_NAME   = 'crowdsignal_api_key';
 
 	/**
 	 * The Crowdsignal auth provider.
@@ -39,13 +40,13 @@ class Crowdsignal_Forms_Api_Authenticator {
 	}
 
 	/**
-	 * Get the Crowdsignal user code for the WordPress user.
+	 * Get the Crowdsignal user code.
 	 *
 	 * @return string the user code
 	 */
 	public function get_user_code() {
 		// Return the user code if we already retrieved and saved one.
-		$user_code = get_option( self::USER_CODE_META_NAME );
+		$user_code = get_option( self::USER_CODE_NAME );
 		if ( ! empty( $user_code ) ) {
 			return $user_code;
 		}
@@ -58,6 +59,29 @@ class Crowdsignal_Forms_Api_Authenticator {
 		}
 
 		return $user_code;
+	}
+
+	/**
+	 * Get the Crowdsignal API key.
+	 *
+	 * @return string the API key.
+	 */
+	public function get_api_key() {
+		return get_option( self::API_KEY_NAME );
+	}
+
+	/**
+	 * Delete the locally cached Crowdsignal API key.
+	 */
+	public function delete_api_key() {
+		delete_option( self::API_KEY_NAME );
+	}
+
+	/**
+	 * Delete the locally cached Crowdsignal user code.
+	 */
+	public function delete_user_code() {
+		delete_option( self::USER_CODE_NAME );
 	}
 
 	/**
@@ -80,6 +104,15 @@ class Crowdsignal_Forms_Api_Authenticator {
 	 * @param string $user_code user code to be set.
 	 */
 	public function set_user_code( $user_code ) {
-		update_option( self::USER_CODE_META_NAME, $user_code );
+		update_option( self::USER_CODE_NAME, $user_code );
+	}
+
+	/**
+	 * Set the Crowdsignal API key
+	 *
+	 * @param string $api_key API key to be set.
+	 */
+	public function set_api_key( $api_key ) {
+		update_option( self::API_KEY_NAME, $api_key );
 	}
 }
