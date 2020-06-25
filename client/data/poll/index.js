@@ -4,11 +4,6 @@
 import { fromPairs, map } from 'lodash';
 
 /**
- * WordPress dependencies
- */
-import apiFetch from '@wordpress/api-fetch';
-
-/**
  * Internal dependencies
  */
 import { __ } from 'lib/i18n';
@@ -19,17 +14,33 @@ import { __ } from 'lib/i18n';
  * @param  {number}  pollId Poll ID.
  * @return {Promise}        Promise that resolves to a key-value object with answer IDs and vote counts.
  */
-export const requestResults = async ( pollId ) =>
-	apiFetch( {
-		path: `/crowdsignal-forms/v1/polls/${ pollId }/results`,
-	} ).then( ( response ) =>
-		fromPairs(
-			map( response.answers, ( answer ) => [
-				answer.id,
-				parseInt( answer.answer_count, 10 ) || 0,
-			] )
-		)
-	);
+export const requestResults = async ( pollId ) => {
+	const baseUrl = 'https://api.crowdsignal.com/v3/polls';
+
+	return window
+		.fetch( `${ baseUrl }/${ pollId }/results`, {
+			method: 'GET',
+			headers: { 'content-type': 'application/json' },
+		} )
+		.then( ( response ) => {
+			if ( response.status >= 200 && response.status < 300 ) {
+				return response.json();
+			}
+
+			throw response;
+		} )
+		.then( ( response ) => {
+			if ( response.error ) {
+				throw new Error( response.message );
+			}
+			return fromPairs(
+				map( response.poll.answers, ( answer ) => [
+					answer.id,
+					parseInt( answer.answer_count, 10 ) || 0,
+				] )
+			);
+		} );
+};
 
 export const requestVoteNonce = async ( pollId ) => {
 	const hash = '5430eeac3911395001d731d9702fc38b'; // hash not used when format=json is passed
