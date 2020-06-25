@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { map } from 'lodash';
 
 /**
@@ -25,6 +25,7 @@ import SideBar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars, getBlockCssClasses, isPollClosed } from './util';
 import { useCrowdsignalPoll } from './hooks';
+import ErrorBanner from 'components/poll/error-banner';
 
 const PollBlock = ( props ) => {
 	const {
@@ -38,6 +39,7 @@ const PollBlock = ( props ) => {
 
 	const postId = useEntityId( 'postType', 'post' );
 
+	const [ errorMessage, setErrorMessage ] = useState( '' );
 	const { setOutboundChanges, maybeSyncQueuedChanges } = useCrowdsignalPoll(
 		attributes,
 		{
@@ -96,6 +98,7 @@ const PollBlock = ( props ) => {
 				} ) }
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
+				{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
 				<div className="wp-block-crowdsignal-forms-poll__content">
 					<RichText
 						tagName="h3"
@@ -131,6 +134,7 @@ const PollBlock = ( props ) => {
 							answers={ maybeAddTemporaryAnswerIds(
 								attributes.answers
 							) }
+							setErrorMessage={ setErrorMessage }
 						/>
 					) }
 				</div>
