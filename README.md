@@ -60,3 +60,20 @@ add_filter( 'get_user_metadata', 'crowdsignal_get_test_user_code', 10, 4 );
 ## Compile for Release
 
 Run `make release`. This will compile all production files necessary for the plugin, add them to a zip archive, and copy it to the `release` folder.
+
+## PHP Class Conventions
+
+We use our own autoloader for loading classes. When adding new classes follow these conventions:
+
+* all classes live within the `includes` folder or it's subdirs. This folder is implicitly namespaced as `Crowdsignal_Forms`
+* all class file names must be prefixed with `class-`
+* any `-` in a folder name or file name needs to be a `_` in the class or namespace name.
+* if you nest in folders, that folder name should be added to the class namespace with the first letter capitalized.
+
+examples:
+
+```
+Crowdsignal_Forms\Foo -> includes/class-foo.php
+Crowdsignal_Forms\Foo\Bar\Baz\Foobar -> includes/foo/bar/baz/class-foobar.php
+Crowdsignal_Forms\Rest_API\Bar -> includes/rest-api/class-bar.php
+```

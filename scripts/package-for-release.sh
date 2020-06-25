@@ -32,11 +32,6 @@ cp -r "$PLUGIN_DIR/LICENSE.TXT" "$RELEASE_BUILD_FOLDER"
 cp -r "$PLUGIN_DIR/README.TXT" "$RELEASE_BUILD_FOLDER"
 cp -r "$PLUGIN_DIR/crowdsignal-forms.php" "$RELEASE_BUILD_FOLDER"
 cp -r "$PLUGIN_DIR/uninstall.php" "$RELEASE_BUILD_FOLDER"
-cp -r "$PLUGIN_DIR/composer.json" "$RELEASE_BUILD_FOLDER"
-cp -r "$PLUGIN_DIR/composer.lock" "$RELEASE_BUILD_FOLDER"
-
-composer dump-autoload --no-dev -d "$RELEASE_BUILD_FOLDER"
-rm "$RELEASE_BUILD_FOLDER/composer.json" "$RELEASE_BUILD_FOLDER/composer.lock"
 
 mkdir -p "$PLUGIN_DIR/release"
 cd "$RELEASE_BUILD_FOLDER" && zip -r "$PLUGIN_DIR/release/$RELEASE_ZIP_FILENAME" .
