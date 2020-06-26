@@ -95,6 +95,15 @@ const updatePoll = ( pollId, data ) =>
 		} )
 	);
 
+export const archivePoll = ( pollId ) =>
+	withTimeout(
+		API_REQUEST_TIMEOUT,
+		apiFetch( {
+			path: `/crowdsignal-forms/v1/polls/${ pollId }/archive`,
+			method: 'POST',
+		} )
+	);
+
 const BLOCK_POLL_NOT_SET = {};
 
 function shouldSetPollId( apiPoll, attrs ) {
