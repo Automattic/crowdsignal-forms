@@ -84,6 +84,7 @@ const PollBlock = ( props ) => {
 		isClosed && ClosedPollState.SHOW_RESULTS === attributes.closedPollState;
 	const isHidden =
 		isClosed && ClosedPollState.HIDDEN === attributes.closedPollState;
+	const hideBranding = true; // hide branding in editor for now
 
 	return (
 		<>
@@ -134,6 +135,7 @@ const PollBlock = ( props ) => {
 							answers={ maybeAddTemporaryAnswerIds(
 								attributes.answers
 							) }
+							hideBranding={ hideBranding }
 							setErrorMessage={ setErrorMessage }
 						/>
 					) }

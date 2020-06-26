@@ -232,7 +232,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Capabilities array|\WP_Error
+	 * @return array|\WP_Error
 	 */
 	public function get_capabilities() {
 		$response = $this->perform_request( 'GET', '/account/capabilities' );

@@ -9,6 +9,7 @@ import { includes, map, without } from 'lodash';
  * Internal dependencies
  */
 import PollAnswer from './answer';
+import FooterBranding from './footer-branding';
 
 const PollVote = ( {
 	answers,
@@ -17,6 +18,7 @@ const PollVote = ( {
 	isVoting,
 	onSubmit,
 	submitButtonLabel,
+	hideBranding,
 } ) => {
 	const [ selected, setSelected ] = useState( [] );
 
@@ -67,6 +69,11 @@ const PollVote = ( {
 							value={ submitButtonLabel }
 						/>
 					</div>
+				</div>
+			) }
+			{ ! hideBranding && (
+				<div className="wp_block-crowdsignal-forms-poll__vote-branding">
+					<FooterBranding showLogo={ false } />
 				</div>
 			) }
 		</form>

@@ -122,6 +122,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 						submitButtonLabel={ attributes.submitButtonLabel }
 						hasVoted={ hasVoted }
 						isVoting={ isVoting }
+						hideBranding={ attributes.hideBranding }
 					/>
 				) }
 
@@ -130,6 +131,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 						pollId={ attributes.pollId }
 						answers={ maybeAddTemporaryAnswerIds( answers ) }
 						setErrorMessage={ setErrorMessage }
+						hideBranding={ attributes.hideBranding }
 					/>
 				) }
 			</div>

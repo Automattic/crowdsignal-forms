@@ -14,7 +14,7 @@ import { __, _n, sprintf } from 'lib/i18n';
 import PollAnswerResults from './answer-results';
 import FooterBranding from './footer-branding';
 
-const PollResults = ( { answers, pollId, setErrorMessage } ) => {
+const PollResults = ( { answers, pollId, setErrorMessage, hideBranding } ) => {
 	const { error, loading, results } = usePollResults( pollId );
 
 	useEffect( () => {
@@ -58,7 +58,7 @@ const PollResults = ( { answers, pollId, setErrorMessage } ) => {
 						total ? total.toLocaleString() : 0
 					) }
 				</span>
-				<FooterBranding />
+				{ ! hideBranding && <FooterBranding /> }
 			</div>
 		</div>
 	);

@@ -25,6 +25,7 @@ const SubmitMessage = ( {
 	confirmMessageType,
 	customConfirmMessage,
 	setDismissSubmitMessage,
+	hideBranding,
 } ) => (
 	<div className="wp-block-crowdsignal-forms-poll__submit-message-container">
 		<div className="wp-block-crowdsignal-forms-poll__submit-message">
@@ -45,11 +46,13 @@ const SubmitMessage = ( {
 						/>
 					</video>
 					<ThankYouIcon className="wp-block-crowdsignal-forms-poll__thank-you-sticker" />
-					<img
-						className="wp-block-crowdsignal-forms-poll__thank-you-cs-sticker"
-						src="https://app.crowdsignal.com/images/svg/cs-logo-dots.svg"
-						alt="Crowdsignal sticker"
-					/>
+					{ ! hideBranding && (
+						<img
+							className="wp-block-crowdsignal-forms-poll__thank-you-cs-sticker"
+							src="https://app.crowdsignal.com/images/svg/cs-logo-dots.svg"
+							alt="Crowdsignal sticker"
+						/>
+					) }
 				</>
 			) }
 			{ ConfirmMessageType.CUSTOM_TEXT === confirmMessageType && (
@@ -70,9 +73,13 @@ const SubmitMessage = ( {
 			</button>
 		</div>
 		<div className="wp-block-crowdsignal-forms-poll__submit-message-footer">
-			<FooterBranding
-				showLogo={ ConfirmMessageType.THANK_YOU !== confirmMessageType }
-			/>
+			{ ! hideBranding && (
+				<FooterBranding
+					showLogo={
+						ConfirmMessageType.THANK_YOU !== confirmMessageType
+					}
+				/>
+			) }
 		</div>
 	</div>
 );

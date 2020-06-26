@@ -149,7 +149,7 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Capabilities array|\WP_Error
+	 * @return array|\WP_Error
 	 */
 	public function get_capabilities() {
 		$file_path = trailingslashit( Crowdsignal_Forms::instance()->get_plugin_dir() ) . self::CANNED_DATA_FILE_PATH;

@@ -10,6 +10,7 @@ namespace Crowdsignal_Forms\Frontend\Blocks;
 
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks_Assets;
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Block;
+use Crowdsignal_Forms\Crowdsignal_Forms;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -22,6 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since    1.0.0
  */
 class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
+	const TRANSIENT_HIDE_BRANDING = 'cs-hide-branding';
+	const HIDE_BRANDING_YES       = 'YES';
+	const HIDE_BRANDING_NO        = 'NO';
 
 	/**
 	 * {@inheritDoc}
@@ -46,11 +50,40 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	 * @param array $attributes The block's attributes.
 	 */
 	public function render( $attributes ) {
+		$attributes['hideBranding'] = $this->should_hide_branding();
 		return sprintf(
 			'<div class="align%s" data-crowdsignal-poll="%s"></div>',
 			$attributes['align'],
 			htmlentities( wp_json_encode( $attributes ) )
 		);
+	}
+
+	/**
+	 * Determines if branding should be shown in the poll.
+	 * Result is cached in a short-lived transient for performance.
+	 *
+	 * @return bool
+	 */
+	private function should_hide_branding() {
+		if ( get_transient( self::TRANSIENT_HIDE_BRANDING ) ) {
+			return self::HIDE_BRANDING_YES === get_transient( self::TRANSIENT_HIDE_BRANDING );
+		}
+
+		try {
+			$capabilities  = Crowdsignal_Forms::instance()->get_api_gateway()->get_capabilities();
+			$hide_branding = false !== array_search( 'hide-branding', $capabilities, true )
+				? self::HIDE_BRANDING_YES
+				: self::HIDE_BRANDING_NO;
+		} catch ( \Exception $ex ) {
+			// ignore error, we'll get the updated value next time.
+			$hide_branding = self::HIDE_BRANDING_YES;
+		}
+		set_transient(
+			self::TRANSIENT_HIDE_BRANDING,
+			$hide_branding,
+			MINUTE_IN_SECONDS
+		);
+		return $hide_branding;
 	}
 
 	/**
@@ -168,6 +201,10 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 			'closedAfterDateTime'         => array(
 				'type'    => 'string',
 				'default' => null,
+			),
+			'hideBranding'                => array(
+				'type'    => 'boolean',
+				'default' => false,
 			),
 		);
 	}

@@ -28,7 +28,7 @@
 	}
 
 	.wp-block-crowdsignal-forms-poll__content {
-		padding: 40px;
+		padding: 40px 24px 16px 24px;
 
 		.entry-content .alignfull & {
 			margin: 0 auto;
@@ -373,6 +373,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 .wp-block-crowdsignal-forms-poll__footer-branding {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	width: 100%;
 }
 
@@ -384,13 +385,12 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 .wp-block-crowdsignal-forms-poll__footer-cs-link {
 	font-family: $font-sans-serif;
 	font-size: 16px;
-	margin-top: auto;
 	text-decoration: none;
 	text-transform: uppercase;
 
 	&:not(:hover) {
 		color: var(--crowdsignal-forms-text-color);
-		opacity: 0.7;
+		opacity: 0.4;
 	}
 }
 
@@ -467,4 +467,8 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 .wp-block-crowdsignal-forms-poll__custom-message {
 	font-weight: 600;
 	padding: 16px 24px;
+}
+
+.wp_block-crowdsignal-forms-poll__vote-branding {
+	margin-top: 16px;
 }
