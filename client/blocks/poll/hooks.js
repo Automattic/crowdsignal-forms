@@ -8,6 +8,7 @@ import { map } from 'lodash';
  */
 import apiFetch from '@wordpress/api-fetch';
 import { useEffect, useState } from 'react';
+import { useEntityId } from '@wordpress/core-data';
 
 const withTimeout = ( timeout, promise ) => {
 	let timeoutId;
@@ -117,8 +118,9 @@ export const useCrowdsignalPoll = ( attributes, { onSyncComplete } ) => {
 	const [ poll, setPoll ] = useState( BLOCK_POLL_NOT_SET );
 	const [ outboundChanges, setOutboundChanges ] = useState( 0 );
 	const [ inboundChanges, setInboundChanges ] = useState( 0 );
+	const postId = useEntityId( 'postType', 'post' );
 
-	const syncPollApiRequest = ( blockAttributes, postId ) => {
+	const syncPollApiRequest = ( blockAttributes ) => {
 		return ( blockAttributes.pollId
 			? updatePoll(
 					blockAttributes.pollId,
@@ -131,7 +133,7 @@ export const useCrowdsignalPoll = ( attributes, { onSyncComplete } ) => {
 		} );
 	};
 
-	const maybeSyncQueuedChanges = ( freshAttributes, postId ) => {
+	const maybeSyncQueuedChanges = ( freshAttributes ) => {
 		if ( shouldSetPollId( poll, freshAttributes ) ) {
 			// We got a poll from the API, but we need to sync the attributes.
 			onSyncComplete( poll, freshAttributes );
@@ -142,13 +144,8 @@ export const useCrowdsignalPoll = ( attributes, { onSyncComplete } ) => {
 		}
 
 		if ( inboundChanges > 0 ) {
-			setInboundChanges( ( n ) => n - 1 );
+			setInboundChanges( 0 );
 			onSyncComplete( poll, freshAttributes );
-		}
-
-		if ( outboundChanges > 0 ) {
-			setOutboundChanges( 0 );
-			wrapRequest( () => syncPollApiRequest( freshAttributes, postId ) );
 		}
 	};
 
@@ -180,6 +177,21 @@ export const useCrowdsignalPoll = ( attributes, { onSyncComplete } ) => {
 			} );
 		}
 	}, [] );
+
+	useEffect( () => {
+		if ( outboundChanges === 0 ) {
+			return () => {
+				// do nothing in this case, no api req needed.
+			};
+		}
+
+		const timeoutId = setTimeout( () => {
+			setOutboundChanges( 0 );
+			wrapRequest( () => syncPollApiRequest( attributes, postId ) );
+		}, 1500 );
+
+		return () => timeoutId && clearTimeout( timeoutId );
+	}, [ outboundChanges ] );
 
 	return {
 		poll,
