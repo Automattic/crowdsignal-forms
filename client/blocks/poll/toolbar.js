@@ -13,16 +13,18 @@ import { Toolbar } from '@wordpress/components';
 /**
  * Internal dependencies
  */
+import ChecklistMultipleChoiceIcon from 'components/icon/checklist-multiple-choice';
+import ChecklistSingleChoiceIcon from 'components/icon/checklist-single-choice';
 import { __ } from 'lib/i18n';
 
 const multipleChoiceControls = [
 	{
-		icon: 'list-view',
+		icon: ChecklistSingleChoiceIcon,
 		title: __( 'Radio (Choose one)' ),
 		value: false,
 	},
 	{
-		icon: 'list-view',
+		icon: ChecklistMultipleChoiceIcon,
 		title: __( 'Checkbox (Choose many)' ),
 		value: true,
 	},
