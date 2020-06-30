@@ -94,7 +94,7 @@
 }
 
 .wp-block-crowdsignal-forms-poll__answer {
-	align-items: baseline;
+	align-items: center;
 	cursor: pointer;
 	display: flex;
 	font-size: inherit;
@@ -259,11 +259,12 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 
 .wp-block-crowdsignal-forms-poll__answer-results-votes {
 	font-size: 0.75em;
-	line-height: 1.85;
+	line-height: 2;
 }
 
 .wp-block-crowdsignal-forms-poll__answer-results-percent {
 	font-weight: 600;
+	line-height: 1.6;
 }
 
 .wp-block-crowdsignal-forms-poll__answer-results-votes,
