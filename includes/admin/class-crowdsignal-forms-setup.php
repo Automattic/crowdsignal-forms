@@ -67,6 +67,7 @@ class Crowdsignal_Forms_Setup {
 		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 			if ( 2 === $step && isset( $_POST['got_api_key'] ) && isset( $_POST['api_key'] ) && get_option( 'crowdsignal_api_key_secret' ) === $_POST['got_api_key'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
 				$api_key = sanitize_key( wp_unslash( $_POST['api_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
+				$api_auth_provider->set_api_key( $api_key );
 				$api_auth_provider->get_user_code_for_key( $api_key );
 				delete_option( 'crowdsignal_api_key_secret' );
 			} else {
@@ -75,26 +76,28 @@ class Crowdsignal_Forms_Setup {
 		} elseif ( 1 === $step ) {
 			update_option( 'crowdsignal_api_key_secret', md5( time() . wp_rand() ) );
 
-			$existing_user_code = 0;
-			if ( $api_auth_provider->get_user_code() ) {
-				$existing_user_code = $api_auth_provider->get_user_code();
-			} elseif ( get_option( 'pd-usercode-' . wp_get_current_user()->ID ) ) {
-				$existing_user_code = get_option( 'pd-usercode-' . wp_get_current_user()->ID );
-			} else {
-				$blogusers = get_users( array( 'fields' => array( 'ID' ) ) );
-				foreach ( $blogusers as $user ) {
-					if ( get_option( 'pd-usercode-' . $user->ID ) ) {
-						$existing_user_code = get_option( 'pd-usercode-' . $user->ID );
-						break;
-					}
-				}
+			$existing_api_key = $api_auth_provider->get_api_key();
+			if ( ! $existing_api_key ) {
+				$existing_api_key = get_option( 'polldaddy_api_key' );
+				$api_auth_provider->set_api_key( $existing_api_key );
 			}
 
-			if ( $existing_user_code ) {
-				if ( $api_auth_provider->get_user_code() !== $existing_user_code ) {
-					$api_auth_provider->set_user_code( $existing_user_code );
+			if ( $existing_api_key ) {
+				$existing_user_code = $api_auth_provider->get_user_code_for_key( $existing_api_key );
+
+				if ( $existing_user_code ) {
+					if ( $api_auth_provider->get_user_code() !== $existing_user_code ) {
+						$api_auth_provider->set_user_code( $existing_user_code );
+					}
+					delete_option( 'crowdsignal_api_key_secret' );
+					$step = 3;
+				} else {
+					/**
+					 * Cached API key may have been deleted on the server.
+					 * Force reconnection.
+					 */
+					$api_auth_provider->delete_api_key();
 				}
-				$step = 3;
 			}
 		}
 
