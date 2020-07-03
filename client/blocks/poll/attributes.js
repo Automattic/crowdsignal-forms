@@ -91,7 +91,7 @@ export default {
 	},
 	hasBoxShadow: {
 		type: 'boolean',
-		default: true,
+		default: false,
 	},
 	fontFamily: {
 		type: 'string',
