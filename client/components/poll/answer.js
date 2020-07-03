@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 const PollAnswer = ( {
-	answerId,
+	answerIdFromApi,
 	hasVoted,
 	isMultipleChoice,
 	isSelected,
@@ -22,7 +22,7 @@ const PollAnswer = ( {
 		'is-selected': isSelected,
 	} );
 
-	const answerElementId = `poll-answer-${ answerId }`;
+	const answerElementId = `poll-answer-${ answerIdFromApi }`;
 
 	return (
 		<label className={ classes } htmlFor={ answerElementId }>
@@ -33,7 +33,7 @@ const PollAnswer = ( {
 				onChange={ handleSelect }
 				selected={ isSelected }
 				type={ isMultipleChoice ? 'checkbox' : 'radio' }
-				value={ answerId }
+				value={ answerIdFromApi }
 				disabled={ hasVoted || isVoting }
 			/>
 

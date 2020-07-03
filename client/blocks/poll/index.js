@@ -5,9 +5,6 @@ import PollIcon from 'components/icon/poll';
 import { __ } from 'lib/i18n';
 import EditPollBlock from './edit';
 import attributes from './attributes';
-import { startSubscriptions } from './subscriptions';
-
-startSubscriptions();
 
 export default {
 	title: __( 'Poll' ),

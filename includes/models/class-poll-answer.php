@@ -29,6 +29,14 @@ class Poll_Answer {
 	private $id = 0;
 
 	/**
+	 * The client id.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	private $client_id = '';
+
+	/**
 	 * The poll answer text.
 	 *
 	 * @since 1.0.0
@@ -58,7 +66,13 @@ class Poll_Answer {
 	public static function from_array( array $data ) {
 		$id          = isset( $data['id'] ) && is_numeric( $data['id'] ) ? absint( $data['id'] ) : 0;
 		$answer_text = isset( $data['answer_text'] ) ? $data['answer_text'] : '';
-		return new self( $id, $answer_text );
+		$ans         = new self( $id, $answer_text );
+
+		if ( isset( $data['client_id'] ) ) {
+			$ans->set_client_id( $data['client_id'] );
+		};
+
+		return $ans;
 	}
 
 	/**
@@ -77,6 +91,10 @@ class Poll_Answer {
 			$data['id'] = $this->get_id();
 		}
 
+		if ( ! empty( $this->client_id ) ) {
+			$data['client_id'] = $this->client_id;
+		}
+
 		return $data;
 	}
 
@@ -88,5 +106,45 @@ class Poll_Answer {
 	 */
 	public function get_id() {
 		return $this->id;
+	}
+
+	/**
+	 * Get the block id.
+	 *
+	 * @since 1.0.0
+	 * @return string
+	 */
+	public function get_client_id() {
+		return $this->client_id;
+	}
+
+	/**
+	 * Sets the client id.
+	 *
+	 * @param string $client_id The client id.
+	 * @return string
+	 * @since 1.0.0
+	 */
+	public function set_client_id( $client_id ) {
+		$this->client_id = $client_id;
+		return $this;
+	}
+
+	/**
+	 * Updates the answer using block attrs.
+	 *
+	 * @param array $answer_attributes The attributes of the answers from the block.
+	 * @return $this
+	 */
+	public function update_from_block( $answer_attributes ) {
+		if ( isset( $answer_attributes['answerId'] ) ) {
+			$this->client_id = $answer_attributes['answerId'];
+		}
+
+		if ( isset( $answer_attributes['text'] ) && ! empty( $answer_attributes['text'] ) ) {
+			$this->answer_text = $answer_attributes['text'];
+		}
+
+		return $this;
 	}
 }

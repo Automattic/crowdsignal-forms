@@ -50,7 +50,10 @@ const PollVote = ( {
 					<PollAnswer
 						key={ `poll-answer-${ index }` }
 						isMultipleChoice={ isMultipleChoice }
-						isSelected={ includes( selected, answer.answerId ) }
+						isSelected={ includes(
+							selected,
+							answer.answerIdFromApi
+						) }
 						onSelect={ handleSelect }
 						hasVoted={ hasVoted }
 						isVoting={ isVoting }

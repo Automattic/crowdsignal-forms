@@ -14,8 +14,13 @@ import { __, _n, sprintf } from 'lib/i18n';
 import PollAnswerResults from './answer-results';
 import FooterBranding from './footer-branding';
 
-const PollResults = ( { answers, pollId, setErrorMessage, hideBranding } ) => {
-	const { error, loading, results } = usePollResults( pollId );
+const PollResults = ( {
+	answers,
+	pollIdFromApi,
+	setErrorMessage,
+	hideBranding,
+} ) => {
+	const { error, loading, results } = usePollResults( pollIdFromApi );
 
 	useEffect( () => {
 		setErrorMessage(
@@ -40,12 +45,14 @@ const PollResults = ( { answers, pollId, setErrorMessage, hideBranding } ) => {
 			<div className="wp-block-crowdsignal-forms-poll__results-list">
 				{ map( answers, ( answer ) => (
 					<PollAnswerResults
-						key={ answer.answerId }
+						key={ answer.answerIdFromApi }
 						error={ !! error }
 						loading={ loading }
 						text={ answer.text }
 						totalVotes={ total }
-						votes={ results ? results[ answer.answerId ] : 0 }
+						votes={
+							results ? results[ answer.answerIdFromApi ] : 0
+						}
 					/>
 				) ) }
 			</div>

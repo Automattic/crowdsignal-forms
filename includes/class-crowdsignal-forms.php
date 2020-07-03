@@ -12,6 +12,7 @@ use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks_Assets;
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks;
 use Crowdsignal_Forms\Gateways\Api_Gateway_Interface;
 use Crowdsignal_Forms\Gateways\Api_Gateway;
+use Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway;
 use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
 use Crowdsignal_Forms\Rest_Api\Controllers\Account_Controller;
 use Crowdsignal_Forms\Admin\Admin_Hooks;
@@ -69,7 +70,7 @@ final class Crowdsignal_Forms {
 	 *
 	 * @var Api_Gateway_Interface
 	 */
-	private $api_gateway;
+	private $api_gateway = null;
 
 	/**
 	 * The admin page.
@@ -84,6 +85,14 @@ final class Crowdsignal_Forms {
 	 * @var Admin_Hooks
 	 */
 	private $admin_hooks;
+
+	/**
+	 * For saving/updating poll data from the api into post meta.
+	 *
+	 * @since 1.0.0
+	 * @var Post_Poll_Meta_Gateway
+	 */
+	private $post_poll_meta_gateway = null;
 
 	/**
 	 * Initialize the singleton instance.
@@ -211,7 +220,6 @@ final class Crowdsignal_Forms {
 	 */
 	public function get_api_gateway() {
 		if ( null === $this->api_gateway ) {
-			// This is temporary, normally we will be instantiating the actual gateway here.
 			$this->api_gateway = new Api_Gateway();
 		}
 
@@ -228,6 +236,32 @@ final class Crowdsignal_Forms {
 	 */
 	public function set_api_gateway( $gateway ) {
 		$this->api_gateway = $gateway;
+		return $this;
+	}
+
+	/**
+	 * Get the api gateway.
+	 *
+	 * @return Post_Poll_Meta_Gateway
+	 */
+	public function get_post_poll_meta_gateway() {
+		if ( null === $this->post_poll_meta_gateway ) {
+			$this->post_poll_meta_gateway = new Post_Poll_Meta_Gateway();
+		}
+
+		return $this->post_poll_meta_gateway;
+	}
+
+
+	/**
+	 * Set the api gateway.
+	 *
+	 * @param Post_Poll_Meta_Gateway $gateway The gateway.
+	 *
+	 * @return $this
+	 */
+	public function set_post_poll_meta_gateway( $gateway ) {
+		$this->post_poll_meta_gateway = $gateway;
 		return $this;
 	}
 }

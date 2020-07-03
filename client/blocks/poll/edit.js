@@ -1,14 +1,13 @@
 /**
  * External dependencies
  */
-import React, { useState } from 'react';
-import { map } from 'lodash';
+import React, { useState, useEffect } from 'react';
+import { map, some } from 'lodash';
 
 /**
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { useEntityId } from '@wordpress/core-data';
 
 /**
  * Internal dependencies
@@ -24,8 +23,33 @@ import EditAnswers from './edit-answers';
 import SideBar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars, getBlockCssClasses, isPollClosed } from './util';
-import { useCrowdsignalPoll } from './hooks';
 import ErrorBanner from 'components/poll/error-banner';
+import { v4 as uuidv4 } from 'uuid';
+
+const withPollAndAnswerIds = ( Element ) => {
+	return ( props ) => {
+		const { attributes, setAttributes } = props;
+		useEffect( () => {
+			if ( ! attributes.pollId ) {
+				const thePollId = uuidv4();
+				setAttributes( { pollId: thePollId } );
+			}
+			if ( some( attributes.answers, ( a ) => ! a.answerId && a.text ) ) {
+				const answers = map( attributes.answers, ( answer ) => {
+					if ( answer.answerId || ! answer.text ) {
+						return answer;
+					}
+					const answerId = uuidv4();
+					return { ...answer, answerId };
+				} );
+
+				setAttributes( { answers } );
+			}
+		} );
+
+		return <Element { ...props } />;
+	};
+};
 
 const PollBlock = ( props ) => {
 	const {
@@ -37,43 +61,10 @@ const PollBlock = ( props ) => {
 		renderStyleProbe,
 	} = props;
 
-	const postId = useEntityId( 'postType', 'post' );
-
 	const [ errorMessage, setErrorMessage ] = useState( '' );
-	const { setOutboundChanges, maybeSyncQueuedChanges } = useCrowdsignalPoll(
-		attributes,
-		{
-			onSyncComplete: ( response, currentAttributes ) => {
-				const { answers } = currentAttributes;
-				const answersWithIds = response.answers
-					? map( answers, ( answer, i ) => {
-							const newAnswer = { ...answer };
-							if ( response.answers[ i ] ) {
-								newAnswer.answerId = response.answers[ i ].id;
-							}
-							return newAnswer;
-					  } )
-					: answers;
 
-				const attrsToSet = { answers: answersWithIds };
-				if ( ! currentAttributes.pollId ) {
-					attrsToSet.pollId = response.id;
-				}
-				setAttributes( attrsToSet );
-			},
-		}
-	);
-
-	maybeSyncQueuedChanges( attributes, postId );
-
-	const setAttributesAndFlagChange = ( attrs ) => {
-		setOutboundChanges( ( n ) => n + 1 );
-		setAttributes( attrs );
-	};
-
-	const handleChangeQuestion = ( question ) =>
-		setAttributesAndFlagChange( { question } );
-	const handleChangeNote = ( note ) => setAttributesAndFlagChange( { note } );
+	const handleChangeQuestion = ( question ) => setAttributes( { question } );
+	const handleChangeNote = ( note ) => setAttributes( { note } );
 
 	const isClosed = isPollClosed(
 		attributes.pollStatus,
@@ -124,9 +115,7 @@ const PollBlock = ( props ) => {
 					{ ! showResults && (
 						<EditAnswers
 							{ ...props }
-							setAttributesAndFlagChange={
-								setAttributesAndFlagChange
-							}
+							setAttributes={ setAttributes }
 						/>
 					) }
 
@@ -154,4 +143,7 @@ const PollBlock = ( props ) => {
 	);
 };
 
-export default withFallbackStyles( PollStyles, getPollStyles )( PollBlock );
+export default withFallbackStyles(
+	PollStyles,
+	getPollStyles
+)( withPollAndAnswerIds( PollBlock ) );

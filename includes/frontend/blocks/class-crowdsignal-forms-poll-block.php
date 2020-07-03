@@ -48,9 +48,20 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	 * Renders the poll dynamic block
 	 *
 	 * @param array $attributes The block's attributes.
+	 * @return string
 	 */
 	public function render( $attributes ) {
 		$attributes['hideBranding'] = $this->should_hide_branding();
+		$post                       = get_post();
+		if ( $post && isset( $attributes['pollId'] ) ) {
+			$platform_poll_data = Crowdsignal_Forms::instance()
+				->get_post_poll_meta_gateway()
+				->get_poll_data_for_poll_client_id( $post->ID, $attributes['pollId'] );
+			if ( ! empty( $platform_poll_data ) ) {
+				$attributes['apiPollData'] = $platform_poll_data;
+			}
+		}
+
 		return sprintf(
 			'<div class="align%s" data-crowdsignal-poll="%s"></div>',
 			$attributes['align'],
@@ -97,7 +108,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	private function attributes() {
 		return array(
 			'pollId'                      => array(
-				'type'    => 'number',
+				'type'    => 'string',
 				'default' => null,
 			),
 			'isMultipleChoice'            => array(
@@ -123,7 +134,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 					'type'       => 'object',
 					'properties' => array(
 						'answerId' => array(
-							'type'    => 'number',
+							'type'    => 'string',
 							'default' => null,
 						),
 						'text'     => array(

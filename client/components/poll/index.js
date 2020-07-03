@@ -3,7 +3,7 @@
  */
 import React, { useState } from 'react';
 import seedrandom from 'seedrandom';
-import { filter } from 'lodash';
+import { filter, map, reduce } from 'lodash';
 
 /**
  * Internal dependencies
@@ -30,9 +30,11 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	const [ randomAnswerSeed ] = useState( Math.random() );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
 	const [ dismissSubmitMessage, setDismissSubmitMessage ] = useState( false );
+	const { apiPollData } = attributes;
+	const pollIdFromApi = apiPollData.id;
 
 	const { hasVoted, isVoting, vote } = usePollVote(
-		attributes.pollId,
+		pollIdFromApi,
 		attributes.hasOneResponsePerComputer
 	);
 
@@ -89,8 +91,26 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		}
 	);
 
+	const answerClientIdMap = reduce(
+		apiPollData.answers,
+		( accum, answer ) => {
+			accum[ answer.client_id ] = answer.id;
+			return accum;
+		},
+		{}
+	);
+
+	const answersWithIds = map(
+		attributes.answers,
+		( answerWithoutIdFromApi ) => {
+			const answerIdFromApi =
+				answerClientIdMap[ answerWithoutIdFromApi.answerId ];
+			return { ...answerWithoutIdFromApi, answerIdFromApi };
+		}
+	);
+
 	const answers = shuffleWithGenerator(
-		filter( attributes.answers, ( answer ) => !! answer.text ),
+		filter( answersWithIds, ( answer ) => !! answer.text ),
 		attributes.randomizeAnswers
 			? new seedrandom( randomAnswerSeed )
 			: () => 1
@@ -128,7 +148,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 				{ showResults && (
 					<PollResults
-						pollId={ attributes.pollId }
+						pollIdFromApi={ pollIdFromApi }
 						answers={ maybeAddTemporaryAnswerIds( answers ) }
 						setErrorMessage={ setErrorMessage }
 						hideBranding={ attributes.hideBranding }

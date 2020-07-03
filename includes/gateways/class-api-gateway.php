@@ -58,21 +58,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 	public function get_poll( $poll_id ) {
 		$poll_id  = absint( $poll_id );
 		$response = $this->perform_request( 'GET', '/polls/' . $poll_id );
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
-
-		$body          = wp_remote_retrieve_body( $response );
-		$response_data = json_decode( $body, true );
-
-		if ( ! $this->is_poll_response_valid( $response_data ) ) {
-			if ( isset( $response_data['error'] ) ) {
-				return new \WP_Error( $response_data['error'], $response_data );
-			}
-			return new \WP_Error( 'decode-failed' );
-		}
-
-		return Poll::from_array( $response_data['poll'] );
+		return $this->handle_api_response( $response );
 	}
 
 	/**
@@ -81,7 +67,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @param int $poll_id The poll id.
 	 * @since 1.0.0
 	 *
-	 * @return Poll results array|\WP_Error
+	 * @return array|\WP_Error
 	 */
 	public function get_poll_results( $poll_id ) {
 		$poll_id  = absint( $poll_id );
@@ -133,7 +119,18 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @since 1.0.0
 	 */
 	public function archive_poll( $id_to_archive ) {
-		$response = $this->perform_request( 'POST', '/polls/' . $id_to_archive . '/archive' );
+		$response = $this->perform_request( 'POST', '/polls/' . absint( $id_to_archive ) . '/archive' );
+		return $this->handle_api_response( $response );
+	}
+
+	/**
+	 * Handle the api response.
+	 *
+	 * @param \WP_Error|mixed $response The api response.
+	 *
+	 * @return \WP_Error|Poll
+	 */
+	private function handle_api_response( $response ) {
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}

@@ -31,6 +31,14 @@ class Poll {
 	private $id = 0;
 
 	/**
+	 * The client id.
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	private $client_id = '';
+
+	/**
 	 * The poll question.
 	 *
 	 * @since 1.0.0
@@ -107,6 +115,10 @@ class Poll {
 		$settings = Poll_Settings::from_array( isset( $data['settings'] ) ? $data['settings'] : array() );
 		$poll     = new self( $id, $question, $note, $answers, $settings );
 
+		if ( isset( $data['client_id'] ) ) {
+			$poll->set_client_id( $data['client_id'] );
+		}
+
 		if ( isset( $data['source_link'] ) ) {
 			$poll->set_source_link( $data['source_link'] );
 		} elseif ( isset( $data['post_id'] ) ) {
@@ -115,6 +127,46 @@ class Poll {
 		}
 
 		return $poll;
+	}
+
+	/**
+	 * Update this poll from the block attrs.
+	 *
+	 * @param array $attrs The block attrs.
+	 * @return $this
+	 */
+	public function update_from_block_attrs( $attrs ) {
+		$this->client_id   = $attrs['pollId'] ? $attrs['pollId'] : '';
+		$attribute_answers = isset( $attrs['answers'] ) ? $attrs['answers'] : array();
+		$this->question    = isset( $attrs['question'] ) ? $attrs['question'] : '';
+		$this->note        = isset( $attrs['note'] ) ? $attrs['note'] : '';
+
+		$block_answers_by_uuid = array();
+		foreach ( $attribute_answers as $attribute_answer ) {
+			$block_answers_by_uuid[ $attribute_answer['answerId'] ] = $attribute_answer;
+		}
+
+		foreach ( $this->answers as $i => &$answer ) {
+			$answer_block_id = $answer->get_client_id();
+			if ( in_array( $answer_block_id, array_keys( $block_answers_by_uuid ), true ) ) {
+				$answer->update_from_block( $block_answers_by_uuid[ $answer_block_id ] );
+				unset( $block_answers_by_uuid[ $answer_block_id ] );
+			} else {
+				// todo: delete this answer, it is no longer in the block.
+				unset( $this->answers[ $i ] );
+			}
+		}
+
+		// Trick to reindex the array.
+		$this->answers = array_values( $this->answers );
+
+		foreach ( $block_answers_by_uuid as $new_answer_data ) {
+			$new_answer = Poll_Answer::from_array( array() );
+			$new_answer->update_from_block( $new_answer_data );
+			$this->answers[] = $new_answer;
+		}
+
+		return $this;
 	}
 
 	/**
@@ -202,7 +254,22 @@ class Poll {
 		if ( ! empty( $this->source_link ) ) {
 			$data['source_link'] = $this->get_source_link();
 		}
+
+		if ( ! empty( $this->client_id ) ) {
+			$data['client_id'] = $this->client_id;
+		}
+
 		return $data;
 	}
 
+	/**
+	 * Set the client id.
+	 *
+	 * @param string $client_id Unique client id.
+	 * @return $this
+	 */
+	private function set_client_id( $client_id ) {
+		$this->client_id = $client_id;
+		return $this;
+	}
 }
