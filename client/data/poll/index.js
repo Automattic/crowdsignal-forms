@@ -1,9 +1,4 @@
 /**
- * External dependencies
- */
-import { fromPairs, map } from 'lodash';
-
-/**
  * Internal dependencies
  */
 import { __ } from 'lib/i18n';
@@ -33,12 +28,8 @@ export const requestResults = async ( pollId ) => {
 			if ( response.error ) {
 				throw new Error( response.message );
 			}
-			return fromPairs(
-				map( response.poll.answers, ( answer ) => [
-					answer.id,
-					parseInt( answer.answer_count, 10 ) || 0,
-				] )
-			);
+
+			return response.results.votes_by_answer;
 		} );
 };
 
