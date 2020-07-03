@@ -149,6 +149,18 @@ class Api_Gateway implements Api_Gateway_Interface {
 	}
 
 	/**
+	 * Call the api to unarchive a poll.
+	 *
+	 * @param int $id_to_unarchive The poll id to move to the archive.
+	 * @return Poll|\WP_Error
+	 * @since 1.0.0
+	 */
+	public function unarchive_poll( $id_to_unarchive ) {
+		$response = $this->perform_request( 'POST', '/polls/' . $id_to_unarchive . '/unarchive' );
+		return $this->handle_api_response( $response );
+	}
+
+	/**
 	 * Common method for either creating or updating a Poll.
 	 *
 	 * @param Poll $poll The poll.
