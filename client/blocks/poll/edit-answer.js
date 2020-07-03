@@ -46,7 +46,6 @@ const EditAnswer = ( {
 				placeholder={ __( 'Enter an answer' ) }
 				multiline={ false }
 				preserveWhiteSpace={ false }
-				keepPlaceholderOnFocus={ true }
 				onChange={ handleChangeText }
 				onSplit={ handleSplit }
 				onReplace={ noop }
