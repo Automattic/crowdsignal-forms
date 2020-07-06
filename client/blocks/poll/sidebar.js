@@ -376,12 +376,12 @@ const SideBar = ( {
 					{
 						value: attributes.submitButtonTextColor,
 						onChange: handleChangeSubmitButtonTextColor,
-						label: __( 'Submit Button Text Color' ),
+						label: __( 'Text Color' ),
 					},
 					{
 						value: attributes.submitButtonBackgroundColor,
 						onChange: handleChangeSubmitButtonBackgroundColor,
-						label: __( 'Submit Button Background Color' ),
+						label: __( 'Background Color' ),
 					},
 				] }
 			>

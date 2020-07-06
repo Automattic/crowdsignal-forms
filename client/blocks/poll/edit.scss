@@ -35,14 +35,15 @@
 		color: rgb(159, 164, 169);
 	}
 
-	.wp-block-crowdsignal-forms__row {
-		display: flex;
-		flex-direction: row;
-	}
+}
 
-	.wp-block-crowdsignal-forms__small-text-input input {
-		width: 40px;
-	}
+.wp-block-crowdsignal-forms__row {
+	display: flex;
+	flex-direction: row;
+}
+
+.wp-block-crowdsignal-forms__small-text-input input {
+	width: 40px;
 }
 
 .wp-block-crowdsignal-forms-poll__edit-bar {
