@@ -24,9 +24,15 @@ import { ClosedPollState } from './constants';
 import EditAnswers from './edit-answers';
 import SideBar from './sidebar';
 import Toolbar from './toolbar';
-import { getStyleVars, getBlockCssClasses, isPollClosed } from './util';
+import {
+	getStyleVars,
+	getBlockCssClasses,
+	isPollClosed,
+	pollIdExistsInPageContent,
+} from './util';
 import ErrorBanner from 'components/poll/error-banner';
 import { v4 as uuidv4 } from 'uuid';
+import EditBar from './edit-bar';
 
 // To be moved to hooks if we end up using it.
 const useViewResultsUrl = ( { attributes } ) => {
@@ -89,6 +95,7 @@ const PollBlock = ( props ) => {
 		viewResultsUrl,
 	} = props;
 
+	const [ isPollEditable, setIsPollEditable ] = useState( true );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
 
 	const handleChangeQuestion = ( question ) => setAttributes( { question } );
@@ -105,6 +112,17 @@ const PollBlock = ( props ) => {
 		isClosed && ClosedPollState.HIDDEN === attributes.closedPollState;
 	const hideBranding = true; // hide branding in editor for now
 
+	const postDetails = wp.data.select( 'core/editor' ).getCurrentPost();
+	const wasBlockAddedBeforeLastPublish =
+		'publish' === postDetails.status &&
+		pollIdExistsInPageContent( attributes.pollId, postDetails.content );
+
+	useEffect( () => setIsPollEditable( ! wasBlockAddedBeforeLastPublish ), [
+		isSelected,
+	] );
+
+	const showEditBar = isSelected && wasBlockAddedBeforeLastPublish;
+
 	return (
 		<>
 			<Toolbar { ...props } />
@@ -118,32 +136,56 @@ const PollBlock = ( props ) => {
 				} ) }
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
+				{ showEditBar && (
+					<EditBar
+						unlocked={ isPollEditable }
+						onEditClick={ () => {
+							setIsPollEditable( true );
+						} }
+					/>
+				) }
 				{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
 				<div className="wp-block-crowdsignal-forms-poll__content">
-					<RichText
-						tagName="h3"
-						className="wp-block-crowdsignal-forms-poll__question"
-						placeholder={ __( 'Enter your question' ) }
-						onChange={ handleChangeQuestion }
-						value={ attributes.question }
-						allowedFormats={ [] }
-					/>
-
-					{ showNote && (
+					{ isPollEditable ? (
 						<RichText
-							tagName="p"
-							className="wp-block-crowdsignal-forms-poll__note"
-							placeholder={ __( 'Add a note (optional)' ) }
-							onChange={ handleChangeNote }
-							value={ attributes.note }
+							tagName="h3"
+							className="wp-block-crowdsignal-forms-poll__question"
+							placeholder={ __( 'Enter your question' ) }
+							onChange={ handleChangeQuestion }
+							value={ attributes.question }
 							allowedFormats={ [] }
 						/>
+					) : (
+						<h3 className="wp-block-crowdsignal-forms-poll__question">
+							{ attributes.question
+								? attributes.question
+								: __( 'Enter your question' ) }
+						</h3>
 					) }
+
+					{ showNote &&
+						( isPollEditable ? (
+							<RichText
+								tagName="p"
+								className="wp-block-crowdsignal-forms-poll__note"
+								placeholder={ __( 'Add a note (optional)' ) }
+								onChange={ handleChangeNote }
+								value={ attributes.note }
+								allowedFormats={ [] }
+							/>
+						) : (
+							<p className="wp-block-crowdsignal-forms-poll__note">
+								{ attributes.note
+									? attributes.note
+									: __( 'Add a note (optional)' ) }
+							</p>
+						) ) }
 
 					{ ! showResults && (
 						<EditAnswers
 							{ ...props }
 							setAttributes={ setAttributes }
+							disabled={ ! isPollEditable }
 						/>
 					) }
 

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useRef } from 'react';
-import { filter, last, map, slice, tap } from 'lodash';
+import { filter, isEmpty, last, map, slice, tap } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -20,7 +20,7 @@ const shiftAnswerFocus = ( wrapper, index ) =>
 		( answer ) => answer && answer.focus()
 	);
 
-const EditAnswers = ( { attributes, isSelected, setAttributes } ) => {
+const EditAnswers = ( { attributes, isSelected, setAttributes, disabled } ) => {
 	const answersContainer = useRef();
 
 	const handleChangeSubmitButtonLabel = ( submitButtonLabel ) =>
@@ -66,6 +66,10 @@ const EditAnswers = ( { attributes, isSelected, setAttributes } ) => {
 		);
 	};
 
+	// Only show empty answers when the poll block is not disabled
+	const shouldShowAnswer = ( answer ) =>
+		! disabled || ( disabled && ! isEmpty( answer ) );
+
 	// Rendering n + 1 answers vs a separate placeholder
 	// prevents the text field from loosing focus when you start typing a new answer.
 	const editableAnswers =
@@ -79,27 +83,38 @@ const EditAnswers = ( { attributes, isSelected, setAttributes } ) => {
 				ref={ answersContainer }
 				className="wp-block-crowdsignal-forms-poll__options"
 			>
-				{ map( editableAnswers, ( answer, index ) => (
-					<EditAnswer
-						key={ `poll-answer-${ index }` }
-						answer={ answer }
-						index={ index }
-						isMultipleChoice={ attributes.isMultipleChoice }
-						onChange={ handleChangeAnswer }
-						onDelete={ handleDeleteAnswer }
-						onNewAnswer={ handleNewAnswer }
-					/>
-				) ) }
+				{ map(
+					editableAnswers,
+					( answer, index ) =>
+						shouldShowAnswer( answer ) && (
+							<EditAnswer
+								key={ `poll-answer-${ index }` }
+								answer={ answer }
+								index={ index }
+								isMultipleChoice={ attributes.isMultipleChoice }
+								onChange={ handleChangeAnswer }
+								onDelete={ handleDeleteAnswer }
+								onNewAnswer={ handleNewAnswer }
+								disabled={ disabled }
+							/>
+						)
+				) }
 			</div>
 
 			<div className="wp-block-crowdsignal-forms-poll__actions">
 				<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
-					<RichText
-						className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
-						onChange={ handleChangeSubmitButtonLabel }
-						value={ attributes.submitButtonLabel }
-						allowedFormats={ [] }
-					/>
+					{ ! disabled ? (
+						<RichText
+							className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
+							onChange={ handleChangeSubmitButtonLabel }
+							value={ attributes.submitButtonLabel }
+							allowedFormats={ [] }
+						/>
+					) : (
+						<div className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button">
+							{ attributes.submitButtonLabel }
+						</div>
+					) }
 				</div>
 			</div>
 		</>

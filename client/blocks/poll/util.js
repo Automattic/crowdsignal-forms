@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classNames from 'classnames';
-import { includes, kebabCase, mapKeys } from 'lodash';
+import { includes, kebabCase, mapKeys, some } from 'lodash';
 
 /**
  * Internal dependencies
@@ -97,4 +97,36 @@ export const isPollClosed = (
 	}
 
 	return false;
+};
+
+/**
+ * Parses the published post content to find the given pollId to determine if it is a published or unpublished poll.
+ *
+ * @param {*} pollId Id of the poll to search for.
+ * @param {*} postContent Content of the published post.
+ */
+export const pollIdExistsInPageContent = ( pollId, postContent ) => {
+	if ( ! pollId ) {
+		return false;
+	}
+
+	const pollBlockInstanceStrings = postContent.split( '<!-- ' );
+	// remove the 1st one since it will either be a blank string, or it will be other post content that is NOT a poll
+	pollBlockInstanceStrings.splice( 0, 1 );
+
+	return some( pollBlockInstanceStrings, ( blockInstanceString ) => {
+		if (
+			0 !== blockInstanceString.indexOf( 'wp:crowdsignal-forms/poll' )
+		) {
+			return false;
+		}
+
+		const start = 'wp:crowdsignal-forms/poll'.length;
+		const pollJsonString = blockInstanceString.substr(
+			start,
+			blockInstanceString.lastIndexOf( '/-->' ) - start
+		);
+		const poll = JSON.parse( pollJsonString );
+		return poll.pollId && poll.pollId === pollId;
+	} );
 };

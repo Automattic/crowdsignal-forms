@@ -6,6 +6,7 @@ import {
 	getFontFamilyFromType,
 	getBlockCssClasses,
 	isPollClosed,
+	pollIdExistsInPageContent,
 } from './util';
 import { FontFamilyType, FontFamilyMap, PollStatus } from './constants';
 
@@ -146,3 +147,31 @@ test.each( [
 		).toEqual( expectedIsClosed );
 	}
 );
+
+const testPostContent = `post content
+<!-- wp:crowdsignal-forms/poll {"pollId":10573434,"question":"First poll on page"} /-->
+middle post content
+<!-- wp:crowdsignal-forms/poll {"pollId":10578923,"question":"Another poll on the page"} /-->
+More post content, with some non-crowdsignal blocks in there too
+<!-- wp:block {"ref":246} /-->`;
+
+test.each( [ [ null ], [ undefined ], [ '' ] ] )(
+	'pollIdExistsInPostContent returns false if pollId is not set',
+	( pollId ) => {
+		expect( pollIdExistsInPageContent( pollId, testPostContent ) ).toEqual(
+			false
+		);
+	}
+);
+
+test( 'pollIdExistsInPostContent returns true if pollId is present', () => {
+	expect( pollIdExistsInPageContent( 10573434, testPostContent ) ).toEqual(
+		true
+	);
+} );
+
+test( 'pollIdExistsInPostContent returns false if pollId is NOT present', () => {
+	expect( pollIdExistsInPageContent( 123, testPostContent ) ).toEqual(
+		false
+	);
+} );

@@ -22,6 +22,7 @@ const EditAnswer = ( {
 	onChange,
 	onDelete,
 	onNewAnswer,
+	disabled,
 } ) => {
 	const handleChangeText = ( text ) =>
 		onChange( index, {
@@ -40,20 +41,26 @@ const EditAnswer = ( {
 		<div className={ classes }>
 			<span className="wp-block-crowdsignal-forms-poll__check" />
 
-			<RichText
-				className="wp-block-crowdsignal-forms-poll__answer-label"
-				tagName="span"
-				placeholder={ __( 'Enter an answer' ) }
-				multiline={ false }
-				preserveWhiteSpace={ false }
-				onChange={ handleChangeText }
-				onSplit={ handleSplit }
-				onReplace={ noop }
-				onRemove={ handleDelete }
-				value={ answer.text }
-				allowedFormats={ [] }
-				withoutInteractiveFormatting
-			/>
+			{ ! disabled ? (
+				<RichText
+					className="wp-block-crowdsignal-forms-poll__answer-label"
+					tagName="span"
+					placeholder={ __( 'Enter an answer' ) }
+					multiline={ false }
+					preserveWhiteSpace={ false }
+					onChange={ handleChangeText }
+					onSplit={ handleSplit }
+					onReplace={ noop }
+					onRemove={ handleDelete }
+					value={ answer.text }
+					allowedFormats={ [] }
+					withoutInteractiveFormatting
+				/>
+			) : (
+				<span className="wp-block-crowdsignal-forms-poll__answer-label">
+					{ answer.text ? answer.text : __( 'Enter an answer' ) }
+				</span>
+			) }
 		</div>
 	);
 };
