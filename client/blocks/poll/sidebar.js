@@ -249,7 +249,7 @@ const SideBar = ( {
 			</PanelBody>
 			<PanelColorSettings
 				title={ __( 'Block Styling' ) }
-				initialOpen={ false }
+				initialOpen={ true }
 				colorSettings={ [
 					{
 						value: attributes.textColor,
@@ -352,7 +352,7 @@ const SideBar = ( {
 			</PanelColorSettings>
 			<PanelColorSettings
 				title={ __( 'Button Styling' ) }
-				initialOpen={ true }
+				initialOpen={ false }
 				colorSettings={ [
 					{
 						value: attributes.submitButtonTextColor,
