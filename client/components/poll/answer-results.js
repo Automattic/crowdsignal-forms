@@ -21,7 +21,7 @@ const PollAnswerResults = ( { error, loading, text, totalVotes, votes } ) => {
 
 	const showResults = ! loading && ! error;
 
-	const answerShare = ( votes * 100 ) / totalVotes;
+	const answerShare = 0 === totalVotes ? 0 : ( votes * 100 ) / totalVotes;
 
 	const progressBarStyles = {
 		width: `${ parseInt( answerShare, 10 ) }%`,
