@@ -8,6 +8,8 @@ import { map, some } from 'lodash';
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
+import { useEntityId } from '@wordpress/core-data';
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * Internal dependencies
@@ -26,9 +28,34 @@ import { getStyleVars, getBlockCssClasses, isPollClosed } from './util';
 import ErrorBanner from 'components/poll/error-banner';
 import { v4 as uuidv4 } from 'uuid';
 
+// To be moved to hooks if we end up using it.
+const useViewResultsUrl = ( { attributes } ) => {
+	const postId = useEntityId( 'postType', 'post' );
+	const [ viewResultsUrl, setViewResultsUrl ] = useState( '' );
+
+	useEffect( () => {
+		if ( ! attributes.pollId || viewResultsUrl !== '' ) {
+			return;
+		}
+		apiFetch( {
+			path: `/crowdsignal-forms/v1/post-polls/${ postId }/${ attributes.pollId }`,
+			method: 'GET',
+		} ).then(
+			( res ) =>
+				setViewResultsUrl(
+					`https://app.crowdsignal.com/polls/${ res.id }/results`
+				),
+			() => setViewResultsUrl( '' )
+		);
+	}, [ attributes.pollId ] );
+
+	return viewResultsUrl;
+};
+
 const withPollAndAnswerIds = ( Element ) => {
 	return ( props ) => {
 		const { attributes, setAttributes } = props;
+		const viewResultsUrl = useViewResultsUrl( props );
 		useEffect( () => {
 			if ( ! attributes.pollId ) {
 				const thePollId = uuidv4();
@@ -47,7 +74,7 @@ const withPollAndAnswerIds = ( Element ) => {
 			}
 		} );
 
-		return <Element { ...props } />;
+		return <Element { ...props } viewResultsUrl={ viewResultsUrl } />;
 	};
 };
 
@@ -59,6 +86,7 @@ const PollBlock = ( props ) => {
 		isSelected,
 		setAttributes,
 		renderStyleProbe,
+		viewResultsUrl,
 	} = props;
 
 	const [ errorMessage, setErrorMessage ] = useState( '' );
@@ -80,7 +108,7 @@ const PollBlock = ( props ) => {
 	return (
 		<>
 			<Toolbar { ...props } />
-			<SideBar { ...props } />
+			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 
 			<div
 				className={ getBlockCssClasses( attributes, className, {

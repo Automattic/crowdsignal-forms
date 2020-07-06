@@ -92,6 +92,19 @@ class Polls_Controller {
 			)
 		);
 
+		// GET post-polls/:post_id.
+		register_rest_route(
+			$this->namespace,
+			'/post-polls/(?P<post_id>\d+)/(?P<poll_uuid>[a-zA-Z0-9\-\_]+)',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_post_poll_by_uuid' ),
+					'permission_callback' => array( $this, 'get_poll_permissions_check' ),
+				),
+			)
+		);
+
 		register_rest_route(
 			$this->namespace,
 			'/' . $this->rest_base . '/(?P<poll_id>\d+)',
@@ -291,6 +304,52 @@ class Polls_Controller {
 	}
 
 	/**
+	 * Get a post's poll given the post id and poll uuid.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param \WP_REST_Request $request
+	 *
+	 * @return \WP_REST_Response|\WP_Error
+	 **/
+	public function get_post_poll_by_uuid( $request ) {
+		$post_id   = $request->get_param( 'post_id' );
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+
+		if ( null === $post_id || ! is_numeric( $post_id ) ) {
+			return new \WP_Error(
+				'invalid-post-id',
+				__( 'Invalid post ID', 'crowdsignal-forms' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		$the_post = get_post( $post_id );
+
+		if ( empty( $the_post ) ) {
+			return $this->resource_not_found();
+		}
+
+		if ( null === $poll_uuid ) {
+			return new \WP_Error(
+				'invalid-poll-id',
+				__( 'Invalid poll ID', 'crowdsignal-forms' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		$poll_saved_in_meta = Crowdsignal_Forms::instance()
+			->get_post_poll_meta_gateway()
+			->get_poll_data_for_poll_client_id( $post_id, $poll_uuid );
+
+		if ( empty( $poll_saved_in_meta ) || ! isset( $poll_saved_in_meta['id'] ) ) {
+			return $this->resource_not_found();
+		}
+
+		return rest_ensure_response( $poll_saved_in_meta );
+	}
+
+	/**
 	 * Get poll results by ID.
 	 *
 	 * @since 1.0.0
@@ -339,6 +398,20 @@ class Polls_Controller {
 					return is_numeric( $param );
 				},
 			),
+		);
+	}
+
+	/**
+	 * For not-found.
+	 *
+	 * @since 1.0.0
+	 * @return \WP_Error
+	 */
+	private function resource_not_found() {
+		return new \WP_Error(
+			'resource-not-found',
+			__( 'Resource not found', 'crowdsignal-forms' ),
+			array( 'status' => 404 )
 		);
 	}
 }

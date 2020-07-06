@@ -42,6 +42,7 @@ const SideBar = ( {
 	fallbackTextColor,
 	fallbackSubmitButtonBackgroundColor,
 	fallbackSubmitButtonTextColor,
+	viewResultsUrl,
 } ) => {
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
@@ -129,17 +130,13 @@ const SideBar = ( {
 			<PanelBody title={ __( 'Data Settings' ) } initialOpen={ true }>
 				<p>
 					{ __( 'Manage results on: ' ) }
-					<ExternalLink href="https://app.crowdsignal.com/polls/null/results">
+					<ExternalLink href={ viewResultsUrl }>
 						crowdsignal.com
 					</ExternalLink>
 				</p>
 
 				<p>
-					<Button
-						href="https://app.crowdsignal.com/polls/null/results"
-						isDefault
-						target="_blank"
-					>
+					<Button href={ viewResultsUrl } isDefault target="_blank">
 						{ __( 'View Results' ) }
 					</Button>
 				</p>
