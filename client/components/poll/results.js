@@ -72,14 +72,15 @@ const PollResults = ( {
 };
 
 PollResults.propTypes = {
-	pollId: PropTypes.number.isRequired,
+	pollIdFromApi: PropTypes.number.isRequired,
 	answers: PropTypes.arrayOf(
 		PropTypes.shape( {
-			answerId: PropTypes.number.isRequired,
+			answerIdFromApi: PropTypes.number.isRequired,
 			text: PropTypes.string,
 		} )
 	).isRequired,
 	setErrorMessage: PropTypes.func.isRequired,
+	hideBranding: PropTypes.bool,
 };
 
 export default PollResults;

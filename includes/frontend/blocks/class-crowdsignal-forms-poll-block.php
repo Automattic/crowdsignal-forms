@@ -94,7 +94,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 			$hide_branding,
 			MINUTE_IN_SECONDS
 		);
-		return $hide_branding;
+		return self::HIDE_BRANDING_YES === $hide_branding;
 	}
 
 	/**

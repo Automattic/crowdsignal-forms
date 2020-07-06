@@ -47,9 +47,11 @@ const PollAnswer = ( {
 };
 
 PollAnswer.propTypes = {
-	answerId: PropTypes.number.isRequired,
+	answerIdFromApi: PropTypes.number.isRequired,
+	hasVoted: PropTypes.bool,
 	isMultipleChoice: PropTypes.bool,
 	isSelected: PropTypes.bool,
+	isVoting: PropTypes.bool,
 	onSelect: PropTypes.func.isRequired,
 	text: PropTypes.string.isRequired,
 };
