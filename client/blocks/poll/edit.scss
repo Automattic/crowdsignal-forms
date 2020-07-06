@@ -65,3 +65,11 @@
 		cursor: pointer;
 	}
 }
+
+.wp-block-crowdsignal-forms__view-results {
+
+	&.is-disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+}
