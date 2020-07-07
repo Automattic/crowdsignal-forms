@@ -143,12 +143,17 @@ class Admin_Hooks {
 			$platform_poll_data = Crowdsignal_Forms::instance()
 				->get_post_poll_meta_gateway()
 				->get_poll_data_for_poll_client_id( $post_ID, $poll_client_id );
+
+			// Append post_ID so Crowdsignal_Forms\Models\Poll::from_array
+			// can inject the source_link.
 			if ( empty( $platform_poll_data ) ) {
 				// nothing in the key or key not existing. New poll.
-				$poll = Poll::from_array( array() );
+				$platform_poll_data = array( 'post_id' => $post_ID );
 			} else {
-				$poll = Poll::from_array( $platform_poll_data );
+				$platform_poll_data = array_merge( $platform_poll_data, array( 'post_id' => $post_ID ) );
 			}
+
+			$poll = Poll::from_array( $platform_poll_data );
 
 			$poll->update_from_block_attrs( $poll_block['attrs'] );
 			if ( $poll->get_id() < 1 ) {
