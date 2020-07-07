@@ -44,6 +44,7 @@ export const usePollVote = ( pollId, enableVoteRestriction = false ) => {
 
 	const vote = async ( selectedAnswerIds ) => {
 		try {
+			setIsVoting( true );
 			const nonce = await requestVoteNonce( pollId );
 			await requestVote( nonce, pollId, selectedAnswerIds );
 
