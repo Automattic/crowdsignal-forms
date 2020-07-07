@@ -166,6 +166,8 @@ class Poll {
 			$this->answers[] = $new_answer;
 		}
 
+		$this->settings->update_from_block( $attrs );
+
 		return $this;
 	}
 

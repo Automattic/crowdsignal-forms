@@ -124,12 +124,24 @@ class Poll_Settings {
 	 * @param array $data (optional) An array to construct this instance from.
 	 */
 	public function __construct( array $data = array() ) {
-		$defaults = (array) get_object_vars( $this );
+		$this->update_from_array( $data );
+	}
+
+	/**
+	 * Update this object's props from a data array.
+	 *
+	 * @since 1.0.0
+	 * @param array $data All the data.
+	 * @return $this
+	 */
+	private function update_from_array( $data ) {
+		// on construct, these will be the defaults.
+		$current_values = (array) get_object_vars( $this );
+		$keys           = array_keys( $current_values );
 
 		// Perform an intersection so no array members other than the
 		// object vars can be passed. Then merge.
-		$data = array_merge( $defaults, array_intersect_key( $data, $defaults ) );
-
+		$data = array_merge( $current_values, array_intersect_key( $data, $current_values ) );
 		// check for allowed values on close_status and after_vote.
 		$allowed_close_statuses = array(
 			self::CLOSE_TYPE_OPEN,
@@ -153,8 +165,12 @@ class Poll_Settings {
 			: self::AFTER_VOTE_RESULTS;
 
 		foreach ( $data as $var => $value ) {
-			$this->{$var} = $value;
+			if ( in_array( $var, $keys, true ) ) {
+				$this->{$var} = $value;
+			}
 		}
+
+		return $this;
 	}
 
 	/**
@@ -177,5 +193,40 @@ class Poll_Settings {
 	 */
 	public function to_array( $context = 'view' ) {
 		return (array) get_object_vars( $this );
+	}
+
+	/**
+	 * Update the settings from the block's attrs.
+	 *
+	 * @since 1.0.0
+	 * @param array $attrs All the block attrs.
+	 * @return $this
+	 */
+	public function update_from_block( $attrs ) {
+		$settings_from_block = $attrs;
+		// These are not yet implemented.
+		$settings_data = array(
+			'after_message' => '',
+			'redirect_url'  => '',
+			'captcha'       => false,
+		);
+
+		$block_attributes_to_object_props = array(
+			'title'                     => 'title',
+			'confirmMessageType'        => 'after_vote',
+			'randomizeAnswers'          => 'randomize_answers',
+			'hasOneResponsePerComputer' => 'restrict_vote_repeat',
+			'isMultipleChoice'          => 'multiple_choice',
+			'pollStatus'                => 'close_status',
+			'closedAfterDateTime'       => 'close_after',
+		);
+
+		foreach ( $block_attributes_to_object_props as $block_attr => $object_property_name ) {
+			if ( isset( $settings_from_block[ $block_attr ] ) ) {
+				$settings_data[ $object_property_name ] = $settings_from_block[ $block_attr ];
+			}
+		}
+		$this->update_from_array( $settings_data );
+		return $this;
 	}
 }
