@@ -152,7 +152,7 @@ const SideBar = ( {
 					<p>
 						<Button
 							href={ viewResultsUrl }
-							isDefault
+							isSecondary
 							target="_blank"
 						>
 							{ __( 'View Results' ) }
