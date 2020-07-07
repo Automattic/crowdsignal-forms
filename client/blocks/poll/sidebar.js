@@ -160,11 +160,13 @@ const SideBar = ( {
 					</p>
 				</div>
 
-				<TextControl
-					value={ attributes.title }
-					label={ __( 'Title of the Poll Block' ) }
-					onChange={ handleChangeTitle }
-				/>
+				{ false && (
+					<TextControl
+						value={ attributes.title }
+						label={ __( 'Title of the Poll Block' ) }
+						onChange={ handleChangeTitle }
+					/>
+				) }
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Confirmation Message' ) }
