@@ -25,7 +25,7 @@ export default {
 	},
 	title: {
 		type: 'string',
-		default: __( 'Untitled Poll' ),
+		default: null,
 	},
 	question: {
 		type: 'string',
