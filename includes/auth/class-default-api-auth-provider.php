@@ -55,10 +55,12 @@ class Default_Api_Auth_Provider implements Api_Auth_Provider_Interface {
 			return false;
 		}
 	}
+
 	/**
 	 * Get the Crowdsignal user code for an API key.
 	 *
 	 * @param string $query query to send to API.
+	 * @return mixed
 	 */
 	private function perform_query( $query ) {
 		$data = wp_remote_post(

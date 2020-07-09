@@ -16,7 +16,6 @@ use Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway;
 use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
 use Crowdsignal_Forms\Rest_Api\Controllers\Account_Controller;
 use Crowdsignal_Forms\Admin\Admin_Hooks;
-use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin;
 use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -73,13 +72,6 @@ final class Crowdsignal_Forms {
 	private $api_gateway = null;
 
 	/**
-	 * The admin page.
-	 *
-	 * @var Crowdsignal_Admin
-	 */
-	private $admin;
-
-	/**
 	 * The admin hooks instance.
 	 *
 	 * @var Admin_Hooks
@@ -93,6 +85,21 @@ final class Crowdsignal_Forms {
 	 * @var Post_Poll_Meta_Gateway
 	 */
 	private $post_poll_meta_gateway = null;
+
+	/**
+	 * For account actions.
+	 *
+	 * @since 1.0.0
+	 * @var Account_Controller
+	 */
+	private $rest_api_account_controller;
+	/**
+	 * Registers the block assets needed.
+	 *
+	 * @since 1.0.0
+	 * @var Crowdsignal_Forms_Blocks_Assets
+	 */
+	private $blocks_assets;
 
 	/**
 	 * Initialize the singleton instance.
