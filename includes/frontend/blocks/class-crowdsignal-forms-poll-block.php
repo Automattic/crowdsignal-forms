@@ -183,7 +183,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 			),
 			'hasBoxShadow'                => array(
 				'type'    => 'boolean',
-				'default' => true,
+				'default' => false,
 			),
 			'fontFamily'                  => array(
 				'type'    => 'string',
