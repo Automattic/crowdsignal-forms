@@ -71,6 +71,7 @@
 
 	&.has-border-radius {
 		border-radius: var(--crowdsignal-forms-border-radius);
+		overflow: hidden;
 	}
 
 	&.has-box-shadow {
@@ -216,7 +217,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	color: var(--crowdsignal-forms-submit-button-text-color);
 	font-family: $font-sans-serif;
 	justify-content: center;
-	padding: 0.2em 0;
+	padding: calc(var(--crowdsignal-forms-border-width) + 0.2em) 0 0.2em;
 	width: 100%;
 
 	.is-hidden & {
