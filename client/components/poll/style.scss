@@ -55,7 +55,7 @@
 		opacity: 0.5;
 	}
 
-	&.has-font-family,
+	&.has-font-family .wp-block-crowdsignal-forms-poll__answer-label,
 	&.has-font-family .wp-block-crowdsignal-forms-poll__question,
 	&.has-font-family .wp-block-crowdsignal-forms-poll__note {
 		font-family: var(--crowdsignal-forms-font-family);
@@ -185,6 +185,7 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	}
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .wp-block-crowdsignal-forms-poll__answer-label {
 	flex: 1;
 }
