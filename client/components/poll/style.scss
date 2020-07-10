@@ -378,11 +378,13 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-}
 
-.wp-block-crowdsignal-forms-poll__footer-branding-logo {
-	width: 50px;
-	height: 50px;
+	img.wp-block-crowdsignal-forms-poll__footer-branding-logo {
+		width: 50px;
+		height: 50px;
+		margin-left: 0;
+		margin-right: 0;
+	}
 }
 
 .wp-block-crowdsignal-forms-poll__footer-cs-link {
