@@ -136,7 +136,7 @@ const SideBar = ( {
 
 	return (
 		<InspectorControls>
-			<PanelBody title={ __( 'Data Settings' ) } initialOpen={ true }>
+			<PanelBody title={ __( 'Results' ) } initialOpen={ true }>
 				<div className={ resultsLinkClasses }>
 					<p>
 						{ resultsLinkEnabled
