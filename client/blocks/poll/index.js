@@ -9,7 +9,7 @@ import attributes from './attributes';
 export default {
 	title: __( 'Poll' ),
 	description: __(
-		'Ask a question and offer answer options | powered by Crowdsignal'
+		'Create polls and get your audience’s opinion — powered by Crowdsignal.'
 	),
 	category: 'widgets',
 	icon: <PollIcon />,
