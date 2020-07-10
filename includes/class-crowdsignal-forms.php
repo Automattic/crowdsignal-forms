@@ -17,6 +17,7 @@ use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
 use Crowdsignal_Forms\Rest_Api\Controllers\Account_Controller;
 use Crowdsignal_Forms\Admin\Admin_Hooks;
 use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
+use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -173,6 +174,8 @@ final class Crowdsignal_Forms {
 		add_action( 'init', array( $this->blocks, 'register' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_api_routes' ) );
 
+		add_filter( 'crowdsignal_forms_api_request_headers', array( $this, 'add_auth_request_headers' ) );
+
 		$this->admin_hooks->hook();
 
 		return $this;
@@ -247,6 +250,26 @@ final class Crowdsignal_Forms {
 	}
 
 	/**
+	 * Add API key and usercode to the API request headers.
+	 *
+	 * @param array $headers Any existing header values.
+	 *
+	 * @return $headers array the modified array.
+	 */
+	public function add_auth_request_headers( $headers ) {
+		$cs_authenticator = new Crowdsignal_Forms_Api_Authenticator();
+
+		$user_code = $cs_authenticator->get_user_code();
+
+		if ( ! empty( $user_code ) ) {
+			$headers['x-api-partner-guid'] = $cs_authenticator->get_api_key();
+			$headers['x-api-user-code']    = $user_code;
+		}
+
+		return $headers;
+	}
+
+	/**
 	 * Get the api gateway.
 	 *
 	 * @return Post_Poll_Meta_Gateway
@@ -258,7 +281,6 @@ final class Crowdsignal_Forms {
 
 		return $this->post_poll_meta_gateway;
 	}
-
 
 	/**
 	 * Set the api gateway.
