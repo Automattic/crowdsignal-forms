@@ -20,12 +20,12 @@ import { __ } from 'lib/i18n';
 const multipleChoiceControls = [
 	{
 		icon: ChecklistSingleChoiceIcon,
-		title: __( 'Radio (Choose one)' ),
+		title: __( 'Choose one answer' ),
 		value: false,
 	},
 	{
 		icon: ChecklistMultipleChoiceIcon,
-		title: __( 'Checkbox (Choose many)' ),
+		title: __( 'Choose multiple answers' ),
 		value: true,
 	},
 ];

@@ -155,27 +155,27 @@ const SideBar = ( {
 							isSecondary
 							target="_blank"
 						>
-							{ __( 'View Results' ) }
+							{ __( 'View results' ) }
 						</Button>
 					</p>
 				</div>
 
 				<TextControl
 					value={ attributes.title ?? attributes.question }
-					label={ __( 'Title of the Poll Block' ) }
+					label={ __( 'Title of the poll block' ) }
 					onChange={ handleChangeTitle }
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Confirmation Message' ) }
+				title={ __( 'Confirmation message' ) }
 				initialOpen={ false }
 			>
 				<SelectControl
 					value={ attributes.confirmMessageType }
-					label={ __( 'On Submission' ) }
+					label={ __( 'On submission' ) }
 					options={ [
 						{
-							label: __( 'Show Results' ),
+							label: __( 'Show results' ),
 							value: ConfirmMessageType.RESULTS,
 						},
 						{
@@ -198,7 +198,7 @@ const SideBar = ( {
 					attributes.confirmMessageType && (
 					<TextareaControl
 						value={ attributes.customConfirmMessage }
-						label={ __( 'Message Text' ) }
+						label={ __( 'Message text' ) }
 						placeholder={ __( 'Thank you for your submission!' ) }
 						onChange={ handleChangeCustomConfirmMessage }
 					/>
@@ -209,12 +209,12 @@ const SideBar = ( {
 					<URLInput
 						className="wp-block-crowdsignal-forms__redirect-url"
 						value={ attributes.redirectAddress }
-						label={ __( 'Redirect Address' ) }
+						label={ __( 'Redirect address' ) }
 						onChange={ handleChangeRedirectAddress }
 					/>
 				) }
 			</PanelBody>
-			<PanelBody title={ __( 'Poll Status' ) } initialOpen={ false }>
+			<PanelBody title={ __( 'Poll status' ) } initialOpen={ false }>
 				<SelectControl
 					value={ attributes.pollStatus }
 					label={ __( 'Currently' ) }
@@ -224,7 +224,7 @@ const SideBar = ( {
 							value: PollStatus.OPEN,
 						},
 						{
-							label: __( 'Closed After' ),
+							label: __( 'Closed after' ),
 							value: PollStatus.CLOSED_AFTER,
 						},
 						{
@@ -250,15 +250,15 @@ const SideBar = ( {
 						label={ __( 'When poll is closed' ) }
 						options={ [
 							{
-								label: __( 'Show Results' ),
+								label: __( 'Show results' ),
 								value: ClosedPollState.SHOW_RESULTS,
 							},
 							{
-								label: __( 'Show Poll With "Closed" Banner' ),
+								label: __( 'Show poll with "Closed" banner' ),
 								value: ClosedPollState.SHOW_CLOSED_BANNER,
 							},
 							{
-								label: __( 'Hide Poll' ),
+								label: __( 'Hide poll' ),
 								value: ClosedPollState.HIDDEN,
 							},
 						] }
@@ -267,23 +267,23 @@ const SideBar = ( {
 				) }
 			</PanelBody>
 			<PanelColorSettings
-				title={ __( 'Block Styling' ) }
+				title={ __( 'Block styling' ) }
 				initialOpen={ true }
 				colorSettings={ [
 					{
 						value: attributes.textColor,
 						onChange: handleChangeTextColor,
-						label: __( 'Text Color' ),
+						label: __( 'Text color' ),
 					},
 					{
 						value: attributes.backgroundColor,
 						onChange: handleChangeBackgroundColor,
-						label: __( 'Background Color' ),
+						label: __( 'Background color' ),
 					},
 					{
 						value: attributes.borderColor,
 						onChange: handleChangeBorderColor,
-						label: __( 'Border Color' ),
+						label: __( 'Border color' ),
 					},
 				] }
 			>
@@ -295,10 +295,10 @@ const SideBar = ( {
 				/>
 				<SelectControl
 					value={ attributes.fontFamily }
-					label={ __( 'Choose Font-Family' ) }
+					label={ __( 'Choose font' ) }
 					options={ [
 						{
-							label: __( 'Default Theme Font' ),
+							label: __( 'Default theme font' ),
 							value: FontFamilyType.THEME_DEFAULT,
 						},
 						{
@@ -351,37 +351,37 @@ const SideBar = ( {
 				/>
 				<div className="wp-block-crowdsignal-forms__row">
 					<TextControl
-						label={ __( 'Border Thickness' ) }
+						label={ __( 'Border thickness' ) }
 						value={ attributes.borderWidth }
 						onChange={ handleChangeBorderWidth }
 						className="wp-block-crowdsignal-forms__small-text-input"
 					/>
 					<TextControl
-						label={ __( 'Corner Radius' ) }
+						label={ __( 'Corner radius' ) }
 						value={ attributes.borderRadius }
 						onChange={ handleChangeBorderRadius }
 						className="wp-block-crowdsignal-forms__small-text-input"
 					/>
 				</div>
 				<CheckboxControl
-					label={ __( 'Drop Shadow' ) }
+					label={ __( 'Drop shadow' ) }
 					checked={ attributes.hasBoxShadow }
 					onChange={ handleChangeHasBoxShadow }
 				/>
 			</PanelColorSettings>
 			<PanelColorSettings
-				title={ __( 'Button Styling' ) }
+				title={ __( 'Button styling' ) }
 				initialOpen={ false }
 				colorSettings={ [
 					{
 						value: attributes.submitButtonTextColor,
 						onChange: handleChangeSubmitButtonTextColor,
-						label: __( 'Text Color' ),
+						label: __( 'Text color' ),
 					},
 					{
 						value: attributes.submitButtonBackgroundColor,
 						onChange: handleChangeSubmitButtonBackgroundColor,
-						label: __( 'Background Color' ),
+						label: __( 'Background color' ),
 					},
 				] }
 			>
@@ -394,15 +394,15 @@ const SideBar = ( {
 					fallbackTextColor={ fallbackSubmitButtonTextColor }
 				/>
 			</PanelColorSettings>
-			<PanelBody title={ __( 'Answer Settings' ) } initialOpen={ false }>
+			<PanelBody title={ __( 'Answer settings' ) } initialOpen={ false }>
 				<CheckboxControl
 					checked={ attributes.hasOneResponsePerComputer }
-					label={ __( 'One Response Per Computer' ) }
+					label={ __( 'One response per computer' ) }
 					onChange={ handleChangeHasOneResponsePerComputer }
 				/>
 				<CheckboxControl
 					checked={ attributes.randomizeAnswers }
-					label={ __( 'Randomize Answer Order' ) }
+					label={ __( 'Randomize answer order' ) }
 					onChange={ handleChangeRandomizeAnswers }
 				/>
 			</PanelBody>
