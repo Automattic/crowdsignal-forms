@@ -1,6 +1,6 @@
 /* Editor styles */
 
-.editor-styles-wrapper {
+#editor .editor-styles-wrapper {
 
 	.block-editor-block-list__block[data-align="full"] .wp-block-crowdsignal-forms-poll {
 		border-left-width: 0;
@@ -35,6 +35,12 @@
 		color: rgb(159, 164, 169);
 	}
 
+	.wp-block-button .wp-block-crowdsignal-forms-poll__submit-button {
+
+		&.wp-block-button__link {
+			cursor: text;
+		}
+	}
 }
 
 .wp-block-crowdsignal-forms__row {
