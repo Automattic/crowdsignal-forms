@@ -51,7 +51,7 @@ const PollResults = ( {
 						text={ answer.text }
 						totalVotes={ total }
 						votes={
-							results ? results[ answer.answerIdFromApi ] : 0
+							results ? results[ answer.answerIdFromApi ] ?? 0 : 0
 						}
 					/>
 				) ) }

@@ -25,7 +25,10 @@ export const requestResults = async ( pollId ) => {
 			throw response;
 		} )
 		.then( ( response ) => {
-			if ( response.error ) {
+			if ( 404 === response.status ) {
+				// poll doesn't exist on the platform yet, return an empty result
+				return {};
+			} else if ( response.error ) {
 				throw new Error( response.message );
 			}
 
