@@ -8,39 +8,23 @@ import React from 'react';
  */
 import { __ } from 'lib/i18n';
 
-const EditBar = ( { onEditClick, unlocked } ) => {
+const EditBar = ( { onEditClick } ) => {
 	const handleEditClick = () => {
 		onEditClick();
 	};
 	return (
 		<div className="wp-block-crowdsignal-forms-poll__edit-bar">
 			<div className="wp-block-crowdsignal-forms-poll__edit-bar-message">
-				{ ! unlocked ? (
-					<>
-						{ __(
-							'Warning! This poll is published and may have responses.'
-						) }
-						<br />
-						{ __(
-							'Deleting or reordering options may cause data loss.'
-						) }
-					</>
-				) : (
-					<>
-						{ __(
-							'Warning! Changes made here will apply to the published poll.'
-						) }
-					</>
+				{ __(
+					'Warning! This poll is published. Deleting or reordering answers may cause the loss of existing responses.'
 				) }
 			</div>
-			{ ! unlocked && (
-				<button
-					className="wp-block-crowdsignal-forms-poll__edit-bar-button"
-					onClick={ handleEditClick }
-				>
-					{ __( 'Edit' ) }
-				</button>
-			) }
+			<button
+				className="wp-block-crowdsignal-forms-poll__edit-bar-button"
+				onClick={ handleEditClick }
+			>
+				{ __( 'Edit' ) }
+			</button>
 		</div>
 	);
 };

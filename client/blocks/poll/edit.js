@@ -121,7 +121,8 @@ const PollBlock = ( props ) => {
 		isSelected,
 	] );
 
-	const showEditBar = isSelected && wasBlockAddedBeforeLastPublish;
+	const showEditBar =
+		isSelected && wasBlockAddedBeforeLastPublish && ! isPollEditable;
 
 	return (
 		<>
@@ -138,7 +139,6 @@ const PollBlock = ( props ) => {
 			>
 				{ showEditBar && (
 					<EditBar
-						unlocked={ isPollEditable }
 						onEditClick={ () => {
 							setIsPollEditable( true );
 						} }

@@ -57,6 +57,11 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
+
+	.wp-block-crowdsignal-forms-poll__edit-bar-message {
+		padding-inline-end: 24px;
+	}
 
 	button.wp-block-crowdsignal-forms-poll__edit-bar-button {
 		border: 2px solid rgb(216, 46, 32);
