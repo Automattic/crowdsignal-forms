@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useRef } from 'react';
-import { filter, isEmpty, last, map, slice, tap } from 'lodash';
+import { filter, last, map, slice, tap } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -13,6 +13,7 @@ import { RichText } from '@wordpress/block-editor';
  * Internal dependencies
  */
 import EditAnswer from './edit-answer';
+import { isAnswerEmpty } from './util';
 
 const shiftAnswerFocus = ( wrapper, index ) =>
 	tap(
@@ -66,9 +67,9 @@ const EditAnswers = ( { attributes, isSelected, setAttributes, disabled } ) => {
 		);
 	};
 
-	// Only show empty answers when the poll block is not disabled
+	// Only show empty answers when the poll block is selected and not disabled
 	const shouldShowAnswer = ( answer ) =>
-		! disabled || ( disabled && ! isEmpty( answer ) );
+		( isSelected && ! disabled ) || ! isAnswerEmpty( answer );
 
 	// Rendering n + 1 answers vs a separate placeholder
 	// prevents the text field from loosing focus when you start typing a new answer.

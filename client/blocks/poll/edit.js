@@ -105,7 +105,7 @@ const PollBlock = ( props ) => {
 		attributes.pollStatus,
 		attributes.closedAfterDateTime
 	);
-	const showNote = attributes.note || isSelected;
+	const showNote = attributes.note || ( isSelected && isPollEditable );
 	const showResults =
 		isClosed && ClosedPollState.SHOW_RESULTS === attributes.closedPollState;
 	const isHidden =

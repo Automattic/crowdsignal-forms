@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classNames from 'classnames';
-import { includes, kebabCase, mapKeys, some } from 'lodash';
+import { includes, isEmpty, kebabCase, mapKeys, some } from 'lodash';
 
 /**
  * Internal dependencies
@@ -130,3 +130,14 @@ export const pollIdExistsInPageContent = ( pollId, postContent ) => {
 		return poll.pollId && poll.pollId === pollId;
 	} );
 };
+
+/**
+ * Determines if an answer is considered "empty", based on if text is set and blank or object has no values.
+ *
+ * @param {*} answer The answer object.
+ */
+export const isAnswerEmpty = ( answer ) =>
+	isEmpty( answer ) ||
+	'undefined' === typeof answer.text ||
+	null === answer.text ||
+	'' === answer.text;
