@@ -19,28 +19,22 @@
 		cursor: text;
 	}
 
-	.wp-block-crowdsignal-forms__redirect-url input[type="text"] {
-		width: 100%;
-	}
-
-	.wp-block-crowdsignal-forms__redirect-url__suggestions {
-		width: 260px;
-	}
-
-	.wp-block-crowdsignal-forms__more-info-link {
-		text-align: right;
-	}
-
-	.wp-block-crowdsignal-forms__more-info-link-text {
-		color: rgb(159, 164, 169);
-	}
-
 	.wp-block-button .wp-block-crowdsignal-forms-poll__submit-button {
 
 		&.wp-block-button__link {
 			cursor: text;
 		}
 	}
+}
+
+/* this is a fix for a broken gutenberg block-editor style */
+.wp-block-crowdsignal-forms__redirect-url input[type="text"] {
+	width: 100%;
+}
+
+/* this is a fix for a broken gutenberg block-editor style */
+.wp-block-crowdsignal-forms__redirect-url__suggestions {
+	width: 260px;
 }
 
 .wp-block-crowdsignal-forms__row {
