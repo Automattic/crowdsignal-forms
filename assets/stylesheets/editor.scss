@@ -1,1 +1,5 @@
-@import "blocks/poll/edit.scss"
+// Shared
+@import "./shared/variables.scss";
+
+// Components
+@import "blocks/poll/edit.scss";

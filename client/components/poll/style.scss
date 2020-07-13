@@ -400,6 +400,8 @@ input[type="radio"].wp-block-crowdsignal-forms-poll__input {
 }
 
 .wp-block-crowdsignal-forms-poll__error-banner {
+	font-family: $font-sans-serif;
+	font-size: $font-size-gutenberg-system-default;
 	margin-top: 24px;
 	padding: 18px 24px;
 	color: rgb(216, 46, 32);
