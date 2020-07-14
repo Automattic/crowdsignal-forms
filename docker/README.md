@@ -9,6 +9,14 @@ Unified environment for developing Crowdsignal-Forms using Docker containers pro
 * WP-CLI installed.
 * Makefile shortcut commands to simplify use
 
+## Contents
+
+  - [Get started](#to-get-started)
+  - [Good to know](#good-to-know)
+  - [MySQL Database](#mysql-database)
+  - [Must-use plugins directory](#must-use-plugins-directory)
+  - [Debugging](#debugging)
+
 ## To get started
 
 _**All commands mentioned in this document should be run from the base plugin directory. Not from the `docker` directory!**_
@@ -152,6 +160,16 @@ Logs are stored in your file system under `./docker/logs` directory.
 Emails don’t leave your WordPress and are caught by [MailDev](http://danfarrelly.nyc/MailDev/) SMTP server container instead.
 
 To debug emails via web-interface, open [http://localhost:1080](http://localhost:1080)
+
+### Debugging React
+
+To get the development versions of React scripts, you can setup the WordPress instance by adding/editing a flag: `SCRIPT_DEBUG`.
+
+In `docker/wordpress/wp-config.php` file, see if the following exists or is set:
+
+```
+define( 'SCRIPT_DEBUG', true );
+```
 
 ### Debugging PHP with Xdebug
 
