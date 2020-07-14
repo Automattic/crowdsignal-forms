@@ -34,6 +34,12 @@ const PollVote = ( {
 		setSelected( [ ...selected, answerId ] );
 	};
 
+	const [ focused, setFocused ] = useState( [] );
+
+	const handleFocus = ( answerId ) => {
+		return setFocused( [ answerId ] );
+	};
+
 	const handleSubmit = ( event ) => {
 		event.preventDefault();
 
@@ -54,7 +60,12 @@ const PollVote = ( {
 							selected,
 							answer.answerIdFromApi
 						) }
+						isFocused={ includes(
+							focused,
+							answer.answerIdFromApi
+						) }
 						onSelect={ handleSelect }
+						onFocus={ handleFocus }
 						hasVoted={ hasVoted }
 						isVoting={ isVoting }
 						{ ...answer }

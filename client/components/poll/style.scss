@@ -104,7 +104,8 @@
 	padding: 0 2px;
 	position: relative;
 
-	&:hover {
+	&:hover,
+	&.is-focused {
 		color: var(--crowdsignal-forms-submit-button-bg-color);
 	}
 

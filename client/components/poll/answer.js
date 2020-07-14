@@ -11,21 +11,27 @@ const PollAnswer = ( {
 	isMultipleChoice,
 	isSelected,
 	isVoting,
+	isFocused,
 	onSelect,
+	onFocus,
 	text,
 } ) => {
 	const handleSelect = ( event ) =>
 		onSelect( parseInt( event.target.value, 10 ) );
 
+	const handleFocus = ( event ) =>
+		onFocus( parseInt( event.target.value, 10 ) );
+
 	const classes = classnames( 'wp-block-crowdsignal-forms-poll__answer', {
 		'is-multiple-choice': isMultipleChoice,
 		'is-selected': isSelected,
+		'is-focused': isFocused,
 	} );
 
 	const answerElementId = `poll-answer-${ answerIdFromApi }`;
 
 	return (
-		<label className={ classes } htmlFor={ answerElementId }>
+		<label className={ classes } htmlFor={ answerElementId } tabIndex="-1">
 			<input
 				className="wp-block-crowdsignal-forms-poll__input"
 				id={ answerElementId }
@@ -35,6 +41,9 @@ const PollAnswer = ( {
 				type={ isMultipleChoice ? 'checkbox' : 'radio' }
 				value={ answerIdFromApi }
 				disabled={ hasVoted || isVoting }
+				tabIndex="0"
+				ariaLabel={ text }
+				onFocus={ handleFocus }
 			/>
 
 			<span className="wp-block-crowdsignal-forms-poll__check" />
