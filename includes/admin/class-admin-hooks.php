@@ -105,7 +105,7 @@ class Admin_Hooks {
 	 * @throws \Exception In case of bad request. This is temporary.
 	 */
 	public function save_polls_to_api( $post_ID, $post, $is_update = false ) {
-		if ( wp_is_post_autosave( $post_ID ) || wp_is_post_revision( $post_ID ) ) {
+		if ( wp_is_post_autosave( $post_ID ) || wp_is_post_revision( $post_ID ) || 'trash' === $post->post_status ) {
 			return;
 		}
 
