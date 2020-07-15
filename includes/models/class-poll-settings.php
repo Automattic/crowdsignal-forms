@@ -75,7 +75,7 @@ class Poll_Settings {
 	 * @since 1.0.0
 	 * @var bool
 	 */
-	private $restrict_vote_repeat = true;
+	private $restrict_vote_repeat = false;
 
 	/**
 	 * Captcha option
