@@ -48,9 +48,11 @@ const PollAnswer = ( {
 
 			<span className="wp-block-crowdsignal-forms-poll__check" />
 
-			<span className="wp-block-crowdsignal-forms-poll__answer-label">
-				{ text }
-			</span>
+			<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
+				<span className="wp-block-crowdsignal-forms-poll__answer-label">
+					{ text }
+				</span>
+			</div>
 		</label>
 	);
 };

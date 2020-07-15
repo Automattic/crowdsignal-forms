@@ -42,24 +42,28 @@ const EditAnswer = ( {
 			<span className="wp-block-crowdsignal-forms-poll__check" />
 
 			{ ! disabled ? (
-				<RichText
-					className="wp-block-crowdsignal-forms-poll__answer-label"
-					tagName="span"
-					placeholder={ __( 'Enter an answer' ) }
-					multiline={ false }
-					preserveWhiteSpace={ false }
-					onChange={ handleChangeText }
-					onSplit={ handleSplit }
-					onReplace={ noop }
-					onRemove={ handleDelete }
-					value={ answer.text }
-					allowedFormats={ [] }
-					withoutInteractiveFormatting
-				/>
+				<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
+					<RichText
+						className="wp-block-crowdsignal-forms-poll__answer-label"
+						tagName="span"
+						placeholder={ __( 'Enter an answer' ) }
+						multiline={ false }
+						preserveWhiteSpace={ false }
+						onChange={ handleChangeText }
+						onSplit={ handleSplit }
+						onReplace={ noop }
+						onRemove={ handleDelete }
+						value={ answer.text }
+						allowedFormats={ [] }
+						withoutInteractiveFormatting
+					/>
+				</div>
 			) : (
-				<span className="wp-block-crowdsignal-forms-poll__answer-label">
-					{ answer.text ? answer.text : __( 'Enter an answer' ) }
-				</span>
+				<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
+					<span className="wp-block-crowdsignal-forms-poll__answer-label">
+						{ answer.text ? answer.text : __( 'Enter an answer' ) }
+					</span>
+				</div>
 			) }
 		</div>
 	);
