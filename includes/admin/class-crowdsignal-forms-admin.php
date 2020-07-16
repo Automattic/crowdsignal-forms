@@ -51,6 +51,7 @@ class Crowdsignal_Forms_Admin {
 	 * @todo for future use
 	 */
 	public function admin_init() {
+		add_filter( 'plugin_action_links_' . plugin_basename( CROWDSIGNAL_FORMS_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 	}
 
 	/**
@@ -70,5 +71,21 @@ class Crowdsignal_Forms_Admin {
 		add_submenu_page( 'crowdsignal-forms', __( 'Settings', 'crowdsignal-forms' ), __( 'Settings', 'crowdsignal-forms' ), 'manage_options', 'crowdsignal-forms-settings', array( $this->settings_page, 'output' ) );
 		add_submenu_page( 'crowdsignal-forms', __( 'Getting Started', 'crowdsignal-forms' ), __( 'Getting Started', 'crowdsignal-forms' ), 'manage_options', 'crowdsignal-forms-setup', array( $this->setup_page, 'setup_page' ) );
 		remove_submenu_page( 'crowdsignal-forms', 'crowdsignal-forms' );
+	}
+
+	/**
+	 * Adds to the Action links in the plugin page.
+	 *
+	 * @param array $links
+	 * @return array
+	 */
+	public function plugin_action_links( $links ) {
+		return array_merge(
+			array(
+				sprintf( '<a href="%s">' . __( 'Getting Started', 'crowdsignal-forms' ) . '</a>', admin_url( 'admin.php?page=crowdsignal-forms-setup' ) ),
+				sprintf( '<a href="%s">' . __( 'Settings', 'crowdsignal-forms' ) . '</a>', admin_url( 'admin.php?page=crowdsignal-forms-settings' ) ),
+			),
+			$links
+		);
 	}
 }
