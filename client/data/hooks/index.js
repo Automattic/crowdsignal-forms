@@ -7,7 +7,12 @@ import Cookies from 'js-cookie';
 /**
  * Internal dependencies
  */
-import { requestResults, requestVoteNonce, requestVote } from 'data/poll';
+import {
+	requestResults,
+	requestVoteNonce,
+	requestVote,
+	requestIsCsConnected,
+} from 'data/poll';
 import { useFetch } from './util';
 
 export const usePollResults = ( pollId ) => {
@@ -65,4 +70,21 @@ export const usePollVote = ( pollId, enableVoteRestriction = false ) => {
 		isVoting,
 		vote,
 	};
+};
+
+export const useIsCsConnected = () => {
+	/* assume connection is enabled, so placeholder doesn't flash while we add a block and wait for the request */
+	const [ isConnected, setIsConnected ] = useState( true );
+
+	const checkIsConnected = async () => {
+		const isEnabled = await requestIsCsConnected();
+		setIsConnected( isEnabled );
+
+		return isEnabled;
+	};
+
+	useEffect( () => {
+		checkIsConnected();
+	}, [] );
+	return { isConnected, checkIsConnected };
 };

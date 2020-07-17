@@ -9,6 +9,7 @@
 namespace Crowdsignal_Forms\Rest_Api\Controllers;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
+use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -52,6 +53,18 @@ class Account_Controller {
 				),
 			)
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/connected',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'is_cs_connected' ),
+					'permission_callback' => array( $this, 'get_account_permissions_check' ),
+				),
+			)
+		);
 	}
 
 	/**
@@ -91,5 +104,21 @@ class Account_Controller {
 	 **/
 	public function get_account_permissions_check() {
 		return current_user_can( 'publish_posts' );
+	}
+
+	/**
+	 * Gets the enabled state of the Crowdsignal connection.
+	 *
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function is_cs_connected() {
+		if ( defined( 'IS_WPCOM' ) && true === constant( 'IS_WPCOM' ) ) {
+			return true;
+		}
+
+		$api_auth_provider = new Crowdsignal_Forms_Api_Authenticator();
+		$user_code         = $api_auth_provider->get_user_code();
+
+		return rest_ensure_response( ! empty( $user_code ) );
 	}
 }

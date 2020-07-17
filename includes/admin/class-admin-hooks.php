@@ -11,6 +11,7 @@ use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin;
 use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
 use Crowdsignal_Forms\Models\Poll;
 use Crowdsignal_Forms\Crowdsignal_Forms;
+use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -113,6 +114,12 @@ class Admin_Hooks {
 		if ( ! has_blocks( $post ) || ! has_block( 'crowdsignal-forms/poll', $post ) ) {
 			// No poll blocks, proactively archive any polls that were previously saved.
 			$this->archive_polls_with_ids( $poll_ids_saved_in_post );
+			return;
+		}
+
+		$authenticator = new Crowdsignal_Forms_Api_Authenticator();
+		if ( ! $authenticator->get_user_code() ) {
+			// Plugin hasn't been authenticated yet, don't try to sync the block.
 			return;
 		}
 

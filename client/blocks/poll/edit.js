@@ -33,6 +33,7 @@ import ErrorBanner from 'components/poll/error-banner';
 import { v4 as uuidv4 } from 'uuid';
 import EditBar from './edit-bar';
 import { startSubscriptions } from './subscriptions';
+import ConnectToCrowdsignal from './connect-to-crowdsignal';
 
 startSubscriptions();
 
@@ -105,7 +106,7 @@ const PollBlock = ( props ) => {
 		isSelected && wasBlockAddedBeforeLastPublish && ! isPollEditable;
 
 	return (
-		<>
+		<ConnectToCrowdsignal>
 			<Toolbar { ...props } />
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 
@@ -189,7 +190,7 @@ const PollBlock = ( props ) => {
 
 				{ renderStyleProbe() }
 			</div>
-		</>
+		</ConnectToCrowdsignal>
 	);
 };
 

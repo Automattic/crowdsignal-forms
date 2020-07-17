@@ -80,3 +80,27 @@
 		pointer-events: none;
 	}
 }
+
+.wp-block-crowdsignal-forms__connect-to-crowdsignal {
+	border: 1px solid rgb(0, 0, 0);
+	font-family: $font-sans-serif;
+	padding: 24px;
+	text-align: initial;
+}
+
+.wp-block-crowdsignal-forms__connect-to-crowdsignal-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.wp-block-crowdsignal-forms__connect-to-crowdsignal-body {
+	font-size: $font-size-gutenberg-system-default;
+	margin-top: 24px;
+	margin-bottom: 16px;
+}
+
+.wp-block-crowdsignal-forms__connect-to-crowdsignal-title {
+	font-size: 24pt;
+	margin-inline-start: 16px;
+}

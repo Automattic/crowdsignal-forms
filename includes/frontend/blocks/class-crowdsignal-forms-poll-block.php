@@ -11,6 +11,7 @@ namespace Crowdsignal_Forms\Frontend\Blocks;
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks_Assets;
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Block;
 use Crowdsignal_Forms\Crowdsignal_Forms;
+use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,6 +27,13 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	const TRANSIENT_HIDE_BRANDING = 'cs-hide-branding';
 	const HIDE_BRANDING_YES       = 'YES';
 	const HIDE_BRANDING_NO        = 'NO';
+
+	/**
+	 * Lazy-loaded state to determine if the api connection is set up.
+	 *
+	 * @var bool|null
+	 */
+	private static $is_cs_connected = null;
 
 	/**
 	 * {@inheritDoc}
@@ -51,6 +59,10 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	 * @return string
 	 */
 	public function render( $attributes ) {
+		if ( $this->should_hide_poll() ) {
+			return '';
+		}
+
 		$attributes['hideBranding'] = $this->should_hide_branding();
 		$post                       = get_post();
 		if ( $post && isset( $attributes['pollId'] ) ) {
@@ -95,6 +107,22 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 			MINUTE_IN_SECONDS
 		);
 		return self::HIDE_BRANDING_YES === $hide_branding;
+	}
+
+	/**
+	 * Determines if the poll should be rendered or not.
+	 *
+	 * @return bool
+	 */
+	private function should_hide_poll() {
+		if ( null !== self::$is_cs_connected ) {
+			return ! self::$is_cs_connected;
+		}
+
+		$api_auth_provider     = new Crowdsignal_Forms_Api_Authenticator();
+		self::$is_cs_connected = $api_auth_provider->get_user_code();
+
+		return ! self::$is_cs_connected;
 	}
 
 	/**

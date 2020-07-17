@@ -9,6 +9,10 @@ import React from 'react';
 import { getBackgroundColor } from 'components/with-fallback-styles/util';
 
 export const getPollStyles = ( node ) => {
+	if ( null === node ) {
+		return {};
+	}
+
 	const buttonNode = node.querySelector( '.wp-block-button__link' );
 	const textNode = node.querySelector( 'p' );
 	const wideContentNode = node.querySelector( '.alignwide' );

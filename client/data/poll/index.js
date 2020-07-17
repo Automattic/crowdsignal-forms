@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import apiFetch from '@wordpress/api-fetch';
+
+/**
  * Internal dependencies
  */
 import { __ } from 'lib/i18n';
@@ -79,3 +84,10 @@ export class CrowdsignalFormsServerError extends CrowdsignalFormsError {
 		super( __( 'Server error. Please try again.' ) );
 	}
 }
+
+export const requestIsCsConnected = async () => {
+	return await apiFetch( {
+		path: `/crowdsignal-forms/v1/account/connected`,
+		method: 'GET',
+	} );
+};
