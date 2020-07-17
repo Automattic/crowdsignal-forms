@@ -8,8 +8,7 @@ import { map, some } from 'lodash';
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { useEntityId } from '@wordpress/core-data';
-import apiFetch from '@wordpress/api-fetch';
+import { withSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -33,35 +32,13 @@ import {
 import ErrorBanner from 'components/poll/error-banner';
 import { v4 as uuidv4 } from 'uuid';
 import EditBar from './edit-bar';
+import { startSubscriptions } from './subscriptions';
 
-// To be moved to hooks if we end up using it.
-const useViewResultsUrl = ( { attributes } ) => {
-	const postId = useEntityId( 'postType', 'post' );
-	const [ viewResultsUrl, setViewResultsUrl ] = useState( '' );
-
-	useEffect( () => {
-		if ( ! attributes.pollId || viewResultsUrl !== '' ) {
-			return;
-		}
-		apiFetch( {
-			path: `/crowdsignal-forms/v1/post-polls/${ postId }/${ attributes.pollId }`,
-			method: 'GET',
-		} ).then(
-			( res ) =>
-				setViewResultsUrl(
-					`https://app.crowdsignal.com/polls/${ res.id }/results`
-				),
-			() => setViewResultsUrl( '' )
-		);
-	}, [ attributes.pollId ] );
-
-	return viewResultsUrl;
-};
+startSubscriptions();
 
 const withPollAndAnswerIds = ( Element ) => {
 	return ( props ) => {
 		const { attributes, setAttributes } = props;
-		const viewResultsUrl = useViewResultsUrl( props );
 		useEffect( () => {
 			if ( ! attributes.pollId ) {
 				const thePollId = uuidv4();
@@ -80,7 +57,7 @@ const withPollAndAnswerIds = ( Element ) => {
 			}
 		} );
 
-		return <Element { ...props } viewResultsUrl={ viewResultsUrl } />;
+		return <Element { ...props } />;
 	};
 };
 
@@ -92,11 +69,14 @@ const PollBlock = ( props ) => {
 		isSelected,
 		setAttributes,
 		renderStyleProbe,
-		viewResultsUrl,
+		pollDataFromApi,
 	} = props;
 
 	const [ isPollEditable, setIsPollEditable ] = useState( true );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
+	const viewResultsUrl = pollDataFromApi
+		? pollDataFromApi.viewResultsUrl
+		: '';
 
 	const handleChangeQuestion = ( question ) => setAttributes( { question } );
 	const handleChangeNote = ( note ) => setAttributes( { note } );
@@ -216,4 +196,14 @@ const PollBlock = ( props ) => {
 export default withFallbackStyles(
 	PollStyles,
 	getPollStyles
-)( withPollAndAnswerIds( PollBlock ) );
+)(
+	withSelect( ( select, ownProps ) => {
+		const { attributes } = ownProps;
+		const pollDataFromApi = attributes.pollId
+			? select( 'crowdsignal-forms/polls' ).getPollDataByClientId(
+					attributes.pollId
+			  )
+			: null;
+		return { pollDataFromApi };
+	} )( withPollAndAnswerIds( PollBlock ) )
+);

@@ -3,6 +3,7 @@
  */
 import PollIcon from 'components/icon/poll';
 import { __ } from 'lib/i18n';
+import './store';
 import EditPollBlock from './edit';
 import attributes from './attributes';
 

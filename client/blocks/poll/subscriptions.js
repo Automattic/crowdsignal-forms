@@ -1,53 +1,98 @@
 /**
- * External dependencies
- */
-import { differenceBy, filter, forEach } from 'lodash';
-
-/**
  * WordPress dependencies
  */
-import { subscribe, select } from '@wordpress/data';
-import { doAction } from '@wordpress/hooks';
+import { subscribe, select, dispatch } from '@wordpress/data';
+import apiFetch from '@wordpress/api-fetch';
 
-/**
- * Internal dependencies
- */
-import { archivePoll } from './hooks';
+import { map, filter } from 'lodash';
 
 const isPollBlock = ( block ) => block.name === 'crowdsignal-forms/poll';
 
 let subsStarted = false;
 
-const filterPollBlocks = ( blocks ) => filter( blocks, isPollBlock );
-
 export const startSubscriptions = () => {
 	if ( subsStarted ) {
 		return;
 	}
+
 	subsStarted = true;
 
-	const findDeletedPollBlocks = ( selectedBlocks, previousBlocks ) => {
-		const deletedBlocks = differenceBy(
-			previousBlocks,
-			selectedBlocks,
-			'clientId'
-		);
+	const {
+		isEditedPostDirty,
+		isEditedPostNew,
+		isSavingPost,
+		isCleanNewPost,
+		getCurrentPostId,
+	} = select( 'core/editor' );
+	const {
+		setTryFetchPollData,
+		setPollApiDataForClientId,
+		setIsFetchingPollData,
+	} = dispatch( 'crowdsignal-forms/polls' );
+	const {
+		shouldTryFetchingPollData,
+		getPollDataByClientId,
+		isFetchingPollData,
+	} = select( 'crowdsignal-forms/polls' );
 
-		if ( deletedBlocks.length > 0 ) {
-			forEach( deletedBlocks, ( pollBlock ) => {
-				doAction( 'crowdsignalFormsPollDelete', pollBlock );
-				if ( pollBlock.attributes && pollBlock.attributes.pollId ) {
-					archivePoll( pollBlock.attributes.pollId );
-				}
-			} );
-		}
-	};
-
-	const { getBlocks } = select( 'core/block-editor' );
-	let previousBlocks = filterPollBlocks( getBlocks() );
 	subscribe( () => {
-		const selectedBlocks = filterPollBlocks( getBlocks() );
-		findDeletedPollBlocks( selectedBlocks, previousBlocks );
-		previousBlocks = selectedBlocks;
+		const pollBlocks = filter(
+			select( 'core/block-editor' ).getBlocks(),
+			isPollBlock
+		);
+		if ( pollBlocks.length < 1 ) {
+			return;
+		}
+
+		if ( isFetchingPollData() ) {
+			return;
+		}
+
+		if (
+			isCleanNewPost() ||
+			isEditedPostNew() ||
+			isSavingPost() ||
+			isEditedPostDirty()
+		) {
+			return;
+		}
+
+		const postId = getCurrentPostId();
+
+		if ( ! postId ) {
+			return;
+		}
+
+		const pollsThatAreNotFetched = filter(
+			pollBlocks,
+			( { attributes } ) =>
+				attributes.pollId &&
+				null === getPollDataByClientId( attributes.pollId )
+		);
+		if ( pollsThatAreNotFetched.length < 1 ) {
+			return;
+		}
+
+		if ( ! shouldTryFetchingPollData() ) {
+			setTryFetchPollData( true );
+		} else if ( ! isFetchingPollData() ) {
+			setIsFetchingPollData( true );
+			Promise.all(
+				map( pollsThatAreNotFetched, ( pollBlock ) => {
+					const { pollId } = pollBlock.attributes;
+					return apiFetch( {
+						path: `/crowdsignal-forms/v1/post-polls/${ postId }/${ pollId }`,
+						method: 'GET',
+					} ).then(
+						( response ) =>
+							setPollApiDataForClientId( pollId, {
+								...response,
+								viewResultsUrl: `https://app.crowdsignal.com/polls/${ response.id }/results`,
+							} ),
+						() => setPollApiDataForClientId( pollId, null )
+					);
+				} )
+			).finally( () => setIsFetchingPollData( false ) );
+		}
 	} );
 };
