@@ -8,6 +8,7 @@
 
 namespace Crowdsignal_Forms\Gateways;
 
+use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Poll;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -327,7 +328,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @return void
 	 */
 	private function log_webservice_event( $name, $data = array() ) {
-		do_action( 'crowdsignal_forms_log_webservice_event', $name, $data );
+		Crowdsignal_Forms::instance()->get_webservice_logger()->log( $name, $data );
 	}
 
 	/**

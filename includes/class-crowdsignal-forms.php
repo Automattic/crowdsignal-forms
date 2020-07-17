@@ -13,6 +13,7 @@ use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks;
 use Crowdsignal_Forms\Gateways\Api_Gateway_Interface;
 use Crowdsignal_Forms\Gateways\Api_Gateway;
 use Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway;
+use Crowdsignal_Forms\Logging\Webservice_Logger;
 use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
 use Crowdsignal_Forms\Rest_Api\Controllers\Account_Controller;
 use Crowdsignal_Forms\Admin\Admin_Hooks;
@@ -88,12 +89,21 @@ final class Crowdsignal_Forms {
 	private $post_poll_meta_gateway = null;
 
 	/**
+	 * The logger we use to record our webservice conversations.
+	 *
+	 * @since 1.0.0
+	 * @var null|Webservice_Logger
+	 */
+	private $webservice_logger;
+
+	/**
 	 * For account actions.
 	 *
 	 * @since 1.0.0
 	 * @var Account_Controller
 	 */
 	private $rest_api_account_controller;
+
 	/**
 	 * Registers the block assets needed.
 	 *
@@ -172,6 +182,7 @@ final class Crowdsignal_Forms {
 		$this->rest_api_polls_controller   = new Polls_Controller();
 		$this->rest_api_account_controller = new Account_Controller();
 		$this->admin_hooks                 = new Admin_Hooks();
+		$this->webservice_logger           = new Webservice_Logger();
 
 		return $this;
 	}
@@ -192,6 +203,15 @@ final class Crowdsignal_Forms {
 		add_filter( 'crowdsignal_forms_api_request_headers', array( $this, 'add_auth_request_headers' ) );
 
 		$this->admin_hooks->hook();
+		$this->webservice_logger->hook_defaults();
+
+		/**
+		 * Set any other hooks, passing this instance.
+		 *
+		 * @param Crowdsignal_Forms $instance The instance.
+		 * @since 1.0.0
+		 */
+		do_action( 'crowdsignal_forms_after_setup_hooks', $this );
 
 		return $this;
 	}
@@ -307,5 +327,16 @@ final class Crowdsignal_Forms {
 	public function set_post_poll_meta_gateway( $gateway ) {
 		$this->post_poll_meta_gateway = $gateway;
 		return $this;
+	}
+
+	/**
+	 * Get our webservice logger.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Webservice_Logger
+	 */
+	public function get_webservice_logger() {
+		return $this->webservice_logger;
 	}
 }
