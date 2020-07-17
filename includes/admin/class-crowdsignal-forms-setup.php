@@ -28,7 +28,7 @@ class Crowdsignal_Forms_Setup {
 		add_filter( 'crowdsignal_forms_show_admin_notice_' . Crowdsignal_Forms_Admin_Notices::NOTICE_CORE_SETUP, array( $this, 'show_setup_notice' ) );
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Input is used safely.
-		if ( isset( $_GET['page'] ) && 'crowdsignal-setup' === $_GET['page'] ) {
+		if ( isset( $_GET['page'] ) && 'crowdsignal-forms-setup' === $_GET['page'] ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 12 );
 		}
 	}
@@ -53,6 +53,7 @@ class Crowdsignal_Forms_Setup {
 	 * @todo for future use.
 	 */
 	public function admin_enqueue_scripts() {
+		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.0' );
 	}
 
 	/**

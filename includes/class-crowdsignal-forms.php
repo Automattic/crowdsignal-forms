@@ -111,6 +111,7 @@ final class Crowdsignal_Forms {
 		$this->plugin_dir = dirname( __DIR__ );
 		$this->plugin_url = untrailingslashit( plugins_url( '', CROWDSIGNAL_FORMS_PLUGIN_BASENAME ) );
 
+		add_action( 'admin_init', array( $this, 'activate_redirect' ) );
 		register_deactivation_hook( CROWDSIGNAL_FORMS_PLUGIN_FILE, array( $this, 'deactivation' ) );
 		register_activation_hook( CROWDSIGNAL_FORMS_PLUGIN_FILE, array( $this, 'activate' ) );
 	}
@@ -134,6 +135,20 @@ final class Crowdsignal_Forms {
 	 */
 	public function activate() {
 		Crowdsignal_Forms_Admin_Notices::add_notice( Crowdsignal_Forms_Admin_Notices::NOTICE_CORE_SETUP );
+		add_option( 'crowdsignal_forms_do_activation_redirect', true );
+	}
+
+	/**
+	 * Performs a redirect to the getting started page.
+	 *
+	 * @since 1.0.0
+	 */
+	public function activate_redirect() {
+		if ( get_option( 'crowdsignal_forms_do_activation_redirect', false ) ) {
+			delete_option( 'crowdsignal_forms_do_activation_redirect' );
+			wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-setup' ) );
+			exit();
+		}
 	}
 
 	/**

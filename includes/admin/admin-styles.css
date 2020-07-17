@@ -1,0 +1,160 @@
+@font-face {
+	font-family: Recoleta;
+	src: url( "https://s1.wp.com/i/fonts/recoleta/400.woff2" );
+}
+
+@font-face {
+	font-family: Recoleta;
+	src: url( "https://s1.wp.com/i/fonts/recoleta/500.woff2" );
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: Recoleta;
+	src: url( "https://s1.wp.com/i/fonts/recoleta/700.woff2" );
+	font-weight: 700;
+}
+
+.wrap {
+	margin: 0;
+}
+
+.crowdsignal-setup__header {
+	background-color: #fff;
+	text-align: center;
+	box-shadow: 0 1px 0 #ccd0d4,0 1px 1px 1px rgba(0,0,0,0.04);
+	margin-left: -20px;
+}
+
+.crowdsignal-setup__header-container {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	width: 100%;
+	max-width: 65rem;
+	padding-bottom: .375rem;
+	padding-left: 16px;
+}
+
+.crowdsignal-setup__logo-container {
+	flex-grow: 0;
+	flex-shrink: 0;
+	padding: .6875rem 0 0;
+	display: inline-block;
+}
+
+.crowdsignal-setup__email-activation {
+	font-size: 16px !important;
+	font-style: italic;
+}
+
+.crowdsignal-setup__footer {
+	text-align: center;
+	margin: 100px 0 2rem;
+}
+
+.crowdsignal-setup__footer-container {
+	margin-bottom: .5rem;
+}
+
+.crowdsignal-setup__footer-attr {
+	width: 11.25rem;
+}
+
+.crowdsignal-setup__footer-links {
+	border-top: 1px #e1e1e1 solid;
+	border-bottom: 1px #e1e1e1 solid;
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.crowdsignal-setup__footer-item {
+	display: inline-block;
+	margin-bottom: 0;
+}
+
+.crowdsignal-setup__footer-link {
+	padding: 1rem .5rem;
+	color: #888;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.crowdsignal-setup__main {
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	max-width: 65rem;
+	margin: 24px auto 0;
+	border: 1px solid rgba(213, 213, 213, 0.5);
+}
+
+.crowdsignal-setup__main img {
+	width: 100%;
+	height: auto;
+	max-height: 150px;
+}
+
+.crowdsignal-setup__content {
+	padding: 0 20px 20px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	min-height: 400px;
+	margin: 40px 0;
+}
+
+.crowdsignal-setup__content p {
+	font-size: 18px;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.crowdsignal-setup__content h3, .crowdsignal-setup__content h4 {
+	font-family: Recoleta, sans-serif;
+	font-weight: 700;
+	font-size: 40px;
+	line-height: 150%;
+	margin: 0;
+}
+
+.crowdsignal-setup__content h4 {
+	font-size: 34px;
+	line-height: 140%;
+}
+
+.crowdsignal-setup__button {
+	margin: 0 auto;
+	background-color: #c9356e;
+	border-color: #8c1749;
+	color: #ffffff;
+	font-weight: 500;
+	align-items: center;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px 1px 2px;
+	box-sizing: border-box;
+	cursor: pointer;
+	display: inline-flex;
+	font-size: 14px;
+	height: 32px;
+	justify-content: center;
+	line-height: 24px;
+	outline: 0;
+	padding: 3px 15px 2px;
+	text-align: center;
+	transition: background-color .1s ease-out, border-color .1s ease-out;
+	white-space: nowrap;
+	width: fit-content;
+	min-width: 200px;
+}
+
+.crowdsignal-setup__button:hover {
+	background-color: #eb6594;
+}
+
+.crowdsignal-setup__support {
+	font-size: 14px;
+}
