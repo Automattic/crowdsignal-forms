@@ -23,17 +23,19 @@ export default {
 		'data-align': align,
 	} ),
 	example: {
-		question: __( 'How did you hear about us?' ),
-		answers: [
-			{
-				text: __( 'Search' ),
-			},
-			{
-				text: __( 'Friend' ),
-			},
-			{
-				text: __( 'Email' ),
-			},
-		],
+		attributes: {
+			question: __( 'How did you hear about us?' ),
+			answers: [
+				{
+					text: __( 'Search' ),
+				},
+				{
+					text: __( 'Friend' ),
+				},
+				{
+					text: __( 'Email' ),
+				},
+			],
+		},
 	},
 };
