@@ -26,6 +26,8 @@ class Crowdsignal_Forms_Setup {
 	 */
 	public function __construct() {
 		add_filter( 'crowdsignal_forms_show_admin_notice_' . Crowdsignal_Forms_Admin_Notices::NOTICE_CORE_SETUP, array( $this, 'show_setup_notice' ) );
+		add_filter( 'crowdsignal_forms_show_admin_notice_' . Crowdsignal_Forms_Admin_Notices::SETUP_SUCCESS, array( $this, 'show_setup_success' ) );
+		Crowdsignal_Forms_Admin_Notices::add_notice( Crowdsignal_Forms_Admin_Notices::SETUP_SUCCESS );
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Input is used safely.
 		if ( isset( $_GET['page'] ) && 'crowdsignal-forms-setup' === $_GET['page'] ) {
@@ -45,6 +47,16 @@ class Crowdsignal_Forms_Setup {
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * Filter admin notice if the plugin has just finished step 3 successfully.
+	 *
+	 * @param bool $show to show the notice or not.
+	 */
+	public function show_setup_success( $show ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- readonly, boolean check
+		return isset( $_GET['connect'] ) && 'success' === $_GET['connect'];
 	}
 
 	/**

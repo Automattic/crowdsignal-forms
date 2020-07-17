@@ -12,7 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 <script type='text/javascript'>
 window.close();
 if (window.opener && !window.opener.closed) {
-	window.opener.location.reload();
+	var querystring = window.opener.location.search;
+	querystring += ( querystring ? '&' : '?' ) + 'connect=success';
+	window.opener.location.search = querystring;
 }
 </script>
 <noscript><h3><?php esc_html_e( "You're ready to start using Crowdsignal!", 'crowdsignal-forms' ); ?></h3></noscript>

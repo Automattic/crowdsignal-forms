@@ -26,3 +26,56 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+
+<script>
+let CSCONNECT = null;
+const showConnect = ( title ) => {
+	// window size, match standard iPhone screen size
+	const widthRatio = 1/2;
+	const heightRatio = 3/4;
+
+	// Fixes dual-screen position
+	const dualScreenLeft = window.screenLeft !==  undefined
+		? window.screenLeft // Most browsers
+		: window.screenX; // Firefox
+	const dualScreenTop = window.screenTop !==  undefined
+		? window.screenTop // Most browsers
+		: window.screenY; // Firefox
+
+	const width = window.innerWidth
+		? window.innerWidth
+		: document.documentElement.clientWidth
+			? document.documentElement.clientWidth
+			: screen.width;
+	const height = window.innerHeight
+		? window.innerHeight
+		: document.documentElement.clientHeight
+			? document.documentElement.clientHeight
+			: screen.height;
+
+	const popupWidth = width * widthRatio;
+	const popupHeight = height * heightRatio;
+
+	const left = ( (width / 2 ) - ( popupWidth / 2 ) ) + dualScreenLeft;
+	const top = ( (height / 2 ) - ( popupHeight / 2 ) ) + dualScreenTop;
+
+	CSCONNECT = window.open( 'about:blank', title,
+		`
+		location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no,
+		width=${ parseInt( popupWidth, 10 ) },
+		height=${ parseInt( popupHeight, 10 )  },
+		top=${ parseInt( top, 10 ) },
+		left=${ parseInt( left, 10 ) }
+		`
+	)
+	// CSCONNECT = window.open( 'about:blank', title );
+
+	if ( window.focus ) CSCONNECT.focus();
+}
+( function( form ) {
+	form.onsubmit = function() {
+		showConnect( 'CSCONNECT' );
+	}
+} )( document.getElementById( 'cs-connect-form' ) );
+</script>
+</div>

@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Crowdsignal_Forms_Admin_Notices {
 	const STATE_OPTION      = 'crowdsignal_forms_admin_notices';
 	const NOTICE_CORE_SETUP = 'core_setup';
+	const SETUP_SUCCESS     = 'setup_success';
 
 	/**
 	 * Current notices for admin user.
@@ -100,6 +101,7 @@ class Crowdsignal_Forms_Admin_Notices {
 	public static function init_core_notices() {
 		// core_setup: Notice is used when first activating plugin.
 		add_action( 'crowdsignal_forms_admin_notice_' . self::NOTICE_CORE_SETUP, array( __CLASS__, 'display_core_setup' ) );
+		add_action( 'crowdsignal_forms_admin_notice_' . self::SETUP_SUCCESS, array( __CLASS__, 'display_setup_success' ) );
 	}
 
 	/**
@@ -190,6 +192,13 @@ class Crowdsignal_Forms_Admin_Notices {
 			return;
 		}
 		include dirname( __FILE__ ) . '/views/html-admin-notice-core-setup.php';
+	}
+
+	/**
+	 * Displays a success notification after API Key setup
+	 */
+	public static function display_setup_success() {
+		include dirname( __FILE__ ) . '/views/html-admin-notice-setup-success.php';
 	}
 
 	/**
