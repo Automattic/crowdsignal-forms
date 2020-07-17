@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="wrap crowdsignal-settings-wrap">
-			<form class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/" target="CSCONNECT" onsubmit="CSCONNECT = window.open( 'about:blank', 'CSCONNECT', 'width=800,height=600' );">
+			<form id="cs-connect-form" class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/" target="CSCONNECT">
 			<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
 			<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'admin.php?page=crowdsignal-forms-setup' ) ); ?>" />
 			<input type="submit" value="<?php esc_html_e( 'Let’s get started', 'crowdsignal-forms' ); ?>" class="crowdsignal-setup__button" />
@@ -68,7 +68,6 @@ const showConnect = ( title ) => {
 		left=${ parseInt( left, 10 ) }
 		`
 	)
-	// CSCONNECT = window.open( 'about:blank', title );
 
 	if ( window.focus ) CSCONNECT.focus();
 }
