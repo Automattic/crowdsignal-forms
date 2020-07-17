@@ -6,6 +6,7 @@ import CloseIcon from 'components/icon/close';
 import CheckCircleIcon from 'components/icon/check-circle';
 import ThankYouIcon from 'components/icon/thank-you';
 import FooterBranding from './footer-branding';
+import { __ } from 'lib/i18n';
 
 const toggleAnimationPlayPause = ( event ) => {
 	const player = event.target;
@@ -61,7 +62,8 @@ const SubmitMessage = ( {
 						<CheckCircleIcon />
 					</div>
 					<div className="wp-block-crowdsignal-forms-poll__custom-message">
-						{ customConfirmMessage }
+						{ customConfirmMessage ??
+							__( 'Thank you for your submission!' ) }
 					</div>
 				</>
 			) }
