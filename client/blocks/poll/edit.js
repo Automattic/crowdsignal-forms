@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useState, useEffect } from 'react';
-import { map, some } from 'lodash';
+import { filter, map, some } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -16,7 +16,7 @@ import { withSelect } from '@wordpress/data';
 import ClosedBanner from 'components/poll/closed-banner';
 import { PollStyles, getPollStyles } from 'components/poll/styles';
 import PollResults from 'components/poll/results';
-import { maybeAddTemporaryAnswerIds } from 'components/poll/util';
+import { addApiAnswerIds, isAnswerEmpty } from 'components/poll/util';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { __ } from 'lib/i18n';
 import { ClosedPollState } from './constants';
@@ -78,6 +78,13 @@ const PollBlock = ( props ) => {
 	const viewResultsUrl = pollDataFromApi
 		? pollDataFromApi.viewResultsUrl
 		: '';
+	const pollIdFromApi = pollDataFromApi ? pollDataFromApi.id : null;
+	const answerIdMap = {};
+	if ( pollDataFromApi ) {
+		map( pollDataFromApi.answers, ( answer ) => {
+			answerIdMap[ answer.client_id ] = answer.id;
+		} );
+	}
 
 	const handleChangeQuestion = ( question ) => setAttributes( { question } );
 	const handleChangeNote = ( note ) => setAttributes( { note } );
@@ -172,9 +179,14 @@ const PollBlock = ( props ) => {
 
 					{ showResults && (
 						<PollResults
-							answers={ maybeAddTemporaryAnswerIds(
-								attributes.answers
+							answers={ addApiAnswerIds(
+								filter(
+									attributes.answers,
+									( answer ) => ! isAnswerEmpty( answer )
+								),
+								answerIdMap
 							) }
+							pollIdFromApi={ pollIdFromApi }
 							hideBranding={ hideBranding }
 							setErrorMessage={ setErrorMessage }
 						/>

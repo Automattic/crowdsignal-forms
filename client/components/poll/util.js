@@ -1,24 +1,23 @@
 /**
  * External dependencies
  */
-import { map, uniqueId } from 'lodash';
+import { isEmpty, map } from 'lodash';
 
 /**
- * Generates unique answer IDs for answers that have not beeen published yet.
- * This keeps the poll block working while in preview mode.
+ * Adds api answer ids to the answer objects (when they are available).
  *
- * @param  {Array} answers Answers array
- * @return {Array}         Updated answers array
+ * @param  {Array} answers     Answers array
+ * @param  {Array} answerIdMap A json object with client answer ids as keys, and API answer ids as values.
+ * @return {Array}             Updated answers array
  */
-export const maybeAddTemporaryAnswerIds = ( answers ) =>
+export const addApiAnswerIds = ( answers, answerIdMap ) =>
 	map( answers, ( answer ) => {
-		if ( typeof answer.answerId !== 'undefined' ) {
+		if ( typeof answer.answerIdFromApi !== 'undefined' ) {
 			return answer;
 		}
-
 		return {
 			...answer,
-			answerId: parseInt( uniqueId(), 10 ),
+			answerIdFromApi: answerIdMap[ answer.answerId ],
 		};
 	} );
 
@@ -41,3 +40,14 @@ export const shuffleWithGenerator = ( toShuffle, randomNumberGenerator ) => {
 	}
 	return shuffled;
 };
+
+/**
+ * Determines if an answer is considered "empty", based on if text is set and blank or object has no values.
+ *
+ * @param {*} answer The answer object.
+ */
+export const isAnswerEmpty = ( answer ) =>
+	isEmpty( answer ) ||
+	'undefined' === typeof answer.text ||
+	null === answer.text ||
+	'' === answer.text;

@@ -13,7 +13,7 @@ import { RichText } from '@wordpress/block-editor';
  * Internal dependencies
  */
 import EditAnswer from './edit-answer';
-import { isAnswerEmpty } from './util';
+import { isAnswerEmpty } from 'components/poll/util';
 
 const shiftAnswerFocus = ( wrapper, index ) =>
 	tap(

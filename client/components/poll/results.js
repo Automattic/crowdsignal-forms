@@ -13,6 +13,7 @@ import { usePollResults } from 'data/hooks';
 import { __, _n, sprintf } from 'lib/i18n';
 import PollAnswerResults from './answer-results';
 import FooterBranding from './footer-branding';
+import { isAnswerEmpty } from './util';
 
 const PollResults = ( {
 	answers,
@@ -43,18 +44,24 @@ const PollResults = ( {
 	return (
 		<div className={ classes }>
 			<div className="wp-block-crowdsignal-forms-poll__results-list">
-				{ map( answers, ( answer ) => (
-					<PollAnswerResults
-						key={ answer.answerIdFromApi }
-						error={ !! error }
-						loading={ loading }
-						text={ answer.text }
-						totalVotes={ total }
-						votes={
-							results ? results[ answer.answerIdFromApi ] ?? 0 : 0
-						}
-					/>
-				) ) }
+				{ map(
+					answers,
+					( answer ) =>
+						! isAnswerEmpty( answer ) && (
+							<PollAnswerResults
+								key={ answer.answerId }
+								error={ !! error }
+								loading={ loading }
+								text={ answer.text }
+								totalVotes={ total }
+								votes={
+									results
+										? results[ answer.answerIdFromApi ] ?? 0
+										: 0
+								}
+							/>
+						)
+				) }
 			</div>
 
 			<div className="wp-block-crowdsignal-forms-poll__results-footer">
@@ -72,10 +79,11 @@ const PollResults = ( {
 };
 
 PollResults.propTypes = {
-	pollIdFromApi: PropTypes.number.isRequired,
+	pollIdFromApi: PropTypes.number,
 	answers: PropTypes.arrayOf(
 		PropTypes.shape( {
-			answerIdFromApi: PropTypes.number.isRequired,
+			answerId: PropTypes.string.isRequired,
+			answerIdFromApi: PropTypes.number,
 			text: PropTypes.string,
 		} )
 	).isRequired,

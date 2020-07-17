@@ -6,7 +6,7 @@ import seedrandom from 'seedrandom';
 /**
  * Internal dependencies
  */
-import { shuffleWithGenerator } from './util';
+import { shuffleWithGenerator, isAnswerEmpty } from './util';
 
 test( 'shuffleWithGenerator does not modify the original array', () => {
 	const elements = [ 1, 2, 3, 4, 5 ];
@@ -51,4 +51,19 @@ test( 'shuffleWithGenerator does not shuffle any elements, when given a static n
 	const shuffled = shuffleWithGenerator( elements, () => 1 );
 
 	expect( elements ).toEqual( shuffled );
+} );
+
+test.each( [
+	[ 'object is empty', {} ],
+	[ 'object only has answerId', { answerId: 123 } ],
+	[ 'object has only text as empty string', { text: '' } ],
+	[ 'object has only empty text and answerId', { text: '', answerId: 123 } ],
+] )( 'isAnswerEmpty returns true if %s', ( _, answer ) => {
+	expect( isAnswerEmpty( answer ) ).toEqual( true );
+} );
+
+test.each( [
+	[ 'object has non-empty text value', { text: 'answer value' } ],
+] )( 'isAnswerEmpty returns false if %s', ( _, answer ) => {
+	expect( isAnswerEmpty( answer ) ).toEqual( false );
 } );

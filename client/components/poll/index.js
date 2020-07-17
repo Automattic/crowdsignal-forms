@@ -19,7 +19,7 @@ import ClosedBanner from './closed-banner';
 import PollResults from './results';
 import PollVote from './vote';
 import { PollStyles, getPollStyles } from './styles';
-import { maybeAddTemporaryAnswerIds, shuffleWithGenerator } from './util';
+import { shuffleWithGenerator } from './util';
 import { __ } from 'lib/i18n';
 import { usePollVote } from 'data/hooks';
 import { CrowdsignalFormsError } from 'data/poll';
@@ -136,7 +136,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 				{ ! showResults && (
 					<PollVote
-						answers={ maybeAddTemporaryAnswerIds( answers ) }
+						answers={ answers }
 						isMultipleChoice={ attributes.isMultipleChoice }
 						onSubmit={ handleSubmit }
 						submitButtonLabel={ attributes.submitButtonLabel }
@@ -149,7 +149,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 				{ showResults && (
 					<PollResults
 						pollIdFromApi={ pollIdFromApi }
-						answers={ maybeAddTemporaryAnswerIds( answers ) }
+						answers={ answers }
 						setErrorMessage={ setErrorMessage }
 						hideBranding={ attributes.hideBranding }
 					/>

@@ -5,7 +5,6 @@ import {
 	addAnswer,
 	getFontFamilyFromType,
 	getBlockCssClasses,
-	isAnswerEmpty,
 	isPollClosed,
 	pollIdExistsInPageContent,
 } from './util';
@@ -175,19 +174,4 @@ test( 'pollIdExistsInPostContent returns false if pollId is NOT present', () => 
 	expect( pollIdExistsInPageContent( 123, testPostContent ) ).toEqual(
 		false
 	);
-} );
-
-test.each( [
-	[ 'object is empty', {} ],
-	[ 'object only has answerId', { answerId: 123 } ],
-	[ 'object has only text as empty string', { text: '' } ],
-	[ 'object has only empty text and answerId', { text: '', answerId: 123 } ],
-] )( 'isAnswerEmpty returns true if %s', ( _, answer ) => {
-	expect( isAnswerEmpty( answer ) ).toEqual( true );
-} );
-
-test.each( [
-	[ 'object has non-empty text value', { text: 'answer value' } ],
-] )( 'isAnswerEmpty returns false if %s', ( _, answer ) => {
-	expect( isAnswerEmpty( answer ) ).toEqual( false );
 } );
