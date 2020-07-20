@@ -135,11 +135,55 @@ class Admin_Hooks {
 			$poll_ids_saved_in_post = array();
 		}
 
-		foreach ( $blocks as &$poll_block ) {
-			if ( 'crowdsignal-forms/poll' !== $poll_block['blockName'] ) {
-				continue;
+		$this->process_blocks( $blocks, $post_ID, $gateway, $poll_ids_present_in_content );
+
+		$poll_ids_to_archive = array_diff( $poll_ids_saved_in_post, $poll_ids_present_in_content );
+		$this->archive_polls_with_ids( $poll_ids_to_archive );
+
+		if ( empty( $poll_ids_saved_in_post ) ) {
+			add_post_meta( $post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
+		} else {
+			update_post_meta( $post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
+		}
+	}
+
+	/**
+	 * Processes all blocks in the content to find any poll blocks that need to be saved.
+	 *
+	 * @param array  $blocks List of blocks to check.
+	 * @param int    $post_ID ID of the current poll.
+	 * @param object $gateway crowdsignal api gateway instance.
+	 * @param array  $poll_ids_present_in_content Array to track IDs that are present in the content.
+	 *
+	 * @since 1.0.0
+	 * @return void
+	 * @throws \Exception In case of bad request. This is temporary.
+	 */
+	private function process_blocks( $blocks, $post_ID, $gateway, &$poll_ids_present_in_content ) {
+		// search for all poll blocks at top level and nested in other blocks.
+		$poll_blocks       = array();
+		$blocks_to_process = $blocks;
+
+		while ( ! empty( $blocks_to_process ) ) {
+			$blocks_to_process_next_iteration = array();
+
+			foreach ( $blocks_to_process as $block ) {
+				if ( 'crowdsignal-forms/poll' === $block['blockName'] ) {
+					$poll_blocks[] = $block;
+					continue;
+				}
+
+				if ( empty( $block['innerBlocks'] ) ) {
+					continue;
+				}
+				$blocks_to_process_next_iteration = array_merge( $blocks_to_process_next_iteration, $block['innerBlocks'] );
 			}
 
+			$blocks_to_process = $blocks_to_process_next_iteration;
+		}
+
+		// process the found blocks.
+		foreach ( $poll_blocks as &$poll_block ) {
 			$poll_client_id = $poll_block['attrs']['pollId'];
 			if ( empty( $poll_client_id ) ) {
 				// This is sorta serious, means the poll block is invalid, what to do?
@@ -178,15 +222,6 @@ class Admin_Hooks {
 				// TODO: Pretty serious, we didn't get a poll response. What to do? Throw!
 				throw new \Exception( $result->get_error_code() );
 			}
-		}
-
-		$poll_ids_to_archive = array_diff( $poll_ids_saved_in_post, $poll_ids_present_in_content );
-		$this->archive_polls_with_ids( $poll_ids_to_archive );
-
-		if ( empty( $poll_ids_saved_in_post ) ) {
-			add_post_meta( $post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
-		} else {
-			update_post_meta( $post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
 		}
 	}
 
