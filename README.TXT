@@ -1,114 +1,84 @@
 === Crowdsignal Forms ===
-Contributors: (this should be a list of wordpress.org userid's)
-Donate link: http://example.com/
-Tags: polls, forms, surveys
+Contributors: automattic
+Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
-Tested up to: 5.4
-Stable tag: 1.0.0
+Tested up to: 5.4.2
+Stable tag: 0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+The Crowdsignal Forms plugin allows you to create and manage polls right from within your Gutenberg editor.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+The Crowdsignal Forms plugin allows you to create and manage polls right from within your Gutenberg editor.
+Creating polls is as simple and as fast as writing a bullet point list. No embed blocks and no copy pasting
+needed anymore.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Customize the look and feel of your polls to match your brand, and pick your favorite color. The poll block 
+supports the styling of your theme by default, and from there you can customize the styling of your polls 
+the way you want.
 
-A few notes about the sections above:
+With Crowdsignal’s results page you can view all responses as they come in. See the geo-locations of your
+voters and analyze IP addresses for any suspicious voting behavior. See advanced stats and analytics for 
+understanding your audience.
 
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
+Analyze your results and then export them in a number of different formats.
 
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
+Set close dates for polls, create polls with single or multiple choice answers, choose whether to show your
+readers the poll results or keep them private. 
 
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+You can create an unlimited number of polls and with a free [Crowdsignal](https://crowdsignal.com/) account and your first 2,500 signals are
+free. A signal is a response you get to a poll. If you are on a free plan, you still have full access to the
+first 2,500 signals. Any further responses you collect will still be recorded but if you [upgrade](https://crowdsignal.com/pricing/) you will
+get access to our unlocked reports to see them. You’ll also get access to a [range of features](https://crowdsignal.com/features/) not available to free users.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+The easiest way to install this plugin is through the "Add New Plugins" page on your site.
+1. Go to the Plugins page and click "Add New".
+2. Type "Crowdsignal Forms" in the search box and press return.
+3. Click the "Install Now" button.
 
-e.g.
+Once installed you must connect your site to Crowdsignal.com
+1. Activate the plugin and you will be brought to the Getting Started page.
+2. Click "Let's get started" to open a popup that will allow you to login or create a new Crowdsignal account.
+3. You'll be presented with an API key to use so press Connect and you'll be brought back to your own site.
+4. The popup will disappear and the message, "You’re ready to start using Crowdsignal!" will be shown.
+5. Happy polling! Create a post and add a new "poll" block!
 
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Why Crowdsignal Forms?
 
-An answer to that question.
+We’re starting with just the Crowdsignal poll block but more blocks are coming soon.
 
-= What about foo bar? =
+= Who is Crowdsignal?
 
-Answer to foo bar dilemma.
+Crowdsignal is built by Automattic, the company behind WordPress.com, WooCommerce, Tumblr and more. We’re here to stay!
+
+= Where can I find help with this plugin?
+
+Automattic is a distributed team working from all around the world, so it’s always business hours for our more than 250 Happiness Engineers. Use the [forum here](https://wordpress.org/support/plugin/crowdsignal-forms/) or reach out to us anytime and we'll be happy to help.
+
+= What plans do you offer?
+Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or take a [product tour](https://crowdsignal.com/features/) to learn more.
+
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Analyze your results and export them everywhere
+2. Create and style your polls from within Gutenberg
+3. Your polls adopt your theme style
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+= 0.9 =
+* Initial release
 
 == Upgrade Notice ==
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
+= 0.9 =
+Initial release
 
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
