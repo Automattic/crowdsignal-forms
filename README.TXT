@@ -2,6 +2,7 @@
 Contributors: automattic
 Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
+Requires PHP: 5.6.20
 Tested up to: 5.4.2
 Stable tag: 0.9
 License: GPLv2 or later
