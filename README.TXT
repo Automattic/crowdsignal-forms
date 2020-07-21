@@ -68,9 +68,10 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Screenshots ==
 
-1. Analyze your results and export them everywhere
-2. Create and style your polls from within Gutenberg
+1. Create and style your polls from within Gutenberg
+2. Analyze your results and export them everywhere
 3. Your polls adopt your theme style
+4. Use the poll block inside of other blocks
 
 == Changelog ==
 
