@@ -7,19 +7,19 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://automattic.com
+ * @link              https://automattic.com
  * @since             1.0.0
  * @package           Crowdsignal_Forms
  *
  * @wordpress-plugin
  * Plugin Name:       Crowdsignal Forms
- * Plugin URI:        http://example.com/plugin-name-uri/
+ * Plugin URI:        https://crowdsignal.com/crowdsignal-forms/
  * Description:       Crowdsignal Form Blocks
  * Version:           1.0.0
  * Author:            Automattic
- * Author URI:        http://automattic.com/
+ * Author URI:        https://automattic.com/
  * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       crowdsignal-forms
  * Domain Path:       /languages
  */
