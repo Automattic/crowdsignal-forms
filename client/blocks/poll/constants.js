@@ -11,7 +11,6 @@ export const FontFamilyType = Object.freeze( {
 	PALATINO: 'palatino',
 	TIMES_NEW_ROMAN: 'times-new-roman',
 	ARIAL: 'arial',
-	COMIC_SANS: 'comic-sans',
 	IMPACT: 'impact',
 	LUCIDA: 'lucida',
 	TAHOMA: 'tahoma',
@@ -27,7 +26,6 @@ export const FontFamilyMap = Object.freeze( {
 		'"Palatino Linotype", "Book Antiqua", Palatino, serif',
 	[ FontFamilyType.TIMES_NEW_ROMAN ]: '"Times New Roman", Times, serif',
 	[ FontFamilyType.ARIAL ]: 'Arial, Helvetica, sans-serif',
-	[ FontFamilyType.COMIC_SANS ]: '"Comic Sans MS", cursive, sans-serif',
 	[ FontFamilyType.IMPACT ]: 'Impact, Charcoal, sans-serif',
 	[ FontFamilyType.LUCIDA ]:
 		'"Lucida Sans Unicode", "Lucida Grande", sans-serif',

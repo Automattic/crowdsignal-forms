@@ -27,8 +27,8 @@ test( 'addAnswer appends new answer to end of array', () => {
 } );
 
 test( 'getFontFamilyFromType returns proper family when valid value is given', () => {
-	expect( getFontFamilyFromType( FontFamilyType.COMIC_SANS ) ).toEqual(
-		FontFamilyMap[ FontFamilyType.COMIC_SANS ]
+	expect( getFontFamilyFromType( FontFamilyType.ARIAL ) ).toEqual(
+		FontFamilyMap[ FontFamilyType.ARIAL ]
 	);
 } );
 

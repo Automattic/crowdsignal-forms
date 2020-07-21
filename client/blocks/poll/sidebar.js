@@ -319,10 +319,6 @@ const SideBar = ( {
 							value: FontFamilyType.ARIAL,
 						},
 						{
-							label: __( 'Comic Sans' ),
-							value: FontFamilyType.COMIC_SANS,
-						},
-						{
 							label: __( 'Impact' ),
 							value: FontFamilyType.IMPACT,
 						},
