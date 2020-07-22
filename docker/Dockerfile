@@ -17,6 +17,7 @@ RUN \
 		curl \
 		wget \
 		less \
+		gettext \
 		libapache2-mod-php7.4 \
 		libsodium23 \
 		mysql-client \

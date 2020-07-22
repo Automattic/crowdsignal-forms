@@ -57,6 +57,15 @@ function crowdsignal_get_test_user_code( $check, $object_id, $meta_key, $single 
 add_filter( 'get_user_metadata', 'crowdsignal_get_test_user_code', 10, 4 );
 ```
 
+## Translations
+
+We use translate.wordpress.com for translating Crowdsignal Forms. Prior to shipping a release candidate, or release, we need to
+ensure an updated potfile is uploaded to our translate.wordpress.com project.
+
+To do that, run `make pot` to update the potfile. Additionally, this will run any time you do `make release`.
+
+Remember to commit the updated .pot file.
+
 ## Compile for Release
 
 Run `make release`. This will compile all production files necessary for the plugin, add them to a zip archive, and copy it to the `release` folder.
