@@ -40,11 +40,17 @@
 .wp-block-crowdsignal-forms__row {
 	display: flex;
 	flex-direction: row;
+
+	.wp-block-crowdsignal-forms__small-text-input input[type="text"] {
+		width: 40px;
+	}
+
+	/* need extra space for native up/down buttons */
+	.wp-block-crowdsignal-forms__small-text-input input[type="number"] {
+		width: 50px;
+	}
 }
 
-.wp-block-crowdsignal-forms__small-text-input input {
-	width: 40px;
-}
 
 .wp-block-crowdsignal-forms-poll__edit-bar {
 	font-family: $font-sans-serif;

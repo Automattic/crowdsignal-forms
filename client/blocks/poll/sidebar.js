@@ -16,6 +16,7 @@ import {
 	SelectControl,
 	TextareaControl,
 	TextControl,
+	ToggleControl,
 } from '@wordpress/components';
 import {
 	InspectorControls,
@@ -350,16 +351,18 @@ const SideBar = ( {
 						label={ __( 'Border thickness' ) }
 						value={ attributes.borderWidth }
 						onChange={ handleChangeBorderWidth }
+						type="number"
 						className="wp-block-crowdsignal-forms__small-text-input"
 					/>
 					<TextControl
 						label={ __( 'Corner radius' ) }
 						value={ attributes.borderRadius }
 						onChange={ handleChangeBorderRadius }
+						type="number"
 						className="wp-block-crowdsignal-forms__small-text-input"
 					/>
 				</div>
-				<CheckboxControl
+				<ToggleControl
 					label={ __( 'Drop shadow' ) }
 					checked={ attributes.hasBoxShadow }
 					onChange={ handleChangeHasBoxShadow }
