@@ -106,14 +106,6 @@ class Crowdsignal_Forms_Settings {
 
 				<?php settings_fields( $this->settings_group ); ?>
 
-				<h2 class="nav-tab-wrapper">
-					<?php
-					foreach ( $this->settings as $key => $section ) {
-						echo '<a href="#settings-' . esc_attr( sanitize_title( $key ) ) . '" class="nav-tab">' . esc_html( $section[0] ) . '</a>';
-					}
-					?>
-				</h2>
-
 				<?php
 				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for basic flow.
 				if ( ! empty( $_GET['settings-updated'] ) ) {
