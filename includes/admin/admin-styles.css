@@ -158,3 +158,41 @@
 .crowdsignal-setup__support {
 	font-size: 14px;
 }
+
+.crowdsignal-setup__top {
+	margin-top: 32px;
+}
+
+.crowdsignal-setup__middle {
+	min-height: 100px;
+	min-width: 35em;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 0px;
+	border: 1px none #000;
+	border-radius: 0px;
+	margin-top: 40px;
+}
+
+.crowdsignal-setup__video-container {
+	display: block;
+	width: 100%;
+	margin-top: 64px;
+	margin-bottom: 120px;
+}
+
+.crowdsignal-setup__video {
+	width: 560px;
+	height: 315px;
+	margin-top: 32px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #e2e2e2;
+}
+
+.updated.crowdsignal-message {
+	width: auto;
+	margin-left: -20px;
+	margin-right: -20px;
+	margin-bottom: 5px;
+}
