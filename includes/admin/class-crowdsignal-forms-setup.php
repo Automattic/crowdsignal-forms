@@ -56,16 +56,14 @@ class Crowdsignal_Forms_Setup {
 	 */
 	public function show_setup_success( $show ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- readonly, boolean check
-		return isset( $_GET['connect'] ) && 'success' === $_GET['connect'];
+		return isset( $_GET['msg'] ) && 'connect' === $_GET['msg'];
 	}
 
 	/**
 	 * Enqueues scripts for setup page.
-	 *
-	 * @todo for future use.
 	 */
 	public function admin_enqueue_scripts() {
-		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.0' );
+		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '0.9' );
 		wp_enqueue_script( 'videopress', 'https://videopress.com/videopress-iframe.js', array(), '1.0', false );
 	}
 

@@ -101,7 +101,6 @@ class Crowdsignal_Forms_Admin_Notices {
 	public static function init_core_notices() {
 		// core_setup: Notice is used when first activating plugin.
 		add_action( 'crowdsignal_forms_admin_notice_' . self::NOTICE_CORE_SETUP, array( __CLASS__, 'display_core_setup' ) );
-		add_action( 'crowdsignal_forms_admin_notice_' . self::SETUP_SUCCESS, array( __CLASS__, 'display_setup_success' ) );
 	}
 
 	/**

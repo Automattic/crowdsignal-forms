@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 window.close();
 if (window.opener && !window.opener.closed) {
 	var querystring = window.opener.location.search;
-	querystring += ( querystring ? '&' : '?' ) + 'connect=success';
+	querystring += ( querystring ? '&' : '?' ) + 'msg=connected';
 	window.opener.location.search = querystring;
 }
 </script>

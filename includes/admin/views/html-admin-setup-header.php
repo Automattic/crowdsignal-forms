@@ -34,3 +34,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 
+	<?php
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( isset( $_GET['msg'] ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		switch ( $_GET['msg'] ) {
+			case 'disconnect-fail':
+				echo '<div class="error fade crowdsignal-message"><p>' . esc_html__( 'Could not disconnect. Please try again.', 'crowdsignal-forms' ) . '</p></div>';
+				break;
+			case 'disconnected':
+				echo '<div class="updated fade crowdsignal-message"><p>' . esc_html__( 'Successfully disconnected from Crowdsignal.', 'crowdsignal-forms' ) . '</p></div>';
+				break;
+			case 'connect':
+				echo '<div class="updated crowdsignal-message"><p>' . esc_html__( 'Success! Your Crowdsignal account is successfully connected! You are ready!', 'crowdsignal-forms' ) . '</p></div>';
+				break;
+			case 'api-key-added':
+				echo '<div class="updated crowdsignal-message"><p>' . esc_html__( 'You have been connected to Crowdsignal.', 'crowdsignal-forms' ) . '</p></div>';
+				break;
+			case 'api-key-not-added':
+				echo '<div class="error fade crowdsignal-message"><p>' . esc_html__( 'Your API key has not been updated.', 'crowdsignal-forms' ) . '</p></div>';
+				break;
+		}
+	}
+	?>
