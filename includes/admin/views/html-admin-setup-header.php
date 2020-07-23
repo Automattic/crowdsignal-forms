@@ -48,6 +48,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			case 'connect':
 				echo '<div class="updated crowdsignal-message"><p>' . esc_html__( 'Success! Your Crowdsignal account is successfully connected! You are ready!', 'crowdsignal-forms' ) . '</p></div>';
 				break;
+			case 'api-key-added':
+				echo '<div class="updated crowdsignal-message"><p>' . esc_html__( 'You have been connected to Crowdsignal.', 'crowdsignal-forms' ) . '</p></div>';
+				break;
+			case 'api-key-not-added':
+				echo '<div class="error fade crowdsignal-message"><p>' . esc_html__( 'Your API key has not been updated.', 'crowdsignal-forms' ) . '</p></div>';
+				break;
 		}
 	}
 	?>
