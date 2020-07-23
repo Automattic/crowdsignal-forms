@@ -40,10 +40,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		switch ( $_GET['msg'] ) {
 			case 'disconnect-fail':
-				echo '<div class="error fade crowdsignal-updated"><p>' . esc_html__( 'Could not disconnect. Please try again.', 'crowdsignal-forms' ) . '</p></div>';
+				echo '<div class="error fade crowdsignal-message"><p>' . esc_html__( 'Could not disconnect. Please try again.', 'crowdsignal-forms' ) . '</p></div>';
 				break;
 			case 'disconnected':
-				echo '<div class="updated fade crowdsignal-updated"><p>' . esc_html__( 'Successfully disconnected from Crowdsignal.', 'crowdsignal-forms' ) . '</p></div>';
+				echo '<div class="updated fade crowdsignal-message"><p>' . esc_html__( 'Successfully disconnected from Crowdsignal.', 'crowdsignal-forms' ) . '</p></div>';
 				break;
 			case 'connect':
 				echo '<div class="updated crowdsignal-message"><p>' . esc_html__( 'Success! Your Crowdsignal account is successfully connected! You are ready!', 'crowdsignal-forms' ) . '</p></div>';
