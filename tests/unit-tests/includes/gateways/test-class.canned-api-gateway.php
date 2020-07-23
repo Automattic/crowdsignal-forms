@@ -14,7 +14,7 @@ class Canned_Api_Gateway_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Gateways\Canned_Api_Gateway
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_exists() {
 		$this->assertTrue( class_exists('\Crowdsignal_Forms\Gateways\Canned_Api_Gateway' ) );
@@ -23,7 +23,7 @@ class Canned_Api_Gateway_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Gateways\Canned_Api_Gateway::get_poll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_get_poll_returns_poll_if_in_canned_data() {
 		$gateway = new Gateways\Canned_Api_Gateway();
@@ -34,7 +34,7 @@ class Canned_Api_Gateway_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Gateways\Canned_Api_Gateway::get_poll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_get_poll_returns_error_if_not_in_canned_data() {
 		$gateway = new Gateways\Canned_Api_Gateway();

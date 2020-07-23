@@ -3,7 +3,7 @@
  * File containing the interface \Crowdsignal_Forms\Gateways\Api_Gateway_Interface.
  *
  * @package crowdsignal-forms/Gateways
- * @since 1.0.0
+ * @since 0.9.0
  */
 
 namespace Crowdsignal_Forms\Gateways;
@@ -45,7 +45,7 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	 * Get the poll with specified poll id from the api.
 	 *
 	 * @param int $poll_id The poll id.
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return Poll|\WP_Error
 	 */
@@ -64,7 +64,7 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	 * Get the poll results with specified poll id from the api.
 	 *
 	 * @param int $poll_id The poll id.
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return Poll|\WP_Error
 	 */
@@ -84,7 +84,7 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	 *
 	 * @param Poll $poll The poll data.
 	 * @return Poll|\WP_Error
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function create_poll( Poll $poll ) {
 		return new \WP_Error( 'FIXME' );
@@ -111,7 +111,7 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	/**
 	 * Get polls
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return array|\WP_Error
 	 */
@@ -124,7 +124,7 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	 *
 	 * @param Poll $poll The poll data.
 	 * @return Poll|\WP_Error
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function update_poll( Poll $poll ) {
 		return new \WP_Error( 'FIXME' );
@@ -135,7 +135,7 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	 *
 	 * @param int $id_to_archive The poll id to move to the archive.
 	 * @return Poll|\WP_Error
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function archive_poll( $id_to_archive ) {
 		// The endpoint just returns the poll object and a 200 if it succeeds.
@@ -147,7 +147,7 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 	/**
 	 * Get the account capabilities for the user.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return array|\WP_Error
 	 */

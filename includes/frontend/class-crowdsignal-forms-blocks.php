@@ -3,7 +3,7 @@
  * Contains Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks
  *
  * @package Crowdsignal_Forms\Frontend
- * @since   1.0.0
+ * @since   0.9.0
  */
 
 namespace Crowdsignal_Forms\Frontend;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles Crowdsignal Forms' Gutenberg blocks.
  *
  * @package Crowdsignal_Forms\Frontend
- * @since   1.0.0
+ * @since   0.9.0
  */
 class Crowdsignal_Forms_Blocks {
 

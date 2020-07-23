@@ -3,7 +3,7 @@
  * File containing the class \Crowdsignal_Forms\Autoloader.
  *
  * @package Crowdsignal_Forms
- * @since   1.0.0
+ * @since   0.9.0
  */
 
 namespace Crowdsignal_Forms;

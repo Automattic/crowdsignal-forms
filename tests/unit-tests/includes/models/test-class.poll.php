@@ -14,7 +14,7 @@ class Poll_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 		* Set this up.
 		*
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -23,7 +23,7 @@ class Poll_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Poll::from_array
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_from_array_defaults() {
 		$poll = Poll::from_array( array() );
@@ -36,7 +36,7 @@ class Poll_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Poll::from_array
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_from_array() {
 		$data = array(

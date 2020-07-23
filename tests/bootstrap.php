@@ -16,7 +16,7 @@ class Crowdsignal_Forms_Unit_Tests_Bootstrap {
     /**
      * Test bootstrap constructor.
      *
-     * @since 1.0.0
+     * @since 0.9.0
      */
     public function __construct() {
         // phpcs:disable WordPress.PHP.DiscouragedPHPFunctions, WordPress.PHP.DevelopmentFunctions
@@ -61,7 +61,7 @@ class Crowdsignal_Forms_Unit_Tests_Bootstrap {
     /**
      * Loads the plugin.
      *
-     * @since 1.0.0
+     * @since 0.9.0
      */
     public function load_plugin() {
         require_once $this->plugin_dir . '/crowdsignal-forms.php';
@@ -70,7 +70,7 @@ class Crowdsignal_Forms_Unit_Tests_Bootstrap {
     /**
      * Sets up the plugin after everything is loaded.
      *
-     * @since 1.0.0
+     * @since 0.9.0
      */
     public function install_plugin() {
 
@@ -86,7 +86,7 @@ class Crowdsignal_Forms_Unit_Tests_Bootstrap {
     /**
      * Load plugin-specific test cases and factories.
      *
-     * @since 1.0.0
+     * @since 0.9.0
      */
     public function includes() {
         require_once $this->tests_dir . '/framework/class-crowdsignal-forms-unit-test-case.php';
@@ -95,7 +95,7 @@ class Crowdsignal_Forms_Unit_Tests_Bootstrap {
     /**
      * Get the single class instance.
      *
-     * @since 1.0.0
+     * @since 0.9.0
      *
      * @return self
      */
