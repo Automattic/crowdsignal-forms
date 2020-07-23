@@ -4,15 +4,15 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.4.2
-Stable tag: 0.9
+Stable tag: 0.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The Crowdsignal Forms plugin allows you to create and manage polls right from within your Gutenberg editor.
+The Crowdsignal Forms plugin allows you to create and manage polls right from within the block editor.
 
 == Description ==
 
-The Crowdsignal Forms plugin allows you to create and manage polls right from within your Gutenberg editor.
+The Crowdsignal Forms plugin allows you to create and manage polls right from within the block editor.
 Creating polls is as simple and as fast as writing a bullet point list. No embed blocks and no copy pasting
 needed anymore.
 
@@ -69,7 +69,7 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Screenshots ==
 
-1. Create and style your polls from within Gutenberg
+1. Create and style your polls from within the block editor
 2. Analyze your results and export them everywhere
 3. Your polls adopt your theme style
 4. Use the poll block inside of other blocks
