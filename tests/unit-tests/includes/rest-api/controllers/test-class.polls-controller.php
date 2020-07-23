@@ -22,7 +22,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * Set this up.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -36,7 +36,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 
 	/**
 	 * Test specific teardown.
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function tearDown() {
 		parent::tearDown();
@@ -48,7 +48,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_has_get_polls() {
 			$this->assertTrue( method_exists( $this->controller, 'get_polls' ) );
@@ -57,7 +57,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_has_get_poll() {
 			$this->assertTrue( method_exists( $this->controller, 'get_poll' ) );
@@ -66,7 +66,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_polls
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_get_polls() {
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
@@ -77,7 +77,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_get_poll() {
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
@@ -91,7 +91,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_get_poll_results() {
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
@@ -105,7 +105,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::update_poll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_update_poll_400_when_incorrect_user_perms() {
 		$this->login_as_default_user();
@@ -121,7 +121,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::update_poll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_update_poll_succeed_when_correct_user_perms() {
 		$this->login_as_editor();
@@ -165,7 +165,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::archive_poll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_archive_poll_400_when_incorrect_user_perms() {
 		$this->login_as_default_user();
@@ -180,7 +180,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::archive_poll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_archive_poll_succeeded() {
 		$this->login_as_editor();

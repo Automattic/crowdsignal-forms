@@ -2,7 +2,7 @@
 /**
  * Contains the Account Controller Class
  *
- * @since 1.0.0
+ * @since 0.9.0
  * @package Crowdsignal_Forms\Rest_Api
  **/
 
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Account Controller Class
  *
- * @since 1.0.0
+ * @since 0.9.0
  **/
 class Account_Controller {
 	/**
@@ -38,7 +38,7 @@ class Account_Controller {
 	/**
 	 * Register the routes for account data
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 **/
 	public function register_routes() {
 		register_rest_route(
@@ -70,7 +70,7 @@ class Account_Controller {
 	/**
 	 * Gets the collection params.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array
 	 */
 	protected function get_collection_params() {
@@ -80,7 +80,7 @@ class Account_Controller {
 	/**
 	 * Get the capabilities for the account.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @param \WP_REST_Request $request
 	 *
@@ -98,7 +98,7 @@ class Account_Controller {
 	/**
 	 * The permission check for retrieving account info.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return bool
 	 **/

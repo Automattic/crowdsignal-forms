@@ -3,7 +3,7 @@
  * File containing the class Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin.
  *
  * @package Crowdsignal_Forms\Admin
- * @since   1.0.0
+ * @since   0.9.0
  */
 
 namespace Crowdsignal_Forms\Admin;
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Handles front admin page for Crowdsignal.
  *
- * @since 1.0.0
+ * @since 0.9.0
  */
 class Crowdsignal_Forms_Admin {
 
@@ -25,7 +25,7 @@ class Crowdsignal_Forms_Admin {
 	 * The settings class.
 	 *
 	 * @var Crowdsignal_Forms_Settings
-	 * @since  1.0.0
+	 * @since  0.9.0
 	 */
 	private $settings_page = null;
 

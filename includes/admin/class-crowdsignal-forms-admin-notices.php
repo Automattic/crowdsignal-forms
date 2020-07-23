@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Crowdsignal_Forms_Admin_Notices class.
  *
- * @since 1.0.0
+ * @since 0.9.0
  */
 class Crowdsignal_Forms_Admin_Notices {
 	const STATE_OPTION      = 'crowdsignal_forms_admin_notices';
@@ -40,7 +40,7 @@ class Crowdsignal_Forms_Admin_Notices {
 	/**
 	 * Add a notice to be displayed in WP admin.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @param string $notice Name of the notice.
 	 */
@@ -56,7 +56,7 @@ class Crowdsignal_Forms_Admin_Notices {
 	/**
 	 * Remove a notice from those displayed in WP admin.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @param string $notice Name of the notice.
 	 */
@@ -83,7 +83,7 @@ class Crowdsignal_Forms_Admin_Notices {
 	/**
 	 * Check for a notice to be displayed in WP admin.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @param string $notice Name of the notice. Name is not sanitized for this method.
 	 * @return bool
@@ -134,7 +134,7 @@ class Crowdsignal_Forms_Admin_Notices {
 		/**
 		 * Allows crowdsignal related plugins to set up their notice hooks.
 		 *
-		 * @since 1.0.0
+		 * @since 0.9.0
 		 */
 		do_action( 'crowdsignal_forms_init_admin_notices' );
 		$notice_state = self::get_notice_state();
@@ -142,7 +142,7 @@ class Crowdsignal_Forms_Admin_Notices {
 			/**
 			 * Allows suppression of individual admin notices.
 			 *
-			 * @since 1.0.0
+			 * @since 0.9.0
 			 *
 			 * @param bool $do_show_notice Set to false to prevent an admin notice from showing up.
 			 */
@@ -154,7 +154,7 @@ class Crowdsignal_Forms_Admin_Notices {
 			/**
 			 * Handle the display of the admin notice.
 			 *
-			 * @since 1.0.0
+			 * @since 0.9.0
 			 */
 			do_action( 'crowdsignal_forms_admin_notice_' . $notice );
 		}

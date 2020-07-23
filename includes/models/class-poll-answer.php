@@ -3,7 +3,7 @@
  * File containing the model \Crowdsignal_Forms\Models\Poll_Answer.
  *
  * @package crowdsignal-forms/Models
- * @since 1.0.0
+ * @since 0.9.0
  */
 
 namespace Crowdsignal_Forms\Models;
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Poll
  *
- * @since 1.0.0
+ * @since 0.9.0
  * @package Crowdsignal_Forms\Models
  */
 class Poll_Answer {
@@ -23,7 +23,7 @@ class Poll_Answer {
 	/**
 	 * The poll answer id.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var int
 	 */
 	private $id = 0;
@@ -31,7 +31,7 @@ class Poll_Answer {
 	/**
 	 * The client id.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $client_id = '';
@@ -39,7 +39,7 @@ class Poll_Answer {
 	/**
 	 * The poll answer text.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $answer_text = '';
@@ -49,7 +49,7 @@ class Poll_Answer {
 	 *
 	 * @param int    $id The id.
 	 * @param string $answer_text The answer_text.
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function __construct( $id, $answer_text ) {
 		$this->id          = $id;
@@ -78,7 +78,7 @@ class Poll_Answer {
 	/**
 	 * Transform the object into an array based on the class vars values.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @param string $context The context which we will be using the array.
 	 * @return array
 	 */
@@ -101,7 +101,7 @@ class Poll_Answer {
 	/**
 	 * Get the id.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return int
 	 */
 	public function get_id() {
@@ -111,7 +111,7 @@ class Poll_Answer {
 	/**
 	 * Get the block id.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return string
 	 */
 	public function get_client_id() {
@@ -123,7 +123,7 @@ class Poll_Answer {
 	 *
 	 * @param string $client_id The client id.
 	 * @return string
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function set_client_id( $client_id ) {
 		$this->client_id = $client_id;

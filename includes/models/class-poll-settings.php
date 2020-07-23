@@ -3,7 +3,7 @@
  * File containing the model \Crowdsignal_Forms\Models\Poll_Settings.
  *
  * @package crowdsignal-forms/Models
- * @since 1.0.0
+ * @since 0.9.0
  */
 
 namespace Crowdsignal_Forms\Models;
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Poll_Settings
  *
- * @since 1.0.0
+ * @since 0.9.0
  * @package Crowdsignal_Forms\Models
  */
 class Poll_Settings {
@@ -24,7 +24,7 @@ class Poll_Settings {
 	 * These constants come from (and must be kept in sync)
 	 * client/blocks/poll/constants.js.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	const AFTER_VOTE_RESULTS         = 'results';
 	const AFTER_VOTE_THANKYOU        = 'thank-you';
@@ -37,7 +37,7 @@ class Poll_Settings {
 	/**
 	 * The poll title.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $title = '';
@@ -48,7 +48,7 @@ class Poll_Settings {
 	 * Defines what to show next after voting
 	 *
 	 * @values results | thank-you | custom-text | redirect
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $after_vote = self::AFTER_VOTE_RESULTS;
@@ -56,7 +56,7 @@ class Poll_Settings {
 	/**
 	 * The poll custom text after voting.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $after_message = '';
@@ -64,7 +64,7 @@ class Poll_Settings {
 	/**
 	 * Randomize answers option
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var bool
 	 */
 	private $randomize_answers = false;
@@ -72,7 +72,7 @@ class Poll_Settings {
 	/**
 	 * Block repeat voters option
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var bool
 	 */
 	private $restrict_vote_repeat = false;
@@ -80,7 +80,7 @@ class Poll_Settings {
 	/**
 	 * Captcha option
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var bool
 	 */
 	private $captcha = false;
@@ -88,7 +88,7 @@ class Poll_Settings {
 	/**
 	 * If the poll accepts multiple answers
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var bool
 	 */
 	private $multiple_choice = false;
@@ -96,7 +96,7 @@ class Poll_Settings {
 	/**
 	 * Redirect URL (after voting)
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $redirect_url = '';
@@ -105,7 +105,7 @@ class Poll_Settings {
 	 * Poll close status
 	 *
 	 * @values open | closed | closed_after
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $close_status = self::CLOSE_TYPE_OPEN;
@@ -113,7 +113,7 @@ class Poll_Settings {
 	/**
 	 * Date when the poll closes
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var bool
 	 */
 	private $close_after = null;
@@ -130,7 +130,7 @@ class Poll_Settings {
 	/**
 	 * Update this object's props from a data array.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @param array $data All the data.
 	 * @return $this
 	 */
@@ -187,7 +187,7 @@ class Poll_Settings {
 	/**
 	 * Transform the object into an array based on the class vars values.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @param string $context The context which we will be using the array.
 	 * @return array
 	 */
@@ -198,7 +198,7 @@ class Poll_Settings {
 	/**
 	 * Update the settings from the block's attrs.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @param array $attrs All the block attrs.
 	 * @return $this
 	 */

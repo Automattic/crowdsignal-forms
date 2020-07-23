@@ -3,7 +3,7 @@
  * Contains Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Poll_Block
  *
  * @package Crowdsignal_Forms\Frontend\Blocks
- * @since   1.0.0
+ * @since   0.9.0
  */
 
 namespace Crowdsignal_Forms\Frontend\Blocks;
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles Crowdsignal Forms' Poll block.
  *
  * @package  Crowdsignal_Forms\Frontend\Blocks
- * @since    1.0.0
+ * @since    0.9.0
  */
 class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	const TRANSIENT_HIDE_BRANDING = 'cs-hide-branding';

@@ -3,7 +3,7 @@
  * Manges authentication with Crowdsignal
  *
  * @package Crowdsignal_Forms\Auth
- * @since   1.0.0
+ * @since   0.9.0
  */
 
 namespace Crowdsignal_Forms\Auth;

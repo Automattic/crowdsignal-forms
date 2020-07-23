@@ -21,7 +21,7 @@ class Account_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * Set this up.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -35,7 +35,7 @@ class Account_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 
 	/**
 	 * Test specific teardown.
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function tearDown() {
 		parent::tearDown();
@@ -47,7 +47,7 @@ class Account_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_get_capabilities() {
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );

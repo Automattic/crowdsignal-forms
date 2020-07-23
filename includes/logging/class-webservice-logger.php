@@ -3,7 +3,7 @@
  * File containing \Crowdsignal_Forms\Logging\Webservice_Logger
  *
  * @package crowdsignal-forms/Logging
- * @since 1.0.0
+ * @since 0.9.0
  */
 
 namespace Crowdsignal_Forms\Logging;
@@ -21,7 +21,7 @@ class Webservice_Logger {
 	/**
 	 * Hook the default stuff.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return $this
 	 */
@@ -33,7 +33,7 @@ class Webservice_Logger {
 	/**
 	 * Unhook the defaults. Used when implementing logging in a companion plugin.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return $this
 	 */
@@ -47,7 +47,7 @@ class Webservice_Logger {
 	 *
 	 * @param string $name The event we want to log.
 	 * @param array  $data The data we want to log.
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return $this
 	 */
@@ -59,7 +59,7 @@ class Webservice_Logger {
 		 *
 		 * @return array $data The event data to log.
 		 *
-		 * @since 1.0.0
+		 * @since 0.9.0
 		 */
 		$should_log = (bool) apply_filters( 'crowdsignal_forms_webservice_logging_enabled', false );
 
@@ -70,7 +70,7 @@ class Webservice_Logger {
 			 * @param string $name The event name to log.
 			 * @param array $data The event data to log.
 			 *
-			 * @since 1.0.0
+			 * @since 0.9.0
 			 */
 			do_action( 'crowdsignal_forms_webservice_log_event', $name, $data );
 		}
