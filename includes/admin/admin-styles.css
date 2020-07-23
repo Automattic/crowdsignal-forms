@@ -112,7 +112,8 @@
 	margin: 0 auto;
 }
 
-.crowdsignal-setup__content h3, .crowdsignal-setup__content h4 {
+.crowdsignal-setup__content h3,
+.crowdsignal-setup__content h4 {
 	font-family: Recoleta, sans-serif;
 	font-weight: 700;
 	font-size: 40px;
@@ -214,10 +215,12 @@
 	background: #fff;
 	box-shadow: 0 0 0 1px #ccd0d4,0 1px 1px 1px rgba(0,0,0,.04);
 }
+
 .dops-card.is-compact {
 	margin-bottom: 1px;
 	padding: 16px 24px;
 }
+
 .dops-section-header.dops-card {
 	display: flex;
 	flex-wrap: wrap;
@@ -225,11 +228,13 @@
 	padding-bottom: .6875rem;
 	position: relative;
 }
+
 .dops-section-header__label {
 	line-height: 1.75rem;
 	color: #414141;
 	font-size: .875rem;
 }
+
 .dops-section-header__label-text {
 	position: relative;
 	margin-right: .5rem;
@@ -242,7 +247,6 @@
 
 .crowdsignal-settings__middle {
 	min-height: 100px;
-	min-width: 65em;
 	padding-left: 0px;
 	border: 1px none #000;
 	border-radius: 0px;
@@ -260,18 +264,35 @@
 	margin-top: 80px;
 }
 
-
 .button.crowdsignal-settings__cta {
 	margin-top: -5px;
 	margin-left: 8px;
 }
 
+.crowdsignal-settings__submit {
+	margin-top: 10px;
+}
 
 @media screen and (min-width: 782px) {
-
 	.crowdsignal-settings__submit {
 		margin-top: -45px;
 		display: block;
 		margin-left: 585px;
+	}
+}
+
+@media screen and (max-width: 516px) {
+	.button.crowdsignal-settings__cta {
+		margin-top: 16px;
+		margin-left: 0px;
+	}
+}
+
+@media screen and (max-width: 782px) {
+	.wrap .updated.crowdsignal-message {
+		width: auto;
+		margin-left: 0px;
+		margin-right: 0px;
+		margin-bottom: 5px;
 	}
 }
