@@ -30,7 +30,6 @@
 	display: flex;
 	flex-wrap: wrap;
 	margin: 0 auto;
-	width: 100%;
 	max-width: 65rem;
 	padding-bottom: .375rem;
 	padding-left: 16px;
@@ -166,7 +165,6 @@
 
 .crowdsignal-setup__middle {
 	min-height: 100px;
-	min-width: 35em;
 	margin-right: auto;
 	margin-left: auto;
 	padding-left: 0px;
@@ -175,27 +173,39 @@
 	margin-top: 40px;
 }
 
+.crowdsignal-setup__middle a {
+	text-decoration: none;
+}
+
 .crowdsignal-setup__video-container {
 	display: block;
-	width: 100%;
+	overflow: hidden;
+	position: relative;
 	margin-top: 64px;
 	margin-bottom: 120px;
+	padding-top: 56.25%;
+	width: 100%;
 }
 
 .crowdsignal-setup__video {
-	width: 560px;
-	height: 315px;
-	margin-top: 32px;
-	margin-right: auto;
-	margin-left: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
 	background-color: #e2e2e2;
 }
 
+
 .wrap .error.crowdsignal-message, .wrap .updated.crowdsignal-message {
-	width: auto;
+	width: calc(100% + 20px);
 	margin-left: -20px;
 	margin-right: -20px;
 	margin-bottom: 5px;
+	box-sizing: border-box;
+	border-right: none;
 }
 
 .crowdsignal-settings__main-content {

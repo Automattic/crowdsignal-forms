@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import { isEmpty } from 'lodash';
+
+/**
  * Internal dependencies
  */
 import { ConfirmMessageType } from 'blocks/poll/constants';
@@ -62,8 +67,9 @@ const SubmitMessage = ( {
 						<CheckCircleIcon />
 					</div>
 					<div className="wp-block-crowdsignal-forms-poll__custom-message">
-						{ customConfirmMessage ??
-							__( 'Thank you for your submission!' ) }
+						{ isEmpty( customConfirmMessage )
+							? __( 'Thank you for your submission!' )
+							: customConfirmMessage }
 					</div>
 				</>
 			) }

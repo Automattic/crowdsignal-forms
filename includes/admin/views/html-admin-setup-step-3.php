@@ -17,14 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="crowdsignal-setup__middle">
 			<p>
-				<?php echo wp_kses_post( __( 'You can search for our blocks, like the Poll block, in the block library of your editor.', 'crowdsignal-forms' ) ); ?>
+				<?php echo wp_kses_post( __( 'You can search for our blocks, like the Poll block, in the library of the block editor.', 'crowdsignal-forms' ) ); ?>
 				<br>
 				<?php echo wp_kses_post( __( 'Here is a short video to get you started:', 'crowdsignal-forms' ) ); ?>
 			</p>
 
 			<div class="crowdsignal-setup__video-container">
 				<div class="crowdsignal-setup__video">
-					<iframe width="560" height="315" src="https://videopress.com/v/jWTs90Dg" frameborder="0" allowfullscreen></iframe>
+					<iframe width="100%" height="100%" src="https://videopress.com/v/jWTs90Dg" frameborder="0" allowfullscreen></iframe>
 				</div>
 			</div>
 
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php
 					echo wp_kses_post(
 						sprintf(
-							// translators: Argument is a link to Crowdsignal's support page.
+							// translators: Argument is a link to Crowdsignal's contact page.
 							__(
 								'<a href="%1s" target="_blank">Any questions about Crowdsignal?</a>',
 								'crowdsignal-forms'
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						sprintf(
 							// translators: Argument is a link to Crowdsignal's support page.
 							__(
-								'<a href="%1s" target="_blank">Or read more about us here.</a>',
+								'<a href="%1s" target="_blank">Read more about us here.</a>',
 								'crowdsignal-forms'
 							),
 							'https://crowdsignal.com/support/'
