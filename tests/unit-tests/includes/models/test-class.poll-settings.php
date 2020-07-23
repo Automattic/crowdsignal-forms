@@ -14,7 +14,7 @@ class Poll_SettingsTest extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 		* Set this up.
 		*
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -23,7 +23,7 @@ class Poll_SettingsTest extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @covers \Crowdsignal_Forms\Models\Poll_Settings::from_block
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function test_from_array() {
 		$tests_dir = Crowdsignal_Forms_Unit_Tests_Bootstrap::instance()->tests_dir;

@@ -3,7 +3,7 @@
  * File containing the model \Crowdsignal_Forms\Models\Poll.
  *
  * @package crowdsignal-forms/Models
- * @since 1.0.0
+ * @since 0.9.0
  */
 
 namespace Crowdsignal_Forms\Models;
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Poll
  *
- * @since 1.0.0
+ * @since 0.9.0
  * @package Crowdsignal_Forms\Models
  */
 class Poll {
@@ -25,7 +25,7 @@ class Poll {
 	/**
 	 * The poll id.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var int
 	 */
 	private $id = 0;
@@ -33,7 +33,7 @@ class Poll {
 	/**
 	 * The client id.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $client_id = '';
@@ -41,7 +41,7 @@ class Poll {
 	/**
 	 * The poll question.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $question = '';
@@ -49,7 +49,7 @@ class Poll {
 	/**
 	 * The poll answers.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var array
 	 */
 	private $answers = array();
@@ -57,7 +57,7 @@ class Poll {
 	/**
 	 * The poll settings.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var Poll_Settings|null
 	 */
 	private $settings = null;
@@ -65,7 +65,7 @@ class Poll {
 	/**
 	 * The poll source_link.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $source_link = '';
@@ -73,7 +73,7 @@ class Poll {
 	/**
 	 * The poll note.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var string
 	 */
 	private $note = '';
@@ -100,7 +100,7 @@ class Poll {
 	 *
 	 * @param array $data The data.
 	 * @return Poll
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public static function from_array( $data ) {
 		$id       = isset( $data['id'] ) ? absint( $data['id'] ) : 0;
@@ -174,7 +174,7 @@ class Poll {
 	/**
 	 * Validates the poll is ok for saving.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return bool|\WP_Error
 	 */
 	public function validate() {
@@ -184,7 +184,7 @@ class Poll {
 	/**
 	 * Get the id.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return int
 	 */
 	public function get_id() {
@@ -194,7 +194,7 @@ class Poll {
 	/**
 	 * Get the question.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return int
 	 */
 	public function get_question() {
@@ -204,7 +204,7 @@ class Poll {
 	/**
 	 * Get the answers.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array
 	 */
 	public function get_answers() {
@@ -234,7 +234,7 @@ class Poll {
 	/**
 	 * Transform the poll into an array for sending to the api or the frontend.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @param string $context The context which we will be using the array.
 	 * @return array
 	 */

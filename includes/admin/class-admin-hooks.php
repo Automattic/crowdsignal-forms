@@ -42,7 +42,7 @@ class Admin_Hooks {
 	/**
 	 * Perform any hooks.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return $this
 	 */
@@ -75,7 +75,7 @@ class Admin_Hooks {
 	 * Check if the block has a pollId attr.
 	 *
 	 * @param array $attrs The attrs.
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return bool
 	 */
@@ -101,7 +101,7 @@ class Admin_Hooks {
 	 * @param \WP_Post $post The post.
 	 * @param bool     $is_update Is this an update.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 * @throws \Exception In case of bad request. This is temporary.
 	 */
@@ -155,7 +155,7 @@ class Admin_Hooks {
 	 * @param object $gateway crowdsignal api gateway instance.
 	 * @param array  $poll_ids_present_in_content Array to track IDs that are present in the content.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return void
 	 * @throws \Exception In case of bad request. This is temporary.
 	 */

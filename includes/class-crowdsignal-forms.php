@@ -3,7 +3,7 @@
  * File containing the class \Crowdsignal_Forms\Crowdsignal_Forms.
  *
  * @package Crowdsignal_Forms
- * @since   1.0.0
+ * @since   0.9.0
  */
 
 namespace Crowdsignal_Forms;
@@ -90,7 +90,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * For saving/updating poll data from the api into post meta.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var Post_Poll_Meta_Gateway
 	 */
 	private $post_poll_meta_gateway = null;
@@ -98,7 +98,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * The logger we use to record our webservice conversations.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var null|Webservice_Logger
 	 */
 	private $webservice_logger;
@@ -106,7 +106,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * For account actions.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var Account_Controller
 	 */
 	private $rest_api_account_controller;
@@ -114,7 +114,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Registers the block assets needed.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @var Crowdsignal_Forms_Blocks_Assets
 	 */
 	private $blocks_assets;
@@ -122,7 +122,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Initialize the singleton instance.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	private function __construct() {
 		$this->plugin_dir = dirname( __DIR__ );
@@ -148,7 +148,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Run when plugin is activated
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function activate() {
 		Crowdsignal_Forms_Admin_Notices::add_notice( Crowdsignal_Forms_Admin_Notices::NOTICE_CORE_SETUP );
@@ -158,7 +158,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Performs a redirect to the getting started page.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function activate_redirect() {
 		if ( get_option( 'crowdsignal_forms_do_activation_redirect', false ) ) {
@@ -171,7 +171,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Clean up on deactivation.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function deactivation() {
 	}
@@ -179,7 +179,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Includes all php files needed and sets all the objects this class will use for initializing.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return $this
 	 */
@@ -217,7 +217,7 @@ final class Crowdsignal_Forms {
 		 * Set any other hooks, passing this instance.
 		 *
 		 * @param Crowdsignal_Forms $instance The instance.
-		 * @since 1.0.0
+		 * @since 0.9.0
 		 */
 		do_action( 'crowdsignal_forms_after_setup_hooks', $this );
 
@@ -227,7 +227,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Registers all REST api routes.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function register_rest_api_routes() {
 		$this->rest_api_polls_controller->register_routes();
@@ -237,7 +237,7 @@ final class Crowdsignal_Forms {
 		 * Any additional controllers from companion plugins can be registered using this hook.
 		 *
 		 * @param object $this This plugin's bootstrap instance.
-		 * @since 1.0.0
+		 * @since 0.9.0
 		 */
 		do_action( 'crowdsignal_forms_register_rest_api_routes', $this );
 	}
@@ -245,7 +245,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Initializes the class and adds all filters and actions.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @param bool $init_all Pass in `true` to load and initialize both frontend and admin functionality. `false` by default.
 	 *
@@ -258,7 +258,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Get the plugin dir.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return string
 	 */
@@ -340,7 +340,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Get our webservice logger.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return Webservice_Logger
 	 */
@@ -351,7 +351,7 @@ final class Crowdsignal_Forms {
 	/**
 	 * Loads the plugin textdomain.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */

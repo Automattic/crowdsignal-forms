@@ -2,7 +2,7 @@
 /**
  * Contains the Polls Controller Class
  *
- * @since 1.0.0
+ * @since 0.9.0
  * @package Crowdsignal_Forms\Rest_Api
  **/
 
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Polls Controller Class
  *
- * @since 1.0.0
+ * @since 0.9.0
  **/
 class Polls_Controller {
 	/**
@@ -38,7 +38,7 @@ class Polls_Controller {
 	/**
 	 * Register the routes for manipulating polls
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 **/
 	public function register_routes() {
 		register_rest_route(
@@ -154,7 +154,7 @@ class Polls_Controller {
 	 *
 	 * @param \WP_REST_Request $request The API Request.
 	 * @return \WP_REST_Response|\WP_Error
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function create_poll( \WP_REST_Request $request ) {
 		$data              = $request->get_json_params();
@@ -177,7 +177,7 @@ class Polls_Controller {
 	 *
 	 * @param \WP_REST_Request $request The API Request.
 	 * @return \WP_REST_Response|\WP_Error
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function update_poll( \WP_REST_Request $request ) {
 		$data              = $request->get_json_params();
@@ -200,7 +200,7 @@ class Polls_Controller {
 	 *
 	 * @param \WP_REST_Request $request The API Request.
 	 * @return \WP_REST_Response|\WP_Error
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function archive_poll( \WP_REST_Request $request ) {
 		$poll_id = $request->get_param( 'poll_id' );
@@ -225,7 +225,7 @@ class Polls_Controller {
 	 *
 	 * @param \WP_REST_Request $request The API Request.
 	 * @return \WP_REST_Response|\WP_Error
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 */
 	public function unarchive_poll( \WP_REST_Request $request ) {
 		$poll_id = $request->get_param( 'poll_id' );
@@ -248,7 +248,7 @@ class Polls_Controller {
 	/**
 	 * The permission check for creating a new poll.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return bool
 	 **/
@@ -259,7 +259,7 @@ class Polls_Controller {
 	/**
 	 * Get the polls.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return \WP_REST_Response
 	 **/
@@ -270,7 +270,7 @@ class Polls_Controller {
 	/**
 	 * The permission check.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return bool
 	 **/
@@ -281,7 +281,7 @@ class Polls_Controller {
 	/**
 	 * Get a poll by ID.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @param \WP_REST_Request $request
 	 *
@@ -306,7 +306,7 @@ class Polls_Controller {
 	/**
 	 * Get a post's poll given the post id and poll uuid.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @param \WP_REST_Request $request
 	 *
@@ -352,7 +352,7 @@ class Polls_Controller {
 	/**
 	 * Get poll results by ID.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @param \WP_REST_Request $request
 	 *
@@ -366,7 +366,7 @@ class Polls_Controller {
 	/**
 	 * The get-a-poll by ID permission check.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return bool
 	 **/
@@ -377,7 +377,7 @@ class Polls_Controller {
 	/**
 	 * Gets the collection params.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array
 	 */
 	protected function get_collection_params() {
@@ -388,7 +388,7 @@ class Polls_Controller {
 	 * Returns a validator array for the get-a-poll by ID params.
 	 *
 	 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return array
 	 */
 	protected function get_poll_fetch_params() {
@@ -404,7 +404,7 @@ class Polls_Controller {
 	/**
 	 * For not-found.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 * @return \WP_Error
 	 */
 	private function resource_not_found() {

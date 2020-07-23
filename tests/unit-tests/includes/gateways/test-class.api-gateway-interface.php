@@ -15,7 +15,7 @@ class Api_Gateway_Interface_Test extends Crowdsignal_Forms_Unit_Test_Case {
     /**
      * @covers \Crowdsignal_Forms\Gateways\Api_Gateway_Interface
      *
-     * @since 1.0.0
+     * @since 0.9.0
      */
     public function testInterfaceExists() {
         $this->assertTrue( interface_exists('\Crowdsignal_Forms\Gateways\Api_Gateway_Interface' ) );
@@ -24,7 +24,7 @@ class Api_Gateway_Interface_Test extends Crowdsignal_Forms_Unit_Test_Case {
     /**
      * @covers \Crowdsignal_Forms\Gateways\Api_Gateway_Interface::get_poll\
      *
-     * @since 1.0.0
+     * @since 0.9.0
      */
     public function testInterfaceDefinesGetPoll() {
         $this->assertTrue( method_exists('\Crowdsignal_Forms\Gateways\Api_Gateway_Interface', 'get_poll' ) );
@@ -33,7 +33,7 @@ class Api_Gateway_Interface_Test extends Crowdsignal_Forms_Unit_Test_Case {
     /**
      * @covers \Crowdsignal_Forms\Gateways\Api_Gateway_Interface::create_poll
      *
-     * @since 1.0.0
+     * @since 0.9.0
      */
     public function testInterfaceDefinesCreatePoll() {
         $this->assertTrue( method_exists('\Crowdsignal_Forms\Gateways\Api_Gateway_Interface', 'create_poll' ) );

@@ -3,7 +3,7 @@
  * File containing \Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway
  *
  * @package crowdsignal-forms/Gateways
- * @since 1.0.0
+ * @since 0.9.0
  */
 
 namespace Crowdsignal_Forms\Gateways;

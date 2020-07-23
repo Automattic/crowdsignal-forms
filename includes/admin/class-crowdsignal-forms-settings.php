@@ -3,7 +3,7 @@
  * File containing the class Crowdsignal_Forms\Admin\Crowdsignal_Forms_Settings.
  *
  * @package Crowdsignal_Forms\Admin
- * @since   1.0.0
+ * @since   0.9.0
  */
 
 namespace Crowdsignal_Forms\Admin;
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Handles the management of plugin settings.
  *
- * @since 1.0.0
+ * @since 0.9.0
  */
 class Crowdsignal_Forms_Settings {
 

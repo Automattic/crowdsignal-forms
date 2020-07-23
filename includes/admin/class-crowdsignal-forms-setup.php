@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Handles initial environment setup after plugin is first activated.
  *
- * @since 1.0.0
+ * @since 0.9.0
  */
 class Crowdsignal_Forms_Setup {
 
