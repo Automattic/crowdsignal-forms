@@ -34,6 +34,16 @@ class Crowdsignal_Forms_Settings {
 	public function __construct() {
 		$this->settings_group = 'crowdsignal-forms';
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_init', array( $this, 'maybe_disconnect' ) );
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 12 );
+	}
+
+	/**
+	 * Enqueues scripts for setup page.
+	 */
+	public function admin_enqueue_scripts() {
+		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '0.9' );
 	}
 
 	/**
@@ -64,13 +74,7 @@ class Crowdsignal_Forms_Settings {
 						array(
 							'name'       => 'crowdsignal_api_key',
 							'std'        => '',
-							'label'      => __( 'Crowdsignal API Key', 'crowdsignal-forms' ),
-							'desc'       => sprintf(
-								/* translators: "requesting one" is a link to the first setup page, while account page link is on Crowdsignal.com */
-								__( 'The plugin needs an API key to use your Crowdsignal account. Acquire an API key by <a href="%1$s">requesting one</a> or getting one from <a href="%2$s">your account page</a>.', 'crowdsignal-forms' ),
-								admin_url( 'admin.php?page=crowdsignal-forms-setup' ),
-								'https://app.crowdsignal.com/account/'
-							),
+							'label'      => __( 'Enter Crowdsignal API Key', 'crowdsignal-forms' ),
 							'attributes' => array(),
 						),
 					),
@@ -96,66 +100,125 @@ class Crowdsignal_Forms_Settings {
 	}
 
 	/**
+	 * Disconnect from Crowdsignal if required.
+	 */
+	public function maybe_disconnect() {
+		if ( isset( $_GET['page'] ) && 'crowdsignal-forms-settings' === $_GET['page'] && isset( $_GET['disconnect'] ) && isset( $_GET['_wpnonce'] ) ) {
+			if ( ! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'crowdsignal-disconnect' ) ) {
+				wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-settings&msg=disconnect-failed' ) );
+			} else {
+				delete_option( Crowdsignal_Forms_Api_Authenticator::USER_CODE_NAME );
+				delete_option( Crowdsignal_Forms_Api_Authenticator::API_KEY_NAME );
+				wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-settings&msg=disconnected' ) );
+			}
+		}
+	}
+
+	/**
 	 * Shows the plugin's settings page.
 	 */
 	public function output() {
 		$this->init_settings();
+		include dirname( __FILE__ ) . '/views/html-admin-setup-header.php';
 		?>
 		<div class="wrap crowdsignal-settings-wrap">
-			<form class="crowdsignal-options" method="post" action="options.php">
 
-				<?php settings_fields( $this->settings_group ); ?>
+			<div class="crowdsignal-settings__main-content">
+				<div class="dops-card dops-section-header is-compact">
+					<div class="dops-section-header__label">
+						<span class="dops-section-header__label-text">Settings</span>
+					</div>
+				</div>
 
-				<?php
-				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for basic flow.
-				if ( ! empty( $_GET['settings-updated'] ) ) {
-					echo '<div class="updated fade crowdsignal-updated"><p>' . esc_html__( 'Settings successfully saved', 'crowdsignal-forms' ) . '</p></div>';
-				}
+				<div class="dops-card dops-section-header is-compact">
 
-				if ( ! empty( $_GET['disconnect'] ) && ! empty( $_GET['_wpnonce'] ) ) {
-					if ( ! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'crowdsignal-disconnect' ) ) {
-						echo '<div class="error fade crowdsignal-updated"><p>' . esc_html__( 'Could not disconnect. Please try again.', 'crowdsignal-forms' ) . '</p></div>';
-					} else {
-						// Remove options.
-						delete_option( Crowdsignal_Forms_Api_Authenticator::USER_CODE_NAME );
-						delete_option( Crowdsignal_Forms_Api_Authenticator::API_KEY_NAME );
-						echo '<div class="updated fade crowdsignal-updated"><p>' . esc_html__( 'Successfully disconnected from Crowdsignal.', 'crowdsignal-forms' ) . '</p></div>';
-					}
-				}
+					<div class="crowdsignal-settings__middle">
+						<div class="crowdsignal-settings__text">
+							<?php
+								echo wp_kses_post(
+									sprintf(
+										/* translators: %s is a link to the Crowdsignal connection page. */
+										__( 'To collect responses and data with Crowdsignal Forms you need to <a href="%s" target="_blank">connect the plugin with a Crowdsignal account.</a>', 'crowdsignal-forms' ),
+										'/wp-admin/admin.php?page=crowdsignal-forms-setup'
+									)
+								);
+							?>
+							<br>
+							<?php esc_html_e( 'You can do this by entering an API key below:', 'crowdsignal-forms' ); ?>
+						</div>
 
-				foreach ( $this->settings as $key => $section ) {
-					$section_args = isset( $section[2] ) ? (array) $section[2] : array();
-					echo '<div id="settings-' . esc_attr( sanitize_title( $key ) ) . '" class="settings_panel">';
-					if ( ! empty( $section_args['before'] ) ) {
-						echo '<p class="before-settings">' . wp_kses_post( $section_args['before'] ) . '</p>';
-					}
-					echo '<table class="form-table settings parent-settings">';
+						<form class="crowdsignal-options" method="post" action="options.php">
 
-					foreach ( $section[1] as $option ) {
-						$value = get_option( $option['name'] );
-						$this->output_field( $option, $value );
-					}
+							<?php settings_fields( $this->settings_group ); ?>
 
-					if ( get_option( Crowdsignal_Forms_Api_Authenticator::API_KEY_NAME ) ) {
-						$disconnect_url = wp_nonce_url( '?page=crowdsignal-forms-settings&disconnect=true', 'crowdsignal-disconnect' );
-						echo '<tr><td></td><td><a href="' . esc_attr( $disconnect_url ) . '">' . esc_html( __( 'Disconnect Crowdsignal account', 'crowdsignal-forms' ) ) . '</a></td></tr>';
-					}
+							<?php
+							// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for basic flow.
+							if ( ! empty( $_GET['settings-updated'] ) ) {
+								echo '<div class="updated fade crowdsignal-updated"><p>' . esc_html__( 'Settings successfully saved', 'crowdsignal-forms' ) . '</p></div>';
+							}
 
-					echo '</table>';
-					if ( ! empty( $section_args['after'] ) ) {
-						echo '<p class="after-settings">' . wp_kses_post( $section_args['after'] ) . '</p>';
-					}
-					echo '</div>';
+							if ( ! empty( $_GET['disconnect'] ) && ! empty( $_GET['_wpnonce'] ) ) {
+								if ( ! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'crowdsignal-disconnect' ) ) {
+									echo '<div class="error fade crowdsignal-updated"><p>' . esc_html__( 'Could not disconnect. Please try again.', 'crowdsignal-forms' ) . '</p></div>';
+								} else {
+									// Remove options.
+									delete_option( Crowdsignal_Forms_Api_Authenticator::USER_CODE_NAME );
+									delete_option( Crowdsignal_Forms_Api_Authenticator::API_KEY_NAME );
+									echo '<div class="updated fade crowdsignal-updated"><p>' . esc_html__( 'Successfully disconnected from Crowdsignal.', 'crowdsignal-forms' ) . '</p></div>';
+								}
+							}
 
-				}
-				?>
-				<p class="submit">
-					<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'crowdsignal-forms' ); ?>" />
-				</p>
-			</form>
+							foreach ( $this->settings as $key => $section ) {
+								$section_args = isset( $section[2] ) ? (array) $section[2] : array();
+								echo '<div id="settings-' . esc_attr( sanitize_title( $key ) ) . '" class="settings_panel">';
+								if ( ! empty( $section_args['before'] ) ) {
+									echo '<p class="before-settings">' . wp_kses_post( $section_args['before'] ) . '</p>';
+								}
+								echo '<table class="form-table settings parent-settings">';
+
+								foreach ( $section[1] as $option ) {
+									$value = get_option( $option['name'] );
+									$this->output_field( $option, $value );
+								}
+
+								echo '</table>';
+								if ( ! empty( $section_args['after'] ) ) {
+									echo '<p class="after-settings">' . wp_kses_post( $section_args['after'] ) . '</p>';
+								}
+								echo '</div>';
+
+							}
+							?>
+
+							<div class="crowdsignal-settings__submit">
+								<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Connect', 'crowdsignal-forms' ); ?>" />
+							</div>
+						</form>
+
+						<div class="crowdsignal-settings__bottom">
+							<div class="crowdsignal-settings__text">
+								<?php
+								if ( get_option( Crowdsignal_Forms_Api_Authenticator::API_KEY_NAME ) ) {
+									$disconnect_url = wp_nonce_url( '?page=crowdsignal-forms-settings&disconnect=true', 'crowdsignal-disconnect' );
+									echo '<a href="' . esc_attr( $disconnect_url ) . '">' . esc_html( __( 'Disconnect Crowdsignal account', 'crowdsignal-forms' ) ) . '</a>';
+								} else {
+									esc_html_e( "If you don't have an API key we can help you here:", 'crowdsignal-forms' );
+									echo '<a class="button crowdsignal-settings__cta" rel="noopener noreferrer" href="/wp-admin/admin.php?page=crowdsignal-forms-setup">Get an API Key</a>';
+								}
+								?>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<?php
+		include dirname( __FILE__ ) . '/views/html-admin-setup-footer.php';
 	}
+
+
+
 
 	/**
 	 * Checkbox input field.
