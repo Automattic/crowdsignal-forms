@@ -9,6 +9,7 @@ import { noop } from 'lodash';
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
+import { decodeEntities } from '@wordpress/html-entities';
 
 /**
  * Internal dependencies
@@ -61,7 +62,9 @@ const EditAnswer = ( {
 			) : (
 				<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
 					<span className="wp-block-crowdsignal-forms-poll__answer-label">
-						{ answer.text ? answer.text : __( 'Enter an answer' ) }
+						{ answer.text
+							? decodeEntities( answer.text )
+							: __( 'Enter an answer' ) }
 					</span>
 				</div>
 			) }

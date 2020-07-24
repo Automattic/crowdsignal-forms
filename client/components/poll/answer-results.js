@@ -6,6 +6,11 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 /**
+ * WordPress dependencies
+ */
+import { decodeEntities } from '@wordpress/html-entities';
+
+/**
  * Internal dependencies
  */
 import { _n, sprintf } from 'lib/i18n';
@@ -31,7 +36,7 @@ const PollAnswerResults = ( { error, loading, text, totalVotes, votes } ) => {
 		<div className={ classes }>
 			<div className="wp-block-crowdsignal-forms-poll__answer-results-labels">
 				<span className="wp-block-crowdsignal-forms-poll__answer-results-answer">
-					{ text }
+					{ decodeEntities( text ) }
 				</span>
 
 				<span className="wp-block-crowdsignal-forms-poll__answer-results-votes">

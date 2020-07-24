@@ -25,6 +25,7 @@ import {
 	ContrastChecker,
 } from '@wordpress/block-editor';
 import { includes } from 'lodash';
+import { decodeEntities } from '@wordpress/html-entities';
 
 /**
  * Internal dependencies
@@ -162,7 +163,9 @@ const SideBar = ( {
 				</div>
 
 				<TextControl
-					value={ attributes.title ?? attributes.question }
+					value={ decodeEntities(
+						attributes.title ?? attributes.question
+					) }
 					label={ __( 'Title of the poll block' ) }
 					onChange={ handleChangeTitle }
 				/>

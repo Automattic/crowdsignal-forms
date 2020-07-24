@@ -5,6 +5,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+/**
+ * WordPress dependencies
+ */
+import { decodeEntities } from '@wordpress/html-entities';
+
 const PollAnswer = ( {
 	answerIdFromApi,
 	hasVoted,
@@ -42,7 +47,7 @@ const PollAnswer = ( {
 				value={ answerIdFromApi }
 				disabled={ hasVoted || isVoting }
 				tabIndex="0"
-				ariaLabel={ text }
+				aria-label={ text }
 				onFocus={ handleFocus }
 			/>
 
@@ -50,7 +55,7 @@ const PollAnswer = ( {
 
 			<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
 				<span className="wp-block-crowdsignal-forms-poll__answer-label">
-					{ text }
+					{ decodeEntities( text ) }
 				</span>
 			</div>
 		</label>

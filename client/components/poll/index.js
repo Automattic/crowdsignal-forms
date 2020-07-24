@@ -6,6 +6,11 @@ import seedrandom from 'seedrandom';
 import { filter, map, reduce } from 'lodash';
 
 /**
+ * WordPress dependencies
+ */
+import { decodeEntities } from '@wordpress/html-entities';
+
+/**
  * Internal dependencies
  */
 import {
@@ -125,12 +130,12 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 			<div className="wp-block-crowdsignal-forms-poll__content">
 				<h3 className="wp-block-crowdsignal-forms-poll__question">
-					{ attributes.question }
+					{ decodeEntities( attributes.question ) }
 				</h3>
 
 				{ attributes.note && (
 					<p className="wp-block-crowdsignal-forms-poll__note">
-						{ attributes.note }
+						{ decodeEntities( attributes.note ) }
 					</p>
 				) }
 

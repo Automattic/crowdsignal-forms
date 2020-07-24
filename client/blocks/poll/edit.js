@@ -9,6 +9,7 @@ import { filter, map, some } from 'lodash';
  */
 import { RichText } from '@wordpress/block-editor';
 import { withSelect } from '@wordpress/data';
+import { decodeEntities } from '@wordpress/html-entities';
 
 /**
  * Internal dependencies
@@ -146,7 +147,7 @@ const PollBlock = ( props ) => {
 					) : (
 						<h3 className="wp-block-crowdsignal-forms-poll__question">
 							{ attributes.question
-								? attributes.question
+								? decodeEntities( attributes.question )
 								: __( 'Enter your question' ) }
 						</h3>
 					) }
@@ -164,7 +165,7 @@ const PollBlock = ( props ) => {
 						) : (
 							<p className="wp-block-crowdsignal-forms-poll__note">
 								{ attributes.note
-									? attributes.note
+									? decodeEntities( attributes.note )
 									: __( 'Add a note (optional)' ) }
 							</p>
 						) ) }
