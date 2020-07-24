@@ -17,6 +17,11 @@
 
 	.wp-block-crowdsignal-forms-poll__answer {
 		cursor: text;
+
+		&:hover,
+		&.is-focused {
+			color: inherit;
+		}
 	}
 
 	.wp-block-button .wp-block-crowdsignal-forms-poll__submit-button {
