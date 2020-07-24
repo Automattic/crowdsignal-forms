@@ -34,7 +34,11 @@ const initPolls = () =>
 		}
 	);
 
-window.addEventListener( 'load', () => {
+const pollObserver = () => {
+	if ( window.isPollObserverObserving ) {
+		return;
+	}
+
 	const observer = new window.MutationObserver( initPolls );
 
 	observer.observe( document.body, {
@@ -44,6 +48,14 @@ window.addEventListener( 'load', () => {
 		subtree: true,
 	} );
 
+	window.isPollObserverObserving = true;
+
 	// Run the first pass on load
 	initPolls();
-} );
+};
+
+if ( 'complete' === document.readyState ) {
+	pollObserver();
+} else {
+	window.addEventListener( 'load', pollObserver );
+}

@@ -43,9 +43,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 			'crowdsignal-forms/poll',
 			array(
 				'attributes'      => $this->attributes(),
-				'script'          => Crowdsignal_Forms_Blocks_Assets::POLL,
 				'editor_script'   => Crowdsignal_Forms_Blocks_Assets::EDITOR,
-				'style'           => Crowdsignal_Forms_Blocks_Assets::POLL,
 				'editor_style'    => Crowdsignal_Forms_Blocks_Assets::EDITOR,
 				'render_callback' => array( $this, 'render' ),
 			)
@@ -62,6 +60,9 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 		if ( $this->should_hide_poll() ) {
 			return '';
 		}
+
+		wp_enqueue_script( Crowdsignal_Forms_Blocks_Assets::POLL );
+		wp_enqueue_style( Crowdsignal_Forms_Blocks_Assets::POLL );
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
 		$post                       = get_post();
