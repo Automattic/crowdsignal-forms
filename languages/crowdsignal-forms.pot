@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Crowdsignal Forms 1.0.0\n"
+"Project-Id-Version: Crowdsignal Forms 0.9.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/crowdsignal-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-07-22T19:27:59+00:00\n"
+"POT-Creation-Date: 2020-07-24T19:57:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0-alpha-75cb7e3\n"
 "X-Domain: crowdsignal-forms\n"
@@ -19,7 +19,7 @@ msgid "Crowdsignal Forms"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "http://example.com/plugin-name-uri/"
+msgid "https://crowdsignal.com/crowdsignal-forms/"
 msgstr ""
 
 #. Description of the plugin
@@ -31,14 +31,14 @@ msgid "Automattic"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "http://automattic.com/"
+msgid "https://automattic.com/"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-admin-notices.php:113
+#: includes/admin/class-crowdsignal-forms-admin-notices.php:112
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-admin-notices.php:117
+#: includes/admin/class-crowdsignal-forms-admin-notices.php:116
 msgid "You don&#8217;t have permission to do this."
 msgstr ""
 
@@ -56,45 +56,38 @@ msgstr ""
 msgid "Getting Started"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:62
+#: includes/admin/class-crowdsignal-forms-settings.php:71
 msgid "General"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:67
-msgid "Crowdsignal API Key"
+#: includes/admin/class-crowdsignal-forms-settings.php:76
+#: includes/admin/class-crowdsignal-forms-settings.php:184
+msgid "Enter Crowdsignal API Key"
 msgstr ""
 
-#. translators: "requesting one" is a link to the first setup page, while account page link is on Crowdsignal.com
-#: includes/admin/class-crowdsignal-forms-settings.php:70
-msgid "The plugin needs an API key to use your Crowdsignal account. Acquire an API key by <a href=\"%1$s\">requesting one</a> or getting one from <a href=\"%2$s\">your account page</a>."
+#. translators: %s is a link to the Crowdsignal connection page.
+#: includes/admin/class-crowdsignal-forms-settings.php:163
+msgid "To collect responses and data with Crowdsignal Forms you need to <a href=\"%s\" target=\"_blank\">connect the plugin with a Crowdsignal account.</a>"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:112
+#: includes/admin/class-crowdsignal-forms-settings.php:169
+msgid "You can do this by entering an API key below:"
+msgstr ""
+
+#: includes/admin/class-crowdsignal-forms-settings.php:176
 msgid "Settings successfully saved"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:117
-msgid "Could not disconnect. Please try again."
+#: includes/admin/class-crowdsignal-forms-settings.php:204
+msgid "Disconnect"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:122
-msgid "Successfully disconnected from Crowdsignal."
+#: includes/admin/class-crowdsignal-forms-settings.php:210
+msgid "Connect"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:141
-msgid "Disconnect Crowdsignal account"
-msgstr ""
-
-#: includes/admin/class-crowdsignal-forms-settings.php:153
-msgid "Save Changes"
-msgstr ""
-
-#: includes/admin/class-crowdsignal-forms-settings.php:293
-msgid "--no page--"
-msgstr ""
-
-#: includes/admin/class-crowdsignal-forms-settings.php:299
-msgid "Select a page&hellip;"
+#: includes/admin/class-crowdsignal-forms-settings.php:221
+msgid "If you don't have an API key we can help you here:"
 msgstr ""
 
 #: includes/admin/views/html-admin-notice-core-setup.php:17
@@ -107,10 +100,6 @@ msgstr ""
 
 #: includes/admin/views/html-admin-notice-core-setup.php:22
 msgid "Skip Setup"
-msgstr ""
-
-#: includes/admin/views/html-admin-notice-setup-success.php:17
-msgid "Success! Your Crowdsignal account is successfully connected! You are ready!"
 msgstr ""
 
 #: includes/admin/views/html-admin-setup-footer.php:24
@@ -137,6 +126,26 @@ msgstr ""
 msgid "Privacy"
 msgstr ""
 
+#: includes/admin/views/html-admin-setup-header.php:43
+msgid "Could not disconnect. Please try again."
+msgstr ""
+
+#: includes/admin/views/html-admin-setup-header.php:46
+msgid "Successfully disconnected from Crowdsignal."
+msgstr ""
+
+#: includes/admin/views/html-admin-setup-header.php:49
+msgid "Success! Your Crowdsignal account is successfully connected! You are ready!"
+msgstr ""
+
+#: includes/admin/views/html-admin-setup-header.php:52
+msgid "You have been connected to Crowdsignal."
+msgstr ""
+
+#: includes/admin/views/html-admin-setup-header.php:55
+msgid "Your API key has not been updated."
+msgstr ""
+
 #: includes/admin/views/html-admin-setup-step-1.php:14
 msgid "Welcome to Crowdsignal Forms"
 msgstr ""
@@ -154,28 +163,28 @@ msgid "First time using Crowdsignal?"
 msgstr ""
 
 #: includes/admin/views/html-admin-setup-step-3.php:20
-msgid "You can search for our blocks, like the Poll block, in the block library of your editor."
+msgid "You can search for our blocks, like the Poll block, in the library of the block editor."
 msgstr ""
 
 #: includes/admin/views/html-admin-setup-step-3.php:22
 msgid "Here is a short video to get you started:"
 msgstr ""
 
-#. translators: Argument is a link to Crowdsignal's support page.
+#. translators: Argument is a link to Crowdsignal's contact page.
 #: includes/admin/views/html-admin-setup-step-3.php:37
 msgid "<a href=\"%1s\" target=\"_blank\">Any questions about Crowdsignal?</a>"
 msgstr ""
 
 #. translators: Argument is a link to Crowdsignal's support page.
 #: includes/admin/views/html-admin-setup-step-3.php:52
-msgid "<a href=\"%1s\" target=\"_blank\">Or read more about us here.</a>"
+msgid "<a href=\"%1s\" target=\"_blank\">Read more about us here.</a>"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:148
+#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:149
 msgid "Untitled Poll"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:177
+#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:178
 msgid "Submit"
 msgstr ""
 
