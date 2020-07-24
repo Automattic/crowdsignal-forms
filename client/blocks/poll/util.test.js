@@ -3,8 +3,10 @@
  */
 import {
 	addAnswer,
+	extractRGBColorProperties,
 	getFontFamilyFromType,
 	getBlockCssClasses,
+	hexToRGB,
 	isPollClosed,
 	pollIdExistsInPageContent,
 } from './util';
@@ -175,3 +177,42 @@ test( 'pollIdExistsInPostContent returns false if pollId is NOT present', () => 
 		false
 	);
 } );
+
+test.each( [
+	[ 'null', null ],
+	[ 'undefined', undefined ],
+	[ 'an empty string', '' ],
+	[ 'some other string property', 'none' ],
+	[ 'a non-string value', 5 ],
+	[ 'an rgba value', 'rgba(1, 2, 3, 0.4);' ],
+] )(
+	'extractRGBColorProperties returns null when given %s',
+	( _, colorParam ) => {
+		expect( extractRGBColorProperties( colorParam ) ).toBeNull();
+	}
+);
+
+test( 'extractRGBColorProperties returns rgb properties when given an rgb string', () => {
+	expect( extractRGBColorProperties( 'rgb(5, 10, 20)' ) ).toEqual(
+		'5, 10, 20'
+	);
+} );
+
+test( 'extractRGBColorProperties returns rgb properties when given a hex string', () => {
+	expect( extractRGBColorProperties( '#ffffff' ) ).toEqual( '255, 255, 255' );
+} );
+
+test.each( [
+	[ 'full red', '#ff0000', 'rgb(255, 0, 0)' ],
+	[ 'full green', '#00ff00', 'rgb(0, 255, 0)' ],
+	[ 'full blue', '#0000ff', 'rgb(0, 0, 255)' ],
+	[ 'black', '#000000', 'rgb(0, 0, 0)' ],
+	[ 'white', '#ffffff', 'rgb(255, 255, 255)' ],
+	[ 'invalid length', '#12345678', 'rgb(0, 0, 0)' ],
+	[ 'invalid values', '#ffXXff', 'rgb(255, 0, 255)' ],
+] )(
+	'hexToRGB returns rgb value when given a hex string of %s',
+	( _, hex, rgbTriplet ) => {
+		expect( hexToRGB( hex ) ).toEqual( rgbTriplet );
+	}
+);

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classNames from 'classnames';
-import { includes, kebabCase, mapKeys, some } from 'lodash';
+import { includes, isEmpty, kebabCase, mapKeys, some } from 'lodash';
 
 /**
  * Internal dependencies
@@ -32,8 +32,12 @@ export const getFontFamilyFromType = ( type ) => {
 	return FontFamilyMap[ type ];
 };
 
-export const getStyleVars = ( attributes, fallbackColors ) =>
-	mapKeys(
+export const getStyleVars = ( attributes, fallbackColors ) => {
+	const textColor = isEmpty( attributes.textColor )
+		? fallbackColors.text
+		: attributes.textColor;
+
+	return mapKeys(
 		{
 			borderColor: attributes.borderColor ?? fallbackColors.accent,
 			borderRadius: `${ attributes.borderRadius }px`,
@@ -44,11 +48,63 @@ export const getStyleVars = ( attributes, fallbackColors ) =>
 				attributes.submitButtonBackgroundColor || fallbackColors.accent,
 			submitButtonTextColor:
 				attributes.submitButtonTextColor || fallbackColors.textInverted,
-			textColor: attributes.textColor || fallbackColors.text,
+			textColor,
+			textColorProperties:
+				extractRGBColorProperties( textColor ) ?? '0, 0, 0',
 			contentWideWidth: fallbackColors.contentWideWidth,
 		},
 		( _, key ) => `--crowdsignal-forms-${ kebabCase( key ) }`
 	);
+};
+
+/**
+ * Extracts the comma separated color properties from an rgb string.
+ * rgba strings are not supported for now because it introduces too many complications.
+ *
+ * @param {string} color The color string.
+ * @return {string} The 3 comma separated rgb color properties.
+ */
+export const extractRGBColorProperties = ( color ) => {
+	if (
+		! color ||
+		'string' !== typeof color ||
+		( -1 === color.indexOf( 'rgb' ) && 0 !== color.indexOf( '#' ) ) ||
+		-1 < color.indexOf( 'rgba' )
+	) {
+		return null;
+	}
+
+	if ( 0 === color.indexOf( '#' ) ) {
+		color = hexToRGB( color );
+	}
+
+	return color.match( /\((.*?)\)/ )[ 1 ];
+};
+
+/**
+ * converts css color hex to rgb
+ *
+ * @param {string} h The hex color string.
+ * @return {string} The rgb value.
+ */
+export const hexToRGB = ( h ) => {
+	let r = 0,
+		g = 0,
+		b = 0;
+
+	const hexCode =
+		4 === h.length
+			? `#${ h[ 1 ] + h[ 1 ] + h[ 2 ] + h[ 2 ] + h[ 3 ] + h[ 3 ] }`
+			: h;
+
+	if ( 7 === hexCode.length ) {
+		r = parseInt( hexCode.substr( 1, 2 ), 16 ) || 0;
+		g = parseInt( hexCode.substr( 3, 2 ), 16 ) || 0;
+		b = parseInt( hexCode.substr( 5, 2 ), 16 ) || 0;
+	}
+
+	return `rgb(${ r }, ${ g }, ${ b })`;
+};
 
 /**
  * Returns a css 'class' string of overridden styles given a collection of attributes.

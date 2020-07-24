@@ -307,7 +307,7 @@ div.wp-block-crowdsignal-forms-poll__answer-label-wrapper {
 
 .wp-block-crowdsignal-forms-poll__answer-results-progress-track {
 	border: 1px solid;
-	border-color: var(--crowdsignal-forms-text-color);
+	border-color: rgba(var(--crowdsignal-forms-text-color-properties), 0.3);
 	box-sizing: border-box;
 	height: 1em;
 	width: 100%;
