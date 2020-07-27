@@ -13,26 +13,17 @@ The Crowdsignal Forms plugin allows you to create and manage polls right from wi
 == Description ==
 
 The Crowdsignal Forms plugin allows you to create and manage polls right from within the block editor.
-Creating polls is as simple and as fast as writing a bullet point list. No embed blocks and no copy pasting
-needed anymore.
+Creating polls is as simple and as fast as writing a bullet point list. No embed blocks and no copy pasting needed anymore.
 
-Customize the look and feel of your polls to match your brand, and pick your favorite color. The poll block 
-supports the styling of your theme by default, and from there you can customize the styling of your polls 
-the way you want.
+Customize the look and feel of your polls to match your brand, and pick your favorite color. The poll block supports the styling of your theme by default, and from there you can customize the styling of your polls the way you want.
 
-With Crowdsignal’s results page you can view all responses as they come in. See the geo-locations of your
-voters and analyze IP addresses for any suspicious voting behavior. See advanced stats and analytics for 
-understanding your audience.
+With Crowdsignal’s results page you can view all responses as they come in. See the geo-locations of your voters and analyze IP addresses for any suspicious voting behavior. See advanced stats and analytics for understanding your audience.
 
 Analyze your results and then export them in a number of different formats.
 
-Set close dates for polls, create polls with single or multiple choice answers, choose whether to show your
-readers the poll results or keep them private. 
+Set close dates for polls, create polls with single or multiple choice answers, choose whether to show your readers the poll results or keep them private.
 
-You can create an unlimited number of polls and with a free [Crowdsignal](https://crowdsignal.com/) account and your first 2,500 signals are
-free. A signal is a response you get to a poll. If you are on a free plan, you still have full access to the
-first 2,500 signals. Any further responses you collect will still be recorded but if you [upgrade](https://crowdsignal.com/pricing/) you will
-get access to our unlocked reports to see them. You’ll also get access to a [range of features](https://crowdsignal.com/features/) not available to free users.
+You can create an unlimited number of polls with a free [Crowdsignal](https://crowdsignal.com/) account and your first 2,500 signals are free. A signal is a response you get to a poll. If you are on a free plan, you still have full access to the first 2,500 signals. Any further responses you collect will still be recorded but if you [upgrade](https://crowdsignal.com/pricing/) you will get access to our unlocked reports to see them. You’ll also get access to a [range of features](https://crowdsignal.com/features/) not available to free users.
 
 == Installation ==
 
@@ -83,4 +74,3 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 = 0.9 =
 Initial release
-
