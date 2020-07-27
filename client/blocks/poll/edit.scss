@@ -2,13 +2,13 @@
 
 #editor .editor-styles-wrapper {
 
-	.block-editor-block-list__block[data-align="full"] .wp-block-crowdsignal-forms-poll {
+	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"][data-align="full"] .wp-block-crowdsignal-forms-poll {
 		border-left-width: 0;
 		border-right-width: 0;
 	}
 
-	.block-editor-block-list__block[data-align="wide"] .wp-block-crowdsignal-forms-poll__content,
-	.block-editor-block-list__block[data-align="full"] .wp-block-crowdsignal-forms-poll__content {
+	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"][data-align="wide"] .wp-block-crowdsignal-forms-poll__content,
+	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"][data-align="full"] .wp-block-crowdsignal-forms-poll__content {
 
 		@media screen and (min-width: 660px) {
 			padding: 80px;

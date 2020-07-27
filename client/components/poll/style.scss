@@ -9,7 +9,7 @@
 	position: relative;
 	text-align: left;
 
-	.entry-content .alignfull & {
+	.entry-content .alignfull.crowdsignal-poll-wrapper & {
 		border-left-width: 0;
 		border-right-width: 0;
 	}
@@ -30,15 +30,15 @@
 	.wp-block-crowdsignal-forms-poll__content {
 		padding: 40px 24px 16px 24px;
 
-		.entry-content .alignfull & {
+		.entry-content .alignfull.crowdsignal-poll-wrapper & {
 			margin: 0 auto;
 			max-width: var(--crowdsignal-forms-content-wide-width);
 		}
 
 		@media screen and (min-width: 660px) {
 
-			.entry-content .alignwide &,
-			.entry-content .alignfull & {
+			.alignwide.crowdsignal-poll-wrapper &,
+			.alignfull.crowdsignal-poll-wrapper & {
 				padding: 80px;
 			}
 		}
