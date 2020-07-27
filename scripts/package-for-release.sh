@@ -33,6 +33,8 @@ cp -r "$PLUGIN_DIR/README.TXT" "$RELEASE_BUILD_FOLDER"
 cp -r "$PLUGIN_DIR/crowdsignal-forms.php" "$RELEASE_BUILD_FOLDER"
 cp -r "$PLUGIN_DIR/uninstall.php" "$RELEASE_BUILD_FOLDER"
 
+rm -f "$RELEASE_BUILD_FOLDER/includes/gateways/class-canned-api-gateway.php"
+
 mkdir -p "$PLUGIN_DIR/release"
 cd "$RELEASE_BUILD_FOLDER" && zip -r "$PLUGIN_DIR/release/$RELEASE_ZIP_FILENAME" .
 
