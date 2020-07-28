@@ -57,7 +57,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	 * @return string
 	 */
 	public function render( $attributes ) {
-		if ( $this->should_hide_poll() ) {
+		if ( $this->should_hide_poll( $attributes ) ) {
 			return '';
 		}
 
@@ -113,15 +113,21 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 	/**
 	 * Determines if the poll should be rendered or not.
 	 *
+	 * @param  array $attributes The poll's saved attributes.
 	 * @return bool
 	 */
-	private function should_hide_poll() {
+	private function should_hide_poll( $attributes ) {
+		if ( empty( $attributes['question'] ) ) {
+			return true;
+		}
+
 		if ( null !== self::$is_cs_connected ) {
 			return ! self::$is_cs_connected;
 		}
 
 		$api_auth_provider     = new Crowdsignal_Forms_Api_Authenticator();
 		self::$is_cs_connected = $api_auth_provider->get_user_code();
+		// purposely not doing the account is_verified check to avoid making a slow query on every page load.
 
 		return ! self::$is_cs_connected;
 	}

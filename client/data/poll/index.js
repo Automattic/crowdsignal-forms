@@ -85,6 +85,11 @@ export class CrowdsignalFormsServerError extends CrowdsignalFormsError {
 	}
 }
 
+/**
+ * Returns the connected state of the current user's account.
+ *
+ * @return {string} Enum value of the account's state.
+ */
 export const requestIsCsConnected = async () => {
 	return await apiFetch( {
 		path: `/crowdsignal-forms/v1/account/connected`,

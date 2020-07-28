@@ -14,6 +14,7 @@ import {
 	requestIsCsConnected,
 } from 'data/poll';
 import { useFetch } from './util';
+import { ConnectedAccountState } from 'blocks/poll/constants';
 
 export const usePollResults = ( pollId ) => {
 	const { data, error, loading } = useFetch( () => requestResults( pollId ), [
@@ -75,16 +76,28 @@ export const usePollVote = ( pollId, enableVoteRestriction = false ) => {
 export const useIsCsConnected = () => {
 	/* assume connection is enabled, so placeholder doesn't flash while we add a block and wait for the request */
 	const [ isConnected, setIsConnected ] = useState( true );
+	const [ isAccountVerified, setIsAccountVerified ] = useState( true );
 
 	const checkIsConnected = async () => {
-		const isEnabled = await requestIsCsConnected();
-		setIsConnected( isEnabled );
+		const connectedState = await requestIsCsConnected();
 
-		return isEnabled;
+		const isNowConnected =
+			ConnectedAccountState.CONNECTED === connectedState ||
+			ConnectedAccountState.NOT_VERIFIED === connectedState;
+		const isNowVerified =
+			ConnectedAccountState.CONNECTED === connectedState;
+
+		setIsConnected( isNowConnected );
+		setIsAccountVerified( isNowVerified );
+
+		return {
+			isNowConnected,
+			isNowVerified,
+		};
 	};
 
 	useEffect( () => {
 		checkIsConnected();
 	}, [] );
-	return { isConnected, checkIsConnected };
+	return { isConnected, isAccountVerified, checkIsConnected };
 };

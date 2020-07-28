@@ -46,3 +46,9 @@ export const ClosedPollState = Object.freeze( {
 	SHOW_CLOSED_BANNER: 'show-closed-banner',
 	HIDDEN: 'hidden',
 } );
+
+export const ConnectedAccountState = Object.freeze( {
+	CONNECTED: 'connected',
+	NOT_CONNECTED: 'not-connected',
+	NOT_VERIFIED: 'not-verified',
+} );

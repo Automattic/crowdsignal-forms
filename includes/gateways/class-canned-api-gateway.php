@@ -160,4 +160,15 @@ class Canned_Api_Gateway implements Api_Gateway_Interface {
 
 		return $data['capabilities'];
 	}
+
+	/**
+	 * Get the account's verified status.
+	 *
+	 * @since 0.9.1 ??
+	 *
+	 * @return bool|\WP_Error
+	 */
+	public function get_is_user_verified() {
+		return true;
+	}
 }

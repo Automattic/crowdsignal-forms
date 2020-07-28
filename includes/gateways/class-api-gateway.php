@@ -342,4 +342,30 @@ class Api_Gateway implements Api_Gateway_Interface {
 	private function is_poll_response_valid( $response ) {
 		return null !== $response && isset( $response['poll'] );
 	}
+
+	/**
+	 * Get the account's verified status.
+	 *
+	 * @since 0.9.1 ??
+	 *
+	 * @return bool|\WP_Error
+	 */
+	public function get_is_user_verified() {
+		$response = $this->perform_request( 'GET', '/account/verified' );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$body          = wp_remote_retrieve_body( $response );
+		$response_data = json_decode( $body, true );
+
+		if ( null === $response_data || ! is_array( $response_data ) ) {
+			if ( isset( $response_data['error'] ) ) {
+				return new \WP_Error( $response_data['error'], $response_data );
+			}
+			return new \WP_Error( 'decode-failed' );
+		}
+
+		return $response_data['is_verified'];
+	}
 }

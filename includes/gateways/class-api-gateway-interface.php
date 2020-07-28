@@ -70,4 +70,13 @@ interface Api_Gateway_Interface {
 	 * @return array|\WP_Error
 	 */
 	public function get_capabilities();
+
+	/**
+	 * Get the account's verified status.
+	 *
+	 * @since 0.9.1 ??
+	 *
+	 * @return bool|\WP_Error
+	 */
+	public function get_is_user_verified();
 }

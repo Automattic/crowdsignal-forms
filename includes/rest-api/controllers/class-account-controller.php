@@ -107,18 +107,28 @@ class Account_Controller {
 	}
 
 	/**
-	 * Gets the enabled state of the Crowdsignal connection.
+	 * Gets the state of the Crowdsignal connection.
 	 *
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function is_cs_connected() {
 		if ( defined( 'IS_WPCOM' ) && true === constant( 'IS_WPCOM' ) ) {
-			return true;
+			return rest_ensure_response( 'connected' );
 		}
 
 		$api_auth_provider = new Crowdsignal_Forms_Api_Authenticator();
 		$user_code         = $api_auth_provider->get_user_code();
 
-		return rest_ensure_response( ! empty( $user_code ) );
+		if ( empty( $user_code ) ) {
+			return rest_ensure_response( 'not-connected' );
+		}
+
+		$is_verified = Crowdsignal_Forms::instance()->get_api_gateway()->get_is_user_verified();
+		if ( is_wp_error( $is_verified ) ) {
+			return rest_ensure_response( $is_verified );
+		}
+
+		$res = $is_verified ? 'connected' : 'not-verified';
+		return rest_ensure_response( $res );
 	}
 }
