@@ -77,4 +77,3 @@ const showConnect = ( title ) => {
 	}
 } )( document.getElementById( 'cs-connect-form' ) );
 </script>
-</div>

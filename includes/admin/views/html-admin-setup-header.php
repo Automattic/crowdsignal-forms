@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			case 'disconnected':
 				echo '<div class="updated fade crowdsignal-message"><p>' . esc_html__( 'Successfully disconnected from Crowdsignal.', 'crowdsignal-forms' ) . '</p></div>';
 				break;
-			case 'connect':
+			case 'connected':
 				echo '<div class="updated crowdsignal-message"><p>' . esc_html__( 'Success! Your Crowdsignal account is successfully connected! You are ready!', 'crowdsignal-forms' ) . '</p></div>';
 				break;
 			case 'api-key-added':

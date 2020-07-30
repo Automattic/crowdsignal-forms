@@ -143,7 +143,7 @@ class Crowdsignal_Forms_Settings {
 		$this->init_settings();
 		include dirname( __FILE__ ) . '/views/html-admin-setup-header.php';
 		?>
-		<div class="wrap crowdsignal-settings-wrap">
+		<div class="crowdsignal-settings-wrap">
 
 			<div class="crowdsignal-settings__main-content">
 				<div class="dops-card dops-section-header is-compact">
@@ -218,8 +218,8 @@ class Crowdsignal_Forms_Settings {
 							<div class="crowdsignal-settings__text">
 								<?php
 								if ( ! get_option( Crowdsignal_Forms_Api_Authenticator::API_KEY_NAME ) ) {
-									esc_html_e( "If you don't have an API key we can help you here:", 'crowdsignal-forms' );
-									echo '<a class="button crowdsignal-settings__cta" rel="noopener noreferrer" href="/wp-admin/admin.php?page=crowdsignal-forms-setup">Get an API Key</a>';
+									esc_html_e( "If you don't have an API key we can help you here: ", 'crowdsignal-forms' );
+									echo '<a class="button" rel="noopener noreferrer" href="/wp-admin/admin.php?page=crowdsignal-forms-setup">Get an API Key</a>';
 								}
 								?>
 

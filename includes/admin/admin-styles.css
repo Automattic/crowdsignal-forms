@@ -15,22 +15,18 @@
 	font-weight: 700;
 }
 
-.wrap {
-	margin: 0;
-}
-
 .crowdsignal-setup__header {
 	background-color: #fff;
 	text-align: center;
 	box-shadow: 0 1px 0 #ccd0d4,0 1px 1px 1px rgba(0,0,0,0.04);
 	margin-left: -20px;
+	margin-right: -20px;
+	margin-bottom: 8px;
 }
 
 .crowdsignal-setup__header-container {
 	display: flex;
 	flex-wrap: wrap;
-	margin: 0 auto;
-	max-width: 65rem;
 	padding-bottom: .375rem;
 	padding-left: 16px;
 }
@@ -49,7 +45,7 @@
 
 .crowdsignal-setup__footer {
 	text-align: center;
-	margin: 100px 0 2rem;
+	margin: 100px -20px 2rem;
 }
 
 .crowdsignal-setup__footer-container {
@@ -84,7 +80,6 @@
 	display: flex;
 	flex-direction: column;
 	align-content: center;
-	max-width: 65rem;
 	margin: 24px auto 0;
 	border: 1px solid rgba(213, 213, 213, 0.5);
 }
@@ -200,20 +195,10 @@
 
 
 .wrap .error.crowdsignal-message, .wrap .updated.crowdsignal-message {
-	width: calc(100% + 20px);
-	margin-left: -20px;
-	margin-right: -20px;
-	margin-bottom: 5px;
-	box-sizing: border-box;
-	border-right: none;
+	margin-bottom: 8px;
 }
 
 .crowdsignal-settings__main-content {
-	max-width: 65rem;
-	margin-top: 24px;
-	margin-bottom: 48px;
-	margin-right: auto;
-	margin-left: auto;
 }
 
 .dops-card {
@@ -266,17 +251,12 @@
 	margin-top: 40px;
 	line-height: 150%;
 	font-size: 14px;
-	line-height: 20px;
+	line-height: 30px;
 	color: #444444;
 }
 
 .crowdsignal-settings__bottom {
 	margin-top: 80px;
-}
-
-.button.crowdsignal-settings__cta {
-	margin-top: -5px;
-	margin-left: 8px;
 }
 
 .crowdsignal-settings__submit {
@@ -291,18 +271,14 @@
 	}
 }
 
-@media screen and (max-width: 516px) {
-	.button.crowdsignal-settings__cta {
-		margin-top: 16px;
-		margin-left: 0px;
-	}
-}
-
 @media screen and (max-width: 782px) {
-	.wrap .updated.crowdsignal-message {
-		width: auto;
-		margin-left: 0px;
-		margin-right: 0px;
-		margin-bottom: 5px;
+	.crowdsignal-setup__header {
+		margin-left: -12px;
+		margin-right: -12px;
+	}
+
+	.crowdsignal-setup__footer {
+		margin-left: -12px;
+		margin-right: -12px;
 	}
 }
