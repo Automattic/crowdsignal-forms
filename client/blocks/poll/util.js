@@ -32,26 +32,31 @@ export const getFontFamilyFromType = ( type ) => {
 	return FontFamilyMap[ type ];
 };
 
-export const getStyleVars = ( attributes, fallbackColors ) => {
+export const getStyleVars = ( attributes, fallbackStyles ) => {
 	const textColor = isEmpty( attributes.textColor )
-		? fallbackColors.text
+		? fallbackStyles.text
 		: attributes.textColor;
 
 	return mapKeys(
 		{
-			borderColor: attributes.borderColor ?? fallbackColors.accent,
+			borderColor: attributes.borderColor ?? fallbackStyles.accent,
 			borderRadius: `${ attributes.borderRadius }px`,
 			borderWidth: `${ attributes.borderWidth }px`,
 			bgColor: attributes.backgroundColor,
-			fontFamily: getFontFamilyFromType( attributes.fontFamily ),
+			bodyFontFamily:
+				getFontFamilyFromType( attributes.fontFamily ) ??
+				fallbackStyles.bodyFontFamily,
+			questionFontFamily:
+				getFontFamilyFromType( attributes.fontFamily ) ??
+				fallbackStyles.questionFontFamily,
 			submitButtonBgColor:
-				attributes.submitButtonBackgroundColor || fallbackColors.accent,
+				attributes.submitButtonBackgroundColor || fallbackStyles.accent,
 			submitButtonTextColor:
-				attributes.submitButtonTextColor || fallbackColors.textInverted,
+				attributes.submitButtonTextColor || fallbackStyles.textInverted,
 			textColor,
 			textColorProperties:
 				extractRGBColorProperties( textColor ) ?? '0, 0, 0',
-			contentWideWidth: fallbackColors.contentWideWidth,
+			contentWideWidth: fallbackStyles.contentWideWidth,
 		},
 		( _, key ) => `--crowdsignal-forms-${ kebabCase( key ) }`
 	);
@@ -115,9 +120,6 @@ export const hexToRGB = ( h ) => {
 export const getBlockCssClasses = ( attributes, ...extraClasses ) => {
 	return classNames(
 		{
-			'has-font-family':
-				attributes.fontFamily &&
-				FontFamilyType.THEME_DEFAULT !== attributes.fontFamily,
 			'has-bg-color': attributes.backgroundColor,
 			'has-text-color': attributes.textColor,
 			'has-submit-button-bg-color':

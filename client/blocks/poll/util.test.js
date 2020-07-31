@@ -66,7 +66,6 @@ test.each( [
 	[ 'submitButtonTextColor', 'has-submit-button-text-color' ],
 	[ 'backgroundColor', 'has-bg-color' ],
 	[ 'textColor', 'has-text-color' ],
-	[ 'fontFamily', 'has-font-family' ],
 	[ 'borderRadius', 'has-border-radius' ],
 	[ 'hasBoxShadow', 'has-box-shadow' ],
 ] )(
