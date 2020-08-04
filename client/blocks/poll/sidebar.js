@@ -203,7 +203,7 @@ const SideBar = ( {
 					<TextareaControl
 						value={ attributes.customConfirmMessage }
 						label={ __( 'Message text' ) }
-						placeholder={ __( 'Thank you for your feedback!' ) }
+						placeholder={ __( 'Thanks for voting!' ) }
 						onChange={ handleChangeCustomConfirmMessage }
 					/>
 				) }

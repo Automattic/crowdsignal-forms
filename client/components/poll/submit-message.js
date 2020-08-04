@@ -68,7 +68,7 @@ const SubmitMessage = ( {
 					</div>
 					<div className="wp-block-crowdsignal-forms-poll__custom-message">
 						{ isEmpty( customConfirmMessage )
-							? __( 'Thank you for your feedback!' )
+							? __( 'Thanks for voting!' )
 							: customConfirmMessage }
 					</div>
 				</>
