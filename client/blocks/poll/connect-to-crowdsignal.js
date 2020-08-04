@@ -50,7 +50,7 @@ const ConnectToCrowdsignal = ( props ) => {
 			<div className="wp-block-crowdsignal-forms__connect-to-crowdsignal-body">
 				{ showConnectionMessage &&
 					__(
-						'You need to connect to a Crowdsignal account for collecting and managing your results.'
+						'You need to connect to a Crowdsignal account to collect and manage your results.'
 					) }
 				{ showVerificationMessage &&
 					__(
