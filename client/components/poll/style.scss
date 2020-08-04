@@ -81,6 +81,12 @@
 	&.has-box-shadow {
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 	}
+
+	.is-transparent {
+		opacity: 0;
+		pointer-events: none;
+	}
+
 }
 
 .wp-block-crowdsignal-forms-poll__block-button .wp-block-crowdsignal-forms-poll__submit-button {
@@ -413,6 +419,12 @@ div.wp-block-crowdsignal-forms-poll__answer-label-wrapper {
 		color: var(--crowdsignal-forms-text-color);
 		opacity: 0.4;
 	}
+
+	.has-default-thankyou & {
+		// hardcoded as the background has been forced to white
+		// to match the video background
+		color: #333;
+	}
 }
 
 .wp-block-crowdsignal-forms-poll__error-banner {
@@ -427,12 +439,17 @@ div.wp-block-crowdsignal-forms-poll__answer-label-wrapper {
 
 .wp-block-crowdsignal-forms-poll__submit-message-container {
 	position: absolute;
-	background-color: rgb(255, 255, 255);
+	background-color: var(--crowdsignal-forms-bg-color);
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+
+	.has-default-thankyou & {
+		// hardcoded as it has to match the video background
+		background-color: #fff;
+	}
 }
 
 .wp-block-crowdsignal-forms-poll__submit-message {
@@ -460,7 +477,7 @@ div.wp-block-crowdsignal-forms-poll__answer-label-wrapper {
 	left: 0;
 	padding: 16px 24px;
 	width: 100%;
-	background-color: rgb(255, 255, 255);
+	background-color: inherit;
 }
 
 .wp-block-crowdsignal-forms-poll__thank-you-cs-sticker {
@@ -482,7 +499,7 @@ div.wp-block-crowdsignal-forms-poll__answer-label-wrapper {
 }
 
 .wp-block-crowdsignal-forms-poll__custom-message-check {
-	color: var(--crowdsignal-forms-submit-button-bg-color);
+	color: var(--crowdsignal-forms-text-color);
 	padding-left: 24px;
 	padding-top: 24px;
 }

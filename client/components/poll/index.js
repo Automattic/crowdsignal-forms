@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import seedrandom from 'seedrandom';
 import { filter, map, reduce } from 'lodash';
+import classNames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -85,6 +86,9 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		! dismissSubmitMessage &&
 		ConfirmMessageType.REDIRECT !== attributes.confirmMessageType;
 
+	const hasDefaultThankyou =
+		ConfirmMessageType.THANK_YOU === attributes.confirmMessageType;
+
 	const classes = getBlockCssClasses(
 		attributes,
 		attributes.className,
@@ -93,6 +97,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			'has-voted': hasVoted,
 			'is-closed': isClosed,
 			'is-voting': isVoting,
+			'has-default-thankyou': hasDefaultThankyou,
 		}
 	);
 
@@ -121,6 +126,13 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			: () => 1
 	);
 
+	const contentClasses = classNames(
+		{
+			'is-transparent': showSubmitMessage,
+		},
+		'wp-block-crowdsignal-forms-poll__content'
+	);
+
 	return (
 		<div
 			className={ classes }
@@ -128,7 +140,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		>
 			{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
 
-			<div className="wp-block-crowdsignal-forms-poll__content">
+			<div className={ contentClasses }>
 				<h3 className="wp-block-crowdsignal-forms-poll__question">
 					{ decodeEntities( attributes.question ) }
 				</h3>
@@ -167,7 +179,11 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 				/>
 			) }
 			{ ( isClosed || hasVoted ) && (
-				<ClosedBanner isPollClosed={ isClosed } hasVoted={ hasVoted } />
+				<ClosedBanner
+					showSubmitMessage={ showSubmitMessage }
+					isPollClosed={ isClosed }
+					hasVoted={ hasVoted }
+				/>
 			) }
 
 			{ renderStyleProbe() }
