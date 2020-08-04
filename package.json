@@ -38,5 +38,8 @@
 		"js-cookie": "^2.2.1",
 		"seedrandom": "^3.0.5",
 		"uuid": "^8.2.0"
+	},
+	"jest": {
+		"modulePaths": [ "client" ]
 	}
 }

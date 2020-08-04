@@ -1,7 +1,12 @@
 /**
  * External dependencies
  */
-import { isEmpty, map } from 'lodash';
+import { filter, isEmpty, map, tap } from 'lodash';
+
+/**
+ * Internal dependencies
+ */
+import { FontFamilyType, GoogleFonts } from 'blocks/poll/constants';
 
 /**
  * Adds api answer ids to the answer objects (when they are available).
@@ -51,3 +56,36 @@ export const isAnswerEmpty = ( answer ) =>
 	'undefined' === typeof answer.text ||
 	null === answer.text ||
 	'' === answer.text;
+
+/**
+ * Loads a custom google font, by name, only once per page if called more than once for the same font.
+ *
+ * @param {*} font The name of the Google font
+ */
+export const loadCustomFont = ( font ) => {
+	if (
+		isEmpty( font ) ||
+		FontFamilyType.THEME_DEFAULT === font ||
+		-1 === GoogleFonts.indexOf( font )
+	) {
+		return;
+	}
+
+	const googleFontsLink = `https://fonts.googleapis.com/css2?family=${ font }:wght@400;600;700&display=swap`;
+	const crowdsignalFonts = filter(
+		Array.from( document.head.childNodes ),
+		( node ) =>
+			node.nodeName.toLowerCase() === 'link' &&
+			node.href === googleFontsLink
+	);
+
+	if ( crowdsignalFonts.length === 0 ) {
+		document.head.appendChild(
+			tap( document.createElement( 'link' ), ( link ) => {
+				link.type = 'text/css';
+				link.rel = 'stylesheet';
+				link.href = googleFontsLink;
+			} )
+		);
+	}
+};

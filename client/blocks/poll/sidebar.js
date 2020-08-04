@@ -306,33 +306,100 @@ const SideBar = ( {
 							value: FontFamilyType.THEME_DEFAULT,
 						},
 						{
-							label: __( 'Georgia' ),
-							value: FontFamilyType.GEORGIA,
-							style: { color: 'red' },
-						},
-						{
-							label: __( 'Palatino' ),
-							value: FontFamilyType.PALATINO,
-						},
-						{
-							label: __( 'Times New Roman' ),
-							value: FontFamilyType.TIMES_NEW_ROMAN,
+							label: __( 'Alegreya Sans' ),
+							value: FontFamilyType.ALEGREYA_SANS,
 						},
 						{
 							label: __( 'Arial' ),
 							value: FontFamilyType.ARIAL,
 						},
 						{
+							label: __( 'Cabin' ),
+							value: FontFamilyType.CABIN,
+						},
+						{
+							label: __( 'Chivo' ),
+							value: FontFamilyType.CHIVO,
+						},
+						{
+							label: __( 'Courier' ),
+							value: FontFamilyType.COURIER,
+						},
+						{
+							label: __( 'Fira Sans' ),
+							value: FontFamilyType.FIRA_SANS,
+						},
+						{
+							label: __( 'Georgia' ),
+							value: FontFamilyType.GEORGIA,
+						},
+						{
 							label: __( 'Impact' ),
 							value: FontFamilyType.IMPACT,
+						},
+						{
+							label: __( 'Josefin Sans' ),
+							value: FontFamilyType.JOSEFIN_SANS,
+						},
+						{
+							label: __( 'Lato' ),
+							value: FontFamilyType.LATO,
+						},
+						{
+							label: __( 'Libre Franklin' ),
+							value: FontFamilyType.LIBRE_FRANKLIN,
 						},
 						{
 							label: __( 'Lucida' ),
 							value: FontFamilyType.LUCIDA,
 						},
 						{
+							label: __( 'Montserrat' ),
+							value: FontFamilyType.MONTSERRAT,
+						},
+						{
+							label: __( 'Nunito' ),
+							value: FontFamilyType.NUNITO,
+						},
+						{
+							label: __( 'Open Sans' ),
+							value: FontFamilyType.OPEN_SANS,
+						},
+						{
+							label: __( 'Oswald' ),
+							value: FontFamilyType.OSWALD,
+						},
+						{
+							label: __( 'Overpass' ),
+							value: FontFamilyType.OVERPASS,
+						},
+						{
+							label: __( 'Palatino' ),
+							value: FontFamilyType.PALATINO,
+						},
+						{
+							label: __( 'Poppins' ),
+							value: FontFamilyType.POPPINS,
+						},
+						{
+							label: __( 'Raleway' ),
+							value: FontFamilyType.RALEWAY,
+						},
+						{
+							label: __( 'Roboto' ),
+							value: FontFamilyType.ROBOTO,
+						},
+						{
+							label: __( 'Rubik' ),
+							value: FontFamilyType.RUBIK,
+						},
+						{
 							label: __( 'Tahoma' ),
 							value: FontFamilyType.TAHOMA,
+						},
+						{
+							label: __( 'Times New Roman' ),
+							value: FontFamilyType.TIMES_NEW_ROMAN,
 						},
 						{
 							label: __( 'Trebuchet' ),
@@ -341,10 +408,6 @@ const SideBar = ( {
 						{
 							label: __( 'Verdana' ),
 							value: FontFamilyType.VERDANA,
-						},
-						{
-							label: __( 'Courier' ),
-							value: FontFamilyType.COURIER,
 						},
 					] }
 					onChange={ handleChangeFontFamily }

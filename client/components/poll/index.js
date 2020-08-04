@@ -25,7 +25,7 @@ import ClosedBanner from './closed-banner';
 import PollResults from './results';
 import PollVote from './vote';
 import { PollStyles, getPollStyles } from './styles';
-import { shuffleWithGenerator } from './util';
+import { shuffleWithGenerator, loadCustomFont } from './util';
 import { __ } from 'lib/i18n';
 import { usePollVote } from 'data/hooks';
 import { CrowdsignalFormsError } from 'data/poll';
@@ -132,6 +132,10 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		},
 		'wp-block-crowdsignal-forms-poll__content'
 	);
+
+	if ( attributes.fontFamily ) {
+		loadCustomFont( attributes.fontFamily );
+	}
 
 	return (
 		<div

@@ -505,6 +505,7 @@ div.wp-block-crowdsignal-forms-poll__answer-label-wrapper {
 }
 
 .wp-block-crowdsignal-forms-poll__custom-message {
+	font-family: var(--crowdsignal-forms-question-font-family);
 	font-weight: 600;
 	padding: 16px 24px;
 }

@@ -17,7 +17,11 @@ import { decodeEntities } from '@wordpress/html-entities';
 import ClosedBanner from 'components/poll/closed-banner';
 import { PollStyles, getPollStyles } from 'components/poll/styles';
 import PollResults from 'components/poll/results';
-import { addApiAnswerIds, isAnswerEmpty } from 'components/poll/util';
+import {
+	addApiAnswerIds,
+	isAnswerEmpty,
+	loadCustomFont,
+} from 'components/poll/util';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { __ } from 'lib/i18n';
 import { ClosedPollState } from './constants';
@@ -112,6 +116,10 @@ const PollBlock = ( props ) => {
 
 	const showEditBar =
 		isSelected && wasBlockAddedBeforeLastPublish && ! isPollEditable;
+
+	if ( attributes.fontFamily ) {
+		loadCustomFont( attributes.fontFamily );
+	}
 
 	return (
 		<ConnectToCrowdsignal>
