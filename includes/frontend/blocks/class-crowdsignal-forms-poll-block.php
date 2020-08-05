@@ -125,7 +125,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 			return ! self::$is_cs_connected;
 		}
 
-		$api_auth_provider     = new Crowdsignal_Forms_Api_Authenticator();
+		$api_auth_provider     = Crowdsignal_Forms::instance()->get_api_authenticator();
 		self::$is_cs_connected = $api_auth_provider->get_user_code();
 		// purposely not doing the account is_verified check to avoid making a slow query on every page load.
 

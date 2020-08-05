@@ -120,6 +120,14 @@ final class Crowdsignal_Forms {
 	private $blocks_assets;
 
 	/**
+	 * The instance of the api authenticator.
+	 *
+	 * @since 1.0.0
+	 * @var Crowdsignal_Forms_Api_Authenticator|null
+	 */
+	private $api_authenticator;
+
+	/**
 	 * Initialize the singleton instance.
 	 *
 	 * @since 0.9.0
@@ -300,9 +308,8 @@ final class Crowdsignal_Forms {
 	 * @return $headers array the modified array.
 	 */
 	public function add_auth_request_headers( $headers ) {
-		$cs_authenticator = new Crowdsignal_Forms_Api_Authenticator();
-
-		$user_code = $cs_authenticator->get_user_code();
+		$cs_authenticator = $this->get_api_authenticator();
+		$user_code        = $cs_authenticator->get_user_code();
 
 		if ( ! empty( $user_code ) ) {
 			$headers['x-api-partner-guid'] = $cs_authenticator->get_api_key();
@@ -326,7 +333,9 @@ final class Crowdsignal_Forms {
 	}
 
 	/**
-	 * Set the api gateway.
+	 * Set the meta gateway.
+	 *
+	 * @since 1.0.0
 	 *
 	 * @param Post_Poll_Meta_Gateway $gateway The gateway.
 	 *
@@ -358,5 +367,33 @@ final class Crowdsignal_Forms {
 	public function load_textdomain() {
 		$language_path = basename( $this->plugin_dir ) . '/languages';
 		load_plugin_textdomain( $this->plugin_textdomain, false, $language_path );
+	}
+
+	/**
+	 * Get the authenticator
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Crowdsignal_Forms_Api_Authenticator|null
+	 */
+	public function get_api_authenticator() {
+		if ( null === $this->api_authenticator ) {
+			$this->api_authenticator = new Crowdsignal_Forms_Api_Authenticator();
+		}
+		return $this->api_authenticator;
+	}
+
+	/**
+	 * Set the authenticator
+	 *
+	 * @param Crowdsignal_Forms_Api_Authenticator $api_authenticator The authenticator to use.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return $this
+	 */
+	public function set_api_authenticator( $api_authenticator ) {
+		$this->api_authenticator = $api_authenticator;
+		return $this;
 	}
 }

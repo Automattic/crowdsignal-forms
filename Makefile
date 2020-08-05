@@ -49,6 +49,9 @@ docker_down:
 docker_sh:
 	docker-compose -f docker/docker-compose.yml exec wordpress bash
 
+docker_sh_db:
+	docker-compose -f docker/docker-compose.yml exec db bash
+
 docker_install:
 	docker-compose -f docker/docker-compose.yml exec wordpress bash -c "/var/scripts/install.sh"
 

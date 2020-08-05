@@ -116,7 +116,7 @@ class Account_Controller {
 			return rest_ensure_response( 'connected' );
 		}
 
-		$api_auth_provider = new Crowdsignal_Forms_Api_Authenticator();
+		$api_auth_provider = Crowdsignal_Forms::instance()->get_api_authenticator();
 		$user_code         = $api_auth_provider->get_user_code();
 
 		if ( empty( $user_code ) ) {

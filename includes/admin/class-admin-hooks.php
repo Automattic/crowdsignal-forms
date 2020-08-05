@@ -117,7 +117,7 @@ class Admin_Hooks {
 			return;
 		}
 
-		$authenticator = new Crowdsignal_Forms_Api_Authenticator();
+		$authenticator = Crowdsignal_Forms::instance()->get_api_authenticator();
 		if ( ! $authenticator->get_user_code() ) {
 			// Plugin hasn't been authenticated yet, don't try to sync the block.
 			return;
