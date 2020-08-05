@@ -1,11 +1,20 @@
 // Public poll styles
+.crowdsignal-poll-wrapper,
+[data-type="crowdsignal-forms/poll"] {
+
+	&:not(:first-child) {
+		margin-top: 3em;
+	}
+
+	&:not(:last-child) {
+		margin-bottom: 3em;
+	}
+}
 
 .wp-block-crowdsignal-forms-poll {
 	border-color: var(--crowdsignal-forms-border-color);
 	border-style: solid;
 	border-width: var(--crowdsignal-forms-border-width);
-	margin-top: 1.25em;
-	margin-bottom: 1.25em;
 	position: relative;
 	text-align: left;
 
