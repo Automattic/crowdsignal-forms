@@ -13,6 +13,18 @@ export default {
 		'Create polls and get your audience’s opinion — powered by Crowdsignal.'
 	),
 	category: 'widgets',
+	keywords: [
+		__( 'ask' ),
+		'crowdsignal',
+		__( 'feedback' ),
+		__( 'poll' ),
+		__( 'pop' ),
+		__( 'question' ),
+		__( 'quiz' ),
+		__( 'research' ),
+		__( 'survey' ),
+		__( 'vote' ),
+	],
 	icon: <PollIcon />,
 	edit: EditPollBlock,
 	attributes,
