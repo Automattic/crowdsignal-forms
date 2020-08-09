@@ -272,7 +272,7 @@ const SideBar = ( {
 			</PanelBody>
 			<PanelColorSettings
 				title={ __( 'Block styling' ) }
-				initialOpen={ true }
+				initialOpen={ false }
 				colorSettings={ [
 					{
 						value: attributes.textColor,
@@ -459,7 +459,7 @@ const SideBar = ( {
 					fallbackTextColor={ fallbackSubmitButtonTextColor }
 				/>
 			</PanelColorSettings>
-			<PanelBody title={ __( 'Answer settings' ) } initialOpen={ false }>
+			<PanelBody title={ __( 'Answer settings' ) } initialOpen={ true }>
 				<CheckboxControl
 					checked={ attributes.hasOneResponsePerComputer }
 					label={ __( 'One response per computer' ) }
