@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.4.2
-Stable tag: 0.9.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,21 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.0 =
+* Update default sidebar status
+* Increase Default Poll Margins
+* Test suite for admin hooks
+* Copy text reviews
+* Added support for loading curated list of google fonts
+* Normalize "thanks you" message
+* Fix display of "thank you" message (custom and default) on dark backgrounds
+* Add Separate Question and Body Font Family fallbacks
+* Fix styles on wp-admin not honoring margins
+* Fix submit button styling for themes with very specific selectors (ex TwentyNineteen theme)
+* Add Unverified Account Check
+* Code cleanup
+* Update translations
 
 = 0.9 =
 * Initial release

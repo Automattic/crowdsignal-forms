@@ -1,0 +1,14 @@
+= 1.0 =
+* Update default sidebar status
+* Increase Default Poll Margins
+* Test suite for admin hooks
+* Copy text reviews
+* Added support for loading curated list of google fonts
+* Normalize "thanks you" message
+* Fix display of "thank you" message (custom and default) on dark backgrounds
+* Add Separate Question and Body Font Family fallbacks
+* Fix styles on wp-admin not honoring margins
+* Fix submit button styling for themes with very specific selectors (ex TwentyNineteen theme)
+* Add Unverified Account Check
+* Code cleanup
+* Update translations

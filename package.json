@@ -1,6 +1,6 @@
 {
 	"name": "@automattic/crowdsignal-forms",
-	"version": "0.9.0",
+	"version": "1.0.0",
 	"description": "Crowdsignal powered forms for WordPress",
 	"main": "index.js",
 	"scripts": {
@@ -40,6 +40,8 @@
 		"uuid": "^8.2.0"
 	},
 	"jest": {
-		"modulePaths": [ "client" ]
+		"modulePaths": [
+			"client"
+		]
 	}
 }

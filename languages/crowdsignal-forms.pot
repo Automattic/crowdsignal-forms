@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-07-27T13:38:00+00:00\n"
+"POT-Creation-Date: 2020-08-10T19:52:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0-alpha-c4c9f7e\n"
 "X-Domain: crowdsignal-forms\n"
@@ -87,7 +87,7 @@ msgid "Connect"
 msgstr ""
 
 #: includes/admin/class-crowdsignal-forms-settings.php:221
-msgid "If you don't have an API key we can help you here:"
+msgid "If you don't have an API key we can help you here: "
 msgstr ""
 
 #: includes/admin/views/html-admin-notice-core-setup.php:17
@@ -180,11 +180,11 @@ msgstr ""
 msgid "<a href=\"%1s\" target=\"_blank\">Read more about us here.</a>"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:149
+#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:155
 msgid "Untitled Poll"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:178
+#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:184
 msgid "Submit"
 msgstr ""
 
