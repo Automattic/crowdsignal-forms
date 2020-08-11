@@ -139,25 +139,28 @@ const SideBar = ( {
 	return (
 		<InspectorControls>
 			<PanelBody title={ __( 'Results' ) } initialOpen={ true }>
-				<p>
-					{ resultsLinkEnabled
-						? __( 'Manage results on ' )
-						: __( 'Publish this post to enable results on ' ) }
-					<ExternalLink
-						href={
-							resultsLinkEnabled
-								? viewResultsUrl
-								: 'https://www.crowdsignal.com'
-						}
-					>
-						crowdsignal.com
-					</ExternalLink>
-				</p>
-				<p className={ resultsLinkClasses }>
-					<Button href={ viewResultsUrl } isSecondary target="_blank">
-						{ __( 'View results' ) }
-					</Button>
-				</p>
+				<div className={ resultsLinkClasses }>
+					<p>
+						{ resultsLinkEnabled
+							? __( 'Manage results on: ' )
+							: __( 'Save this poll to enable results.' ) }
+						{ resultsLinkEnabled && (
+							<ExternalLink href={ viewResultsUrl }>
+								crowdsignal.com
+							</ExternalLink>
+						) }
+					</p>
+
+					<p>
+						<Button
+							href={ viewResultsUrl }
+							isSecondary
+							target="_blank"
+						>
+							{ __( 'View results' ) }
+						</Button>
+					</p>
+				</div>
 
 				<TextControl
 					value={ decodeEntities(
