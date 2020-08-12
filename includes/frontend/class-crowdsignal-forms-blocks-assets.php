@@ -68,7 +68,7 @@ class Crowdsignal_Forms_Blocks_Assets {
 			wp_register_script(
 				$id,
 				$this->url_path( $paths['script'] ),
-				array_merge( array( 'wp-url' ), $config['dependencies'] ), // fix for apiFetch dependency in some environments.
+				array_merge( array( 'wp-url', 'wp-editor' ), $config['dependencies'] ), // fix for apiFetch dependency in some environments.
 				$config['version'],
 				true
 			);
