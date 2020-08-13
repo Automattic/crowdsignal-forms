@@ -24,4 +24,24 @@ interface Crowdsignal_Forms_Block {
 	 * Registers the Gutenberg block.
 	 */
 	public function register();
+
+	/**
+	 * Returns a unique name for the block's registered assets.
+	 *
+	 * @return string The name for the registered assets.
+	 */
+	public function asset_identifier();
+
+	/**
+	 * Configuration array for the assets of the block.
+	 * Must conform to the following format:
+	 * array(
+	 *      'config' => '/build/poll.asset.php',
+	 *      'script' => '/build/poll.js',
+	 *      'style'  => '/build/poll.css',
+	 * )
+	 *
+	 * @return array The config array.
+	 */
+	public function assets();
 }

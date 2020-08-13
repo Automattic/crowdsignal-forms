@@ -21,7 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Crowdsignal_Forms_Blocks_Assets {
 
 	const EDITOR = 'crowdsignal-forms-editor';
-	const POLL   = 'crowdsignal-forms-poll';
 
 	/**
 	 * Returns an array containing js and css targets
@@ -30,18 +29,19 @@ class Crowdsignal_Forms_Blocks_Assets {
 	 * @return array
 	 */
 	private static function assets() {
-		return array(
-			self::EDITOR => array(
-				'config' => '/build/editor.asset.php',
-				'script' => '/build/editor.js',
-				'style'  => '/build/editor.css',
-			),
-			self::POLL   => array(
-				'config' => '/build/poll.asset.php',
-				'script' => '/build/poll.js',
-				'style'  => '/build/poll.css',
-			),
+		$assets = array();
+
+		foreach ( Crowdsignal_Forms_Blocks::blocks() as $block ) {
+			$assets[ $block->asset_identifier() ] = $block->assets();
+		}
+
+		$assets[ self::EDITOR ] = array(
+			'config' => '/build/editor.asset.php',
+			'script' => '/build/editor.js',
+			'style'  => '/build/editor.css',
 		);
+
+		return $assets;
 	}
 
 	/**

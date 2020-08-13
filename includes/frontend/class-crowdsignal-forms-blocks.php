@@ -23,22 +23,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Crowdsignal_Forms_Blocks {
 
 	/**
+	 * Collection of blocks to be registered.
+	 *
+	 * @var Blocks\Crowdsignal_Forms_Poll_Block[]
+	 */
+	private static $blocks = array();
+
+	/**
 	 * Returns a list containing all block classes
 	 *
 	 * @return array
 	 */
-	private static function blocks() {
-		return array(
-			Blocks\Crowdsignal_Forms_Poll_Block::class,
+	public static function blocks() {
+		if ( count( self::$blocks ) > 0 ) {
+			return self::$blocks;
+		}
+
+		self::$blocks = array(
+			new Blocks\Crowdsignal_Forms_Poll_Block(),
 		);
+
+		return self::$blocks;
 	}
 
 	/**
 	 * Registers Crowdsignal Forms' custom Gutenberg blocks
 	 */
 	public function register() {
-		foreach ( self::blocks() as $block_class ) {
-			$block = new $block_class();
+		foreach ( self::blocks() as $block ) {
 			$block->register();
 		}
 	}
