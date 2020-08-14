@@ -2,7 +2,6 @@
  * External dependencies
  */
 import React from 'react';
-import classnames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -129,38 +128,34 @@ const SideBar = ( {
 	};
 
 	const resultsLinkEnabled = '' !== viewResultsUrl;
-	const resultsLinkClasses = classnames(
-		'wp-block-crowdsignal-forms__view-results',
-		{
-			'is-disabled': ! resultsLinkEnabled,
-		}
-	);
 
 	return (
 		<InspectorControls>
 			<PanelBody title={ __( 'Results' ) } initialOpen={ true }>
-				<div className={ resultsLinkClasses }>
-					<p>
-						{ resultsLinkEnabled
-							? __( 'Manage results on: ' )
-							: __( 'Save this poll to enable results.' ) }
-						{ resultsLinkEnabled && (
-							<ExternalLink href={ viewResultsUrl }>
-								crowdsignal.com
-							</ExternalLink>
-						) }
-					</p>
-
-					<p>
-						<Button
-							href={ viewResultsUrl }
-							isSecondary
-							target="_blank"
-						>
-							{ __( 'View results' ) }
-						</Button>
-					</p>
-				</div>
+				<p>
+					{ resultsLinkEnabled
+						? __( 'Manage results on ' )
+						: __( 'Publish this post to enable results on ' ) }
+					<ExternalLink
+						href={
+							resultsLinkEnabled
+								? viewResultsUrl
+								: 'https://www.crowdsignal.com'
+						}
+					>
+						crowdsignal.com
+					</ExternalLink>
+				</p>
+				<p>
+					<Button
+						href={ viewResultsUrl }
+						isSecondary
+						target="_blank"
+						disabled={ ! resultsLinkEnabled }
+					>
+						{ __( 'View results' ) }
+					</Button>
+				</p>
 
 				<TextControl
 					value={ decodeEntities(
