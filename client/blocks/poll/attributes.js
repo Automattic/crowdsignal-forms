@@ -6,6 +6,7 @@ import {
 	ConfirmMessageType,
 	PollStatus,
 	ClosedPollState,
+	ButtonAlignment,
 } from './constants';
 import { __ } from 'lib/i18n';
 
@@ -120,5 +121,9 @@ export default {
 	closedAfterDateTime: {
 		type: 'string',
 		default: null,
+	},
+	buttonAlignment: {
+		type: 'string',
+		default: ButtonAlignment.LIST,
 	},
 };

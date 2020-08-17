@@ -10,8 +10,14 @@ import classnames from 'classnames';
  */
 import { decodeEntities } from '@wordpress/html-entities';
 
+/**
+ * Internal dependencies
+ */
+import { AnswerStyle } from 'blocks/poll/constants';
+
 const PollAnswer = ( {
 	answerIdFromApi,
+	answerStyle,
 	hasVoted,
 	isMultipleChoice,
 	isSelected,
@@ -22,20 +28,27 @@ const PollAnswer = ( {
 	text,
 } ) => {
 	const handleSelect = ( event ) =>
-		onSelect( parseInt( event.target.value, 10 ) );
+		onSelect( parseInt( event.target.attributes.answerid.value, 10 ) );
 
 	const handleFocus = ( event ) =>
-		onFocus( parseInt( event.target.value, 10 ) );
+		onFocus( parseInt( event.target.attributes.answerid.value, 10 ) );
+
+	const handleButtonVote = ( event ) => {
+		event.preventDefault();
+
+		handleSelect( event );
+	};
 
 	const classes = classnames( 'wp-block-crowdsignal-forms-poll__answer', {
 		'is-multiple-choice': isMultipleChoice,
 		'is-selected': isSelected,
 		'is-focused': isFocused,
+		'is-button': AnswerStyle.BUTTON === answerStyle,
 	} );
 
 	const answerElementId = `poll-answer-${ answerIdFromApi }`;
 
-	return (
+	const renderRadioAnswers = () => (
 		<label className={ classes } htmlFor={ answerElementId } tabIndex="-1">
 			<input
 				className="wp-block-crowdsignal-forms-poll__input"
@@ -44,7 +57,7 @@ const PollAnswer = ( {
 				onChange={ handleSelect }
 				selected={ isSelected }
 				type={ isMultipleChoice ? 'checkbox' : 'radio' }
-				value={ answerIdFromApi }
+				answerid={ answerIdFromApi }
 				disabled={ hasVoted || isVoting }
 				tabIndex="0"
 				aria-label={ text }
@@ -59,6 +72,25 @@ const PollAnswer = ( {
 				</span>
 			</div>
 		</label>
+	);
+
+	const renderButtonAnswers = () => (
+		<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
+			<input
+				type="submit"
+				className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
+				value={ decodeEntities( text ) }
+				answerid={ answerIdFromApi }
+				onClick={ handleButtonVote }
+			/>
+		</div>
+	);
+
+	return (
+		<div className={ classes }>
+			{ AnswerStyle.RADIO === answerStyle && renderRadioAnswers() }
+			{ AnswerStyle.BUTTON === answerStyle && renderButtonAnswers() }
+		</div>
 	);
 };
 

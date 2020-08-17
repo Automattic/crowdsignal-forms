@@ -15,9 +15,11 @@ import { decodeEntities } from '@wordpress/html-entities';
  * Internal dependencies
  */
 import { __ } from 'lib/i18n';
+import { AnswerStyle } from './constants';
 
 const EditAnswer = ( {
 	answer,
+	answerStyle,
 	index,
 	isMultipleChoice,
 	onChange,
@@ -36,14 +38,15 @@ const EditAnswer = ( {
 
 	const classes = classnames( 'wp-block-crowdsignal-forms-poll__answer', {
 		'is-multiple-choice': isMultipleChoice,
+		'is-button': AnswerStyle.BUTTON === answerStyle,
 	} );
 
-	return (
-		<div className={ classes }>
+	const renderRadioAnswers = () => (
+		<>
 			<span className="wp-block-crowdsignal-forms-poll__check" />
 
-			{ ! disabled ? (
-				<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
+			<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
+				{ ! disabled ? (
 					<RichText
 						className="wp-block-crowdsignal-forms-poll__answer-label"
 						tagName="span"
@@ -58,16 +61,47 @@ const EditAnswer = ( {
 						allowedFormats={ [] }
 						withoutInteractiveFormatting
 					/>
-				</div>
-			) : (
-				<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
+				) : (
 					<span className="wp-block-crowdsignal-forms-poll__answer-label">
 						{ answer.text
 							? decodeEntities( answer.text )
 							: __( 'Enter an answer' ) }
 					</span>
+				) }
+			</div>
+		</>
+	);
+
+	const renderButtonAnswers = () => (
+		<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
+			{ ! disabled ? (
+				<RichText
+					className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
+					placeholder={ __( 'Enter an answer' ) }
+					multiline={ false }
+					preserveWhiteSpace={ false }
+					onChange={ handleChangeText }
+					onSplit={ handleSplit }
+					onReplace={ noop }
+					onRemove={ handleDelete }
+					value={ answer.text }
+					allowedFormats={ [] }
+					withoutInteractiveFormatting
+				/>
+			) : (
+				<div className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button">
+					{ answer.text
+						? decodeEntities( answer.text )
+						: __( 'Enter an answer' ) }
 				</div>
 			) }
+		</div>
+	);
+
+	return (
+		<div className={ classes }>
+			{ AnswerStyle.RADIO === answerStyle && renderRadioAnswers() }
+			{ AnswerStyle.BUTTON === answerStyle && renderButtonAnswers() }
 		</div>
 	);
 };

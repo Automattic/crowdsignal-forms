@@ -50,4 +50,11 @@ export default {
 			],
 		},
 	},
+	styles: [
+		{
+			name: 'default',
+			label: __( 'Default' ),
+			isDefault: true,
+		},
+	],
 };

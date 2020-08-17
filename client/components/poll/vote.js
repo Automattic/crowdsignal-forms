@@ -4,15 +4,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { includes, map, without } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * Internal dependencies
  */
+import { AnswerStyle, ButtonAlignment } from 'blocks/poll/constants';
 import PollAnswer from './answer';
 import FooterBranding from './footer-branding';
 
 const PollVote = ( {
 	answers,
+	answerStyle,
+	buttonAlignment,
 	hasVoted,
 	isMultipleChoice,
 	isVoting,
@@ -23,6 +27,11 @@ const PollVote = ( {
 	const [ selected, setSelected ] = useState( [] );
 
 	const handleSelect = ( answerId ) => {
+		if ( AnswerStyle.BUTTON === answerStyle ) {
+			setSelected( [ answerId ] );
+			return onSubmit( [ answerId ] );
+		}
+
 		if ( ! isMultipleChoice ) {
 			return setSelected( [ answerId ] );
 		}
@@ -46,15 +55,25 @@ const PollVote = ( {
 		onSubmit( selected );
 	};
 
+	const classes = classnames(
+		{
+			'is-button': AnswerStyle.BUTTON === answerStyle,
+			'is-inline-button-alignment':
+				ButtonAlignment.INLINE === buttonAlignment,
+		},
+		'wp-block-crowdsignal-forms-poll__options'
+	);
+
 	return (
 		<form
 			className="wp-block-crowdsignal-forms-poll__form"
 			onSubmit={ handleSubmit }
 		>
-			<div className="wp-block-crowdsignal-forms__options">
+			<div className={ classes }>
 				{ map( answers, ( answer, index ) => (
 					<PollAnswer
 						key={ `poll-answer-${ index }` }
+						answerStyle={ answerStyle }
 						isMultipleChoice={ isMultipleChoice }
 						isSelected={ includes(
 							selected,
@@ -73,7 +92,7 @@ const PollVote = ( {
 				) ) }
 			</div>
 
-			{ ! hasVoted && (
+			{ ! hasVoted && AnswerStyle.RADIO === answerStyle && (
 				<div className="wp-block-crowdsignal-forms-poll__actions">
 					<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
 						<input

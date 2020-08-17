@@ -29,10 +29,12 @@ import EditAnswers from './edit-answers';
 import SideBar from './sidebar';
 import Toolbar from './toolbar';
 import {
+	getAnswerStyle,
 	getStyleVars,
 	getBlockCssClasses,
 	isPollClosed,
 	pollIdExistsInPageContent,
+	toggleButtonStyleAvailability,
 } from './util';
 import ErrorBanner from 'components/poll/error-banner';
 import { v4 as uuidv4 } from 'uuid';
@@ -114,8 +116,16 @@ const PollBlock = ( props ) => {
 		isSelected,
 	] );
 
+	useEffect( () => {
+		if ( isSelected ) {
+			toggleButtonStyleAvailability( ! attributes.isMultipleChoice );
+		}
+	}, [ attributes.isMultipleChoice, isSelected ] );
+
 	const showEditBar =
 		isSelected && wasBlockAddedBeforeLastPublish && ! isPollEditable;
+
+	const answerStyle = getAnswerStyle( attributes, className );
 
 	if ( attributes.fontFamily ) {
 		loadCustomFont( attributes.fontFamily );
@@ -183,6 +193,8 @@ const PollBlock = ( props ) => {
 							{ ...props }
 							setAttributes={ setAttributes }
 							disabled={ ! isPollEditable }
+							answerStyle={ answerStyle }
+							buttonAlignment={ attributes.buttonAlignment }
 						/>
 					) }
 

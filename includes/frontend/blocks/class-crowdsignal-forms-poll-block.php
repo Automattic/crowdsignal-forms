@@ -270,6 +270,10 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 				'type'    => 'boolean',
 				'default' => false,
 			),
+			'buttonAlignment'             => array(
+				'type'    => 'string',
+				'default' => 'list', // See: client/blocks/poll/constants.js.
+			),
 		);
 	}
 }

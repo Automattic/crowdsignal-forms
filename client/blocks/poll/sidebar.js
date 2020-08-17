@@ -34,11 +34,15 @@ import {
 	FontFamilyType,
 	PollStatus,
 	ClosedPollState,
+	AnswerStyle,
+	ButtonAlignment,
 } from './constants';
 import { __ } from 'lib/i18n';
+import { getAnswerStyle } from './util';
 
 const SideBar = ( {
 	attributes,
+	className,
 	setAttributes,
 	fallbackBackgroundColor,
 	fallbackTextColor,
@@ -127,7 +131,12 @@ const SideBar = ( {
 		setAttributes( { hasBoxShadow } );
 	};
 
+	const handleChangeButtonAlignment = ( buttonAlignment ) =>
+		setAttributes( { buttonAlignment } );
+
 	const resultsLinkEnabled = '' !== viewResultsUrl;
+
+	const answerStyle = getAnswerStyle( attributes, className );
 
 	return (
 		<InspectorControls>
@@ -453,6 +462,23 @@ const SideBar = ( {
 					}
 					fallbackTextColor={ fallbackSubmitButtonTextColor }
 				/>
+				{ AnswerStyle.BUTTON === answerStyle && (
+					<SelectControl
+						value={ attributes.buttonAlignment }
+						label={ __( 'Alignment' ) }
+						options={ [
+							{
+								value: ButtonAlignment.LIST,
+								label: __( 'List' ),
+							},
+							{
+								value: ButtonAlignment.INLINE,
+								label: __( 'Inline' ),
+							},
+						] }
+						onChange={ handleChangeButtonAlignment }
+					/>
+				) }
 			</PanelColorSettings>
 			<PanelBody title={ __( 'Answer settings' ) } initialOpen={ true }>
 				<CheckboxControl

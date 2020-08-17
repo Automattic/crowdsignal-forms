@@ -15,6 +15,7 @@ import { decodeEntities } from '@wordpress/html-entities';
  * Internal dependencies
  */
 import {
+	getAnswerStyle,
 	getStyleVars,
 	getBlockCssClasses,
 	isPollClosed,
@@ -133,6 +134,8 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		'wp-block-crowdsignal-forms-poll__content'
 	);
 
+	const answerStyle = getAnswerStyle( attributes, attributes.className );
+
 	if ( attributes.fontFamily ) {
 		loadCustomFont( attributes.fontFamily );
 	}
@@ -158,6 +161,8 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 				{ ! showResults && (
 					<PollVote
 						answers={ answers }
+						answerStyle={ answerStyle }
+						buttonAlignment={ attributes.buttonAlignment }
 						isMultipleChoice={ attributes.isMultipleChoice }
 						onSubmit={ handleSubmit }
 						submitButtonLabel={ attributes.submitButtonLabel }

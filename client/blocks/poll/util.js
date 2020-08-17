@@ -5,9 +5,20 @@ import classNames from 'classnames';
 import { includes, isEmpty, kebabCase, mapKeys, some } from 'lodash';
 
 /**
+ * WordPress dependencies
+ */
+import { registerBlockStyle, unregisterBlockStyle } from '@wordpress/blocks';
+
+/**
  * Internal dependencies
  */
-import { FontFamilyType, FontFamilyMap, PollStatus } from './constants';
+import {
+	FontFamilyType,
+	FontFamilyMap,
+	PollStatus,
+	AnswerStyle,
+} from './constants';
+import { __ } from 'lib/i18n';
 
 /**
  * Creates a new Answer object then returns a copy of the passed in `answers` array with the new answer appended to it.
@@ -187,4 +198,41 @@ export const pollIdExistsInPageContent = ( pollId, postContent ) => {
 		const poll = JSON.parse( pollJsonString );
 		return poll.pollId && poll.pollId === pollId;
 	} );
+};
+
+/**
+ * Returns the type of answer controls that should be rendered given the current state of the block.
+ *
+ * @param {*} attributes the poll's attributes.
+ * @param {string} className the css class string Gutenberg is passing into the block.
+ */
+export const getAnswerStyle = ( attributes, className ) => {
+	if ( attributes.isMultipleChoice ) {
+		return AnswerStyle.RADIO;
+	}
+
+	if (
+		! isEmpty( className ) &&
+		className.indexOf( 'is-style-buttons' ) > -1
+	) {
+		return AnswerStyle.BUTTON;
+	}
+
+	return AnswerStyle.RADIO;
+};
+
+/**
+ * Registers or de-registers the `buttons` block style.
+ *
+ * @param {boolean} enable True if button style should be available, false if not.
+ */
+export const toggleButtonStyleAvailability = ( enable ) => {
+	if ( enable ) {
+		registerBlockStyle( 'crowdsignal-forms/poll', {
+			name: 'buttons',
+			label: __( 'Buttons' ),
+		} );
+	} else {
+		unregisterBlockStyle( 'crowdsignal-forms/poll', 'buttons' );
+	}
 };

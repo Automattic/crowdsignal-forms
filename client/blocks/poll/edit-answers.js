@@ -3,6 +3,7 @@
  */
 import React, { useRef } from 'react';
 import { filter, last, map, slice, tap } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -14,6 +15,7 @@ import { RichText } from '@wordpress/block-editor';
  */
 import EditAnswer from './edit-answer';
 import { isAnswerEmpty } from 'components/poll/util';
+import { AnswerStyle, ButtonAlignment } from './constants';
 
 const shiftAnswerFocus = ( wrapper, index ) =>
 	tap(
@@ -21,7 +23,14 @@ const shiftAnswerFocus = ( wrapper, index ) =>
 		( answer ) => answer && answer.focus()
 	);
 
-const EditAnswers = ( { attributes, isSelected, setAttributes, disabled } ) => {
+const EditAnswers = ( {
+	attributes,
+	isSelected,
+	setAttributes,
+	disabled,
+	answerStyle,
+	buttonAlignment,
+} ) => {
 	const answersContainer = useRef();
 
 	const handleChangeSubmitButtonLabel = ( submitButtonLabel ) =>
@@ -78,12 +87,20 @@ const EditAnswers = ( { attributes, isSelected, setAttributes, disabled } ) => {
 			? [ ...attributes.answers, {} ]
 			: attributes.answers;
 
+	const classes = classnames(
+		{
+			'is-button': AnswerStyle.BUTTON === answerStyle,
+			'is-inline-button-alignment':
+				ButtonAlignment.INLINE === buttonAlignment,
+		},
+		'wp-block-crowdsignal-forms-poll__options'
+	);
+
+	const showSubmitButton = AnswerStyle.RADIO === answerStyle;
+
 	return (
 		<>
-			<div
-				ref={ answersContainer }
-				className="wp-block-crowdsignal-forms-poll__options"
-			>
+			<div ref={ answersContainer } className={ classes }>
 				{ map(
 					editableAnswers,
 					( answer, index ) =>
@@ -91,6 +108,7 @@ const EditAnswers = ( { attributes, isSelected, setAttributes, disabled } ) => {
 							<EditAnswer
 								key={ `poll-answer-${ index }` }
 								answer={ answer }
+								answerStyle={ answerStyle }
 								index={ index }
 								isMultipleChoice={ attributes.isMultipleChoice }
 								onChange={ handleChangeAnswer }
@@ -102,22 +120,24 @@ const EditAnswers = ( { attributes, isSelected, setAttributes, disabled } ) => {
 				) }
 			</div>
 
-			<div className="wp-block-crowdsignal-forms-poll__actions">
-				<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
-					{ ! disabled ? (
-						<RichText
-							className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
-							onChange={ handleChangeSubmitButtonLabel }
-							value={ attributes.submitButtonLabel }
-							allowedFormats={ [] }
-						/>
-					) : (
-						<div className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button">
-							{ attributes.submitButtonLabel }
-						</div>
-					) }
+			{ showSubmitButton && (
+				<div className="wp-block-crowdsignal-forms-poll__actions">
+					<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
+						{ ! disabled ? (
+							<RichText
+								className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
+								onChange={ handleChangeSubmitButtonLabel }
+								value={ attributes.submitButtonLabel }
+								allowedFormats={ [] }
+							/>
+						) : (
+							<div className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button">
+								{ attributes.submitButtonLabel }
+							</div>
+						) }
+					</div>
 				</div>
-			</div>
+			) }
 		</>
 	);
 };

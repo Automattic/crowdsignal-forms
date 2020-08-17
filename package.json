@@ -42,6 +42,10 @@
 	"jest": {
 		"modulePaths": [
 			"client"
-		]
+		],
+		"moduleNameMapper": {
+			"@wordpress/blocks": "<rootDir>/tests-js/mocks/blocks.js",
+			"@wordpress/i18n": "<rootDir>/tests-js/mocks/i18n.js"
+		}
 	}
 }

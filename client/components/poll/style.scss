@@ -15,6 +15,9 @@
 	border-color: var(--crowdsignal-forms-border-color);
 	border-style: solid;
 	border-width: var(--crowdsignal-forms-border-width);
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 5px;
 	position: relative;
 	text-align: left;
 
@@ -115,14 +118,45 @@
 	}
 }
 
+.wp-block-crowdsignal-forms-poll__options.is-button {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+
+	&.is-inline-button-alignment {
+		flex-direction: row;
+	}
+}
+
 .wp-block-crowdsignal-forms-poll__answer {
 	cursor: pointer;
 	display: flex;
 	font-size: inherit;
 	font-weight: 600;
-	margin: 0 0 16px;
+	margin: 0;
 	padding: 0 2px;
 	position: relative;
+
+	&.is-button {
+		margin-inline-end: 20px;
+		margin-block-end: 20px;
+		max-width: 100%;
+
+		.wp-block-button.wp-block-crowdsignal-forms-poll__block-button,
+		.wp-block-crowdsignal-forms-poll__submit-button {
+			max-width: 100%;
+		}
+
+		.wp-block-crowdsignal-forms-poll__submit-button {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	}
+
+	&:not(.is-button) {
+		margin-block-end: 16px;
+	}
 
 	&:hover,
 	&.is-focused {
@@ -226,16 +260,21 @@ div.wp-block-crowdsignal-forms-poll__answer-label-wrapper {
 	padding: 0;
 }
 
-.wp-block-crowdsignal-forms-poll__actions {
-	display: flex;
-	justify-content: flex-end;
+.wp-block-crowdsignal-forms-poll__actions,
+.wp-block-crowdsignal-forms-poll__options {
 
 	.wp-block-button {
 		margin: 0;
 	}
 }
 
-.editor-styles-wrapper .wp-block-crowdsignal-forms-poll .wp-block-crowdsignal-forms-poll__actions {
+.wp-block-crowdsignal-forms-poll__actions {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.editor-styles-wrapper .wp-block-crowdsignal-forms-poll .wp-block-crowdsignal-forms-poll__actions,
+.editor-styles-wrapper .wp-block-crowdsignal-forms-poll .wp-block-crowdsignal-forms-poll__options {
 
 	.wp-block-button.wp-block-crowdsignal-forms-poll__block-button {
 		margin: 0;

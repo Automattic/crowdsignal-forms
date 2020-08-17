@@ -16,6 +16,7 @@ import { Toolbar } from '@wordpress/components';
 import ChecklistMultipleChoiceIcon from 'components/icon/checklist-multiple-choice';
 import ChecklistSingleChoiceIcon from 'components/icon/checklist-single-choice';
 import { __ } from 'lib/i18n';
+import { toggleButtonStyleAvailability } from './util';
 
 const multipleChoiceControls = [
 	{
@@ -34,7 +35,11 @@ const PollToolbar = ( { attributes, setAttributes } ) => {
 	const multipleChoiceToolbar = map( multipleChoiceControls, ( button ) => ( {
 		...button,
 		isActive: button.value === attributes.isMultipleChoice,
-		onClick: () => setAttributes( { isMultipleChoice: button.value } ),
+		onClick: () => {
+			setAttributes( { isMultipleChoice: button.value } );
+
+			toggleButtonStyleAvailability( button.value );
+		},
 	} ) );
 
 	return (
