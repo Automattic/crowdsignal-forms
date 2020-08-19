@@ -2,6 +2,13 @@
 @import "./shared/variables.scss";
 
 // Components
+
+// Poll
 @import "blocks/poll/edit.scss";
 @import "components/poll/style.scss";
 @import "components/with-fallback-styles/style.scss";
+
+// Vote
+@import "blocks/vote/edit.scss";
+@import "blocks/vote-item/edit.scss";
+@import "components/vote/style.scss";

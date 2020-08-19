@@ -18,6 +18,7 @@ client:
 	npm run build:styles
 	npm run build:editor
 	npm run build:poll
+	npm run build:vote
 
 # Package for release
 release: clean-release install-node client pot

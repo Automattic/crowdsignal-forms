@@ -11,7 +11,6 @@ namespace Crowdsignal_Forms\Frontend\Blocks;
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks_Assets;
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Block;
 use Crowdsignal_Forms\Crowdsignal_Forms;
-use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

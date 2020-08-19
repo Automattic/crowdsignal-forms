@@ -41,6 +41,8 @@ class Crowdsignal_Forms_Blocks {
 
 		self::$blocks = array(
 			new Blocks\Crowdsignal_Forms_Poll_Block(),
+			new Blocks\Crowdsignal_Forms_Vote_Block(),
+			new Blocks\Crowdsignal_Forms_Vote_Item_Block(),
 		);
 
 		return self::$blocks;
