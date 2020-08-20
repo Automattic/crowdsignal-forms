@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package  Crowdsignal_Forms\Frontend\Blocks
  * @since    0.9.0
  */
-class Crowdsignal_Forms_Vote_Item_Block implements Crowdsignal_Forms_Block {
+class Crowdsignal_Forms_Vote_Item_Block extends Crowdsignal_Forms_Block {
 
 	/**
 	 * {@inheritDoc}
