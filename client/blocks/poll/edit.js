@@ -41,7 +41,8 @@ import ErrorBanner from 'components/poll/error-banner';
 import { v4 as uuidv4 } from 'uuid';
 import EditBar from './edit-bar';
 import { startSubscriptions, startPolling } from './subscriptions';
-import ConnectToCrowdsignal from './connect-to-crowdsignal';
+import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
+import PollIcon from 'components/icon/poll';
 
 startSubscriptions();
 
@@ -187,7 +188,10 @@ const PollBlock = ( props ) => {
 	}
 
 	return (
-		<ConnectToCrowdsignal>
+		<ConnectToCrowdsignal
+			blockIcon={ <PollIcon /> }
+			blockName={ __( 'Crowdsignal Poll' ) }
+		>
 			<Toolbar { ...props } />
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 

@@ -2,6 +2,7 @@
 @import "./shared/variables.scss";
 
 // Components
+@import "components/connect-to-crowdsignal/style.scss";
 
 // Poll
 @import "blocks/poll/edit.scss";

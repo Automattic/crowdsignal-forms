@@ -7,10 +7,10 @@ import { Button } from '@wordpress/components';
  * Internal dependencies
  */
 import { __ } from 'lib/i18n';
-import PollIcon from 'components/icon/poll';
 import { useIsCsConnected } from 'data/hooks';
 
 const ConnectToCrowdsignal = ( props ) => {
+	const { blockIcon, blockName, children } = props;
 	const {
 		isConnected,
 		isAccountVerified,
@@ -33,7 +33,7 @@ const ConnectToCrowdsignal = ( props ) => {
 	};
 
 	if ( isConnected && isAccountVerified ) {
-		return props.children;
+		return children;
 	}
 
 	const showConnectionMessage = ! isConnected;
@@ -42,9 +42,9 @@ const ConnectToCrowdsignal = ( props ) => {
 	return (
 		<div className="crowdsignal-forms__connect-to-crowdsignal">
 			<div className="crowdsignal-forms__connect-to-crowdsignal-header">
-				<PollIcon />
+				{ blockIcon }
 				<div className="crowdsignal-forms__connect-to-crowdsignal-title">
-					{ __( 'Crowdsignal Poll' ) }
+					{ blockName }
 				</div>
 			</div>
 			<div className="crowdsignal-forms__connect-to-crowdsignal-body">
