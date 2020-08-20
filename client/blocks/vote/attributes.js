@@ -8,4 +8,8 @@ export default {
 		type: 'string',
 		default: null,
 	},
+	title: {
+		type: 'string',
+		default: null,
+	},
 };

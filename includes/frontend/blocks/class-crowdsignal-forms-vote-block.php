@@ -156,6 +156,10 @@ class Crowdsignal_Forms_Vote_Block implements Crowdsignal_Forms_Block {
 				'type'    => 'boolean',
 				'default' => false,
 			),
+			'title'        => array(
+				'type'    => 'string',
+				'default' => null,
+			),
 		);
 	}
 }
