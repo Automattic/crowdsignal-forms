@@ -10,7 +10,7 @@ import attributes from './attributes';
 export default {
 	title: __( 'Vote Item' ),
 	description: __( 'Vote Item — powered by Crowdsignal.' ),
-	category: __( 'widgets' ),
+	category: 'crowdsignal-forms',
 	parent: [ 'crowdsignal-forms/vote' ],
 	// icon: <PollIcon />,
 	edit: EditVoteItemBlock,

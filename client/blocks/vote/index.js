@@ -17,7 +17,7 @@ export default {
 	description: __(
 		'<NEED A PROPER DESCRIPTION HERE> — powered by Crowdsignal.'
 	),
-	category: 'widgets',
+	category: 'crowdsignal-forms',
 	keywords: [ 'crowdsignal', __( 'vote' ), __( 'thumbs' ), __( 'like' ) ],
 	// icon: <PollIcon />,
 	edit: EditVoteBlock,

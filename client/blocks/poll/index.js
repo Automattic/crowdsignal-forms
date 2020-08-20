@@ -12,7 +12,7 @@ export default {
 	description: __(
 		'Create polls and get your audience’s opinion — powered by Crowdsignal.'
 	),
-	category: 'widgets',
+	category: 'crowdsignal-forms',
 	keywords: [
 		__( 'ask' ),
 		'crowdsignal',
