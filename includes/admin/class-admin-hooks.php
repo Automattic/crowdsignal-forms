@@ -12,6 +12,9 @@ use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
 use Crowdsignal_Forms\Models\Poll;
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
+use Crowdsignal_Forms\Synchronization\Post_Sync_Entity;
+use Crowdsignal_Forms\Synchronization\Comment_Sync_Entity;
+use Crowdsignal_Forms\Synchronization\Poll_Block_Synchronizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -67,31 +70,59 @@ class Admin_Hooks {
 		}
 
 		add_action( 'save_post', array( $this, 'save_polls_to_api' ), 10, 3 );
+		/**
+		 * Should we synchronize poll blocks in comments too?
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool $should_sync Synchronize the poll blocks in comments.
+		 * @return bool
+		 */
+		$should_sync_comment_polls = (bool) apply_filters( 'crowdsignal_forms_should_sync_comment_polls', false );
+		if ( $should_sync_comment_polls ) {
+			add_action( 'comment_post', array( $this, 'save_polls_to_api_from_new_comment' ), 10, 3 );
+			add_action( 'edit_comment', array( $this, 'save_polls_to_api_from_updated_comment' ), 10, 2 );
+		}
 
 		return $this;
 	}
 
 	/**
-	 * Check if the block has a pollId attr.
+	 * Save polls in new comments.
 	 *
-	 * @param array $attrs The attrs.
-	 * @since 0.9.0
+	 * @param  int        $comment_id       The comment id.
+	 * @param int|string $comment_approved Comment approved status.
+	 * @param array      $commentdata      The comment data.
 	 *
-	 * @return bool
+	 * @return void|bool
+	 *
+	 * @throws \Exception In case of bad request. This is temporary.
+	 *
+	 * @since 1.0.0
 	 */
-	private static function is_saved_poll( $attrs ) {
-		return isset( $attrs[ Poll::POLL_ID_BLOCK_ATTRIBUTE ] ) &&
-			! empty( $attrs[ Poll::POLL_ID_BLOCK_ATTRIBUTE ] );
+	public function save_polls_to_api_from_new_comment( $comment_id, $comment_approved, $commentdata ) {
+		$saver        = new Comment_Sync_Entity( $comment_id, $comment_approved, $commentdata );
+		$synchronizer = new Poll_Block_Synchronizer( $saver );
+		return $synchronizer->synchronize();
+
 	}
 
 	/**
-	 * Return the meta key for a poll block client ID.
+	 * Save polls in updated comments.
 	 *
-	 * @param string $poll_id_on_block The client id.
-	 * @return string
+	 * @param int   $comment_id  The comment id.
+	 * @param array $commentdata The comment data.
+	 *
+	 * @return void|bool
+	 *
+	 * @throws \Exception In case of bad request. This is temporary.
+	 *
+	 * @since 1.0.0
 	 */
-	private function get_poll_meta_key( $poll_id_on_block ) {
-		return '_cs_poll_' . $poll_id_on_block;
+	public function save_polls_to_api_from_updated_comment( $comment_id, $commentdata ) {
+		$saver        = new Comment_Sync_Entity( $comment_id, null, $commentdata );
+		$synchronizer = new Poll_Block_Synchronizer( $saver );
+		return $synchronizer->synchronize();
 	}
 
 	/**
@@ -102,49 +133,14 @@ class Admin_Hooks {
 	 * @param bool     $is_update Is this an update.
 	 *
 	 * @since 0.9.0
-	 * @return void
+	 * @return void|bool
+	 *
 	 * @throws \Exception In case of bad request. This is temporary.
 	 */
 	public function save_polls_to_api( $post_ID, $post, $is_update = false ) {
-		if ( wp_is_post_autosave( $post_ID ) || wp_is_post_revision( $post_ID ) || 'trash' === $post->post_status ) {
-			return;
-		}
-
-		$poll_ids_saved_in_post = get_post_meta( $post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, true );
-		if ( ! has_blocks( $post ) || ! has_block( 'crowdsignal-forms/poll', $post ) ) {
-			// No poll blocks, proactively archive any polls that were previously saved.
-			$this->archive_polls_with_ids( $poll_ids_saved_in_post );
-			return;
-		}
-
-		$authenticator = Crowdsignal_Forms::instance()->get_api_authenticator();
-		if ( ! $authenticator->get_user_code() ) {
-			// Plugin hasn't been authenticated yet, don't try to sync the block.
-			return;
-		}
-
-		$content = $post->post_content;
-		$blocks  = parse_blocks( $content );
-
-		$poll_ids_present_in_content = array();
-		$gateway                     = Crowdsignal_Forms::instance()->get_api_gateway();
-
-		$poll_ids_saved_in_post = get_post_meta( $post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, true );
-
-		if ( empty( $poll_ids_saved_in_post ) ) {
-			$poll_ids_saved_in_post = array();
-		}
-
-		$this->process_blocks( $blocks, $post_ID, $gateway, $poll_ids_present_in_content );
-
-		$poll_ids_to_archive = array_diff( $poll_ids_saved_in_post, $poll_ids_present_in_content );
-		$this->archive_polls_with_ids( $poll_ids_to_archive );
-
-		if ( empty( $poll_ids_saved_in_post ) ) {
-			add_post_meta( $post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
-		} else {
-			update_post_meta( $post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
-		}
+		$saver        = new Post_Sync_Entity( $post_ID, $post, $is_update );
+		$synchronizer = new Poll_Block_Synchronizer( $saver );
+		return $synchronizer->synchronize();
 	}
 
 	/**

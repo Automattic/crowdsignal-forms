@@ -68,7 +68,7 @@ class Polls_Controller {
 		// GET polls/:poll_id route.
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>\d+)',
+			'/' . $this->rest_base . '/(?P<poll_id>[a-zA-Z0-9\-\_]+)',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
@@ -82,7 +82,7 @@ class Polls_Controller {
 		// GET polls/:poll_id/results route.
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>\d+)/results',
+			'/' . $this->rest_base . '/(?P<poll_id>[a-zA-Z0-9\-\_]+)/results',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
@@ -289,17 +289,39 @@ class Polls_Controller {
 	 **/
 	public function get_poll( $request ) {
 		$poll_id = $request->get_param( 'poll_id' );
-		if ( null === $poll_id || ! is_numeric( $poll_id ) ) {
+		if ( null === $poll_id ) {
 			return new \WP_Error(
 				'invalid-poll-id',
 				__( 'Invalid poll ID', 'crowdsignal-forms' ),
 				array( 'status' => 400 )
 			);
 		}
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$use_cached = isset( $_REQUEST['cached'] );
+
+		if ( ! is_numeric( $poll_id ) ) {
+			$poll_client_id     = $poll_id;
+			$poll_saved_in_meta = Crowdsignal_Forms::instance()
+				->get_post_poll_meta_gateway()
+				->get_poll_data_for_poll_client_id( null, $poll_client_id );
+
+			if ( empty( $poll_saved_in_meta ) ) {
+				return $this->resource_not_found();
+			}
+
+			if ( $use_cached ) {
+				return rest_ensure_response( Poll::from_array( $poll_saved_in_meta )->to_array() );
+			}
+
+			$poll_id = $poll_saved_in_meta['id'];
+		}
 		$poll = Crowdsignal_Forms::instance()->get_api_gateway()->get_poll( $poll_id );
+
 		if ( is_wp_error( $poll ) ) {
 			return rest_ensure_response( $poll );
 		}
+
 		return rest_ensure_response( $poll->to_array() );
 	}
 
@@ -308,7 +330,7 @@ class Polls_Controller {
 	 *
 	 * @since 0.9.0
 	 *
-	 * @param \WP_REST_Request $request
+	 * @param \WP_REST_Request $request The HTTP request.
 	 *
 	 * @return \WP_REST_Response|\WP_Error
 	 **/
@@ -395,7 +417,7 @@ class Polls_Controller {
 		return array(
 			'poll_id' => array(
 				'validate_callback' => function( $param, $request, $key ) {
-					return is_numeric( $param );
+					return true;
 				},
 			),
 		);

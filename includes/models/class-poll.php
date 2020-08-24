@@ -119,7 +119,9 @@ class Poll {
 			$poll->set_client_id( $data['client_id'] );
 		}
 
-		if ( isset( $data['post_id'] ) ) {
+		if ( isset( $data['comment_id'] ) ) {
+			$poll->set_source_link( \get_comment_link( $data['comment_id'] ) );
+		} elseif ( isset( $data['post_id'] ) ) {
 			// v2 will carry both edit and view links, leaving this commented for the future
 			// $source_link = trim( admin_url( 'post.php?post=' . $data['post_id'] . '&action=edit' ) );
 			// $poll->set_source_link( $source_link );.

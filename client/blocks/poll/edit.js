@@ -8,8 +8,9 @@ import { filter, map, some } from 'lodash';
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { withSelect } from '@wordpress/data';
+import { withSelect, withDispatch } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
+import { compose } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -39,10 +40,12 @@ import {
 import ErrorBanner from 'components/poll/error-banner';
 import { v4 as uuidv4 } from 'uuid';
 import EditBar from './edit-bar';
-import { startSubscriptions } from './subscriptions';
+import { startSubscriptions, startPolling } from './subscriptions';
 import ConnectToCrowdsignal from './connect-to-crowdsignal';
 
 startSubscriptions();
+
+const isP2tenberg = () => 'p2tenberg' in window;
 
 const withPollAndAnswerIds = ( Element ) => {
 	return ( props ) => {
@@ -78,7 +81,25 @@ const PollBlock = ( props ) => {
 		setAttributes,
 		renderStyleProbe,
 		pollDataFromApi,
+		addPollClientId,
+		removePollClientId,
 	} = props;
+
+	useEffect( () => {
+		if ( isP2tenberg() ) {
+			startPolling();
+		}
+
+		if ( attributes.pollId ) {
+			addPollClientId( attributes.pollId );
+		}
+
+		return () => {
+			if ( attributes.pollId ) {
+				removePollClientId( attributes.pollId );
+			}
+		};
+	}, [] );
 
 	const [ isPollEditable, setIsPollEditable ] = useState( true );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
@@ -227,17 +248,40 @@ const PollBlock = ( props ) => {
 	);
 };
 
-export default withFallbackStyles(
-	PollStyles,
-	getPollStyles
-)(
+export default compose( [
+	withFallbackStyles( PollStyles, getPollStyles ),
 	withSelect( ( select, ownProps ) => {
+		const {
+			getPollDataByClientId,
+			shouldTryFetchingPollData,
+			isFetchingPollData,
+		} = select( 'crowdsignal-forms/polls' );
 		const { attributes } = ownProps;
 		const pollDataFromApi = attributes.pollId
-			? select( 'crowdsignal-forms/polls' ).getPollDataByClientId(
-					attributes.pollId
-			  )
+			? getPollDataByClientId( attributes.pollId )
 			: null;
-		return { pollDataFromApi };
-	} )( withPollAndAnswerIds( PollBlock ) )
-);
+		return {
+			pollDataFromApi,
+			getPollDataByClientId,
+			shouldTryFetchingPollData,
+			isFetchingPollData,
+		};
+	} ),
+	withDispatch( ( dispatch ) => {
+		const {
+			setTryFetchPollData,
+			setPollApiDataForClientId,
+			setIsFetchingPollData,
+			addPollClientId,
+			removePollClientId,
+		} = dispatch( 'crowdsignal-forms/polls' );
+
+		return {
+			setTryFetchPollData,
+			setPollApiDataForClientId,
+			setIsFetchingPollData,
+			addPollClientId,
+			removePollClientId,
+		};
+	} ),
+] )( withPollAndAnswerIds( PollBlock ) );

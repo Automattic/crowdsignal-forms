@@ -31,7 +31,31 @@ class Post_Poll_Meta_Gateway {
 	 * @return array
 	 */
 	public function get_poll_data_for_poll_client_id( $post_id, $client_id ) {
-		$platform_poll_data = (array) get_post_meta( $post_id, $this->get_poll_meta_key( $client_id ), true );
+		global $wpdb;
+
+		if ( null === $client_id ) {
+			return array();
+		}
+
+		$poll_meta_key = $this->get_poll_meta_key( $client_id );
+		if ( null === $post_id ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+			$platform_poll_data_row = (array) $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT * from {$wpdb->postmeta} where meta_key = %s LIMIT 1",
+					$poll_meta_key
+				)
+			);
+
+			if ( ! empty( $platform_poll_data_row && isset( $platform_poll_data_row['meta_value'] ) ) ) {
+				$platform_poll_data = maybe_unserialize( $platform_poll_data_row['meta_value'] );
+			} else {
+				$platform_poll_data = array();
+			}
+		} else {
+			$platform_poll_data = (array) get_post_meta( $post_id, $poll_meta_key, true );
+		}
+
 		if ( empty( $platform_poll_data ) ) {
 			return array();
 		}
