@@ -102,4 +102,26 @@ abstract class Crowdsignal_Forms_Block {
 
 		return self::$is_cs_connected;
 	}
+
+	/**
+	 * Retrieves the saved crowdsignal poll data.
+	 *
+	 * @param string $poll_id The client id of the poll.
+	 * @returns array|null
+	 */
+	protected function get_platform_poll_data( $poll_id ) {
+		if ( ! isset( $poll_id ) ) {
+			return null;
+		}
+
+		$post = get_post();
+
+		if ( null === $post ) {
+			return null;
+		}
+
+		return Crowdsignal_Forms::instance()
+			->get_post_poll_meta_gateway()
+			->get_poll_data_for_poll_client_id( $post->ID, $poll_id );
+	}
 }

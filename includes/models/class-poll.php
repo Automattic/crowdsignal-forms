@@ -79,6 +79,14 @@ class Poll {
 	private $note = '';
 
 	/**
+	 * The poll based block type.
+	 *
+	 * @since 1.1.0
+	 * @var string
+	 */
+	private $poll_type = '';
+
+	/**
 	 * Poll constructor.
 	 *
 	 * @param int           $id The id.
@@ -132,14 +140,46 @@ class Poll {
 	}
 
 	/**
+	 * Processes the block data to convert a poll based block to a poll model.
+	 *
+	 * @param mixed $block
+	 * @return $this
+	 * @since 1.1.0
+	 */
+	public function update_from_block( $block ) {
+		$this->set_poll_type( str_replace( 'crowdsignal-forms/', '', $block['blockName'] ) );
+
+		$attrs = $block['attrs'];
+
+		if ( 'crowdsignal-forms/poll' === $block['blockName'] ) {
+			return $this->update_from_block_attrs( $attrs, $attrs['answers'] );
+		}
+
+		if ( 'crowdsignal-forms/vote' === $block['blockName'] ) {
+			$answers = array();
+
+			foreach ( $block['innerBlocks'] as $child ) {
+				$child_attrs         = $child['attrs'];
+				$child_attrs['text'] = $child_attrs['type'];
+				$answers[]           = $child_attrs;
+			}
+
+			return $this->update_from_block_attrs( $attrs, $answers );
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Update this poll from the block attrs.
 	 *
 	 * @param array $attrs The block attrs.
+	 * @param array $answers The answer attributes.
 	 * @return $this
 	 */
-	public function update_from_block_attrs( $attrs ) {
+	public function update_from_block_attrs( $attrs, $answers ) {
 		$this->client_id   = $attrs['pollId'] ? $attrs['pollId'] : '';
-		$attribute_answers = isset( $attrs['answers'] ) ? $attrs['answers'] : array();
+		$attribute_answers = isset( $answers ) ? $answers : array();
 		$this->question    = isset( $attrs['question'] ) ? $attrs['question'] : '';
 		$this->note        = isset( $attrs['note'] ) ? $attrs['note'] : '';
 
@@ -234,6 +274,26 @@ class Poll {
 	}
 
 	/**
+	 * Get the poll type.
+	 *
+	 * @return string
+	 */
+	public function get_poll_type() {
+		return $this->poll_type;
+	}
+
+	/**
+	 * Set the poll type.
+	 *
+	 * @param string $poll_type The poll type.
+	 * @return $this
+	 */
+	public function set_poll_type( $poll_type ) {
+		$this->poll_type = $poll_type;
+		return $this;
+	}
+
+	/**
 	 * Transform the poll into an array for sending to the api or the frontend.
 	 *
 	 * @since 0.9.0
@@ -261,6 +321,10 @@ class Poll {
 
 		if ( ! empty( $this->client_id ) ) {
 			$data['client_id'] = $this->client_id;
+		}
+
+		if ( ! empty( $this->poll_type ) ) {
+			$data['poll_type'] = $this->poll_type;
 		}
 
 		return $data;

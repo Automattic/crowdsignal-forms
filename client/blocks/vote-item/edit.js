@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import SideBar from './sidebar';
+import withClientId from 'components/with-client-id';
 
 const EditVoteItemBlock = ( props ) => {
 	const { attributes, className } = props;
@@ -18,4 +19,4 @@ const EditVoteItemBlock = ( props ) => {
 	);
 };
 
-export default EditVoteItemBlock;
+export default withClientId( EditVoteItemBlock, 'answerId' );

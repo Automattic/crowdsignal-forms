@@ -4,7 +4,7 @@
  *       inside includes/frontend/blocks/class-crowdsignal-forms-vote-block.php.
  */
 export default {
-	voteId: {
+	pollId: {
 		type: 'string',
 		default: null,
 	},

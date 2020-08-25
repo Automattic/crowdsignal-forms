@@ -146,7 +146,7 @@ class Poll_Block_Synchronizer {
 			$blocks_to_process_next_iteration = array();
 
 			foreach ( $blocks_to_process as $block ) {
-				if ( 'crowdsignal-forms/poll' === $block['blockName'] ) {
+				if ( in_array( $block['blockName'], array( 'crowdsignal-forms/poll', 'crowdsignal-forms/vote' ), true ) ) {
 					$poll_blocks[] = $block;
 					continue;
 				}
@@ -173,7 +173,7 @@ class Poll_Block_Synchronizer {
 
 			$poll = Poll::from_array( $platform_poll_data );
 
-			$poll->update_from_block_attrs( $poll_block['attrs'] );
+			$poll->update_from_block( $poll_block );
 			if ( $poll->get_id() < 1 ) {
 				$result = $this->gateway->create_poll( $poll );
 			} else {

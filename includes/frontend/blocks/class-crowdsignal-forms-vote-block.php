@@ -73,8 +73,10 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 		wp_enqueue_style( $this->asset_identifier() );
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
-
-		// todo: add apiVote data to attributes here (see poll block).
+		$platform_poll_data         = $this->get_platform_poll_data( $attributes['pollId'] );
+		if ( ! empty( $platform_poll_data ) ) {
+			$attributes['apiPollData'] = $platform_poll_data;
+		}
 
 		return sprintf(
 			'<div class="crowdsignal-vote-wrapper" data-crowdsignal-vote="%s">%s</div>',
@@ -102,7 +104,7 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'voteId'       => array(
+			'pollId'       => array(
 				'type'    => 'string',
 				'default' => null,
 			),

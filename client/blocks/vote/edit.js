@@ -14,6 +14,7 @@ import { InnerBlocks } from '@wordpress/block-editor';
 import SideBar from './sidebar';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import { __ } from 'lib/i18n';
+import withClientId from 'components/with-client-id';
 
 const EditVoteBlock = ( props ) => {
 	const { className } = props;
@@ -38,4 +39,4 @@ const EditVoteBlock = ( props ) => {
 	);
 };
 
-export default EditVoteBlock;
+export default withClientId( EditVoteBlock, 'pollId' );

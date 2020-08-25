@@ -72,15 +72,9 @@ class Crowdsignal_Forms_Poll_Block extends Crowdsignal_Forms_Block {
 		wp_enqueue_style( $this->asset_identifier() );
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
-		$post                       = get_post();
-		if ( $post && isset( $attributes['pollId'] ) ) {
-			$platform_poll_data = Crowdsignal_Forms::instance()
-				->get_post_poll_meta_gateway()
-				->get_poll_data_for_poll_client_id( $post->ID, $attributes['pollId'] );
-
-			if ( ! empty( $platform_poll_data ) ) {
-				$attributes['apiPollData'] = $platform_poll_data;
-			}
+		$platform_poll_data         = $this->get_platform_poll_data( $attributes['pollId'] );
+		if ( ! empty( $platform_poll_data ) ) {
+			$attributes['apiPollData'] = $platform_poll_data;
 		}
 
 		return sprintf(

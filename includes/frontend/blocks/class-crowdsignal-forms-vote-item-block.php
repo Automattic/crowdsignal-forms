@@ -79,11 +79,11 @@ class Crowdsignal_Forms_Vote_Item_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'voteItemId' => array(
+			'answerId' => array(
 				'type'    => 'string',
 				'default' => null,
 			),
-			'type'       => array(
+			'type'     => array(
 				'type' => 'string',
 			),
 		);
