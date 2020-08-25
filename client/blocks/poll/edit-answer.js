@@ -87,6 +87,7 @@ const EditAnswer = ( {
 					value={ answer.text }
 					allowedFormats={ [] }
 					withoutInteractiveFormatting
+					keepPlaceholderOnFocus={ true }
 				/>
 			) : (
 				<div className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button">
