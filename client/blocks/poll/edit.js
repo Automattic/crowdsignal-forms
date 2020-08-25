@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useState, useEffect } from 'react';
-import { filter, map, some } from 'lodash';
+import { filter, isEmpty, map, some } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -34,7 +34,6 @@ import {
 	getStyleVars,
 	getBlockCssClasses,
 	isPollClosed,
-	pollIdExistsInPageContent,
 	toggleButtonStyleAvailability,
 } from './util';
 import ErrorBanner from 'components/poll/error-banner';
@@ -103,6 +102,7 @@ const PollBlock = ( props ) => {
 
 	const [ isPollEditable, setIsPollEditable ] = useState( true );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
+	const pollIsPublished = ! isEmpty( pollDataFromApi );
 	const viewResultsUrl = pollDataFromApi
 		? pollDataFromApi.viewResultsUrl
 		: '';
@@ -128,14 +128,7 @@ const PollBlock = ( props ) => {
 		isClosed && ClosedPollState.HIDDEN === attributes.closedPollState;
 	const hideBranding = true; // hide branding in editor for now
 
-	const postDetails = wp.data.select( 'core/editor' ).getCurrentPost();
-	const wasBlockAddedBeforeLastPublish =
-		'publish' === postDetails.status &&
-		pollIdExistsInPageContent( attributes.pollId, postDetails.content );
-
-	useEffect( () => setIsPollEditable( ! wasBlockAddedBeforeLastPublish ), [
-		isSelected,
-	] );
+	useEffect( () => setIsPollEditable( ! pollIsPublished ), [ isSelected ] );
 
 	useEffect( () => {
 		if ( isSelected ) {
@@ -143,8 +136,7 @@ const PollBlock = ( props ) => {
 		}
 	}, [ attributes.isMultipleChoice, isSelected ] );
 
-	const showEditBar =
-		isSelected && wasBlockAddedBeforeLastPublish && ! isPollEditable;
+	const showEditBar = isSelected && pollIsPublished && ! isPollEditable;
 
 	const answerStyle = getAnswerStyle( attributes, className );
 
