@@ -29,9 +29,9 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	/**
 	 * The post id.
 	 *
-	 * @var int $post_ID
+	 * @var int $post_id
 	 */
-	private $post_ID;
+	private $post_id;
 
 	/**
 	 * The post.
@@ -50,12 +50,12 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	/**
 	 * Post_Poll_Block_Saver constructor.
 	 *
-	 * @param int    $post_ID   The post id.
+	 * @param int    $post_id   The post id.
 	 * @param object $post      The post.
 	 * @param bool   $is_update Is Update.
 	 */
-	public function __construct( $post_ID, $post, $is_update = false ) {
-		$this->post_ID   = $post_ID;
+	public function __construct( $post_id, $post, $is_update = false ) {
+		$this->post_id   = $post_id;
 		$this->post      = $post;
 		$this->is_update = $is_update;
 	}
@@ -68,7 +68,7 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	 * @return bool
 	 */
 	public function can_be_saved() {
-		if ( wp_is_post_autosave( $this->post_ID ) || wp_is_post_revision( $this->post_ID ) || 'trash' === $this->post->post_status ) {
+		if ( wp_is_post_autosave( $this->post_id ) || wp_is_post_revision( $this->post_id ) || 'trash' === $this->post->post_status ) {
 			return false;
 		}
 		return true;
@@ -94,7 +94,7 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	 * @return array
 	 */
 	public function get_poll_ids_saved_in_entity() {
-		$poll_ids_saved_in_entity = get_post_meta( $this->post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, true );
+		$poll_ids_saved_in_entity = get_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, true );
 		return is_array( $poll_ids_saved_in_entity ) ? $poll_ids_saved_in_entity : array();
 	}
 
@@ -120,15 +120,15 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	public function get_entity_poll_data( $poll_client_id ) {
 		$platform_poll_data = Crowdsignal_Forms::instance()
 			->get_post_poll_meta_gateway()
-			->get_poll_data_for_poll_client_id( $this->post_ID, $poll_client_id );
+			->get_poll_data_for_poll_client_id( $this->post_id, $poll_client_id );
 
 		// Append post_ID so Crowdsignal_Forms\Models\Poll::from_array
 		// can inject the source_link.
 		if ( empty( $platform_poll_data ) ) {
 			// nothing in the key or key not existing. New poll.
-			$platform_poll_data = array( 'post_id' => $this->post_ID );
+			$platform_poll_data = array( 'post_id' => $this->post_id );
 		} else {
-			$platform_poll_data = array_merge( $platform_poll_data, array( 'post_id' => $this->post_ID ) );
+			$platform_poll_data = array_merge( $platform_poll_data, array( 'post_id' => $this->post_id ) );
 		}
 		return $platform_poll_data;
 	}
@@ -144,7 +144,7 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	 */
 	public function update_entity_poll_data( $poll_client_id, $result_array ) {
 		return Crowdsignal_Forms::instance()->get_post_poll_meta_gateway()
-			->update_poll_data_for_client_id( $this->post_ID, $poll_client_id, $result_array );
+			->update_poll_data_for_client_id( $this->post_id, $poll_client_id, $result_array );
 	}
 
 	/**
@@ -152,15 +152,16 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $poll_ids_saved_in_entity The polls the entity had in it's content.
 	 * @param array $poll_ids_present_in_content The polls that are currently part of the content.
+	 * @param bool  $is_update                    Is this an update or not.
+	 *
 	 * @return mixed
 	 */
-	public function update_poll_ids_present_in_entity( $poll_ids_saved_in_entity, $poll_ids_present_in_content ) {
-		if ( empty( $poll_ids_saved_in_post ) ) {
-			add_post_meta( $this->post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
+	public function update_poll_ids_present_in_entity( $poll_ids_present_in_content, $is_update ) {
+		if ( $is_update ) {
+			return add_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
 		} else {
-			update_post_meta( $this->post_ID, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
+			return update_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
 		}
 	}
 }

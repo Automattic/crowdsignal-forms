@@ -89,10 +89,10 @@ class Poll_Block_Synchronizer {
 			$poll_ids_to_archive = array_diff( $poll_ids_saved_in_entity, $poll_ids_present_in_content );
 			$this->archive_polls_with_ids( $poll_ids_to_archive );
 
-			$this->entity_bridge->update_poll_ids_present_in_entity( $poll_ids_saved_in_entity, $poll_ids_present_in_content );
-		} catch ( \Exception $e ) {
-			// Should this be handled here?
-			throw $e;
+			$this->entity_bridge->update_poll_ids_present_in_entity( $poll_ids_present_in_content, ! empty( $poll_ids_saved_in_entity ) );
+		} catch ( \Exception $sync_exception ) {
+			$this->handle_api_sync_exception( $sync_exception );
+			return;
 		}
 
 		return true;
@@ -149,7 +149,7 @@ class Poll_Block_Synchronizer {
 		}
 
 		// process the found blocks.
-		foreach ( $poll_blocks as &$poll_block ) {
+		foreach ( $poll_blocks as $poll_block ) {
 			$poll_client_id = $poll_block['attrs']['pollId'];
 			if ( empty( $poll_client_id ) ) {
 				// This is sorta serious, means the poll block is invalid, what to do?
@@ -177,6 +177,23 @@ class Poll_Block_Synchronizer {
 				throw new \Exception( $result->get_error_code() );
 			}
 		}
+
 		return $poll_ids_present_in_content;
+	}
+
+	/**
+	 * Fire any exception handling code here.
+	 *
+	 * @param \Exception $sync_exception The sync exception.
+	 */
+	private function handle_api_sync_exception( $sync_exception ) {
+		/**
+		 * Sync failed for some reason. We might want to do something about this by hooking into this action.
+		 *
+		 * @param \Exception              $sync_exception The exception that was thrown.
+		 * @param Poll_Block_Synchronizer $this           This block sync instance.
+		 * @since 1.0.0
+		 */
+		do_action( 'crowdsignal_forms_poll_sync_exception', $sync_exception, $this );
 	}
 }

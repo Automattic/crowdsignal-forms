@@ -81,9 +81,9 @@ interface Synchronizable_Entity {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $poll_ids_saved_in_entity The polls the entity had in it's content.
 	 * @param array $poll_ids_present_in_content The polls that are currently part of the content.
+	 * @param bool  $is_update                   Is this an update.
 	 * @return mixed
 	 */
-	public function update_poll_ids_present_in_entity( $poll_ids_saved_in_entity, $poll_ids_present_in_content );
+	public function update_poll_ids_present_in_entity( $poll_ids_present_in_content, $is_update );
 }
