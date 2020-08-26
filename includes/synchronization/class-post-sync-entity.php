@@ -153,15 +153,10 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	 * @since 1.0.0
 	 *
 	 * @param array $poll_ids_present_in_content The polls that are currently part of the content.
-	 * @param bool  $is_update                    Is this an update or not.
 	 *
 	 * @return mixed
 	 */
-	public function update_poll_ids_present_in_entity( $poll_ids_present_in_content, $is_update ) {
-		if ( $is_update ) {
-			return add_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
-		} else {
-			return update_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
-		}
+	public function update_poll_ids_present_in_entity( $poll_ids_present_in_content ) {
+		return update_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
 	}
 }

@@ -79,7 +79,7 @@ class Poll_Block_Synchronizer {
 			// No poll blocks, proactively archive any polls that were previously saved.
 			$this->archive_polls_with_ids( $poll_ids_saved_in_entity );
 			if ( ! empty( $poll_ids_present_in_entity ) ) {
-				$this->entity_bridge->update_poll_ids_present_in_entity( array(), true );
+				$this->entity_bridge->update_poll_ids_present_in_entity( array() );
 			}
 
 			return;
@@ -94,7 +94,7 @@ class Poll_Block_Synchronizer {
 			$poll_ids_to_archive = array_diff( $poll_ids_saved_in_entity, $poll_ids_present_in_content );
 			$this->archive_polls_with_ids( $poll_ids_to_archive );
 
-			$this->entity_bridge->update_poll_ids_present_in_entity( $poll_ids_present_in_content, ! empty( $poll_ids_saved_in_entity ) );
+			$this->entity_bridge->update_poll_ids_present_in_entity( $poll_ids_present_in_content );
 		} catch ( \Exception $sync_exception ) {
 			$this->handle_api_sync_exception( $sync_exception );
 			return;
