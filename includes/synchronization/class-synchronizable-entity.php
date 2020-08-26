@@ -47,13 +47,13 @@ interface Synchronizable_Entity {
 	public function get_poll_ids_saved_in_entity();
 
 	/**
-	 * Check if the entity contains any blocks.
+	 * Check if the entity contains any crowdsignal-forms blocks.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return bool
 	 */
-	public function has_blocks_in_content();
+	public function has_crowdsignal_forms_blocks();
 
 	/**
 	 * Get the poll data saved in the entity for the specified client id.

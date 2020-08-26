@@ -22,9 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Comment_Sync_Entity implements Synchronizable_Entity {
 
 	/**
-	 * The poll ids meta key.
+	 * The poll ids meta key prefix for a specific comment.
 	 */
-	const CROWDSIGNAL_FORMS_POLL_IDS = '_crowdsignal_forms_poll_ids';
+	const CROWDSIGNAL_FORMS_POST_COMMENTS_POLL_IDS = '_crowdsignal_forms_comment_poll_ids_';
 
 	/**
 	 * The comment id.
@@ -116,7 +116,8 @@ class Comment_Sync_Entity implements Synchronizable_Entity {
 	 * @return array
 	 */
 	public function get_poll_ids_saved_in_entity() {
-		return get_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, true );
+		$poll_ids_saved_in_entity = get_post_meta( $this->post_id, $this->get_comment_poll_ids_meta_key(), true );
+		return is_array( $poll_ids_saved_in_entity ) ? $poll_ids_saved_in_entity : array();
 	}
 
 	/**
@@ -126,8 +127,9 @@ class Comment_Sync_Entity implements Synchronizable_Entity {
 	 *
 	 * @return bool
 	 */
-	public function has_blocks_in_content() {
-		return has_blocks( $this->comment_approved ) || ! has_block( 'crowdsignal-forms/poll', $this->comment_approved );
+	public function has_crowdsignal_forms_blocks() {
+		$content = $this->comment->comment_content;
+		return has_blocks( $content ) && has_block( 'crowdsignal-forms/poll', $content );
 	}
 
 	/**
@@ -187,9 +189,19 @@ class Comment_Sync_Entity implements Synchronizable_Entity {
 	 */
 	public function update_poll_ids_present_in_entity( $poll_ids_present_in_content, $is_update ) {
 		if ( $is_update ) {
-			return add_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
+			return add_post_meta( $this->post_id, $this->get_comment_poll_ids_meta_key(), $poll_ids_present_in_content );
 		} else {
-			return update_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
+			return update_post_meta( $this->post_id, $this->get_comment_poll_ids_meta_key(), $poll_ids_present_in_content );
 		}
+	}
+
+	/**
+	 * Get the meta key we use for storing the poll ids present on a given comment.
+	 *
+	 * @since 1.1.0
+	 * @return string
+	 */
+	private function get_comment_poll_ids_meta_key() {
+		return self::CROWDSIGNAL_FORMS_POST_COMMENTS_POLL_IDS . $this->comment_id;
 	}
 }

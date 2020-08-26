@@ -105,8 +105,8 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	 *
 	 * @return bool
 	 */
-	public function has_blocks_in_content() {
-		return has_blocks( $this->post ) || ! has_block( 'crowdsignal-forms/poll', $this->post );
+	public function has_crowdsignal_forms_blocks() {
+		return has_blocks( $this->post ) && has_block( 'crowdsignal-forms/poll', $this->post );
 	}
 
 	/**
