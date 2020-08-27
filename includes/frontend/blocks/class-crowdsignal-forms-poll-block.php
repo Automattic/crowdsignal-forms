@@ -255,6 +255,10 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => 'center',
 			),
+			'width'                       => array(
+				'type'    => 'number',
+				'default' => 100,
+			),
 			'pollStatus'                  => array(
 				'type'    => 'string',
 				'default' => 'open', // See: client/blocks/poll/constants.js.

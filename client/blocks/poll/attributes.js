@@ -110,6 +110,10 @@ export default {
 		type: 'string',
 		default: 'center',
 	},
+	width: {
+		type: 'number',
+		default: 100,
+	},
 	pollStatus: {
 		type: 'string',
 		default: PollStatus.OPEN,

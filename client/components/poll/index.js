@@ -102,6 +102,14 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		}
 	);
 
+	const blockStyle = {
+		width:
+			attributes.align !== 'full'
+				? `${ attributes.width }${ attributes.widthUnit }`
+				: 'auto',
+		...getStyleVars( attributes, fallbackStyles ),
+	};
+
 	const answerClientIdMap = reduce(
 		apiPollData.answers,
 		( accum, answer ) => {
@@ -141,10 +149,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	}
 
 	return (
-		<div
-			className={ classes }
-			style={ getStyleVars( attributes, fallbackStyles ) }
-		>
+		<div className={ classes } style={ blockStyle }>
 			{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
 
 			<div className={ contentClasses }>

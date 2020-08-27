@@ -2,12 +2,13 @@
  * External dependencies
  */
 import React, { useState, useEffect } from 'react';
-import { filter, isEmpty, map, some } from 'lodash';
+import { filter, isEmpty, map, round, some } from 'lodash';
 
 /**
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
+import { ResizableBox } from '@wordpress/components';
 import { withSelect, withDispatch } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import { compose } from '@wordpress/compose';
@@ -117,6 +118,21 @@ const PollBlock = ( props ) => {
 	const handleChangeQuestion = ( question ) => setAttributes( { question } );
 	const handleChangeNote = ( note ) => setAttributes( { note } );
 
+	const handleResize = ( event, handle, element ) => {
+		if ( handle !== 'right' && handle !== 'left' ) {
+			return;
+		}
+
+		setAttributes( {
+			width: round(
+				( element.offsetWidth / element.parentNode.offsetWidth ) * 100
+			),
+		} );
+	};
+
+	const isResizable = attributes.align !== 'full';
+	const blockWidth = `${ attributes.width }%`;
+
 	const isClosed = isPollClosed(
 		attributes.pollStatus,
 		attributes.closedAfterDateTime
@@ -149,93 +165,108 @@ const PollBlock = ( props ) => {
 			<Toolbar { ...props } />
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 
-			<div
-				className={ getBlockCssClasses( attributes, className, {
-					'is-selected-in-editor': isSelected,
-					'is-closed': isClosed,
-					'is-hidden': isHidden,
-				} ) }
-				style={ getStyleVars( attributes, fallbackStyles ) }
+			<ResizableBox
+				className="wp-block-crowdsignal-forms-poll__resize-wrapper"
+				size={ { height: 'auto', width: blockWidth } }
+				minWidth="25%"
+				maxWidth="100%"
+				enable={ { left: isResizable, right: isResizable } }
+				onResizeStop={ handleResize }
+				showHandle={ isResizable }
+				resizeRatio={ 2 }
 			>
-				{ showEditBar && (
-					<EditBar
-						onEditClick={ () => {
-							setIsPollEditable( true );
-						} }
-					/>
-				) }
-				{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
-				<div className="wp-block-crowdsignal-forms-poll__content">
-					{ isPollEditable ? (
-						<RichText
-							tagName="h3"
-							className="wp-block-crowdsignal-forms-poll__question"
-							placeholder={ __( 'Enter your question' ) }
-							onChange={ handleChangeQuestion }
-							value={ attributes.question }
-							allowedFormats={ [] }
+				<div
+					className={ getBlockCssClasses( attributes, className, {
+						'is-selected-in-editor': isSelected,
+						'is-closed': isClosed,
+						'is-hidden': isHidden,
+					} ) }
+					style={ getStyleVars( attributes, fallbackStyles ) }
+				>
+					{ showEditBar && (
+						<EditBar
+							onEditClick={ () => {
+								setIsPollEditable( true );
+							} }
 						/>
-					) : (
-						<h3 className="wp-block-crowdsignal-forms-poll__question">
-							{ attributes.question
-								? decodeEntities( attributes.question )
-								: __( 'Enter your question' ) }
-						</h3>
 					) }
-
-					{ showNote &&
-						( isPollEditable ? (
+					{ errorMessage && (
+						<ErrorBanner>{ errorMessage }</ErrorBanner>
+					) }
+					<div className="wp-block-crowdsignal-forms-poll__content">
+						{ isPollEditable ? (
 							<RichText
-								tagName="p"
-								className="wp-block-crowdsignal-forms-poll__note"
-								placeholder={ __( 'Add a note (optional)' ) }
-								onChange={ handleChangeNote }
-								value={ attributes.note }
+								tagName="h3"
+								className="wp-block-crowdsignal-forms-poll__question"
+								placeholder={ __( 'Enter your question' ) }
+								onChange={ handleChangeQuestion }
+								value={ attributes.question }
 								allowedFormats={ [] }
 							/>
 						) : (
-							<p className="wp-block-crowdsignal-forms-poll__note">
-								{ attributes.note
-									? decodeEntities( attributes.note )
-									: __( 'Add a note (optional)' ) }
-							</p>
-						) ) }
+							<h3 className="wp-block-crowdsignal-forms-poll__question">
+								{ attributes.question
+									? decodeEntities( attributes.question )
+									: __( 'Enter your question' ) }
+							</h3>
+						) }
 
-					{ ! showResults && (
-						<EditAnswers
-							{ ...props }
-							setAttributes={ setAttributes }
-							disabled={ ! isPollEditable }
-							answerStyle={ answerStyle }
-							buttonAlignment={ attributes.buttonAlignment }
+						{ showNote &&
+							( isPollEditable ? (
+								<RichText
+									tagName="p"
+									className="wp-block-crowdsignal-forms-poll__note"
+									placeholder={ __(
+										'Add a note (optional)'
+									) }
+									onChange={ handleChangeNote }
+									value={ attributes.note }
+									allowedFormats={ [] }
+								/>
+							) : (
+								<p className="wp-block-crowdsignal-forms-poll__note">
+									{ attributes.note
+										? decodeEntities( attributes.note )
+										: __( 'Add a note (optional)' ) }
+								</p>
+							) ) }
+
+						{ ! showResults && (
+							<EditAnswers
+								{ ...props }
+								setAttributes={ setAttributes }
+								disabled={ ! isPollEditable }
+								answerStyle={ answerStyle }
+								buttonAlignment={ attributes.buttonAlignment }
+							/>
+						) }
+
+						{ showResults && (
+							<PollResults
+								answers={ addApiAnswerIds(
+									filter(
+										attributes.answers,
+										( answer ) => ! isAnswerEmpty( answer )
+									),
+									answerIdMap
+								) }
+								pollIdFromApi={ pollIdFromApi }
+								hideBranding={ hideBranding }
+								setErrorMessage={ setErrorMessage }
+							/>
+						) }
+					</div>
+
+					{ isClosed && (
+						<ClosedBanner
+							isPollHidden={ isHidden }
+							isPollClosed={ isClosed }
 						/>
 					) }
 
-					{ showResults && (
-						<PollResults
-							answers={ addApiAnswerIds(
-								filter(
-									attributes.answers,
-									( answer ) => ! isAnswerEmpty( answer )
-								),
-								answerIdMap
-							) }
-							pollIdFromApi={ pollIdFromApi }
-							hideBranding={ hideBranding }
-							setErrorMessage={ setErrorMessage }
-						/>
-					) }
+					{ renderStyleProbe() }
 				</div>
-
-				{ isClosed && (
-					<ClosedBanner
-						isPollHidden={ isHidden }
-						isPollClosed={ isClosed }
-					/>
-				) }
-
-				{ renderStyleProbe() }
-			</div>
+			</ResizableBox>
 		</ConnectToCrowdsignal>
 	);
 };

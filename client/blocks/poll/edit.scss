@@ -2,6 +2,11 @@
 
 #editor .editor-styles-wrapper {
 
+	.wp-block-crowdsignal-forms-poll {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
 	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"][data-align="full"] .wp-block-crowdsignal-forms-poll {
 		border-left-width: 0;
 		border-right-width: 0;
@@ -32,6 +37,12 @@
 	}
 }
 
+.wp-block-crowdsignal-forms-poll__resize-wrapper {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
 /* this is a fix for a broken gutenberg block-editor style */
 .wp-block-crowdsignal-forms__redirect-url input[type="text"] {
 	width: 100%;
@@ -56,6 +67,10 @@
 	}
 }
 
+.wp-block-crowdsignal-forms__reset-width-button {
+	margin-left: auto;
+	margin-top: 25px;
+}
 
 .wp-block-crowdsignal-forms-poll__edit-bar {
 	font-family: $font-sans-serif;

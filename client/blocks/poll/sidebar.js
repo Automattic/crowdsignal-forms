@@ -134,6 +134,14 @@ const SideBar = ( {
 	const handleChangeButtonAlignment = ( buttonAlignment ) =>
 		setAttributes( { buttonAlignment } );
 
+	const handleChangeWidth = ( width ) =>
+		setAttributes( { width: parseInt( width, 10 ) } );
+
+	const handleResetWidth = () =>
+		setAttributes( {
+			width: 100,
+		} );
+
 	const resultsLinkEnabled = '' !== viewResultsUrl;
 
 	const answerStyle = getAnswerStyle( attributes, className );
@@ -416,6 +424,23 @@ const SideBar = ( {
 					] }
 					onChange={ handleChangeFontFamily }
 				/>
+				{ attributes.align !== 'full' && (
+					<div className="wp-block-crowdsignal-forms__row">
+						<TextControl
+							type="number"
+							label={ __( 'Width (%)' ) }
+							value={ attributes.width }
+							onChange={ handleChangeWidth }
+						/>
+						<Button
+							isSmall
+							className="wp-block-crowdsignal-forms__reset-width-button"
+							onClick={ handleResetWidth }
+						>
+							{ __( 'Reset' ) }
+						</Button>
+					</div>
+				) }
 				<div className="wp-block-crowdsignal-forms__row">
 					<TextControl
 						label={ __( 'Border thickness' ) }
