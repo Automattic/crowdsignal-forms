@@ -4,6 +4,7 @@
 import React from 'react';
 import SideBar from './sidebar';
 import withClientId from 'components/with-client-id';
+import VoteItem from 'components/vote/vote-item';
 
 const EditVoteItemBlock = ( props ) => {
 	const { attributes, className } = props;
@@ -12,9 +13,7 @@ const EditVoteItemBlock = ( props ) => {
 		<>
 			<SideBar { ...props } />
 
-			<div className={ className }>
-				{ 'up' === attributes.type ? '👍' : '👎' }
-			</div>
+			<VoteItem { ...attributes } className={ className } />
 		</>
 	);
 };

@@ -1,1 +1,33 @@
 /* public Vote style */
+.crowdsignal-vote-wrapper,
+[data-type="crowdsignal-forms/vote"] {
+
+	&:not(:first-child) {
+		margin-top: 3em;
+	}
+
+	&:not(:last-child) {
+		margin-bottom: 3em;
+	}
+}
+
+.wp-block-crowdsignal-forms-vote {
+	display: flex;
+	flex-direction: row;
+}
+
+.wp-block-crowdsignal-forms-vote-item {
+	border: 1px solid rgb(210, 210, 210);
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 0 5px;
+	padding: 4px 10px;
+}
+
+.wp-block-crowdsignal-forms-vote-item__count {
+	font-size: 14pt;
+	margin-inline-start: 10px;
+}
