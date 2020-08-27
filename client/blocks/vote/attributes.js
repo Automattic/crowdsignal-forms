@@ -8,6 +8,11 @@ import { __ } from 'lib/i18n';
  *       Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Vote_Block::attributes()
  *       inside includes/frontend/blocks/class-crowdsignal-forms-vote-block.php.
  */
+
+import {
+	PollStatus,
+} from './constants';
+
 export default {
 	pollId: {
 		type: 'string',
@@ -16,5 +21,13 @@ export default {
 	title: {
 		type: 'string',
 		default: __( 'Untitled Vote' ),
+	},
+	pollStatus: {
+		type: 'string',
+		default: PollStatus.OPEN,
+	},
+	closedAfterDateTime: {
+		type: 'string',
+		default: null,
 	},
 };
