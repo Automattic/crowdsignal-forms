@@ -33,11 +33,17 @@ export const usePollResults = ( pollId ) => {
  *
  * @param {number} pollId ID of the poll being loaded.
  * @param {boolean} enableVoteRestriction sets whether or not the vote cookie is read and set
+ * @param {boolean} storeAnswerIdsInCookie sets whether or not the answer ids are stored in the vote restriction cookie
  */
-export const usePollVote = ( pollId, enableVoteRestriction = false ) => {
+export const usePollVote = (
+	pollId,
+	enableVoteRestriction = false,
+	storeAnswerIdsInCookie = false
+) => {
 	const cookieName = `cs-poll-${ pollId }`;
 	const [ isVoting, setIsVoting ] = useState( false );
 	const [ hasVoted, setHasVoted ] = useState( false );
+	const [ storedCookieValue, setStoredCookieValue ] = useState( '' );
 
 	useEffect( () => {
 		if (
@@ -45,6 +51,7 @@ export const usePollVote = ( pollId, enableVoteRestriction = false ) => {
 			undefined !== Cookies.get( cookieName )
 		) {
 			setHasVoted( true );
+			setStoredCookieValue( Cookies.get( cookieName ) );
 		}
 	}, [] );
 
@@ -56,10 +63,16 @@ export const usePollVote = ( pollId, enableVoteRestriction = false ) => {
 
 			setHasVoted( true );
 			if ( enableVoteRestriction ) {
-				Cookies.set( cookieName, new Date().getTime(), {
+				const cookieValue = storeAnswerIdsInCookie
+					? selectedAnswerIds.join( ',' )
+					: new Date().getTime();
+
+				Cookies.set( cookieName, cookieValue, {
 					sameSite: 'Strict',
 					expires: 365,
 				} );
+
+				setStoredCookieValue( cookieValue );
 			}
 		} finally {
 			setIsVoting( false );
@@ -70,6 +83,7 @@ export const usePollVote = ( pollId, enableVoteRestriction = false ) => {
 		hasVoted,
 		isVoting,
 		vote,
+		storedCookieValue,
 	};
 };
 

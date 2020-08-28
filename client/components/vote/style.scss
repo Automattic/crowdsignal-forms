@@ -25,6 +25,15 @@
 	align-items: center;
 	margin: 0 5px;
 	padding: 4px 10px;
+
+	&.is-voted-on {
+		border-color: rgb(255, 0, 0);
+		color: rgb(255, 0, 0);
+	}
+
+	&.is-disabled:not(.is-voted-on) {
+		opacity: 0.5;
+	}
 }
 
 .wp-block-crowdsignal-forms-vote-item__count {
