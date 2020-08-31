@@ -78,7 +78,7 @@ class Poll_Block_Synchronizer {
 		if ( ! $this->entity_bridge->has_crowdsignal_forms_blocks() ) {
 			// No poll blocks, proactively archive any polls that were previously saved.
 			$this->archive_polls_with_ids( $poll_ids_saved_in_entity );
-			if ( ! empty( $poll_ids_present_in_entity ) ) {
+			if ( ! empty( $poll_ids_saved_in_entity ) ) {
 				$this->entity_bridge->update_poll_ids_present_in_entity( array() );
 			}
 
