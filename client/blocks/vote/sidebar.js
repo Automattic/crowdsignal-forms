@@ -53,7 +53,7 @@ const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
 				</p>
 
 				<TextControl
-					value={ attributes.title ?? __( 'Vote block' ) }
+					value={ attributes.title }
 					label={ __( 'Title of the vote block' ) }
 					onChange={ handleChangeTitle }
 				/>

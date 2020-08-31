@@ -10,6 +10,7 @@ namespace Crowdsignal_Forms\Synchronization;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Poll;
+use \WP_Block_Type_Registry;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -173,6 +174,8 @@ class Poll_Block_Synchronizer {
 
 			$poll = Poll::from_array( $platform_poll_data );
 
+			$this->apply_block_attribute_defaults( $poll_block );
+
 			$poll->update_from_block( $poll_block );
 			if ( $poll->get_id() < 1 ) {
 				$result = $this->gateway->create_poll( $poll );
@@ -191,6 +194,23 @@ class Poll_Block_Synchronizer {
 		}
 
 		return $poll_ids_present_in_content;
+	}
+
+	/**
+	 * Sets block attribute default values on the provided block object.
+	 *
+	 * @param array $block
+	 * @return void
+	 */
+	private function apply_block_attribute_defaults( &$block ) {
+		$block_type         = WP_Block_Type_Registry::get_instance()->get_registered( $block['blockName'] );
+		$default_attributes = $block_type->attributes;
+
+		foreach ( $default_attributes as $attribute_name => $attribute ) {
+			if ( ! isset( $block['attrs'][ $attribute_name ] ) ) {
+				$block['attrs'][ $attribute_name ] = $attribute['default'];
+			}
+		}
 	}
 
 	/**

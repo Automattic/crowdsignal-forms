@@ -185,6 +185,10 @@ class Poll {
 
 		$block_answers_by_uuid = array();
 		foreach ( $attribute_answers as $attribute_answer ) {
+			if ( gettype( $attribute_answer ) === 'object' ) {
+				// if answer is an object, then it is still a default value, so there are no answer ids set.
+				continue;
+			}
 			$block_answers_by_uuid[ $attribute_answer['answerId'] ] = $attribute_answer;
 		}
 

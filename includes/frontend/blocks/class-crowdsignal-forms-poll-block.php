@@ -118,7 +118,7 @@ class Crowdsignal_Forms_Poll_Block extends Crowdsignal_Forms_Block {
 			),
 			'title'                       => array(
 				'type'    => 'string',
-				'default' => __( 'Untitled Poll', 'crowdsignal-forms' ),
+				'default' => null,
 			),
 			'question'                    => array(
 				'type'    => 'string',

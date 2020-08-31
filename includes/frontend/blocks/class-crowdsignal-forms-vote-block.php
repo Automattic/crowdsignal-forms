@@ -114,7 +114,7 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 			),
 			'title'        => array(
 				'type'    => 'string',
-				'default' => null,
+				'default' => __( 'Untitled Vote', 'crowdsignal-forms' ),
 			),
 		);
 	}
