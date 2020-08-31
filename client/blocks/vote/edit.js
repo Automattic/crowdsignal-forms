@@ -1,12 +1,13 @@
 /**
  * External dependencies
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 /**
  * WordPress dependencies
  */
 import { InnerBlocks } from '@wordpress/block-editor';
+import { compose } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -15,15 +16,52 @@ import SideBar from './sidebar';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import { __ } from 'lib/i18n';
 import withClientId from 'components/with-client-id';
+import {
+	startSubscriptions,
+	startPolling,
+	withPollDataSelect,
+	withPollDataDispatch,
+} from 'blocks/poll/subscriptions';
+
+startSubscriptions();
+
+const isP2tenberg = () => 'p2tenberg' in window;
 
 const EditVoteBlock = ( props ) => {
-	const { className } = props;
+	const {
+		attributes,
+		className,
+		pollDataFromApi,
+		addPollClientId,
+		removePollClientId,
+	} = props;
+
+	useEffect( () => {
+		if ( isP2tenberg() ) {
+			startPolling();
+		}
+
+		if ( attributes.pollId ) {
+			addPollClientId( attributes.pollId );
+		}
+
+		return () => {
+			if ( attributes.pollId ) {
+				removePollClientId( attributes.pollId );
+			}
+		};
+	}, [] );
+
+	const viewResultsUrl = pollDataFromApi
+		? pollDataFromApi.viewResultsUrl
+		: '';
+
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
 			blockName={ __( 'Crowdsignal Vote' ) }
 		>
-			<SideBar { ...props } viewResultsUrl={ '' } />
+			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 			<div className={ className }>
 				<InnerBlocks
 					template={ [
@@ -40,4 +78,6 @@ const EditVoteBlock = ( props ) => {
 	);
 };
 
-export default withClientId( EditVoteBlock, 'pollId' );
+export default compose( [ withPollDataSelect(), withPollDataDispatch() ] )(
+	withClientId( EditVoteBlock, 'pollId' )
+);

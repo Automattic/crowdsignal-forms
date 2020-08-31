@@ -1,12 +1,20 @@
 /**
  * WordPress dependencies
  */
-import { subscribe, select, dispatch } from '@wordpress/data';
+import {
+	subscribe,
+	select,
+	dispatch,
+	withSelect,
+	withDispatch,
+} from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 
 import { map, filter } from 'lodash';
 
-const isPollBlock = ( block ) => block.name === 'crowdsignal-forms/poll';
+const isPollBlock = ( block ) =>
+	block.name === 'crowdsignal-forms/poll' ||
+	block.name === 'crowdsignal-forms/vote';
 
 let subsStarted = false;
 let pollingStarted = false;
@@ -157,3 +165,43 @@ export const startSubscriptions = () => {
 		}
 	} );
 };
+
+export const withPollDataSelect = () =>
+	// eslint-disable-next-line no-shadow
+	withSelect( ( select, ownProps ) => {
+		const {
+			getPollDataByClientId,
+			shouldTryFetchingPollData,
+			isFetchingPollData,
+		} = select( 'crowdsignal-forms/polls' );
+		const { attributes } = ownProps;
+		const pollDataFromApi = attributes.pollId
+			? getPollDataByClientId( attributes.pollId )
+			: null;
+		return {
+			pollDataFromApi,
+			getPollDataByClientId,
+			shouldTryFetchingPollData,
+			isFetchingPollData,
+		};
+	} );
+
+export const withPollDataDispatch = () =>
+	// eslint-disable-next-line no-shadow
+	withDispatch( ( dispatch ) => {
+		const {
+			setTryFetchPollData,
+			setPollApiDataForClientId,
+			setIsFetchingPollData,
+			addPollClientId,
+			removePollClientId,
+		} = dispatch( 'crowdsignal-forms/polls' );
+
+		return {
+			setTryFetchPollData,
+			setPollApiDataForClientId,
+			setIsFetchingPollData,
+			addPollClientId,
+			removePollClientId,
+		};
+	} );

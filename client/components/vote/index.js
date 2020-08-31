@@ -9,7 +9,7 @@ import classNames from 'classnames';
  * Internal dependencies
  */
 import VoteItem from 'components/vote/vote-item';
-import { usePollVote } from 'data/hooks';
+import { usePollResults, usePollVote } from 'data/hooks';
 
 const Vote = ( { attributes } ) => {
 	const apiPollId = attributes.apiPollData.id;
@@ -19,6 +19,8 @@ const Vote = ( { attributes } ) => {
 		true,
 		true
 	);
+
+	const { results } = usePollResults( apiPollId );
 
 	useEffect( () => {
 		if ( '' !== storedCookieValue ) {
@@ -43,21 +45,22 @@ const Vote = ( { attributes } ) => {
 
 	return (
 		<div className={ classes }>
-			{ map( attributes.innerBlocks, ( voteAttributes ) => (
-				<VoteItem
-					{ ...voteAttributes }
-					key={ voteAttributes.answerId }
-					apiAnswerId={
-						answerClientIdToApiId[ voteAttributes.answerId ]
-					}
-					onVote={ handleVoteClick }
-					disabled={ hasVoted || 0 !== votedOnId }
-					isVotedOn={
-						answerClientIdToApiId[ voteAttributes.answerId ] ===
-						votedOnId
-					}
-				/>
-			) ) }
+			{ map( attributes.innerBlocks, ( voteAttributes ) => {
+				const apiAnswerId =
+					answerClientIdToApiId[ voteAttributes.answerId ];
+
+				return (
+					<VoteItem
+						{ ...voteAttributes }
+						key={ voteAttributes.answerId }
+						apiAnswerId={ apiAnswerId }
+						onVote={ handleVoteClick }
+						disabled={ hasVoted || 0 !== votedOnId }
+						isVotedOn={ apiAnswerId === votedOnId }
+						voteCount={ results ? results[ apiAnswerId ] : 0 }
+					/>
+				);
+			} ) }
 		</div>
 	);
 };

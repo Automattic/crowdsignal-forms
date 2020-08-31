@@ -9,7 +9,6 @@ import { filter, isEmpty, map, omit, round, some } from 'lodash';
  */
 import { RichText } from '@wordpress/block-editor';
 import { ResizableBox } from '@wordpress/components';
-import { withSelect, withDispatch } from '@wordpress/data';
 import { decodeEntities } from '@wordpress/html-entities';
 import { compose } from '@wordpress/compose';
 
@@ -40,7 +39,12 @@ import {
 import ErrorBanner from 'components/poll/error-banner';
 import { v4 as uuidv4 } from 'uuid';
 import EditBar from './edit-bar';
-import { startSubscriptions, startPolling } from './subscriptions';
+import {
+	startSubscriptions,
+	startPolling,
+	withPollDataSelect,
+	withPollDataDispatch,
+} from './subscriptions';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import PollIcon from 'components/icon/poll';
 
@@ -308,38 +312,6 @@ const PollBlock = ( props ) => {
 
 export default compose( [
 	withFallbackStyles( PollStyles, getPollStyles ),
-	withSelect( ( select, ownProps ) => {
-		const {
-			getPollDataByClientId,
-			shouldTryFetchingPollData,
-			isFetchingPollData,
-		} = select( 'crowdsignal-forms/polls' );
-		const { attributes } = ownProps;
-		const pollDataFromApi = attributes.pollId
-			? getPollDataByClientId( attributes.pollId )
-			: null;
-		return {
-			pollDataFromApi,
-			getPollDataByClientId,
-			shouldTryFetchingPollData,
-			isFetchingPollData,
-		};
-	} ),
-	withDispatch( ( dispatch ) => {
-		const {
-			setTryFetchPollData,
-			setPollApiDataForClientId,
-			setIsFetchingPollData,
-			addPollClientId,
-			removePollClientId,
-		} = dispatch( 'crowdsignal-forms/polls' );
-
-		return {
-			setTryFetchPollData,
-			setPollApiDataForClientId,
-			setIsFetchingPollData,
-			addPollClientId,
-			removePollClientId,
-		};
-	} ),
+	withPollDataSelect(),
+	withPollDataDispatch(),
 ] )( withPollAndAnswerIds( PollBlock ) );

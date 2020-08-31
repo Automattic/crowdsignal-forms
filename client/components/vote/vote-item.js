@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/dedupe';
 
 /**
@@ -19,7 +19,13 @@ const VoteItem = ( {
 	disabled,
 	isVotedOn,
 } ) => {
-	const [ actualVoteCount, setActualVoteCount ] = useState( voteCount ?? 0 );
+	const [ actualVoteCount, setActualVoteCount ] = useState( 0 );
+	useEffect( () => {
+		if ( voteCount ) {
+			setActualVoteCount( voteCount );
+		}
+	}, [ voteCount ] );
+
 	const classes = classNames(
 		'wp-block-crowdsignal-forms-vote-item',
 		className,
