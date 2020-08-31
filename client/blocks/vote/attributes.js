@@ -9,9 +9,7 @@ import { __ } from 'lib/i18n';
  *       inside includes/frontend/blocks/class-crowdsignal-forms-vote-block.php.
  */
 
-import {
-	PollStatus,
-} from './constants';
+import { PollStatus } from './constants';
 
 export default {
 	pollId: {
