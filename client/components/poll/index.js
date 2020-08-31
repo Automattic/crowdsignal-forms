@@ -103,10 +103,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	);
 
 	const blockStyle = {
-		width:
-			attributes.align !== 'full'
-				? `${ attributes.width }${ attributes.widthUnit }`
-				: 'auto',
+		width: attributes.align !== 'full' ? `${ attributes.width }%` : 'auto',
 		...getStyleVars( attributes, fallbackStyles ),
 	};
 
