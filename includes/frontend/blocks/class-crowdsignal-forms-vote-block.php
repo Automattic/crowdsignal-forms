@@ -120,6 +120,10 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => 'open',
 			),
+			'closedAfterDateTime'   => array(
+				'type'    => 'string',
+				'default' => null,
+			),
 		);
 	}
 }

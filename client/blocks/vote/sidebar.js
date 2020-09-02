@@ -30,8 +30,22 @@ const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
 
 	const resultsLinkEnabled = '' !== viewResultsUrl;
 
-	const handleChangePollStatus = ( pollStatus ) =>
-		includes( PollStatus, pollStatus ) && setAttributes( { pollStatus } );
+	const handleChangePollStatus = ( pollStatus ) => {
+		if ( ! includes( PollStatus, pollStatus ) ) {
+			return;
+		}
+
+		// closedAfterDateTime MUST be set when pollStatus is set to CLOSED_AFTER
+		setAttributes( {
+			closedAfterDateTime:
+				pollStatus === PollStatus.CLOSED_AFTER
+					? new Date(
+							new Date().getTime() + 24 * 60 * 60 * 1000
+					  ).toISOString()
+					: null,
+			pollStatus,
+		} );
+	};
 
 	const handleChangeCloseAfterDateTime = ( closedAfterDateTime ) => {
 		const dateTime = new Date( closedAfterDateTime );
