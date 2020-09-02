@@ -104,23 +104,23 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'pollId'       => array(
+			'pollId'              => array(
 				'type'    => 'string',
 				'default' => null,
 			),
-			'hideBranding' => array(
+			'hideBranding'        => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'title'        => array(
+			'title'               => array(
 				'type'    => 'string',
 				'default' => __( 'Untitled Vote', 'crowdsignal-forms' ),
 			),
-			'pollStatus'   => array(
+			'pollStatus'          => array(
 				'type'    => 'string',
 				'default' => 'open',
 			),
-			'closedAfterDateTime'   => array(
+			'closedAfterDateTime' => array(
 				'type'    => 'string',
 				'default' => null,
 			),
