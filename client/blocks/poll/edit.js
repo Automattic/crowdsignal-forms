@@ -155,8 +155,9 @@ const PollBlock = ( props ) => {
 		} );
 	};
 
-	const isResizable = attributes.align !== 'full';
-	const blockWidth = `${ attributes.width }%`;
+	const isResizable = isSelected && attributes.align !== 'full';
+	const blockWidth =
+		attributes.align !== 'full' ? `${ attributes.width }%` : 'auto';
 
 	const isClosed = isPollClosed(
 		attributes.pollStatus,
@@ -195,7 +196,7 @@ const PollBlock = ( props ) => {
 				size={ { height: 'auto', width: blockWidth } }
 				minWidth="25%"
 				maxWidth="100%"
-				enable={ { left: isResizable, right: isResizable } }
+				enable={ { left: true, right: true } }
 				onResizeStop={ handleResize }
 				showHandle={ isResizable }
 				resizeRatio={ 2 }
