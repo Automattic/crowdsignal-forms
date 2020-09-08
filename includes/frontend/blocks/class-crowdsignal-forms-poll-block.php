@@ -252,8 +252,7 @@ class Crowdsignal_Forms_Poll_Block implements Crowdsignal_Forms_Block {
 				'default' => false,
 			),
 			'align'                       => array(
-				'type'    => 'string',
-				'default' => 'center',
+				'type' => 'string',
 			),
 			'width'                       => array(
 				'type'    => 'number',
