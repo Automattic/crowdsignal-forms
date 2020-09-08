@@ -39,7 +39,7 @@ const PollAnswer = ( {
 		handleSelect( event );
 	};
 
-	const classes = classnames( 'wp-block-crowdsignal-forms-poll__answer', {
+	const classes = classnames( 'crowdsignal-forms-poll__answer', {
 		'is-multiple-choice': isMultipleChoice,
 		'is-selected': isSelected,
 		'is-focused': isFocused,
@@ -51,7 +51,7 @@ const PollAnswer = ( {
 	const renderRadioAnswers = () => (
 		<label className={ classes } htmlFor={ answerElementId } tabIndex="-1">
 			<input
-				className="wp-block-crowdsignal-forms-poll__input"
+				className="crowdsignal-forms-poll__input"
 				id={ answerElementId }
 				name="answer"
 				onChange={ handleSelect }
@@ -64,10 +64,10 @@ const PollAnswer = ( {
 				onFocus={ handleFocus }
 			/>
 
-			<span className="wp-block-crowdsignal-forms-poll__check" />
+			<span className="crowdsignal-forms-poll__check" />
 
-			<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
-				<span className="wp-block-crowdsignal-forms-poll__answer-label">
+			<div className="crowdsignal-forms-poll__answer-label-wrapper">
+				<span className="crowdsignal-forms-poll__answer-label">
 					{ decodeEntities( text ) }
 				</span>
 			</div>
@@ -75,10 +75,10 @@ const PollAnswer = ( {
 	);
 
 	const renderButtonAnswers = () => (
-		<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
+		<div className="wp-block-button crowdsignal-forms-poll__block-button">
 			<input
 				type="submit"
-				className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
+				className="wp-block-button__link crowdsignal-forms-poll__submit-button"
 				value={ decodeEntities( text ) }
 				answerid={ answerIdFromApi }
 				onClick={ handleButtonVote }

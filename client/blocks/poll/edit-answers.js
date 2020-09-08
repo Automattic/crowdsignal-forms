@@ -93,7 +93,7 @@ const EditAnswers = ( {
 			'is-inline-button-alignment':
 				ButtonAlignment.INLINE === buttonAlignment,
 		},
-		'wp-block-crowdsignal-forms-poll__options'
+		'crowdsignal-forms-poll__options'
 	);
 
 	const showSubmitButton = AnswerStyle.RADIO === answerStyle;
@@ -121,17 +121,17 @@ const EditAnswers = ( {
 			</div>
 
 			{ showSubmitButton && (
-				<div className="wp-block-crowdsignal-forms-poll__actions">
-					<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
+				<div className="crowdsignal-forms-poll__actions">
+					<div className="wp-block-button crowdsignal-forms-poll__block-button">
 						{ ! disabled ? (
 							<RichText
-								className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
+								className="wp-block-button__link crowdsignal-forms-poll__submit-button"
 								onChange={ handleChangeSubmitButtonLabel }
 								value={ attributes.submitButtonLabel }
 								allowedFormats={ [] }
 							/>
 						) : (
-							<div className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button">
+							<div className="wp-block-button__link crowdsignal-forms-poll__submit-button">
 								{ attributes.submitButtonLabel }
 							</div>
 						) }

@@ -4,9 +4,9 @@
 import { __ } from 'lib/i18n';
 
 const FooterBranding = ( { showLogo } ) => (
-	<div className="wp-block-crowdsignal-forms-poll__footer-branding">
+	<div className="crowdsignal-forms-poll__footer-branding">
 		<a
-			className="wp-block-crowdsignal-forms-poll__footer-cs-link"
+			className="crowdsignal-forms-poll__footer-cs-link"
 			href="https://crowdsignal.com"
 			target="_blank"
 			rel="noopener noreferrer"
@@ -15,7 +15,7 @@ const FooterBranding = ( { showLogo } ) => (
 		</a>
 		{ showLogo && (
 			<img
-				className="wp-block-crowdsignal-forms-poll__footer-branding-logo"
+				className="crowdsignal-forms-poll__footer-branding-logo"
 				src="https://app.crowdsignal.com/images/svg/cs-logo-dots.svg"
 				alt="Crowdsignal sticker"
 			/>

@@ -19,7 +19,7 @@ const ClosedBanner = ( {
 		{
 			'is-transparent': showSubmitMessage,
 		},
-		'wp-block-crowdsignal-forms-poll__closed-banner'
+		'crowdsignal-forms-poll__closed-banner'
 	);
 
 	return (

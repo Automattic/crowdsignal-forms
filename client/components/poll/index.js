@@ -93,7 +93,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	const classes = getBlockCssClasses(
 		attributes,
 		attributes.className,
-		'wp-block-crowdsignal-forms-poll',
+		'crowdsignal-forms-poll',
 		{
 			'has-voted': hasVoted,
 			'is-closed': isClosed,
@@ -136,7 +136,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		{
 			'is-transparent': showSubmitMessage,
 		},
-		'wp-block-crowdsignal-forms-poll__content'
+		'crowdsignal-forms-poll__content'
 	);
 
 	const answerStyle = getAnswerStyle( attributes, attributes.className );
@@ -150,12 +150,12 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
 
 			<div className={ contentClasses }>
-				<h3 className="wp-block-crowdsignal-forms-poll__question">
+				<h3 className="crowdsignal-forms-poll__question">
 					{ decodeEntities( attributes.question ) }
 				</h3>
 
 				{ attributes.note && (
-					<p className="wp-block-crowdsignal-forms-poll__note">
+					<p className="crowdsignal-forms-poll__note">
 						{ decodeEntities( attributes.note ) }
 					</p>
 				) }

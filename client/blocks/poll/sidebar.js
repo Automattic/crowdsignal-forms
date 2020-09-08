@@ -223,7 +223,7 @@ const SideBar = ( {
 				{ ConfirmMessageType.REDIRECT ===
 					attributes.confirmMessageType && (
 					<URLInput
-						className="wp-block-crowdsignal-forms__redirect-url"
+						className="crowdsignal-forms__redirect-url"
 						value={ attributes.redirectAddress }
 						label={ __( 'Redirect address' ) }
 						onChange={ handleChangeRedirectAddress }
@@ -425,7 +425,7 @@ const SideBar = ( {
 					onChange={ handleChangeFontFamily }
 				/>
 				{ attributes.align !== 'full' && (
-					<div className="wp-block-crowdsignal-forms__row">
+					<div className="crowdsignal-forms__row">
 						<TextControl
 							type="number"
 							label={ __( 'Width (%)' ) }
@@ -434,27 +434,27 @@ const SideBar = ( {
 						/>
 						<Button
 							isSmall
-							className="wp-block-crowdsignal-forms__reset-width-button"
+							className="crowdsignal-forms__reset-width-button"
 							onClick={ handleResetWidth }
 						>
 							{ __( 'Reset' ) }
 						</Button>
 					</div>
 				) }
-				<div className="wp-block-crowdsignal-forms__row">
+				<div className="crowdsignal-forms__row">
 					<TextControl
 						label={ __( 'Border thickness' ) }
 						value={ attributes.borderWidth }
 						onChange={ handleChangeBorderWidth }
 						type="number"
-						className="wp-block-crowdsignal-forms__small-text-input"
+						className="crowdsignal-forms__small-text-input"
 					/>
 					<TextControl
 						label={ __( 'Corner radius' ) }
 						value={ attributes.borderRadius }
 						onChange={ handleChangeBorderRadius }
 						type="number"
-						className="wp-block-crowdsignal-forms__small-text-input"
+						className="crowdsignal-forms__small-text-input"
 					/>
 				</div>
 				<ToggleControl

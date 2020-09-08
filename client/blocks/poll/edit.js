@@ -192,7 +192,7 @@ const PollBlock = ( props ) => {
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 
 			<ResizableBox
-				className="wp-block-crowdsignal-forms-poll__resize-wrapper"
+				className="crowdsignal-forms-poll__resize-wrapper"
 				size={ { height: 'auto', width: blockWidth } }
 				minWidth="25%"
 				maxWidth="100%"
@@ -202,11 +202,16 @@ const PollBlock = ( props ) => {
 				resizeRatio={ 2 }
 			>
 				<div
-					className={ getBlockCssClasses( attributes, className, {
-						'is-selected-in-editor': isSelected,
-						'is-closed': isClosed,
-						'is-hidden': isHidden,
-					} ) }
+					className={ getBlockCssClasses(
+						attributes,
+						className,
+						{
+							'is-selected-in-editor': isSelected,
+							'is-closed': isClosed,
+							'is-hidden': isHidden,
+						},
+						'crowdsignal-forms-poll'
+					) }
 					style={ getStyleVars( attributes, fallbackStyles ) }
 				>
 					{ showEditBar && (
@@ -219,18 +224,18 @@ const PollBlock = ( props ) => {
 					{ errorMessage && (
 						<ErrorBanner>{ errorMessage }</ErrorBanner>
 					) }
-					<div className="wp-block-crowdsignal-forms-poll__content">
+					<div className="crowdsignal-forms-poll__content">
 						{ isPollEditable ? (
 							<RichText
 								tagName="h3"
-								className="wp-block-crowdsignal-forms-poll__question"
+								className="crowdsignal-forms-poll__question"
 								placeholder={ __( 'Enter your question' ) }
 								onChange={ handleChangeQuestion }
 								value={ attributes.question }
 								allowedFormats={ [] }
 							/>
 						) : (
-							<h3 className="wp-block-crowdsignal-forms-poll__question">
+							<h3 className="crowdsignal-forms-poll__question">
 								{ attributes.question
 									? decodeEntities( attributes.question )
 									: __( 'Enter your question' ) }
@@ -241,7 +246,7 @@ const PollBlock = ( props ) => {
 							( isPollEditable ? (
 								<RichText
 									tagName="p"
-									className="wp-block-crowdsignal-forms-poll__note"
+									className="crowdsignal-forms-poll__note"
 									placeholder={ __(
 										'Add a note (optional)'
 									) }
@@ -250,7 +255,7 @@ const PollBlock = ( props ) => {
 									allowedFormats={ [] }
 								/>
 							) : (
-								<p className="wp-block-crowdsignal-forms-poll__note">
+								<p className="crowdsignal-forms-poll__note">
 									{ attributes.note
 										? decodeEntities( attributes.note )
 										: __( 'Add a note (optional)' ) }

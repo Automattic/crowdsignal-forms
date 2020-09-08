@@ -33,8 +33,8 @@ const SubmitMessage = ( {
 	setDismissSubmitMessage,
 	hideBranding,
 } ) => (
-	<div className="wp-block-crowdsignal-forms-poll__submit-message-container">
-		<div className="wp-block-crowdsignal-forms-poll__submit-message">
+	<div className="crowdsignal-forms-poll__submit-message-container">
+		<div className="crowdsignal-forms-poll__submit-message">
 			{ ConfirmMessageType.THANK_YOU === confirmMessageType && (
 				<>
 					<video
@@ -51,10 +51,10 @@ const SubmitMessage = ( {
 							type="video/mp4"
 						/>
 					</video>
-					<ThankYouIcon className="wp-block-crowdsignal-forms-poll__thank-you-sticker" />
+					<ThankYouIcon className="crowdsignal-forms-poll__thank-you-sticker" />
 					{ ! hideBranding && (
 						<img
-							className="wp-block-crowdsignal-forms-poll__thank-you-cs-sticker"
+							className="crowdsignal-forms-poll__thank-you-cs-sticker"
 							src="https://app.crowdsignal.com/images/svg/cs-logo-dots.svg"
 							alt="Crowdsignal sticker"
 						/>
@@ -63,10 +63,10 @@ const SubmitMessage = ( {
 			) }
 			{ ConfirmMessageType.CUSTOM_TEXT === confirmMessageType && (
 				<>
-					<div className="wp-block-crowdsignal-forms-poll__custom-message-check">
+					<div className="crowdsignal-forms-poll__custom-message-check">
 						<CheckCircleIcon />
 					</div>
-					<div className="wp-block-crowdsignal-forms-poll__custom-message">
+					<div className="crowdsignal-forms-poll__custom-message">
 						{ isEmpty( customConfirmMessage )
 							? __( 'Thanks for voting!' )
 							: customConfirmMessage }
@@ -74,13 +74,13 @@ const SubmitMessage = ( {
 				</>
 			) }
 			<button
-				className="wp-block-crowdsignal-forms-poll__dismiss-submit-message"
+				className="crowdsignal-forms-poll__dismiss-submit-message"
 				onClick={ () => setDismissSubmitMessage( true ) }
 			>
 				<CloseIcon />
 			</button>
 		</div>
-		<div className="wp-block-crowdsignal-forms-poll__submit-message-footer">
+		<div className="crowdsignal-forms-poll__submit-message-footer">
 			{ ! hideBranding && (
 				<FooterBranding
 					showLogo={

@@ -36,19 +36,19 @@ const EditAnswer = ( {
 	const handleDelete = () => onDelete( index );
 	const handleSplit = () => onNewAnswer( index + 1 );
 
-	const classes = classnames( 'wp-block-crowdsignal-forms-poll__answer', {
+	const classes = classnames( 'crowdsignal-forms-poll__answer', {
 		'is-multiple-choice': isMultipleChoice,
 		'is-button': AnswerStyle.BUTTON === answerStyle,
 	} );
 
 	const renderRadioAnswers = () => (
 		<>
-			<span className="wp-block-crowdsignal-forms-poll__check" />
+			<span className="crowdsignal-forms-poll__check" />
 
-			<div className="wp-block-crowdsignal-forms-poll__answer-label-wrapper">
+			<div className="crowdsignal-forms-poll__answer-label-wrapper">
 				{ ! disabled ? (
 					<RichText
-						className="wp-block-crowdsignal-forms-poll__answer-label"
+						className="crowdsignal-forms-poll__answer-label"
 						tagName="span"
 						placeholder={ __( 'Enter an answer' ) }
 						multiline={ false }
@@ -62,7 +62,7 @@ const EditAnswer = ( {
 						withoutInteractiveFormatting
 					/>
 				) : (
-					<span className="wp-block-crowdsignal-forms-poll__answer-label">
+					<span className="crowdsignal-forms-poll__answer-label">
 						{ answer.text
 							? decodeEntities( answer.text )
 							: __( 'Enter an answer' ) }
@@ -73,10 +73,10 @@ const EditAnswer = ( {
 	);
 
 	const renderButtonAnswers = () => (
-		<div className="wp-block-button wp-block-crowdsignal-forms-poll__block-button">
+		<div className="wp-block-button crowdsignal-forms-poll__block-button">
 			{ ! disabled ? (
 				<RichText
-					className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button"
+					className="wp-block-button__link crowdsignal-forms-poll__submit-button"
 					placeholder={ __( 'Enter an answer' ) }
 					multiline={ false }
 					preserveWhiteSpace={ false }
@@ -90,7 +90,7 @@ const EditAnswer = ( {
 					keepPlaceholderOnFocus={ true }
 				/>
 			) : (
-				<div className="wp-block-button__link wp-block-crowdsignal-forms-poll__submit-button">
+				<div className="wp-block-button__link crowdsignal-forms-poll__submit-button">
 					{ answer.text
 						? decodeEntities( answer.text )
 						: __( 'Enter an answer' ) }

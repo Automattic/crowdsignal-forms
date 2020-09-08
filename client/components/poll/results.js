@@ -34,7 +34,7 @@ const PollResults = ( {
 		);
 	}, [ error ] );
 
-	const classes = classnames( 'wp-block-crowdsignal-forms-poll__results', {
+	const classes = classnames( 'crowdsignal-forms-poll__results', {
 		'is-error': !! error,
 		'is-loading': loading,
 	} );
@@ -43,7 +43,7 @@ const PollResults = ( {
 
 	return (
 		<div className={ classes }>
-			<div className="wp-block-crowdsignal-forms-poll__results-list">
+			<div className="crowdsignal-forms-poll__results-list">
 				{ map(
 					answers,
 					( answer ) =>
@@ -64,8 +64,8 @@ const PollResults = ( {
 				) }
 			</div>
 
-			<div className="wp-block-crowdsignal-forms-poll__results-footer">
-				<span className="wp-block-crowdsignal-forms-poll__results-total">
+			<div className="crowdsignal-forms-poll__results-footer">
+				<span className="crowdsignal-forms-poll__results-total">
 					{ sprintf(
 						// translators: %s: Number of votes
 						_n( '%s total vote', '%s total votes', total ),

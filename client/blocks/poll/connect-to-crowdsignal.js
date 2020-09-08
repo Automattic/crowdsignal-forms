@@ -40,14 +40,14 @@ const ConnectToCrowdsignal = ( props ) => {
 	const showVerificationMessage = isConnected && ! isAccountVerified;
 
 	return (
-		<div className="wp-block-crowdsignal-forms__connect-to-crowdsignal">
-			<div className="wp-block-crowdsignal-forms__connect-to-crowdsignal-header">
+		<div className="crowdsignal-forms__connect-to-crowdsignal">
+			<div className="crowdsignal-forms__connect-to-crowdsignal-header">
 				<PollIcon />
-				<div className="wp-block-crowdsignal-forms__connect-to-crowdsignal-title">
+				<div className="crowdsignal-forms__connect-to-crowdsignal-title">
 					{ __( 'Crowdsignal Poll' ) }
 				</div>
 			</div>
-			<div className="wp-block-crowdsignal-forms__connect-to-crowdsignal-body">
+			<div className="crowdsignal-forms__connect-to-crowdsignal-body">
 				{ showConnectionMessage &&
 					__(
 						'You need to connect to a Crowdsignal account to collect and manage your results.'
