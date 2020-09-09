@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React, { useEffect } from 'react';
+import classNames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -13,6 +14,7 @@ import { compose } from '@wordpress/compose';
  * Internal dependencies
  */
 import SideBar from './sidebar';
+import ToolBar from './toolbar';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import { __ } from 'lib/i18n';
 import withClientId from 'components/with-client-id';
@@ -56,13 +58,16 @@ const EditVoteBlock = ( props ) => {
 		? pollDataFromApi.viewResultsUrl
 		: '';
 
+	const classes = classNames( className, `size-${ attributes.size }` );
+
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
 			blockName={ __( 'Crowdsignal Vote' ) }
 		>
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
-			<div className={ className }>
+			<ToolBar { ...props } />
+			<div className={ classes }>
 				<InnerBlocks
 					template={ [
 						[ 'crowdsignal-forms/vote-item', { type: 'up' } ],

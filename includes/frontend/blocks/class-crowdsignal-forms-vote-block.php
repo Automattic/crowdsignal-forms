@@ -124,6 +124,10 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => null,
 			),
+			'size'                => array(
+				'type'    => 'string',
+				'default' => 'medium',
+			),
 		);
 	}
 }

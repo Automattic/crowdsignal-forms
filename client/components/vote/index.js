@@ -35,7 +35,8 @@ const Vote = ( { attributes } ) => {
 
 	const classes = classNames(
 		'wp-block-crowdsignal-forms-vote',
-		attributes.className
+		attributes.className,
+		`size-${ attributes.size }`
 	);
 
 	const answerClientIdToApiId = zipObject(
