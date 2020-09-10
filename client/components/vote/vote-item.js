@@ -9,6 +9,7 @@ import classNames from 'classnames/dedupe';
  */
 import ThumbsUp from 'components/icon/thumbs-up';
 import ThumbsDown from 'components/icon/thumbs-down';
+import { formatVoteCount } from './util.js';
 
 const VoteItem = ( {
 	className,
@@ -56,7 +57,7 @@ const VoteItem = ( {
 				<ThumbsDown className="wp-block-crowdsignal-forms-vote-item__icon" />
 			) }
 			<div className="wp-block-crowdsignal-forms-vote-item__count">
-				{ actualVoteCount ?? 0 }
+				{ formatVoteCount( actualVoteCount ) }
 			</div>
 		</div>
 	);
