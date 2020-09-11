@@ -21,3 +21,19 @@ export const getBackgroundColor = ( backgroundColorNode ) => {
 	}
 	return backgroundColor;
 };
+
+/**
+ * Gets the border color for a node, if it appears valid.
+ * If we get '0px' for the width, then we likely don't have a border and return null.
+ * We use 'borderBlockStartWidth' because of FF: https://bugzilla.mozilla.org/show_bug.cgi?id=137688
+ *
+ * @param {Element} borderNode The element to check for a border color
+ * @return {string|null} The border colour value of null if invalid
+ */
+export const getBorderColor = ( borderNode ) => {
+	const borderWidth = window.getComputedStyle( borderNode )
+		.borderBlockStartWidth;
+	return borderWidth !== '0px'
+		? window.getComputedStyle( borderNode ).borderBlockStartColor
+		: null;
+};

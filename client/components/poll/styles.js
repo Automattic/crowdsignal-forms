@@ -6,7 +6,10 @@ import React from 'react';
 /**
  * Internal dependencies
  */
-import { getBackgroundColor } from 'components/with-fallback-styles/util';
+import {
+	getBackgroundColor,
+	getBorderColor,
+} from 'components/with-fallback-styles/util';
 
 export const getPollStyles = ( node ) => {
 	if ( null === node ) {
@@ -18,10 +21,21 @@ export const getPollStyles = ( node ) => {
 	const h3Node = node.querySelector( 'h3' );
 	const wideContentNode = node.querySelector( '.alignwide' );
 
+	let accentColor = getBackgroundColor( buttonNode );
+	const surfaceColor = getBackgroundColor( textNode );
+	const textColor = window.getComputedStyle( textNode ).color;
+
+	// Ensure that we don't end up with the same color for surface and accent.
+	// Falls back to button border color, then text color.
+	if ( accentColor === surfaceColor ) {
+		const borderColor = getBorderColor( buttonNode );
+		accentColor = borderColor ? borderColor : textColor;
+	}
+
 	return {
-		accent: getBackgroundColor( buttonNode ),
-		surface: getBackgroundColor( textNode ),
-		text: window.getComputedStyle( textNode ).color,
+		accent: accentColor,
+		surface: surfaceColor,
+		text: textColor,
 		bodyFontFamily: window.getComputedStyle( textNode ).fontFamily,
 		questionFontFamily: window.getComputedStyle( h3Node ).fontFamily,
 		textInverted: window.getComputedStyle( buttonNode ).color,
