@@ -128,6 +128,14 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => 'medium',
 			),
+			'borderWidth'         => array(
+				'type'    => 'number',
+				'default' => 1,
+			),
+			'borderRadius'        => array(
+				'type'    => 'number',
+				'default' => 5,
+			),
 		);
 	}
 }

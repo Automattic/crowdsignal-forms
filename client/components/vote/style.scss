@@ -17,8 +17,8 @@
 }
 
 .wp-block-crowdsignal-forms-vote-item {
-	border: 1px solid rgb(210, 210, 210);
-	border-radius: 5px;
+	border: var(--crowdsignal-forms-vote-border-width) solid rgb(210, 210, 210);
+	border-radius: var(--crowdsignal-forms-vote-border-radius);
 	cursor: pointer;
 	display: flex;
 	flex-direction: row;

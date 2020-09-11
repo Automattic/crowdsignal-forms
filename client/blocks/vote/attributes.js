@@ -32,4 +32,12 @@ export default {
 		type: 'string',
 		default: 'medium',
 	},
+	borderWidth: {
+		type: 'number',
+		default: 1,
+	},
+	borderRadius: {
+		type: 'number',
+		default: 5,
+	},
 };

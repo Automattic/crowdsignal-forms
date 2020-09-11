@@ -24,6 +24,7 @@ import {
 	withPollDataSelect,
 	withPollDataDispatch,
 } from 'blocks/poll/subscriptions';
+import { getVoteItemStyleVars } from 'blocks/vote/util';
 
 startSubscriptions();
 
@@ -60,6 +61,8 @@ const EditVoteBlock = ( props ) => {
 
 	const classes = classNames( className, `size-${ attributes.size }` );
 
+	const voteItemStyleVars = getVoteItemStyleVars( attributes );
+
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
@@ -67,7 +70,7 @@ const EditVoteBlock = ( props ) => {
 		>
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 			<ToolBar { ...props } />
-			<div className={ classes }>
+			<div className={ classes } style={ voteItemStyleVars }>
 				<InnerBlocks
 					template={ [
 						[ 'crowdsignal-forms/vote-item', { type: 'up' } ],

@@ -10,6 +10,7 @@ import classNames from 'classnames';
  */
 import VoteItem from 'components/vote/vote-item';
 import { usePollResults, usePollVote } from 'data/hooks';
+import { getVoteItemStyleVars } from 'blocks/vote/util';
 
 const Vote = ( { attributes } ) => {
 	const apiPollId = attributes.apiPollData.id;
@@ -44,8 +45,10 @@ const Vote = ( { attributes } ) => {
 		map( attributes.apiPollData.answers, 'id' )
 	);
 
+	const voteItemStyleVars = getVoteItemStyleVars( attributes );
+
 	return (
-		<div className={ classes }>
+		<div className={ classes } style={ voteItemStyleVars }>
 			{ map( attributes.innerBlocks, ( voteAttributes ) => {
 				const apiAnswerId =
 					answerClientIdToApiId[ voteAttributes.answerId ];
