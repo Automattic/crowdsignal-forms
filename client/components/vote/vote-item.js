@@ -1,8 +1,10 @@
 /**
  * External dependencies
  */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/dedupe';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 
 /**
  * Internal dependencies
@@ -20,12 +22,18 @@ const VoteItem = ( {
 	disabled,
 	isVotedOn,
 } ) => {
-	const [ actualVoteCount, setActualVoteCount ] = useState( 0 );
-	useEffect( () => {
-		if ( voteCount ) {
-			setActualVoteCount( voteCount );
+	const [ currentVote, setCurrentVote ] = useState( 0 );
+
+	const handleVote = () => {
+		if ( disabled || ! onVote ) {
+			return;
 		}
-	}, [ voteCount ] );
+
+		setCurrentVote( 1 );
+		onVote( apiAnswerId );
+	};
+
+	const Icon = 'up' === type ? ThumbsUp : ThumbsDown;
 
 	const classes = classNames(
 		'wp-block-crowdsignal-forms-vote-item',
@@ -36,12 +44,7 @@ const VoteItem = ( {
 		}
 	);
 
-	const handleVote = () => {
-		if ( ! disabled && onVote ) {
-			setActualVoteCount( actualVoteCount + 1 );
-			onVote( apiAnswerId );
-		}
-	};
+	const displayedVoteCount = voteCount + currentVote;
 
 	return (
 		<div
@@ -51,16 +54,30 @@ const VoteItem = ( {
 			role="button"
 			tabIndex={ 0 }
 		>
-			{ 'up' === type ? (
-				<ThumbsUp className="wp-block-crowdsignal-forms-vote-item__icon" />
-			) : (
-				<ThumbsDown className="wp-block-crowdsignal-forms-vote-item__icon" />
-			) }
-			<div className="wp-block-crowdsignal-forms-vote-item__count">
-				{ formatVoteCount( actualVoteCount ) }
-			</div>
+			<Icon className="wp-block-crowdsignal-forms-vote-item__icon" />
+			<SwitchTransition mode="in-out">
+				<CSSTransition
+					key={ currentVote }
+					classNames="wp-block-crowdsignal-forms-vote-item__count"
+					timeout={ 300 }
+				>
+					<div className="wp-block-crowdsignal-forms-vote-item__count">
+						{ formatVoteCount( displayedVoteCount ) }
+					</div>
+				</CSSTransition>
+			</SwitchTransition>
 		</div>
 	);
+};
+
+VoteItem.propTypes = {
+	apiAnswerId: PropTypes.number,
+	className: PropTypes.string,
+	disabled: PropTypes.bool,
+	isVotedOn: PropTypes.bool,
+	onVote: PropTypes.func.isRequired,
+	type: PropTypes.string.isRequired,
+	voteCount: PropTypes.number.isRequired,
 };
 
 export default VoteItem;

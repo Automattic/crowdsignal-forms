@@ -16,24 +16,6 @@
 	flex-direction: row;
 }
 
-.wp-block-crowdsignal-forms-vote-item__icon {
-
-	.size-small & {
-		width: 0.7em;
-		height: 0.7em;
-	}
-
-	.size-medium & {
-		width: 1em;
-		height: 1em;
-	}
-
-	.size-large & {
-		width: 1.2em;
-		height: 1.2em;
-	}
-}
-
 .wp-block-crowdsignal-forms-vote-item {
 	border: 1px solid rgb(210, 210, 210);
 	border-radius: 5px;
@@ -43,6 +25,7 @@
 	align-items: center;
 	margin-inline-end: 8px;
 	padding: 4px 10px;
+	position: relative;
 
 	&.is-voted-on {
 		border-color: rgb(255, 0, 0);
@@ -59,9 +42,36 @@
 	}
 }
 
+.wp-block-crowdsignal-forms-vote-item__icon {
+
+	.size-small & {
+		width: 0.7em;
+		height: 0.7em;
+	}
+
+	.size-medium & {
+		width: 1em;
+		height: 1em;
+	}
+
+	.size-large & {
+		width: 1.2em;
+		height: 1.2em;
+	}
+
+	.wp-block-crowdsignal-forms-vote-item.is-voted-on & {
+		animation-duration: 0.3s;
+		animation-name: crowdsignal-forms-animation__pop;
+		animation-iteration-count: 1;
+	}
+}
+
 .wp-block-crowdsignal-forms-vote-item__count {
 	font-size: 14pt;
 	margin-inline-start: 10px;
+	transform: rotateX(0deg);
+	transform-origin: 50% 50% 10px;
+	transition: transform 0.3s;
 
 	.size-small & {
 		font-size: 0.7em;
@@ -73,5 +83,33 @@
 
 	.size-large & {
 		font-size: 1.2em;
+	}
+}
+
+.wp-block-crowdsignal-forms-vote-item__count-enter,
+.wp-block-crowdsignal-forms-vote-item__count-enter-active {
+	margin: 0;
+	position: absolute;
+	right: 0;
+}
+
+.wp-block-crowdsignal-forms-vote-item__count-enter {
+	transform: rotateX(-90deg);
+
+	.wp-block-crowdsignal-forms-vote-item.is-voted-on & {
+		transform: rotateX(90deg);
+	}
+}
+
+.wp-block-crowdsignal-forms-vote-item__count-exit,
+.wp-block-crowdsignal-forms-vote-item__count__exit-active {
+	margin: 0;
+	position: absolute;
+	right: 10px;
+	top: 4px;
+	transform: rotateX(90deg);
+
+	.wp-block-crowdsignal-forms-vote-item.is-voted-on & {
+		transform: rotateX(-90deg);
 	}
 }
