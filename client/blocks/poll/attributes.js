@@ -125,6 +125,10 @@ export default {
 		type: 'string',
 		default: null,
 	},
+	hideBranding: {
+		type: 'boolean',
+		default: false,
+	},
 	buttonAlignment: {
 		type: 'string',
 		default: ButtonAlignment.LIST,
