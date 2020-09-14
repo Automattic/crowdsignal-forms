@@ -79,7 +79,7 @@ VoteItem.propTypes = {
 	className: PropTypes.string,
 	disabled: PropTypes.bool,
 	isVotedOn: PropTypes.bool,
-	onVote: PropTypes.func.isRequired,
+	onVote: PropTypes.func,
 	type: PropTypes.string.isRequired,
 	voteCount: PropTypes.number.isRequired,
 };

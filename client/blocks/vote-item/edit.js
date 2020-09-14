@@ -13,7 +13,11 @@ const EditVoteItemBlock = ( props ) => {
 		<>
 			<SideBar { ...props } />
 
-			<VoteItem { ...attributes } className={ className } />
+			<VoteItem
+				{ ...attributes }
+				className={ className }
+				voteCount={ 0 }
+			/>
 		</>
 	);
 };
