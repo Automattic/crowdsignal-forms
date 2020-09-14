@@ -13,7 +13,7 @@ import {
 	Popover,
 	TextControl,
 	ToolbarGroup,
-	ToolbarButton,
+	Toolbar,
 } from '@wordpress/components';
 
 /**
@@ -71,10 +71,26 @@ const ToolBar = ( { attributes, setAttributes } ) => {
 					};
 				} ) }
 			/>
-			<ToolbarButton
-				icon={ BorderIcon }
-				onClick={ handlePopoverVisible }
+			<Toolbar
+				controls={ [
+					{
+						icon: BorderIcon,
+						onClick: handlePopoverVisible,
+					},
+					{
+						icon: () => (
+							<CounterIcon
+								isSelected={ ! attributes.hideResults }
+							/>
+						),
+						label: toggleResultsLabel,
+						onClick: handleToggleResults,
+						isActive: ! attributes.hideResults, // Pre gutenberg 8
+						isPressed: ! attributes.hideResults,
+					},
+				] }
 			/>
+
 			{ isPopoverVisible && (
 				<Popover
 					className="crowdsignal-forms__border-popover"
@@ -98,14 +114,6 @@ const ToolBar = ( { attributes, setAttributes } ) => {
 					</div>
 				</Popover>
 			) }
-			<ToolbarButton
-				icon={ () => (
-					<CounterIcon isSelected={ ! attributes.hideResults } />
-				) }
-				label={ toggleResultsLabel }
-				onClick={ handleToggleResults }
-				isPressed={ ! attributes.hideResults }
-			/>
 		</BlockControls>
 	);
 };
