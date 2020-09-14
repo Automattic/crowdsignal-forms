@@ -16,6 +16,10 @@ export default {
 		type: 'string',
 		default: null,
 	},
+	hideBranding: {
+		type: 'boolean',
+		default: false,
+	},
 	title: {
 		type: 'string',
 		default: __( 'Untitled Vote' ),

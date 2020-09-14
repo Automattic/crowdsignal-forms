@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import VoteItem from 'components/vote/vote-item';
 import { usePollResults, usePollVote } from 'data/hooks';
 import { getVoteItemStyleVars } from 'blocks/vote/util';
+import { __ } from 'lib/i18n';
 
 const Vote = ( { attributes } ) => {
 	const apiPollId = attributes.apiPollData.id;
@@ -49,22 +50,37 @@ const Vote = ( { attributes } ) => {
 
 	return (
 		<div className={ classes } style={ voteItemStyleVars }>
-			{ map( attributes.innerBlocks, ( voteAttributes ) => {
-				const apiAnswerId =
-					answerClientIdToApiId[ voteAttributes.answerId ];
+			<div className="wp-block-crowdsignal-forms-vote__items">
+				{ map( attributes.innerBlocks, ( voteAttributes ) => {
+					const apiAnswerId =
+						answerClientIdToApiId[ voteAttributes.answerId ];
 
-				return (
-					<VoteItem
-						{ ...voteAttributes }
-						key={ voteAttributes.answerId }
-						apiAnswerId={ apiAnswerId }
-						onVote={ handleVoteClick }
-						disabled={ hasVoted || 0 !== votedOnId }
-						isVotedOn={ apiAnswerId === votedOnId }
-						voteCount={ results ? results[ apiAnswerId ] : 0 }
-					/>
-				);
-			} ) }
+					return (
+						<VoteItem
+							{ ...voteAttributes }
+							key={ voteAttributes.answerId }
+							apiAnswerId={ apiAnswerId }
+							onVote={ handleVoteClick }
+							disabled={ hasVoted || 0 !== votedOnId }
+							isVotedOn={ apiAnswerId === votedOnId }
+							voteCount={ results ? results[ apiAnswerId ] : 0 }
+						/>
+					);
+				} ) }
+			</div>
+
+			{ hasVoted && ! attributes.hideBranding && (
+				<div className="wp-block-crowdsignal-forms-vote__branding">
+					<a
+						className="wp-block-crowdsignal-forms-vote__branding-link"
+						href="https://crowdsignal.com"
+						target="blank"
+						rel="noopener noreferrer"
+					>
+						{ __( 'Powered by Crowdsignal' ) }
+					</a>
+				</div>
+			) }
 		</div>
 	);
 };

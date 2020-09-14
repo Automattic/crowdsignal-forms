@@ -12,6 +12,12 @@
 }
 
 .wp-block-crowdsignal-forms-vote {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+}
+
+.wp-block-crowdsignal-forms-vote__items {
 	display: flex;
 	flex-direction: row;
 }
@@ -87,7 +93,7 @@
 }
 
 .wp-block-crowdsignal-forms-vote-item__count-enter,
-.wp-block-crowdsignal-forms-vote-item__count-enter-active {
+.wp-block-crowdsignal-forms-vote-item__count-entepr-active {
 	margin: 0;
 	position: absolute;
 	right: 0;
@@ -111,5 +117,28 @@
 
 	.wp-block-crowdsignal-forms-vote-item.is-voted-on & {
 		transform: rotateX(-90deg);
+	}
+}
+
+.wp-block-crowdsignal-forms-vote__branding {
+	display: flex;
+}
+
+.wp-block-crowdsignal-forms-vote__branding-link {
+	font-family: $font-sans-serif;
+	font-size: 8px;
+	padding: 8px 20px 0;
+	text-decoration: none !important;
+	text-transform: uppercase;
+
+	&::after {
+		content: "\2197";
+		display: inline;
+		font-size: 6px;
+		vertical-align: super;
+	}
+
+	&:not(:hover) {
+		color: var(--crowdsignal-forms-text-color);
 	}
 }

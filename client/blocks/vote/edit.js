@@ -70,17 +70,20 @@ const EditVoteBlock = ( props ) => {
 		>
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 			<ToolBar { ...props } />
+
 			<div className={ classes } style={ voteItemStyleVars }>
-				<InnerBlocks
-					template={ [
-						[ 'crowdsignal-forms/vote-item', { type: 'up' } ],
-						[ 'crowdsignal-forms/vote-item', { type: 'down' } ],
-					] }
-					templateLock="insert"
-					allowedBlocks={ [ 'crowdsignal-forms/vote-item' ] }
-					orientation="horizontal"
-					__experimentalMoverDirection="horizontal" // required for pre WP 5.5, post 5.5 only requires `orientation` to be set
-				/>
+				<div className="wp-block-crowdsignal-forms-vote__items">
+					<InnerBlocks
+						template={ [
+							[ 'crowdsignal-forms/vote-item', { type: 'up' } ],
+							[ 'crowdsignal-forms/vote-item', { type: 'down' } ],
+						] }
+						templateLock="insert"
+						allowedBlocks={ [ 'crowdsignal-forms/vote-item' ] }
+						orientation="horizontal"
+						__experimentalMoverDirection="horizontal" // required for pre WP 5.5, post 5.5 only requires `orientation` to be set
+					/>
+				</div>
 			</div>
 		</ConnectToCrowdsignal>
 	);
