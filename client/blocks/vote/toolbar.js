@@ -22,6 +22,7 @@ import {
 import { DEFAULT_SIZE_CONTROLS, POPOVER_PROPS } from 'blocks/vote/constants';
 import SizeIcon from 'components/icon/size';
 import BorderIcon from 'components/icon/border';
+import CounterIcon from 'components/icon/counter';
 
 const ToolBar = ( { attributes, setAttributes } ) => {
 	const size = get( attributes, 'size', 'medium' );
@@ -39,8 +40,17 @@ const ToolBar = ( { attributes, setAttributes } ) => {
 		} );
 	};
 
+	const handleToggleResults = () =>
+		setAttributes( {
+			hideResults: ! attributes.hideResults,
+		} );
+
 	const [ isPopoverVisible, setPopoverVisible ] = useState( false );
 	const handlePopoverVisible = () => setPopoverVisible( ! isPopoverVisible );
+
+	const toggleResultsLabel = attributes.hideResults
+		? __( 'Show vote counters' )
+		: __( 'Hide vote counters' );
 
 	return (
 		<BlockControls>
@@ -88,6 +98,14 @@ const ToolBar = ( { attributes, setAttributes } ) => {
 					</div>
 				</Popover>
 			) }
+			<ToolbarButton
+				icon={ () => (
+					<CounterIcon isSelected={ ! attributes.hideResults } />
+				) }
+				label={ toggleResultsLabel }
+				onClick={ handleToggleResults }
+				isPressed={ ! attributes.hideResults }
+			/>
 		</BlockControls>
 	);
 };

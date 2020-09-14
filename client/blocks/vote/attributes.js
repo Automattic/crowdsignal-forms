@@ -44,4 +44,8 @@ export default {
 		type: 'number',
 		default: 5,
 	},
+	hideResults: {
+		type: 'boolean',
+		default: false,
+	},
 };

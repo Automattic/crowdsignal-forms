@@ -21,6 +21,7 @@ const VoteItem = ( {
 	onVote,
 	disabled,
 	isVotedOn,
+	hideCount,
 } ) => {
 	const [ currentVote, setCurrentVote ] = useState( 0 );
 
@@ -55,17 +56,20 @@ const VoteItem = ( {
 			tabIndex={ 0 }
 		>
 			<Icon className="wp-block-crowdsignal-forms-vote-item__icon" />
-			<SwitchTransition mode="in-out">
-				<CSSTransition
-					key={ currentVote }
-					classNames="wp-block-crowdsignal-forms-vote-item__count"
-					timeout={ 300 }
-				>
-					<div className="wp-block-crowdsignal-forms-vote-item__count">
-						{ formatVoteCount( displayedVoteCount ) }
-					</div>
-				</CSSTransition>
-			</SwitchTransition>
+
+			{ ! hideCount && (
+				<SwitchTransition mode="in-out">
+					<CSSTransition
+						key={ currentVote }
+						classNames="wp-block-crowdsignal-forms-vote-item__count"
+						timeout={ 300 }
+					>
+						<div className="wp-block-crowdsignal-forms-vote-item__count">
+							{ formatVoteCount( displayedVoteCount ) }
+						</div>
+					</CSSTransition>
+				</SwitchTransition>
+			) }
 		</div>
 	);
 };

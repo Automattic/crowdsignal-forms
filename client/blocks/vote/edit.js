@@ -59,7 +59,9 @@ const EditVoteBlock = ( props ) => {
 		? pollDataFromApi.viewResultsUrl
 		: '';
 
-	const classes = classNames( className, `size-${ attributes.size }` );
+	const classes = classNames( className, `size-${ attributes.size }`, {
+		'no-results': attributes.hideResults,
+	} );
 
 	const voteItemStyleVars = getVoteItemStyleVars( attributes );
 

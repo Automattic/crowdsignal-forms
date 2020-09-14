@@ -136,6 +136,10 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'number',
 				'default' => 5,
 			),
+			'hideResults'         => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
 		);
 	}
 }

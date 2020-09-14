@@ -8,3 +8,10 @@
 .crowdsignal-forms__border-popover .crowdsignal-forms__row {
 	padding: 10px;
 }
+
+.wp-block-crowdsignal-forms-vote-item__count {
+
+	.wp-block-crowdsignal-forms-vote.no-results & {
+		display: none;
+	}
+}
