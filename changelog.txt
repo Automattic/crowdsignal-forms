@@ -1,3 +1,20 @@
+= 1.1.0 =
+* Implement a poll width setting (#255)
+* fix method used when updating poll ids in post meta (#257)
+* Fix archiving of poll blocks in comments (#256)
+* Address the comments from the p2tenberg compatibility pr. (#252)
+* P2tenberg: Get The Edit Bar To Display in p2tenberg (#254)
+* keep button placeholder on focus of button answers for a less jarring editing experience (#242)
+* P2tenberg compatibility (#175)
+* Change radio/checkbox fill colour to text colour (#241)
+* Add release preparation script (#240)
+* Add Button Answer Type (with actual buttons) (#230)
+* Add a link for crowdsignal.com In Sidebar for an Unpublished Poll (#239)
+* remove ios styling from submit button (#225)
+* Move asset definitions to the `block` class to simplify adding new blocks (#224)
+* update branches that travis will build (#233)
+* Add wp-editor dependency
+
 = 1.0 =
 * Update default sidebar status
 * Increase Default Poll Margins

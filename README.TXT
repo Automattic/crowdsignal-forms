@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.4.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,22 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+= 1.1.0 =
+* Implement a poll width setting
+* fix method used when updating poll ids in post meta
+* Fix archiving of poll blocks in comments
+* Address the comments from the p2tenberg compatibility pr
+* P2tenberg: Get The Edit Bar To Display in p2tenberg
+* keep button placeholder on focus of button answers for a less jarring editing experience
+* P2tenberg compatibility
+* Change radio/checkbox fill colour to text colour
+* Add release preparation script
+* Add Button Answer Type (with actual buttons)
+* Add a link for crowdsignal.com In Sidebar for an Unpublished Poll
+* remove ios styling from submit button
+* Move asset definitions to the `block` class to simplify adding new blocks
+* update branches that travis will build
+* Add wp-editor dependency
 
 = 1.0 =
 * Update default sidebar status
