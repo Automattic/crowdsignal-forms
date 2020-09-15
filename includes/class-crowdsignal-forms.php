@@ -171,6 +171,12 @@ final class Crowdsignal_Forms {
 	public function activate_redirect() {
 		if ( get_option( 'crowdsignal_forms_do_activation_redirect', false ) ) {
 			delete_option( 'crowdsignal_forms_do_activation_redirect' );
+
+			// If a user code is set, skip the redirect.
+			if ( get_option( Crowdsignal_Forms_Api_Authenticator::USER_CODE_NAME ) ) {
+				return;
+			}
+
 			wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-setup' ) );
 			exit();
 		}
