@@ -68,6 +68,13 @@ class Poll_Block_Synchronizer {
 		}
 
 		$this->authenticator = Crowdsignal_Forms::instance()->get_api_authenticator();
+
+		// if there aren't any CS blocks AND a user code hasn't been requested yet, then there is nothing to sync.
+		if ( ! $this->entity_bridge->has_crowdsignal_forms_blocks()
+			&& ! $this->authenticator->has_user_code() ) {
+			return;
+		}
+
 		if ( ! $this->authenticator->get_user_code() ) {
 			// Plugin hasn't been authenticated yet, abort sync.
 			return;

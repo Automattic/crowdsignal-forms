@@ -62,6 +62,14 @@ class Crowdsignal_Forms_Api_Authenticator {
 	}
 
 	/**
+	 * Checks if a Crowdsignal user code has already been retrieved.
+	 */
+	public function has_user_code() {
+		$user_code = get_option( self::USER_CODE_NAME );
+		return ! empty( $user_code );
+	}
+
+	/**
 	 * Get the Crowdsignal API key.
 	 *
 	 * @return string the API key.
