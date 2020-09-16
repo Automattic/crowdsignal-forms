@@ -1,3 +1,7 @@
+= 1.1.1 =
+* Don't Request User Code on Save if there is nothing to save (#284)
+* Skip the setup screen if a user code is saved (#282)
+
 = 1.1.0 =
 * Implement a poll width setting (#255)
 * fix method used when updating poll ids in post meta (#257)
