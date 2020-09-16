@@ -12,8 +12,10 @@ import VoteItem from 'components/vote/vote-item';
 import { usePollResults, usePollVote } from 'data/hooks';
 import { getVoteStyleVars } from 'blocks/vote/util';
 import { __ } from 'lib/i18n';
+import { VoteStyles, getVoteStyles } from './styles';
+import { withFallbackStyles } from 'components/with-fallback-styles';
 
-const Vote = ( { attributes } ) => {
+const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	const apiPollId = attributes.apiPollData.id;
 	const [ votedOnId, setVotedOnId ] = useState( 0 );
 	const { hasVoted, vote, storedCookieValue } = usePollVote(
@@ -58,6 +60,7 @@ const Vote = ( { attributes } ) => {
 					return (
 						<VoteItem
 							{ ...voteAttributes }
+							fallbackStyles={ fallbackStyles }
 							key={ voteAttributes.answerId }
 							apiAnswerId={ apiAnswerId }
 							onVote={ handleVoteClick }
@@ -82,8 +85,10 @@ const Vote = ( { attributes } ) => {
 					</a>
 				</div>
 			) }
+
+			{ renderStyleProbe() }
 		</div>
 	);
 };
 
-export default Vote;
+export default withFallbackStyles( VoteStyles, getVoteStyles )( Vote );

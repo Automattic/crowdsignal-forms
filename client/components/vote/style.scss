@@ -45,11 +45,6 @@
 		color: var(--crowdsignal-forms-vote-text-color);
 	}
 
-	&.is-voted-on {
-		border-color: var(--crowdsignal-forms-vote-voted-color);
-		color: var(--crowdsignal-forms-vote-voted-color);
-	}
-
 	&.is-disabled:not(.is-voted-on) {
 		opacity: 0.5;
 	}
@@ -57,6 +52,12 @@
 	.size-large & {
 		padding: 6px 16px;
 		margin-inline-end: 16px;
+	}
+
+	&.is-voted-on,
+	&:hover:not(.is-disabled) {
+		border-color: var(--crowdsignal-forms-vote-voted-color);
+		color: var(--crowdsignal-forms-vote-voted-color);
 	}
 }
 

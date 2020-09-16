@@ -28,7 +28,7 @@ export const getVoteItemStyleVars = ( attributes, fallbackStyles ) => {
 			borderColor: attributes.borderColor,
 			bgColor: attributes.backgroundColor,
 			textColor,
-			votedColor: 'purple',
+			votedColor: fallbackStyles.accent,
 		},
 		( _, key ) => `--crowdsignal-forms-vote-${ kebabCase( key ) }`
 	);

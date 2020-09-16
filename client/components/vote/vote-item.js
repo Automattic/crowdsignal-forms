@@ -23,6 +23,7 @@ const VoteItem = ( props ) => {
 		disabled,
 		isVotedOn,
 		hideCount,
+		fallbackStyles,
 	} = props;
 	const [ currentVote, setCurrentVote ] = useState( 0 );
 
@@ -49,7 +50,7 @@ const VoteItem = ( props ) => {
 			'is-disabled': disabled,
 		}
 	);
-	const blockStyle = getVoteItemStyleVars( props, {} );
+	const blockStyle = getVoteItemStyleVars( props, fallbackStyles );
 
 	const displayedVoteCount = voteCount + currentVote;
 
