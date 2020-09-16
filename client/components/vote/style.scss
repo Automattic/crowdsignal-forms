@@ -33,9 +33,21 @@
 	padding: 4px 10px;
 	position: relative;
 
+	&.has-bg-color {
+		background-color: var(--crowdsignal-forms-vote-bg-color);
+	}
+
+	&.has-border-color {
+		border-color: var(--crowdsignal-forms-vote-border-color);
+	}
+
+	&.has-text-color {
+		color: var(--crowdsignal-forms-vote-text-color);
+	}
+
 	&.is-voted-on {
-		border-color: rgb(255, 0, 0);
-		color: rgb(255, 0, 0);
+		border-color: var(--crowdsignal-forms-vote-voted-color);
+		color: var(--crowdsignal-forms-vote-voted-color);
 	}
 
 	&.is-disabled:not(.is-voted-on) {

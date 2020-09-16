@@ -1,4 +1,4 @@
-export default ( { className } ) => (
+export default ( { className, fillColor = 'black' } ) => (
 	<svg
 		className={ className }
 		width="24"
@@ -26,7 +26,12 @@ export default ( { className } ) => (
 				/>
 			</mask>
 			<g mask="url(#maskThumbsDown)">
-				<rect id="Rectangle" width="24" height="24" fill="black" />
+				<rect
+					id="Rectangle"
+					width="24"
+					height="24"
+					fill={ fillColor }
+				/>
 			</g>
 		</g>
 	</svg>

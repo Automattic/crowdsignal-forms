@@ -11,4 +11,13 @@ export default {
 	type: {
 		type: 'string',
 	},
+	textColor: {
+		type: 'string',
+	},
+	backgroundColor: {
+		type: 'string',
+	},
+	borderColor: {
+		type: 'string',
+	},
 };

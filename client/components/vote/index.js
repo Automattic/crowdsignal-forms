@@ -10,7 +10,7 @@ import classNames from 'classnames';
  */
 import VoteItem from 'components/vote/vote-item';
 import { usePollResults, usePollVote } from 'data/hooks';
-import { getVoteItemStyleVars } from 'blocks/vote/util';
+import { getVoteStyleVars } from 'blocks/vote/util';
 import { __ } from 'lib/i18n';
 
 const Vote = ( { attributes } ) => {
@@ -46,10 +46,10 @@ const Vote = ( { attributes } ) => {
 		map( attributes.apiPollData.answers, 'id' )
 	);
 
-	const voteItemStyleVars = getVoteItemStyleVars( attributes );
+	const voteStyleVars = getVoteStyleVars( attributes );
 
 	return (
-		<div className={ classes } style={ voteItemStyleVars }>
+		<div className={ classes } style={ voteStyleVars }>
 			<div className="wp-block-crowdsignal-forms-vote__items">
 				{ map( attributes.innerBlocks, ( voteAttributes ) => {
 					const apiAnswerId =

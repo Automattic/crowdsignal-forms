@@ -24,7 +24,7 @@ import {
 	withPollDataSelect,
 	withPollDataDispatch,
 } from 'blocks/poll/subscriptions';
-import { getVoteItemStyleVars } from 'blocks/vote/util';
+import { getVoteStyleVars } from 'blocks/vote/util';
 
 startSubscriptions();
 
@@ -63,7 +63,7 @@ const EditVoteBlock = ( props ) => {
 		'no-results': attributes.hideResults,
 	} );
 
-	const voteItemStyleVars = getVoteItemStyleVars( attributes );
+	const voteItemStyleVars = getVoteStyleVars( attributes );
 
 	return (
 		<ConnectToCrowdsignal

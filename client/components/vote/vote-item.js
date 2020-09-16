@@ -3,7 +3,6 @@
  */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/dedupe';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 
 /**
@@ -11,18 +10,20 @@ import { CSSTransition, SwitchTransition } from 'react-transition-group';
  */
 import ThumbsUp from 'components/icon/thumbs-up';
 import ThumbsDown from 'components/icon/thumbs-down';
-import { formatVoteCount } from './util.js';
+import { formatVoteCount } from './util';
+import { getVoteItemStyleVars, getBlockCssClasses } from 'blocks/vote/util';
 
-const VoteItem = ( {
-	className,
-	type,
-	voteCount,
-	apiAnswerId,
-	onVote,
-	disabled,
-	isVotedOn,
-	hideCount,
-} ) => {
+const VoteItem = ( props ) => {
+	const {
+		className,
+		type,
+		voteCount,
+		apiAnswerId,
+		onVote,
+		disabled,
+		isVotedOn,
+		hideCount,
+	} = props;
 	const [ currentVote, setCurrentVote ] = useState( 0 );
 
 	const handleVote = () => {
@@ -34,9 +35,13 @@ const VoteItem = ( {
 		onVote( apiAnswerId );
 	};
 
-	const Icon = 'up' === type ? ThumbsUp : ThumbsDown;
+	const Icon =
+		'up' === type
+			? () => <ThumbsUp fillColor="currentColor" />
+			: () => <ThumbsDown fillColor="currentColor" />;
 
-	const classes = classNames(
+	const classes = getBlockCssClasses(
+		props,
 		'wp-block-crowdsignal-forms-vote-item',
 		className,
 		{
@@ -44,6 +49,7 @@ const VoteItem = ( {
 			'is-disabled': disabled,
 		}
 	);
+	const blockStyle = getVoteItemStyleVars( props, {} );
 
 	const displayedVoteCount = voteCount + currentVote;
 
@@ -53,6 +59,7 @@ const VoteItem = ( {
 			onClick={ handleVote }
 			onKeyPress={ handleVote }
 			role="button"
+			style={ blockStyle }
 			tabIndex={ 0 }
 		>
 			<Icon className="wp-block-crowdsignal-forms-vote-item__icon" />
