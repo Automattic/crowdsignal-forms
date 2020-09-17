@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React from 'react';
-import { forEach } from 'lodash';
+import { isEmpty, forEach } from 'lodash';
 
 /**
  * Internal dependencies
@@ -13,11 +13,15 @@ import MutationObserver from 'lib/mutation-observer';
 MutationObserver( 'data-crowdsignal-vote', ( attributes, element ) => {
 	const innerBlocks = [];
 
-	forEach( element.children, ( childElement ) =>
+	forEach( element.children, ( childElement ) => {
+		if ( isEmpty( childElement.dataset.crowdsignalVoteItem ) ) {
+			return;
+		}
+
 		innerBlocks.push(
 			JSON.parse( childElement.dataset.crowdsignalVoteItem )
-		)
-	);
+		);
+	} );
 
 	const voteAttributes = {
 		...attributes,
