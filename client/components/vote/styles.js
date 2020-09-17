@@ -22,6 +22,7 @@ export const getVoteStyles = ( node ) => {
 	let accentColor = getBackgroundColor( buttonNode );
 	const surfaceColor = getBackgroundColor( textNode );
 	const textColor = window.getComputedStyle( textNode ).color;
+	const fontFamily = window.getComputedStyle( textNode ).fontFamily;
 
 	// Ensure that we don't end up with the same color for surface and accent.
 	// Falls back to button border color, then text color.
@@ -32,6 +33,7 @@ export const getVoteStyles = ( node ) => {
 
 	return {
 		accent: accentColor,
+		fontFamily,
 	};
 };
 

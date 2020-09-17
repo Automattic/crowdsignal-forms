@@ -15,6 +15,19 @@
 	align-items: flex-start;
 	display: flex;
 	flex-direction: column;
+
+	&.wp-block-crowdsignal-forms-vote__example {
+		align-items: center;
+	}
+}
+
+[data-type="crowdsignal-forms/vote-item"] {
+
+	/* Gutenberg 9 fix for vertically overridden margins in a horizontal
+	orientation block. */
+	margin-top: 28px !important;
+	margin-bottom: 28px !important;
+
 }
 
 .wp-block-crowdsignal-forms-vote__items {
@@ -87,6 +100,7 @@
 
 .wp-block-crowdsignal-forms-vote-item__count {
 	font-size: 14pt;
+	font-family: var(--crowdsignal-forms-vote-font-family);
 	margin-inline-start: 10px;
 	transform: rotateX(0deg);
 	transform-origin: 50% 50% 10px;
