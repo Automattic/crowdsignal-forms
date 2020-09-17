@@ -1,6 +1,6 @@
 /* editor styles */
 
-.wp-block-crowdsignal-forms-vote .block-editor-block-list__layout {
+.crowdsignal-forms-vote .block-editor-block-list__layout {
 	display: flex;
 	flex-direction: row;
 }
@@ -9,9 +9,9 @@
 	padding: 10px;
 }
 
-.wp-block-crowdsignal-forms-vote-item__count {
+.crowdsignal-forms-vote-item__count {
 
-	.wp-block-crowdsignal-forms-vote.no-results & {
+	.crowdsignal-forms-vote.no-results & {
 		display: none;
 	}
 }

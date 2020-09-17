@@ -59,9 +59,14 @@ const EditVoteBlock = ( props ) => {
 		? pollDataFromApi.viewResultsUrl
 		: '';
 
-	const classes = classNames( className, `size-${ attributes.size }`, {
-		'no-results': attributes.hideResults,
-	} );
+	const classes = classNames(
+		className,
+		'crowdsignal-forms-vote',
+		`size-${ attributes.size }`,
+		{
+			'no-results': attributes.hideResults,
+		}
+	);
 
 	const voteItemStyleVars = getVoteStyleVars( attributes );
 
@@ -74,7 +79,7 @@ const EditVoteBlock = ( props ) => {
 			<ToolBar { ...props } />
 
 			<div className={ classes } style={ voteItemStyleVars }>
-				<div className="wp-block-crowdsignal-forms-vote__items">
+				<div className="crowdsignal-forms-vote__items">
 					<InnerBlocks
 						template={ [
 							[ 'crowdsignal-forms/vote-item', { type: 'up' } ],

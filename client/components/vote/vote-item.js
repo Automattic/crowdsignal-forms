@@ -43,7 +43,7 @@ const VoteItem = ( props ) => {
 
 	const classes = getBlockCssClasses(
 		props,
-		'wp-block-crowdsignal-forms-vote-item',
+		'crowdsignal-forms-vote-item',
 		className,
 		{
 			'is-voted-on': isVotedOn,
@@ -63,16 +63,16 @@ const VoteItem = ( props ) => {
 			style={ blockStyle }
 			tabIndex={ 0 }
 		>
-			<Icon className="wp-block-crowdsignal-forms-vote-item__icon" />
+			<Icon className="crowdsignal-forms-vote-item__icon" />
 
 			{ ! hideCount && (
 				<SwitchTransition mode="in-out">
 					<CSSTransition
 						key={ currentVote }
-						classNames="wp-block-crowdsignal-forms-vote-item__count"
+						classNames="crowdsignal-forms-vote-item__count"
 						timeout={ 300 }
 					>
-						<div className="wp-block-crowdsignal-forms-vote-item__count">
+						<div className="crowdsignal-forms-vote-item__count">
 							{ formatVoteCount( displayedVoteCount ) }
 						</div>
 					</CSSTransition>

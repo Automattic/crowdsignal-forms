@@ -25,7 +25,7 @@ export default {
 	attributes,
 	example: {
 		attributes: {
-			className: 'wp-block-crowdsignal-forms-vote__example',
+			className: 'crowdsignal-forms-vote__example',
 			size: 'large',
 		},
 	},

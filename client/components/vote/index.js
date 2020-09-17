@@ -38,7 +38,7 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	};
 
 	const classes = classNames(
-		'wp-block-crowdsignal-forms-vote',
+		'crowdsignal-forms-vote',
 		attributes.className,
 		`size-${ attributes.size }`
 	);
@@ -52,7 +52,7 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 	return (
 		<div className={ classes } style={ voteStyleVars }>
-			<div className="wp-block-crowdsignal-forms-vote__items">
+			<div className="crowdsignal-forms-vote__items">
 				{ map( attributes.innerBlocks, ( voteAttributes ) => {
 					const apiAnswerId =
 						answerClientIdToApiId[ voteAttributes.answerId ];
@@ -74,9 +74,9 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			</div>
 
 			{ hasVoted && ! attributes.hideBranding && (
-				<div className="wp-block-crowdsignal-forms-vote__branding">
+				<div className="crowdsignal-forms-vote__branding">
 					<a
-						className="wp-block-crowdsignal-forms-vote__branding-link"
+						className="crowdsignal-forms-vote__branding-link"
 						href="https://crowdsignal.com"
 						target="blank"
 						rel="noopener noreferrer"

@@ -11,12 +11,12 @@
 	}
 }
 
-.wp-block-crowdsignal-forms-vote {
+.crowdsignal-forms-vote {
 	align-items: flex-start;
 	display: flex;
 	flex-direction: column;
 
-	&.wp-block-crowdsignal-forms-vote__example {
+	&.crowdsignal-forms-vote__example {
 		align-items: center;
 	}
 }
@@ -30,12 +30,12 @@
 
 }
 
-.wp-block-crowdsignal-forms-vote__items {
+.crowdsignal-forms-vote__items {
 	display: flex;
 	flex-direction: row;
 }
 
-.wp-block-crowdsignal-forms-vote-item {
+.crowdsignal-forms-vote-item {
 	border: var(--crowdsignal-forms-vote-border-width) solid rgb(210, 210, 210);
 	border-radius: var(--crowdsignal-forms-vote-border-radius);
 	cursor: pointer;
@@ -74,7 +74,7 @@
 	}
 }
 
-.wp-block-crowdsignal-forms-vote-item__icon {
+.crowdsignal-forms-vote-item__icon {
 
 	.size-small & {
 		width: 0.7em;
@@ -91,14 +91,14 @@
 		height: 1.2em;
 	}
 
-	.wp-block-crowdsignal-forms-vote-item.is-voted-on & {
+	.crowdsignal-forms-vote-item.is-voted-on & {
 		animation-duration: 0.3s;
 		animation-name: crowdsignal-forms-animation__pop;
 		animation-iteration-count: 1;
 	}
 }
 
-.wp-block-crowdsignal-forms-vote-item__count {
+.crowdsignal-forms-vote-item__count {
 	font-size: 14pt;
 	font-family: var(--crowdsignal-forms-vote-font-family);
 	margin-inline-start: 10px;
@@ -119,39 +119,39 @@
 	}
 }
 
-.wp-block-crowdsignal-forms-vote-item__count-enter,
-.wp-block-crowdsignal-forms-vote-item__count-entepr-active {
+.crowdsignal-forms-vote-item__count-enter,
+.crowdsignal-forms-vote-item__count-enter-active {
 	margin: 0;
 	position: absolute;
 	right: 0;
 }
 
-.wp-block-crowdsignal-forms-vote-item__count-enter {
+.crowdsignal-forms-vote-item__count-enter {
 	transform: rotateX(-90deg);
 
-	.wp-block-crowdsignal-forms-vote-item.is-voted-on & {
+	.crowdsignal-forms-vote-item.is-voted-on & {
 		transform: rotateX(90deg);
 	}
 }
 
-.wp-block-crowdsignal-forms-vote-item__count-exit,
-.wp-block-crowdsignal-forms-vote-item__count__exit-active {
+.crowdsignal-forms-vote-item__count-exit,
+.crowdsignal-forms-vote-item__count-exit-active {
 	margin: 0;
 	position: absolute;
 	right: 10px;
 	top: 4px;
 	transform: rotateX(90deg);
 
-	.wp-block-crowdsignal-forms-vote-item.is-voted-on & {
+	.crowdsignal-forms-vote-item.is-voted-on & {
 		transform: rotateX(-90deg);
 	}
 }
 
-.wp-block-crowdsignal-forms-vote__branding {
+.crowdsignal-forms-vote__branding {
 	display: flex;
 }
 
-.wp-block-crowdsignal-forms-vote__branding-link {
+.crowdsignal-forms-vote__branding-link {
 	font-family: $font-sans-serif;
 	font-size: 8px;
 	padding: 8px 20px 0;
