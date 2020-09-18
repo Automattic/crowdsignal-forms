@@ -38,8 +38,18 @@ const VoteItem = ( props ) => {
 
 	const Icon =
 		'up' === type
-			? () => <ThumbsUp fillColor="currentColor" />
-			: () => <ThumbsDown fillColor="currentColor" />;
+			? ( { iconClass } ) => (
+					<ThumbsUp
+						className={ iconClass }
+						fillColor="currentColor"
+					/>
+			  )
+			: ( { iconClass } ) => (
+					<ThumbsDown
+						className={ iconClass }
+						fillColor="currentColor"
+					/>
+			  );
 
 	const classes = getBlockCssClasses(
 		props,
