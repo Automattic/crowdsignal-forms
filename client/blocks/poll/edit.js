@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useState, useEffect } from 'react';
-import { filter, isEmpty, map, omit, round, some } from 'lodash';
+import { filter, isEmpty, map, round, some } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -47,6 +47,7 @@ import {
 } from './subscriptions';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import PollIcon from 'components/icon/poll';
+import usePollDuplicateCleaner from 'components/use-poll-duplicate-cleaner';
 
 startSubscriptions();
 
@@ -106,30 +107,12 @@ const PollBlock = ( props ) => {
 		};
 	}, [] );
 
-	// duplicate & same page copy/paste detector/cleaner-upper
-	useEffect( () => {
-		if ( isEmpty( attributes.pollId ) ) {
-			return;
-		}
-
-		if ( ! window.csPolls ) {
-			window.csPolls = {};
-		}
-
-		if ( ! window.csPolls[ attributes.pollId ] ) {
-			window.csPolls[ attributes.pollId ] = [ props.clientId ];
-		} else if (
-			window.csPolls[ attributes.pollId ].indexOf( props.clientId ) > -1
-		) {
-			// clientid already known, ignore.
-		} else {
-			const answers = map( attributes.answers, ( answer ) =>
-				omit( answer, [ 'answerId' ] )
-			);
-
-			setAttributes( { pollId: null, answers } );
-		}
-	}, [ attributes.pollId ] );
+	usePollDuplicateCleaner(
+		props.clientId,
+		attributes.pollId,
+		attributes.answers,
+		setAttributes
+	);
 
 	const [ isPollEditable, setIsPollEditable ] = useState( true );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
