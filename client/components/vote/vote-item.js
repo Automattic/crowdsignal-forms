@@ -36,21 +36,7 @@ const VoteItem = ( props ) => {
 		onVote( apiAnswerId );
 	};
 
-	const Icon =
-		'up' === type
-			? ( { iconClass } ) => (
-					<ThumbsUp
-						className={ iconClass }
-						fillColor="currentColor"
-					/>
-			  )
-			: ( { iconClass } ) => (
-					<ThumbsDown
-						className={ iconClass }
-						fillColor="currentColor"
-					/>
-			  );
-
+	const Icon = 'up' === type ? ThumbsUp : ThumbsDown;
 	const classes = getBlockCssClasses(
 		props,
 		'crowdsignal-forms-vote-item',
@@ -73,7 +59,10 @@ const VoteItem = ( props ) => {
 			style={ blockStyle }
 			tabIndex={ 0 }
 		>
-			<Icon className="crowdsignal-forms-vote-item__icon" />
+			<Icon
+				className="crowdsignal-forms-vote-item__icon"
+				fillColor="currentColor"
+			/>
 
 			{ ! hideCount && (
 				<SwitchTransition mode="in-out">
