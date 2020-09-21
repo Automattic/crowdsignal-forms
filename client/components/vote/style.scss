@@ -42,8 +42,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-inline-end: 8px;
-	padding: 20px 10px;
+	margin-inline-end: 8px !important;
 	position: relative;
 
 	&.has-bg-color {
@@ -69,6 +68,7 @@
 
 	.size-medium & {
 		height: 1em;
+		padding: 20px 10px;
 	}
 
 	.size-large & {
@@ -82,100 +82,104 @@
 		border-color: var(--crowdsignal-forms-vote-voted-color);
 		color: var(--crowdsignal-forms-vote-voted-color);
 	}
-}
 
-.crowdsignal-forms-vote-item__icon {
+	.crowdsignal-forms-vote-item__icon {
 
-	.size-small & {
-		width: 0.7em;
-		height: 0.7em;
+		.size-small & {
+			width: 0.7em;
+			height: 0.7em;
+			max-height: 0.7em;
+		}
+
+		.size-medium & {
+			width: 1em;
+			height: 1em;
+			max-height: 1em;
+		}
+
+		.size-large & {
+			width: 1.2em;
+			height: 1.2em;
+			max-height: 1.2em;
+		}
+
+		.crowdsignal-forms-vote-item.is-voted-on & {
+			animation-duration: 0.3s;
+			animation-name: crowdsignal-forms-animation__pop;
+			animation-iteration-count: 1;
+		}
 	}
 
-	.size-medium & {
-		width: 1em;
-		height: 1em;
+	.crowdsignal-forms-vote-item__count {
+		font-size: 14pt;
+		font-family: var(--crowdsignal-forms-vote-font-family);
+		margin-inline-start: 10px;
+		transform: rotateX(0deg);
+		transform-origin: 50% 50% 10px;
+		transition: transform 0.3s;
+
+		.size-small & {
+			font-size: 0.7em;
+		}
+
+		.size-medium & {
+			font-size: 1em;
+		}
+
+		.size-large & {
+			font-size: 1.2em;
+		}
 	}
 
-	.size-large & {
-		width: 1.2em;
-		height: 1.2em;
+	.crowdsignal-forms-vote-item__count-enter,
+	.crowdsignal-forms-vote-item__count-enter-active {
+		margin: 0;
+		position: absolute;
+		right: 0;
 	}
 
-	.crowdsignal-forms-vote-item.is-voted-on & {
-		animation-duration: 0.3s;
-		animation-name: crowdsignal-forms-animation__pop;
-		animation-iteration-count: 1;
-	}
-}
-
-.crowdsignal-forms-vote-item__count {
-	font-size: 14pt;
-	font-family: var(--crowdsignal-forms-vote-font-family);
-	margin-inline-start: 10px;
-	transform: rotateX(0deg);
-	transform-origin: 50% 50% 10px;
-	transition: transform 0.3s;
-
-	.size-small & {
-		font-size: 0.7em;
-	}
-
-	.size-medium & {
-		font-size: 1em;
-	}
-
-	.size-large & {
-		font-size: 1.2em;
-	}
-}
-
-.crowdsignal-forms-vote-item__count-enter,
-.crowdsignal-forms-vote-item__count-enter-active {
-	margin: 0;
-	position: absolute;
-	right: 0;
-}
-
-.crowdsignal-forms-vote-item__count-enter {
-	transform: rotateX(-90deg);
-
-	.crowdsignal-forms-vote-item.is-voted-on & {
-		transform: rotateX(90deg);
-	}
-}
-
-.crowdsignal-forms-vote-item__count-exit,
-.crowdsignal-forms-vote-item__count-exit-active {
-	margin: 0;
-	position: absolute;
-	right: 10px;
-	top: 4px;
-	transform: rotateX(90deg);
-
-	.crowdsignal-forms-vote-item.is-voted-on & {
+	.crowdsignal-forms-vote-item__count-enter {
 		transform: rotateX(-90deg);
+
+		.crowdsignal-forms-vote-item.is-voted-on & {
+			transform: rotateX(90deg);
+		}
+	}
+
+	.crowdsignal-forms-vote-item__count-exit,
+	.crowdsignal-forms-vote-item__count-exit-active {
+		margin: 0;
+		position: absolute;
+		right: 10px;
+		top: 4px;
+		transform: rotateX(90deg);
+
+		.crowdsignal-forms-vote-item.is-voted-on & {
+			transform: rotateX(-90deg);
+		}
 	}
 }
+
 
 .crowdsignal-forms-vote__branding {
 	display: flex;
-}
 
-.crowdsignal-forms-vote__branding-link {
-	font-family: $font-sans-serif;
-	font-size: 8px;
-	padding: 8px 20px 0;
-	text-decoration: none !important;
-	text-transform: uppercase;
+	.crowdsignal-forms-vote__branding-link {
+		font-family: $font-sans-serif;
+		font-size: 8px;
+		padding: 8px 20px 0;
+		text-decoration: none !important;
+		text-transform: uppercase;
 
-	&::after {
-		content: "\2197";
-		display: inline;
-		font-size: 6px;
-		vertical-align: super;
-	}
+		&::after {
+			content: "\2197";
+			display: inline;
+			font-size: 6px;
+			vertical-align: super;
+		}
 
-	&:not(:hover) {
-		color: var(--crowdsignal-forms-text-color);
+		&:not(:hover) {
+			color: var(--crowdsignal-forms-text-color);
+		}
 	}
 }
