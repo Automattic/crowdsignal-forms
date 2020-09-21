@@ -6,14 +6,21 @@ export default () => (
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
 	>
-		<line x1="8" y1="8.5" x2="24" y2="8.5" stroke="black" />
-		<line x1="8" y1="15" x2="24" y2="15" stroke="black" strokeWidth="2" />
+		<line x1="8" y1="8.5" x2="24" y2="8.5" stroke="currentColor" />
+		<line
+			x1="8"
+			y1="15"
+			x2="24"
+			y2="15"
+			stroke="currentColor"
+			strokeWidth="2"
+		/>
 		<line
 			x1="8"
 			y1="22.5"
 			x2="24"
 			y2="22.5"
-			stroke="black"
+			stroke="currentColor"
 			strokeWidth="3"
 		/>
 	</svg>

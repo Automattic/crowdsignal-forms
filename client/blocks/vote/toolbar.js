@@ -78,11 +78,7 @@ const ToolBar = ( { attributes, setAttributes } ) => {
 						onClick: handlePopoverVisible,
 					},
 					{
-						icon: () => (
-							<CounterIcon
-								isSelected={ ! attributes.hideResults }
-							/>
-						),
+						icon: CounterIcon,
 						label: toggleResultsLabel,
 						onClick: handleToggleResults,
 						isActive: ! attributes.hideResults, // Pre gutenberg 8
