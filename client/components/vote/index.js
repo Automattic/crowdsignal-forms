@@ -11,9 +11,9 @@ import classNames from 'classnames';
 import VoteItem from 'components/vote/vote-item';
 import { usePollResults, usePollVote } from 'data/hooks';
 import { getVoteStyleVars } from 'blocks/vote/util';
-import { __ } from 'lib/i18n';
 import { VoteStyles, getVoteStyles } from './styles';
 import { withFallbackStyles } from 'components/with-fallback-styles';
+import BrandLink from './brand-link';
 
 const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	const apiPollId = attributes.apiPollData.id;
@@ -72,19 +72,7 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 					);
 				} ) }
 			</div>
-
-			{ hasVoted && ! attributes.hideBranding && (
-				<div className="crowdsignal-forms-vote__branding">
-					<a
-						className="crowdsignal-forms-vote__branding-link"
-						href="https://crowdsignal.com"
-						target="blank"
-						rel="noopener noreferrer"
-					>
-						{ __( 'Powered by Crowdsignal' ) }
-					</a>
-				</div>
-			) }
+			<BrandLink showBranding={ hasVoted && ! attributes.hideBranding } />
 
 			{ renderStyleProbe() }
 		</div>
