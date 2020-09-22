@@ -16,10 +16,11 @@ import {
 import { useFetch } from './util';
 import { ConnectedAccountState } from 'blocks/poll/constants';
 
-export const usePollResults = ( pollId ) => {
-	const { data, error, loading } = useFetch( () => requestResults( pollId ), [
-		pollId,
-	] );
+export const usePollResults = ( pollId, doFetch = true ) => {
+	const { data, error, loading } = useFetch(
+		() => requestResults( pollId, doFetch ),
+		[ pollId ]
+	);
 
 	return {
 		error,

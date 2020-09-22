@@ -24,7 +24,7 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		true
 	);
 
-	const { results } = usePollResults( apiPollId );
+	const { results } = usePollResults( apiPollId, ! attributes.hideResults );
 
 	useEffect( () => {
 		if ( '' !== storedCookieValue ) {

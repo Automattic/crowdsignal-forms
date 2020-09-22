@@ -12,10 +12,15 @@ import { __ } from 'lib/i18n';
  * Fetch the poll results for the given pollId
  *
  * @param  {number}  pollId Poll ID.
+ * @param  {boolean} doFetch Whether or not to actually perform the request.
  * @return {Promise}        Promise that resolves to a key-value object with answer IDs and vote counts.
  */
-export const requestResults = async ( pollId ) => {
+export const requestResults = async ( pollId, doFetch = true ) => {
 	const baseUrl = 'https://api.crowdsignal.com/v3/polls';
+
+	if ( ! doFetch ) {
+		return null;
+	}
 
 	return window
 		.fetch( `${ baseUrl }/${ pollId }/results`, {
