@@ -15,3 +15,12 @@
 		display: none;
 	}
 }
+
+.crowdsignal-forms-vote__size-dropdown {
+
+	.components-button.components-dropdown-menu__menu-item.is-active::after {
+		content: "\2713";
+		margin-inline-start: auto;
+		margin-inline-end: 0;
+	}
+}

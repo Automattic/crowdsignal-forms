@@ -33,4 +33,5 @@ export const DEFAULT_SIZE_CONTROLS = [
 export const POPOVER_PROPS = {
 	position: 'bottom right',
 	isAlternate: true,
+	className: 'crowdsignal-forms-vote__size-dropdown',
 };
