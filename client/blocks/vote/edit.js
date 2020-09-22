@@ -94,6 +94,7 @@ const EditVoteBlock = ( props ) => {
 							[ 'crowdsignal-forms/vote-item', { type: 'up' } ],
 							[ 'crowdsignal-forms/vote-item', { type: 'down' } ],
 						] }
+						templateInsertUpdatesSelection={ false }
 						templateLock="insert"
 						allowedBlocks={ [ 'crowdsignal-forms/vote-item' ] }
 						orientation="horizontal"
