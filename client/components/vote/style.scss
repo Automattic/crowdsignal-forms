@@ -112,22 +112,22 @@
 
 	.crowdsignal-forms-vote-item__count {
 		font-size: 14pt;
-		font-family: var(--crowdsignal-forms-vote-font-family);
+		font-family: $font-sans-serif;
 		margin-inline-start: 10px;
 		transform: rotateX(0deg);
 		transform-origin: 50% 50% 10px;
 		transition: transform 0.3s;
 
 		.size-small & {
-			font-size: 0.7em;
+			font-size: 0.6em;
 		}
 
 		.size-medium & {
-			font-size: 1em;
+			font-size: 0.8em;
 		}
 
 		.size-large & {
-			font-size: 1.2em;
+			font-size: 1em;
 		}
 	}
 
