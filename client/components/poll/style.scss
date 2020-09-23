@@ -109,12 +109,16 @@
 		opacity: 0.7;
 	}
 
-	.crowdsignal-forms-poll.has-submit-button-bg-color &.wp-block-button__link {
-		background-color: var(--crowdsignal-forms-submit-button-bg-color);
-	}
-
 	.crowdsignal-forms-poll.has-submit-button-text-color &.wp-block-button__link {
 		color: var(--crowdsignal-forms-submit-button-text-color);
+	}
+
+	.crowdsignal-forms-poll.has-submit-button-bg-color &.wp-block-button__link {
+		background-color: var(--crowdsignal-forms-submit-button-bg-color);
+
+		&:hover {
+			opacity: 0.9;
+		}
 	}
 }
 

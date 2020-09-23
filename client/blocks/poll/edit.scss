@@ -33,6 +33,10 @@
 
 		&.wp-block-button__link {
 			cursor: text;
+
+			&:hover {
+				opacity: inherit;
+			}
 		}
 	}
 }
