@@ -119,7 +119,7 @@ class Crowdsignal_Forms_Settings {
 			if ( 'update' === $_POST['action'] ) {
 				if ( wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'add-api-key' ) ) {
 					$api_key = sanitize_key( wp_unslash( $_POST['crowdsignal_api_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
-					if ( $api_auth_provider->get_user_code_for_key( $api_key ) ) {
+					if ( ! empty( $api_key ) && $api_auth_provider->get_user_code_for_key( $api_key ) ) {
 						$api_auth_provider->set_api_key( $api_key );
 						wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-settings&msg=api-key-added' ) );
 					} else {
