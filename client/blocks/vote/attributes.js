@@ -1,8 +1,3 @@
-/**
- * Internal dependencies
- */
-import { __ } from 'lib/i18n';
-
 /*
  * Note: Any changes made to the attributes definition need to be duplicated in
  *       Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Vote_Block::attributes()
@@ -22,7 +17,7 @@ export default {
 	},
 	title: {
 		type: 'string',
-		default: __( 'Untitled Vote' ),
+		default: null,
 	},
 	pollStatus: {
 		type: 'string',

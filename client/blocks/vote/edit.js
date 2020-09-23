@@ -26,6 +26,7 @@ import {
 } from 'blocks/poll/subscriptions';
 import { getVoteStyleVars } from 'blocks/vote/util';
 import usePollDuplicateCleaner from 'components/use-poll-duplicate-cleaner';
+import useNumberedTitle from 'components/use-numbered-title';
 
 startSubscriptions();
 
@@ -61,6 +62,13 @@ const EditVoteBlock = ( props ) => {
 		props.clientId,
 		attributes.pollId,
 		attributes.answers,
+		setAttributes
+	);
+
+	useNumberedTitle(
+		props.name,
+		__( 'Untitled Vote' ),
+		attributes,
 		setAttributes
 	);
 
