@@ -26,6 +26,7 @@ import {
 } from 'blocks/poll/subscriptions';
 import { getVoteStyleVars } from 'blocks/vote/util';
 import usePollDuplicateCleaner from 'components/use-poll-duplicate-cleaner';
+import { isPollClosed } from 'blocks/poll/util';
 import useNumberedTitle from 'components/use-numbered-title';
 
 startSubscriptions();
@@ -76,12 +77,18 @@ const EditVoteBlock = ( props ) => {
 		? pollDataFromApi.viewResultsUrl
 		: '';
 
+	const isClosed = isPollClosed(
+		attributes.pollStatus,
+		attributes.closedAfterDateTime
+	);
+
 	const classes = classNames(
 		className,
 		'crowdsignal-forms-vote',
 		`size-${ attributes.size }`,
 		{
 			'no-results': attributes.hideResults,
+			'is-closed': isClosed,
 		}
 	);
 

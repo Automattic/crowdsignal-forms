@@ -57,6 +57,12 @@
 		color: var(--crowdsignal-forms-vote-text-color);
 	}
 
+	.is-closed &,
+	&.is-disabled {
+		cursor: inherit;
+	}
+
+	.is-closed &, /* `.is-closed` is used in editor only */
 	&.is-disabled:not(.is-voted-on) {
 		opacity: 0.5;
 	}

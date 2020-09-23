@@ -14,6 +14,7 @@ import { getVoteStyleVars } from 'blocks/vote/util';
 import { VoteStyles, getVoteStyles } from './styles';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import BrandLink from './brand-link';
+import { isPollClosed } from 'blocks/poll/util';
 
 const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	const apiPollId = attributes.apiPollData.id;
@@ -50,6 +51,11 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 	const voteStyleVars = getVoteStyleVars( attributes );
 
+	const isClosed = isPollClosed(
+		attributes.pollStatus,
+		attributes.closedAfterDateTime
+	);
+
 	return (
 		<div className={ classes } style={ voteStyleVars }>
 			<div className="crowdsignal-forms-vote__items">
@@ -64,7 +70,7 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 							key={ voteAttributes.answerId }
 							apiAnswerId={ apiAnswerId }
 							onVote={ handleVoteClick }
-							disabled={ hasVoted || 0 !== votedOnId }
+							disabled={ hasVoted || 0 !== votedOnId || isClosed }
 							isVotedOn={ apiAnswerId === votedOnId }
 							voteCount={ results ? results[ apiAnswerId ] : 0 }
 							hideCount={ attributes.hideResults }
