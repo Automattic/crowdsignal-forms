@@ -106,6 +106,10 @@ class Crowdsignal_Forms_Settings {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		if (
 			isset( $_POST['action'] ) &&
 			isset( $_POST['crowdsignal_api_key'] ) &&
