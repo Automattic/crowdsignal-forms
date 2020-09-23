@@ -31,6 +31,11 @@
 	padding-left: 16px;
 }
 
+.crowdsignal-settings-wrap {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
 .crowdsignal-setup__logo-container {
 	flex-grow: 0;
 	flex-shrink: 0;
@@ -194,8 +199,36 @@
 }
 
 
-.wrap .error.crowdsignal-message, .wrap .updated.crowdsignal-message {
-	margin-bottom: 8px;
+.wrap div.crowdsignal-message {
+	margin: 24px auto 8px auto;
+	border: 0;
+	padding: 16px;
+	padding-left: 24px;
+	max-width: 960px;
+	box-sizing: border-box;
+}
+
+.wrap div.updated.crowdsignal-message {
+	background-color: #eff9f1;
+}
+.wrap div.error.crowdsignal-message {
+	background-color: #fbcfd2;
+}
+.wrap div.updated.crowdsignal-message p,
+.wrap div.error.crowdsignal-message p {
+	padding: 0;
+	color: black;
+	font-size: 14px;
+	line-height: 22px;
+	margin: 4px 0px;
+}
+
+.crowdsignal-message .crowdsignal-notification-icon {
+	display: inline-block;
+	vertical-align: text-bottom;
+	margin-right: 16px;
+	line-height: 0;
+	height: 22px;
 }
 
 .crowdsignal-settings__main-content {

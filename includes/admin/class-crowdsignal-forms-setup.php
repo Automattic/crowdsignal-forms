@@ -10,6 +10,7 @@ namespace Crowdsignal_Forms\Admin;
 use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Admin_Notices;
 use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
 use Crowdsignal_Forms\Crowdsignal_Forms;
+use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Notice_Icon;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -120,6 +121,22 @@ class Crowdsignal_Forms_Setup {
 		}
 
 		$this->output( $step );
+	}
+
+	/**
+	 * Convenience method to get the icon markup from the Notice_Icon helper class
+	 *
+	 * @param string $icon The icon type: warning|success.
+	 */
+	public static function get_icon( $icon ) {
+		switch ( $icon ) {
+			case 'warning':
+				return Crowdsignal_Forms_Notice_Icon::warning();
+			case 'success':
+				return Crowdsignal_Forms_Notice_Icon::success();
+			default:
+				return '';
+		}
 	}
 
 	/**
