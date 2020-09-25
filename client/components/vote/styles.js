@@ -31,7 +31,9 @@ export const getVoteStyles = ( node ) => {
 	}
 
 	return {
-		accent: accentColor,
+		accentColor,
+		textColor,
+		backgroundColor: surfaceColor,
 	};
 };
 

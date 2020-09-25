@@ -20,15 +20,18 @@ export const getVoteStyleVars = ( attributes ) => {
 
 export const getVoteItemStyleVars = ( attributes, fallbackStyles ) => {
 	const textColor = isEmpty( attributes.textColor )
-		? fallbackStyles.text
+		? fallbackStyles.textColor
 		: attributes.textColor;
+	const backgroundColor = isEmpty( attributes.backgroundColor )
+		? fallbackStyles.backgroundColor
+		: attributes.backgroundColor;
 
 	return mapKeys(
 		{
 			borderColor: attributes.borderColor,
-			bgColor: attributes.backgroundColor,
+			bgColor: backgroundColor,
 			textColor,
-			votedColor: fallbackStyles.accent,
+			votedColor: fallbackStyles.accentColor,
 		},
 		( _, key ) => `--crowdsignal-forms-vote-${ kebabCase( key ) }`
 	);

@@ -87,6 +87,13 @@
 	&:hover:not(.is-disabled) {
 		border-color: var(--crowdsignal-forms-vote-voted-color);
 		color: var(--crowdsignal-forms-vote-voted-color);
+
+		&.has-bg-color,
+		&.has-text-color {
+			background-color: var(--crowdsignal-forms-vote-text-color);
+			border-color: var(--crowdsignal-forms-vote-bg-color);
+			color: var(--crowdsignal-forms-vote-bg-color);
+		}
 	}
 
 	.crowdsignal-forms-vote-item__icon {
