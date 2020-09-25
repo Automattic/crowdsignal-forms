@@ -39,19 +39,9 @@ import {
 import ErrorBanner from 'components/poll/error-banner';
 import { v4 as uuidv4 } from 'uuid';
 import EditBar from './edit-bar';
-import {
-	startSubscriptions,
-	startPolling,
-	withPollDataSelect,
-	withPollDataDispatch,
-} from './subscriptions';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import PollIcon from 'components/icon/poll';
-import usePollDuplicateCleaner from 'components/use-poll-duplicate-cleaner';
-
-startSubscriptions();
-
-const isP2tenberg = () => 'p2tenberg' in window;
+import withPollBase from 'components/with-poll-base';
 
 const withPollAndAnswerIds = ( Element ) => {
 	return ( props ) => {
@@ -87,32 +77,7 @@ const PollBlock = ( props ) => {
 		setAttributes,
 		renderStyleProbe,
 		pollDataFromApi,
-		addPollClientId,
-		removePollClientId,
 	} = props;
-
-	useEffect( () => {
-		if ( isP2tenberg() ) {
-			startPolling();
-		}
-
-		if ( attributes.pollId ) {
-			addPollClientId( attributes.pollId );
-		}
-
-		return () => {
-			if ( attributes.pollId ) {
-				removePollClientId( attributes.pollId );
-			}
-		};
-	}, [] );
-
-	usePollDuplicateCleaner(
-		props.clientId,
-		attributes.pollId,
-		attributes.answers,
-		setAttributes
-	);
 
 	const [ isPollEditable, setIsPollEditable ] = useState( true );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
@@ -295,6 +260,6 @@ const PollBlock = ( props ) => {
 
 export default compose( [
 	withFallbackStyles( PollStyles, getPollStyles ),
-	withPollDataSelect(),
-	withPollDataDispatch(),
-] )( withPollAndAnswerIds( PollBlock ) );
+	withPollBase,
+	withPollAndAnswerIds,
+] )( PollBlock );

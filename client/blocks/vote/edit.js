@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useEffect } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 /**
@@ -18,53 +18,13 @@ import ToolBar from './toolbar';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import { __ } from 'lib/i18n';
 import withClientId from 'components/with-client-id';
-import {
-	startSubscriptions,
-	startPolling,
-	withPollDataSelect,
-	withPollDataDispatch,
-} from 'blocks/poll/subscriptions';
 import { getVoteStyleVars } from 'blocks/vote/util';
-import usePollDuplicateCleaner from 'components/use-poll-duplicate-cleaner';
 import { isPollClosed } from 'blocks/poll/util';
 import useNumberedTitle from 'components/use-numbered-title';
-
-startSubscriptions();
-
-const isP2tenberg = () => 'p2tenberg' in window;
+import withPollBase from 'components/with-poll-base';
 
 const EditVoteBlock = ( props ) => {
-	const {
-		attributes,
-		setAttributes,
-		className,
-		pollDataFromApi,
-		addPollClientId,
-		removePollClientId,
-	} = props;
-
-	useEffect( () => {
-		if ( isP2tenberg() ) {
-			startPolling();
-		}
-
-		if ( attributes.pollId ) {
-			addPollClientId( attributes.pollId );
-		}
-
-		return () => {
-			if ( attributes.pollId ) {
-				removePollClientId( attributes.pollId );
-			}
-		};
-	}, [] );
-
-	usePollDuplicateCleaner(
-		props.clientId,
-		attributes.pollId,
-		attributes.answers,
-		setAttributes
-	);
+	const { attributes, setAttributes, className, pollDataFromApi } = props;
 
 	useNumberedTitle(
 		props.name,
@@ -121,6 +81,6 @@ const EditVoteBlock = ( props ) => {
 	);
 };
 
-export default compose( [ withPollDataSelect(), withPollDataDispatch() ] )(
+export default compose( [ withPollBase ] )(
 	withClientId( EditVoteBlock, 'pollId' )
 );
