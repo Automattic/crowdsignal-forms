@@ -208,9 +208,7 @@ class Poll_Settings {
 		$settings_from_block = $attrs;
 		// These are not yet implemented.
 		$settings_data = array(
-			'after_message' => '',
-			'redirect_url'  => '',
-			'captcha'       => false,
+			'captcha' => false,
 		);
 
 		$block_attributes_to_object_props = array(
@@ -221,6 +219,8 @@ class Poll_Settings {
 			'isMultipleChoice'          => 'multiple_choice',
 			'pollStatus'                => 'close_status',
 			'closedAfterDateTime'       => 'close_after',
+			'customConfirmMessage'      => 'after_message',
+			'redirectAddress'           => 'redirect_url',
 		);
 
 		foreach ( $block_attributes_to_object_props as $block_attr => $object_property_name ) {
