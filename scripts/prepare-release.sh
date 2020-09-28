@@ -140,6 +140,13 @@ fi
 # Pull tags just in case
 echo "Fetching tags from ${REMOTE_NAME} ...";
 `git fetch "${REMOTE_NAME}" --tags`
+fetch_success=$?
+if [[ ! $fetch_success -eq 0 ]]; then
+	echo "${SEPARATOR}";
+	echo "Error while fetching tags";
+	echo "${SEPARATOR}";
+	exit 1;
+fi
 
 # Get changelog now, we'll use it later
 CHANGELOG=$(git log $FROM_VERSION..HEAD --format='* %s');
@@ -194,10 +201,15 @@ sed -i.release_temp "s/wp_enqueue_style( \(.*\),\(.*\),\(.*\),\(.*\) );/wp_enque
 sed -i.release_temp "s/wp_enqueue_style( \(.*\),\(.*\),\(.*\),\(.*\) );/wp_enqueue_style( \1,\2,\3, '${TO_VERSION}' );/" includes/admin/class-crowdsignal-forms-setup.php
 echo " - enqueued styles version updated";
 
+# Replace [next-version-number] placeholder with current release version
+grep -rl "\[next-version-number\]" includes/* | xargs sed -i.release_temp "s/\[next-version-number\]/${TO_VERSION}/"
+
+
 # Clean up
 echo "Cleaning up .release_temp files..."
 rm *.release_temp
-rm includes/admin/*.release_temp
+find includes/ -type f -name "*.release_temp" -exec rm -f {} \;
+
 echo;
 
 # The actual release files
