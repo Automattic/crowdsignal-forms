@@ -87,6 +87,7 @@
 	align-content: center;
 	margin: 24px auto 0;
 	border: 1px solid rgba(213, 213, 213, 0.5);
+	max-width: 960px;
 }
 
 .crowdsignal-setup__main img {

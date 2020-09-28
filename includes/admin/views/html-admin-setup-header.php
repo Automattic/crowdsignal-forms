@@ -71,7 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				echo '<div class="error fade crowdsignal-message"><p>' .
 				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content is svg from internal lib
 				Crowdsignal_Forms\Admin\Crowdsignal_Forms_Setup::get_icon( 'warning' ) .
-				esc_html__( 'Your API key has not been updated.', 'crowdsignal-forms' ) .
+				esc_html__( 'Your API key has not been updated, please try again.', 'crowdsignal-forms' ) .
 				'</p></div>';
 				break;
 		}

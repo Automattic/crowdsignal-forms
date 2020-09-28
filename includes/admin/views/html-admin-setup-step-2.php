@@ -8,12 +8,20 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
+$crowdsignal_forms_api_auth_provider = new Crowdsignal_Forms_Api_Authenticator();
+
+if ( $crowdsignal_forms_api_auth_provider->get_api_key() ) {
+	$crowdsignal_forms_msg = 'connected';
+} else {
+	$crowdsignal_forms_msg = 'api-key-not-added';
+}
 ?>
 <script type='text/javascript'>
 window.close();
 if (window.opener && !window.opener.closed) {
 	var querystring = window.opener.location.search;
-	querystring += ( querystring ? '&' : '?' ) + 'msg=connected';
+	querystring += ( querystring ? '&' : '?' ) + 'msg=<?php echo esc_js( $crowdsignal_forms_msg ); ?>';
 	window.opener.location.search = querystring;
 }
 </script>
