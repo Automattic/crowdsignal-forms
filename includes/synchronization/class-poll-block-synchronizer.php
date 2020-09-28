@@ -147,7 +147,7 @@ class Poll_Block_Synchronizer {
 			$blocks_to_process_next_iteration = array();
 
 			foreach ( $blocks_to_process as $block ) {
-				if ( in_array( $block['blockName'], array( 'crowdsignal-forms/poll', 'crowdsignal-forms/vote' ), true ) ) {
+				if ( in_array( $block['blockName'], array( 'crowdsignal-forms/poll', 'crowdsignal-forms/vote', 'crowdsignal-forms/applause' ), true ) ) {
 					$poll_blocks[] = $block;
 					continue;
 				}

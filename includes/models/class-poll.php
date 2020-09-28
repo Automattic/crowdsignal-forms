@@ -167,6 +167,17 @@ class Poll {
 			return $this->update_from_block_attrs( $attrs, $answers );
 		}
 
+		if ( 'crowdsignal-forms/applause' === $block['blockName'] ) {
+			$answers = array();
+
+			$answers[] = array(
+				'answerId' => $attrs['answerId'],
+				'text'     => 'clap',
+			);
+
+			return $this->update_from_block_attrs( $attrs, $answers );
+		}
+
 		return $this;
 	}
 

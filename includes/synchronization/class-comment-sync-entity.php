@@ -131,7 +131,8 @@ class Comment_Sync_Entity implements Synchronizable_Entity {
 		$content = $this->comment->comment_content;
 		return has_blocks( $content ) && (
 			has_block( 'crowdsignal-forms/poll', $content ) ||
-			has_block( 'crowdsignal-forms/vote', $content )
+			has_block( 'crowdsignal-forms/vote', $content ) ||
+			has_block( 'crowdsignal-forms/applause', $content )
 		);
 	}
 

@@ -60,11 +60,10 @@ class Crowdsignal_Forms_Applause_Block extends Crowdsignal_Forms_Block {
 	/**
 	 * Renders the Applause dynamic block
 	 *
-	 * @param array  $attributes            The block's attributes.
-	 * @param string $rendered_inner_blocks The server side rendered inner blocks.
+	 * @param array $attributes The block's attributes.
 	 * @return string
 	 */
-	public function render( $attributes, $rendered_inner_blocks ) {
+	public function render( $attributes ) {
 		if ( $this->should_hide_block() ) {
 			return '';
 		}
@@ -112,6 +111,10 @@ class Crowdsignal_Forms_Applause_Block extends Crowdsignal_Forms_Block {
 				'default' => false,
 			),
 			'title'        => array(
+				'type'    => 'string',
+				'default' => null,
+			),
+			'answerId'     => array(
 				'type'    => 'string',
 				'default' => null,
 			),

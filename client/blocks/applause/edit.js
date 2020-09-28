@@ -42,5 +42,5 @@ const EditApplauseBlock = ( props ) => {
 };
 
 export default compose( [ withPollBase ] )(
-	withClientId( EditApplauseBlock, 'pollId' )
+	withClientId( EditApplauseBlock, [ 'pollId', 'answerId' ] )
 );

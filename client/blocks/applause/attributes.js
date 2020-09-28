@@ -17,4 +17,8 @@ export default {
 		type: 'string',
 		default: null,
 	},
+	answerId: {
+		type: 'string',
+		default: null,
+	},
 };
