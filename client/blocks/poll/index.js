@@ -17,6 +17,8 @@ export default {
 		__( 'ask' ),
 		'crowdsignal',
 		__( 'feedback' ),
+		__( 'form' ),
+		__( 'opinion' ),
 		__( 'poll' ),
 		__( 'pop' ),
 		__( 'question' ),
