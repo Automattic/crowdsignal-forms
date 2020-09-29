@@ -55,4 +55,8 @@
 			font-size: 1em;
 		}
 	}
+
+	&.is-closed {
+		opacity: 0.5;
+	}
 }

@@ -4,6 +4,8 @@
  *       inside includes/frontend/blocks/class-crowdsignal-forms-applause-block.php.
  */
 
+import { PollStatus } from './constants';
+
 export default {
 	pollId: {
 		type: 'string',
@@ -24,5 +26,13 @@ export default {
 	size: {
 		type: 'string',
 		default: 'medium',
+	},
+	pollStatus: {
+		type: 'string',
+		default: PollStatus.OPEN,
+	},
+	closedAfterDateTime: {
+		type: 'string',
+		default: null,
 	},
 };

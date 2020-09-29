@@ -13,7 +13,7 @@ import { ToolbarGroup } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import { DEFAULT_SIZE_CONTROLS, POPOVER_PROPS } from 'blocks/vote/constants';
+import { DEFAULT_SIZE_CONTROLS, POPOVER_PROPS } from './constants';
 import SizeIcon from 'components/icon/size';
 
 const ToolBar = ( { attributes, setAttributes } ) => {

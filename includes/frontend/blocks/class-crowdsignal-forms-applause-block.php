@@ -102,25 +102,33 @@ class Crowdsignal_Forms_Applause_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'pollId'       => array(
+			'pollId'              => array(
 				'type'    => 'string',
 				'default' => null,
 			),
-			'hideBranding' => array(
+			'hideBranding'        => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'title'        => array(
+			'title'               => array(
 				'type'    => 'string',
 				'default' => null,
 			),
-			'answerId'     => array(
+			'answerId'            => array(
 				'type'    => 'string',
 				'default' => null,
 			),
-			'size'         => array(
+			'size'                => array(
 				'type'    => 'string',
 				'default' => 'medium',
+			),
+			'pollStatus'          => array(
+				'type'    => 'string',
+				'default' => 'open', // See: client/blocks/applause/constants.js.
+			),
+			'closedAfterDateTime' => array(
+				'type'    => 'string',
+				'default' => null,
 			),
 		);
 	}
