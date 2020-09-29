@@ -21,4 +21,8 @@ export default {
 		type: 'string',
 		default: null,
 	},
+	size: {
+		type: 'string',
+		default: 'medium',
+	},
 };

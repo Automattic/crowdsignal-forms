@@ -2,7 +2,6 @@
  * External dependencies
  */
 import React from 'react';
-import classNames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -18,9 +17,10 @@ import withClientId from 'components/with-client-id';
 import useNumberedTitle from 'components/use-numbered-title';
 import Applause from 'components/applause';
 import withPollBase from 'components/with-poll-base';
+import Toolbar from './toolbar';
 
 const EditApplauseBlock = ( props ) => {
-	const { attributes, setAttributes, className } = props;
+	const { attributes, setAttributes } = props;
 
 	useNumberedTitle(
 		props.name,
@@ -29,14 +29,13 @@ const EditApplauseBlock = ( props ) => {
 		setAttributes
 	);
 
-	const classes = classNames( className, 'crowdsignal-forms-applause' );
-
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
 			blockName={ __( 'Crowdsignal Applause' ) }
 		>
-			<Applause className={ classes } />
+			<Toolbar { ...props } />
+			<Applause { ...props } />
 		</ConnectToCrowdsignal>
 	);
 };

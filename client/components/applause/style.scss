@@ -3,3 +3,56 @@
 	margin-inline-end: 5px;
 	cursor: pointer;
 }
+
+
+.crowdsignal-forms-applause {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	&.size-small {
+		padding: 18px 10px;
+		height: 0.7em;
+
+		.crowdsignal-forms-applause__icon {
+			width: 0.7em;
+			height: 0.7em;
+			max-height: 0.7em;
+		}
+
+		.crowdsignal-forms-applause__count {
+			font-size: 0.6em;
+		}
+	}
+
+	&.size-medium {
+		height: 1em;
+		padding: 20px 10px;
+
+		.crowdsignal-forms-applause__icon {
+			width: 1em;
+			height: 1em;
+			max-height: 1em;
+		}
+
+		.crowdsignal-forms-applause__count {
+			font-size: 0.8em;
+		}
+	}
+
+	&.size-large {
+		height: 1.2em;
+		padding: 22px 16px;
+		margin-inline-end: 16px;
+
+		.crowdsignal-forms-applause__icon {
+			width: 1.2em;
+			height: 1.2em;
+			max-height: 1.2em;
+		}
+
+		.crowdsignal-forms-applause__count {
+			font-size: 1em;
+		}
+	}
+}

@@ -118,6 +118,10 @@ class Crowdsignal_Forms_Applause_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => null,
 			),
+			'size'         => array(
+				'type'    => 'string',
+				'default' => 'medium',
+			),
 		);
 	}
 }
