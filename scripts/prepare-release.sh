@@ -143,7 +143,9 @@ echo "Fetching tags from ${REMOTE_NAME} ...";
 fetch_success=$?
 if [[ ! $fetch_success -eq 0 ]]; then
 	echo "${SEPARATOR}";
-	echo "Error while fetching tags";
+	echo "Error while fetching tags. Make sure you're in sync with remote. Maybe try:";
+	echo "  - git fetch --tags --force";
+	echo "Remember this would overwrite your local tags with those on remote";
 	echo "${SEPARATOR}";
 	exit 1;
 fi
@@ -180,9 +182,10 @@ echo " - README.TXT updated";
 sed -i.release_temp "s/version\": \".*\"/version\": \"$TO_VERSION\"/" package.json
 echo " - package.json updated";
 
-# Update changelog.txt file
+# Update changelog.txt file, and clean \r from output (caused by cat)
 CHANGELOG_ENTRIES=$(echo -ne "= ${TO_VERSION} =\n${CHANGELOG}\n");
 printf '%s\n\n%s\n' "${CHANGELOG_ENTRIES}" "$(cat changelog.txt)" > changelog.txt
+sed -i.release_temp -e $'s/\r//' changelog.txt
 echo " - changelog.txt updated with new entries";
 echo;
 
