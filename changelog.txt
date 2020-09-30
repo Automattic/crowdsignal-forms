@@ -1,3 +1,18 @@
+= 1.2.0 =
+* add more keywords to vote and poll block (#310)
+* Show current account info on API key selection screen (#317)
+* refactor common code for poll based blocks (#311)
+* set mappings for missing meta values (#309)
+* Fix Default Title not syncing to platform (#253)
+* Consolidate Custom Mutation Observers Into Library Function (#244)
+* change Block interface into abstract class, move common helpers there. (#243)
+* Add Crowdsignal block category to house all blocks within the plugin (#246)
+* Vote block
+* Update admin notices style (#305)
+* Check API key is not empty before attempting to update connection settings
+* Adding a slight opacity change when hovering a button that has a custom bg color set. (#303)
+* Update/security fixes (#302)
+
 = 1.1.1 =
 * Don't Request User Code on Save if there is nothing to save (#284)
 * Skip the setup screen if a user code is saved (#282)

@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.4.2
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,21 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+= 1.2.0 =
+* add more keywords to vote and poll block (#310)
+* Show current account info on API key selection screen (#317)
+* refactor common code for poll based blocks (#311)
+* set mappings for missing meta values (#309)
+* Fix Default Title not syncing to platform (#253)
+* Consolidate Custom Mutation Observers Into Library Function (#244)
+* change Block interface into abstract class, move common helpers there. (#243)
+* Add Crowdsignal block category to house all blocks within the plugin (#246)
+* Vote block
+* Update admin notices style (#305)
+* Check API key is not empty before attempting to update connection settings
+* Adding a slight opacity change when hovering a button that has a custom bg color set. (#303)
+* Update/security fixes (#302)
+
 = 1.1.1 =
 * Don't Request User Code on Save if there is nothing to save
 * Skip the setup screen if a user code is saved
@@ -106,6 +121,9 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.2 =
+Introduces the Vote block
 
 = 0.9 =
 Initial release

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Crowdsignal_Forms_Admin_Notices class.
  *
- * @since [next-version-number]
+ * @since 1.2.0
  */
 class Crowdsignal_Forms_Notice_Icon {
 	/**
