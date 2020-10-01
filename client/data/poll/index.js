@@ -65,12 +65,17 @@ export const requestVoteNonce = async ( pollId ) => {
 	return jsonNonce.nonce;
 };
 
-export const requestVote = async ( nonce, pollId, selectedAnswerIds ) => {
+export const requestVote = async (
+	nonce,
+	pollId,
+	selectedAnswerIds,
+	voteCount
+) => {
 	const answerString = selectedAnswerIds.join( ',' );
 	const respVote = await window.fetch(
 		`https://polls.polldaddy.com/vote-js.php?format=json&p=${ pollId }&b=1&a=${ answerString }&o=&va=16&cookie=0&n=${ nonce }&url=${ encodeURIComponent(
 			window.location
-		) }`
+		) }&vcTEMP=${ voteCount }`
 	);
 
 	if ( ! respVote.ok ) {

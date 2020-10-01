@@ -56,11 +56,11 @@ export const usePollVote = (
 		}
 	}, [] );
 
-	const vote = async ( selectedAnswerIds ) => {
+	const vote = async ( selectedAnswerIds, voteCount = 1 ) => {
 		try {
 			setIsVoting( true );
 			const nonce = await requestVoteNonce( pollId );
-			await requestVote( nonce, pollId, selectedAnswerIds );
+			await requestVote( nonce, pollId, selectedAnswerIds, voteCount );
 
 			setHasVoted( true );
 			if ( enableVoteRestriction ) {
