@@ -10,10 +10,10 @@ import { __ } from 'lib/i18n';
 
 const BrandLink = ( { showBranding, referralCode } ) => {
 	return (
-		<div className="crowdsignal-forms-vote__branding">
+		<div className="crowdsignal-forms__branding">
 			{ showBranding && (
 				<a
-					className="crowdsignal-forms-vote__branding-link with-external-icon"
+					className="crowdsignal-forms__branding-link with-external-icon"
 					href={ `https://crowdsignal.com?ref=${ referralCode }` }
 					target="blank"
 					rel="noopener noreferrer"
@@ -22,9 +22,7 @@ const BrandLink = ( { showBranding, referralCode } ) => {
 				</a>
 			) }
 			{ ! showBranding && (
-				<span className="crowdsignal-forms-vote__branding-link">
-					&nbsp;
-				</span>
+				<span className="crowdsignal-forms__branding-link">&nbsp;</span>
 			) }
 		</div>
 	);

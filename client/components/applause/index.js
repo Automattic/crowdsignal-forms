@@ -13,10 +13,11 @@ import ApplauseIcon from 'components/icon/applause';
 import { isPollClosed } from 'blocks/poll/util';
 import { usePollVote, usePollResults } from 'data/hooks';
 import { formatVoteCount } from 'components/vote/util';
+import BrandLink from 'components/brand-link';
 
 const Applause = ( { attributes } ) => {
 	const apiPollId = attributes.apiPollData ? attributes.apiPollData.id : null;
-	const { vote } = usePollVote( apiPollId );
+	const { hasVoted, vote } = usePollVote( apiPollId );
 	const [ currentVote, setCurrentVote ] = useState( 0 );
 	const [ queuedVotes, setQueuedVotes ] = useState( 0 );
 	const [ timeoutHandle, setTimeoutHandle ] = useState( null );
@@ -68,18 +69,21 @@ const Applause = ( { attributes } ) => {
 	const displayedVoteCount = apiVoteCount + currentVote;
 
 	return (
-		<div
-			className={ classes }
-			onClick={ handleVote }
-			onKeyPress={ handleVote }
-			role="button"
-			tabIndex={ 0 }
-		>
-			<ApplauseIcon className="crowdsignal-forms-applause__icon" />
-			<span className="crowdsignal-forms-applause__count">
-				{ formatVoteCount( displayedVoteCount ) } Claps
-			</span>
-		</div>
+		<>
+			<div
+				className={ classes }
+				onClick={ handleVote }
+				onKeyPress={ handleVote }
+				role="button"
+				tabIndex={ 0 }
+			>
+				<ApplauseIcon className="crowdsignal-forms-applause__icon" />
+				<span className="crowdsignal-forms-applause__count">
+					{ formatVoteCount( displayedVoteCount ) } Claps
+				</span>
+			</div>
+			<BrandLink showBranding={ hasVoted && ! attributes.hideBranding } />
+		</>
 	);
 };
 

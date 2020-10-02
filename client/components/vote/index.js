@@ -13,7 +13,7 @@ import { usePollResults, usePollVote } from 'data/hooks';
 import { getVoteStyleVars } from 'blocks/vote/util';
 import { VoteStyles, getVoteStyles } from './styles';
 import { withFallbackStyles } from 'components/with-fallback-styles';
-import BrandLink from './brand-link';
+import BrandLink from 'components/brand-link';
 import { isPollClosed } from 'blocks/poll/util';
 
 const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {

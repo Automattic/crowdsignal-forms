@@ -1,0 +1,22 @@
+.crowdsignal-forms__branding {
+	display: flex;
+
+	.crowdsignal-forms__branding-link {
+		font-family: $font-sans-serif;
+		font-size: 8px;
+		padding: 8px 20px 0;
+		text-decoration: none !important;
+		text-transform: uppercase;
+
+		&.with-external-icon::after {
+			content: "\2197";
+			display: inline;
+			font-size: 6px;
+			vertical-align: top;
+		}
+
+		&:not(:hover) {
+			color: var(--crowdsignal-forms-text-color);
+		}
+	}
+}
