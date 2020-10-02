@@ -35,4 +35,13 @@ export default {
 		type: 'string',
 		default: null,
 	},
+	textColor: {
+		type: 'string',
+	},
+	backgroundColor: {
+		type: 'string',
+	},
+	borderColor: {
+		type: 'string',
+	},
 };

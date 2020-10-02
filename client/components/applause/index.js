@@ -3,7 +3,6 @@
  */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { values } from 'lodash';
 
 /**
@@ -11,11 +10,15 @@ import { values } from 'lodash';
  */
 import ApplauseIcon from 'components/icon/applause';
 import { isPollClosed } from 'blocks/poll/util';
+import { getApplauseStyleVars, getBlockCssClasses } from 'blocks/applause/util';
+import { ApplauseStyles, getApplauseStyles } from './styles';
+import { withFallbackStyles } from 'components/with-fallback-styles';
 import { usePollVote, usePollResults } from 'data/hooks';
 import { formatVoteCount } from 'components/vote/util';
 import BrandLink from 'components/brand-link';
 
-const Applause = ( { attributes } ) => {
+const Applause = ( props ) => {
+	const { attributes, fallbackStyles, renderStyleProbe } = props;
 	const apiPollId = attributes.apiPollData ? attributes.apiPollData.id : null;
 	const { hasVoted, vote } = usePollVote( apiPollId );
 	const [ currentVote, setCurrentVote ] = useState( 0 );
@@ -56,7 +59,8 @@ const Applause = ( { attributes } ) => {
 		attributes.closedAfterDateTime
 	);
 
-	const classes = classNames(
+	const classes = getBlockCssClasses(
+		attributes,
 		'crowdsignal-forms-applause',
 		attributes.className,
 		`size-${ attributes.size }`,
@@ -65,6 +69,7 @@ const Applause = ( { attributes } ) => {
 		}
 	);
 
+	const styleVars = getApplauseStyleVars( attributes, fallbackStyles );
 	const apiVoteCount = null !== results ? values( results )[ 0 ] : 0;
 	const displayedVoteCount = apiVoteCount + currentVote;
 
@@ -72,15 +77,20 @@ const Applause = ( { attributes } ) => {
 		<>
 			<div
 				className={ classes }
+				style={ styleVars }
 				onClick={ handleVote }
 				onKeyPress={ handleVote }
 				role="button"
 				tabIndex={ 0 }
 			>
-				<ApplauseIcon className="crowdsignal-forms-applause__icon" />
+				<ApplauseIcon
+					className="crowdsignal-forms-applause__icon"
+					fillColor="currentColor"
+				/>
 				<span className="crowdsignal-forms-applause__count">
 					{ formatVoteCount( displayedVoteCount ) } Claps
 				</span>
+				{ renderStyleProbe() }
 			</div>
 			<BrandLink showBranding={ hasVoted && ! attributes.hideBranding } />
 		</>
@@ -91,4 +101,7 @@ Applause.propTypes = {
 	className: PropTypes.string,
 };
 
-export default Applause;
+export default withFallbackStyles(
+	ApplauseStyles,
+	getApplauseStyles
+)( Applause );

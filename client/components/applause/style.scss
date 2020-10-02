@@ -8,6 +8,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	width: max-content;
 	cursor: pointer;
 
 	&.size-small {
@@ -43,7 +44,6 @@
 	&.size-large {
 		height: 1.2em;
 		padding: 22px 16px;
-		margin-inline-end: 16px;
 
 		.crowdsignal-forms-applause__icon {
 			width: 1.2em;
@@ -59,4 +59,29 @@
 	&.is-closed {
 		opacity: 0.5;
 	}
+
+	&.has-text-color {
+		color: var(--crowdsignal-forms-applause-text-color);
+	}
+
+	&.has-border-color {
+		border: 1px solid var(--crowdsignal-forms-applause-border-color);
+	}
+
+	&.has-bg-color {
+		background-color: var(--crowdsignal-forms-applause-bg-color);
+	}
+
+	&:hover {
+		color: var(--crowdsignal-forms-applause-hover-color);
+		border-color: var(--crowdsignal-forms-applause-hover-color);
+
+		&.has-bg-color,
+		&.has-text-color {
+			background-color: var(--crowdsignal-forms-applause-text-color);
+			border-color: var(--crowdsignal-forms-applause-bg-color);
+			color: var(--crowdsignal-forms-applause-bg-color);
+		}
+	}
+
 }

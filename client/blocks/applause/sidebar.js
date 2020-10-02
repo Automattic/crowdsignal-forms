@@ -14,8 +14,7 @@ import {
 	SelectControl,
 	TimePicker,
 } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/block-editor';
-
+import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import { includes } from 'lodash';
 
 import { PollStatus } from './constants';
@@ -51,6 +50,15 @@ const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
 		const dateTime = new Date( closedAfterDateTime );
 		setAttributes( { closedAfterDateTime: dateTime.toISOString() } );
 	};
+
+	const handleChangeTextColor = ( textColor ) =>
+		setAttributes( { textColor } );
+
+	const handleChangeBackgroundColor = ( backgroundColor ) =>
+		setAttributes( { backgroundColor } );
+
+	const handleChangeBorderColor = ( borderColor ) =>
+		setAttributes( { borderColor } );
 
 	return (
 		<InspectorControls>
@@ -115,6 +123,27 @@ const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
 					/>
 				) }
 			</PanelBody>
+			<PanelColorSettings
+				title={ __( 'Styling' ) }
+				initialOpen={ true }
+				colorSettings={ [
+					{
+						value: attributes.textColor,
+						onChange: handleChangeTextColor,
+						label: __( 'Text color' ),
+					},
+					{
+						value: attributes.backgroundColor,
+						onChange: handleChangeBackgroundColor,
+						label: __( 'Background color' ),
+					},
+					{
+						value: attributes.borderColor,
+						onChange: handleChangeBorderColor,
+						label: __( 'Border color' ),
+					},
+				] }
+			></PanelColorSettings>
 		</InspectorControls>
 	);
 };

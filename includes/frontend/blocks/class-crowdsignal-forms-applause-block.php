@@ -130,6 +130,15 @@ class Crowdsignal_Forms_Applause_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => null,
 			),
+			'textColor'           => array(
+				'type' => 'string',
+			),
+			'backgroundColor'     => array(
+				'type' => 'string',
+			),
+			'borderColor'         => array(
+				'type' => 'string',
+			),
 		);
 	}
 }
