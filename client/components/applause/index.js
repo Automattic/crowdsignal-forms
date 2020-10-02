@@ -4,13 +4,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { values } from 'lodash';
 
 /**
  * Internal dependencies
  */
 import ApplauseIcon from 'components/icon/applause';
 import { isPollClosed } from 'blocks/poll/util';
-import { usePollVote } from 'data/hooks';
+import { usePollVote, usePollResults } from 'data/hooks';
 import { formatVoteCount } from 'components/vote/util';
 
 const Applause = ( { attributes } ) => {
@@ -19,6 +20,7 @@ const Applause = ( { attributes } ) => {
 	const [ currentVote, setCurrentVote ] = useState( 0 );
 	const [ queuedVotes, setQueuedVotes ] = useState( 0 );
 	const [ timeoutHandle, setTimeoutHandle ] = useState( null );
+	const { results } = usePollResults( apiPollId );
 
 	const handleVote = () => {
 		if ( null !== apiPollId ) {
@@ -62,7 +64,8 @@ const Applause = ( { attributes } ) => {
 		}
 	);
 
-	const displayedVoteCount = currentVote;
+	const apiVoteCount = null !== results ? values( results )[ 0 ] : 0;
+	const displayedVoteCount = apiVoteCount + currentVote;
 
 	return (
 		<div
