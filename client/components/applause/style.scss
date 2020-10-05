@@ -11,6 +11,10 @@
 	width: max-content;
 	cursor: pointer;
 
+	.crowdsignal-forms-applause__count {
+		user-select: none;
+	}
+
 	&.size-small {
 		padding: 18px 10px;
 		height: 0.7em;
