@@ -84,7 +84,8 @@
 	}
 
 	&.is-voted-on,
-	&:hover:not(.is-disabled) {
+	&:hover:not(.is-disabled),
+	&:focus:not(.is-disabled):not(.is-in-editor) {
 		border-color: var(--crowdsignal-forms-vote-voted-color);
 		color: var(--crowdsignal-forms-vote-voted-color);
 

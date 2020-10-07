@@ -29,6 +29,7 @@ const EditVoteItemBlock = ( props ) => {
 				fallbackStyles={ fallbackStyles }
 				className={ className }
 				voteCount={ 0 }
+				isInEditor={ true }
 			/>
 
 			{ renderStyleProbe() }

@@ -23,6 +23,7 @@ const VoteItem = ( props ) => {
 		isVotedOn,
 		hideCount,
 		fallbackStyles,
+		isInEditor,
 	} = props;
 	const { className, type } = attributes;
 
@@ -45,6 +46,7 @@ const VoteItem = ( props ) => {
 		{
 			'is-voted-on': isVotedOn,
 			'is-disabled': disabled,
+			'is-in-editor': isInEditor,
 		}
 	);
 	const blockStyle = getVoteItemStyleVars( attributes, fallbackStyles );
