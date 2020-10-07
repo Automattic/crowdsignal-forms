@@ -75,7 +75,7 @@ export const requestVote = async (
 	const respVote = await window.fetch(
 		`https://polls.polldaddy.com/vote-js.php?format=json&p=${ pollId }&b=1&a=${ answerString }&o=&va=16&cookie=0&n=${ nonce }&url=${ encodeURIComponent(
 			window.location
-		) }&vcTEMP=${ voteCount }`
+		) }&vi=${ voteCount }`
 	);
 
 	if ( ! respVote.ok ) {
