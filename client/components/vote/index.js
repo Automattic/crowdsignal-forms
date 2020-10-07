@@ -65,7 +65,7 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 					return (
 						<VoteItem
-							{ ...voteAttributes }
+							attributes={ voteAttributes }
 							fallbackStyles={ fallbackStyles }
 							key={ voteAttributes.answerId }
 							apiAnswerId={ apiAnswerId }

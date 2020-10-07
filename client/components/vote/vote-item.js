@@ -15,8 +15,7 @@ import { getVoteItemStyleVars, getBlockCssClasses } from 'blocks/vote/util';
 
 const VoteItem = ( props ) => {
 	const {
-		className,
-		type,
+		attributes,
 		voteCount,
 		apiAnswerId,
 		onVote,
@@ -25,6 +24,8 @@ const VoteItem = ( props ) => {
 		hideCount,
 		fallbackStyles,
 	} = props;
+	const { className, type } = attributes;
+
 	const [ currentVote, setCurrentVote ] = useState( 0 );
 
 	const handleVote = () => {
@@ -38,7 +39,7 @@ const VoteItem = ( props ) => {
 
 	const Icon = 'up' === type ? ThumbsUp : ThumbsDown;
 	const classes = getBlockCssClasses(
-		props,
+		attributes,
 		'crowdsignal-forms-vote-item',
 		className,
 		{
@@ -46,7 +47,7 @@ const VoteItem = ( props ) => {
 			'is-disabled': disabled,
 		}
 	);
-	const blockStyle = getVoteItemStyleVars( props, fallbackStyles );
+	const blockStyle = getVoteItemStyleVars( attributes, fallbackStyles );
 
 	const displayedVoteCount = voteCount + currentVote;
 

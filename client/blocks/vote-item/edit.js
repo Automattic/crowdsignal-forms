@@ -25,7 +25,7 @@ const EditVoteItemBlock = ( props ) => {
 			<SideBar { ...props } />
 
 			<VoteItem
-				{ ...attributes }
+				attributes={ attributes }
 				fallbackStyles={ fallbackStyles }
 				className={ className }
 				voteCount={ 0 }
