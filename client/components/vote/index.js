@@ -78,7 +78,10 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 					);
 				} ) }
 			</div>
-			<BrandLink showBranding={ hasVoted && ! attributes.hideBranding } />
+			<BrandLink
+				showBranding={ hasVoted && ! attributes.hideBranding }
+				referralCode="cs-forms-vote"
+			/>
 
 			{ renderStyleProbe() }
 		</div>

@@ -8,13 +8,13 @@ import React from 'react';
  */
 import { __ } from 'lib/i18n';
 
-const BrandLink = ( { showBranding } ) => {
+const BrandLink = ( { showBranding, referralCode } ) => {
 	return (
 		<div className="crowdsignal-forms-vote__branding">
 			{ showBranding && (
 				<a
 					className="crowdsignal-forms-vote__branding-link with-external-icon"
-					href="https://crowdsignal.com"
+					href={ `https://crowdsignal.com?ref=${ referralCode }` }
 					target="blank"
 					rel="noopener noreferrer"
 				>

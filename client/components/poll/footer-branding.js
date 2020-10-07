@@ -7,7 +7,7 @@ const FooterBranding = ( { showLogo } ) => (
 	<div className="crowdsignal-forms-poll__footer-branding">
 		<a
 			className="crowdsignal-forms-poll__footer-cs-link"
-			href="https://crowdsignal.com"
+			href="https://crowdsignal.com?ref=cs-forms-poll"
 			target="_blank"
 			rel="noopener noreferrer"
 		>
