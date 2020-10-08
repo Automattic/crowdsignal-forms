@@ -116,18 +116,20 @@
 			height: 1.2em;
 			max-height: 1.2em;
 		}
+	}
 
-		.crowdsignal-forms-vote-item.is-voted-on & {
-			animation-duration: 0.3s;
-			animation-name: crowdsignal-forms-animation__pop;
-			animation-iteration-count: 1;
-		}
+	&.is-voted-on .crowdsignal-forms-vote-item__icon {
+		animation-duration: 0.4s;
+		animation-name: crowdsignal-forms-animation__grow;
+		animation-iteration-count: 1;
+		animation-timing-function: ease-out;
 	}
 
 	.crowdsignal-forms-vote-item__count {
 		font-size: 14pt;
 		font-family: $font-sans-serif;
 		margin-inline-start: 10px;
+		font-variant-numeric: tabular-nums;
 		transform: rotateX(0deg);
 		transform-origin: 50% 50% 10px;
 		transition: transform 0.3s;

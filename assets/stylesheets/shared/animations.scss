@@ -27,3 +27,18 @@
 		opacity: 0.4;
 	}
 }
+
+@keyframes crowdsignal-forms-animation__grow {
+
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.4);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
