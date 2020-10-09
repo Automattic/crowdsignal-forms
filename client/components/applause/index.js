@@ -92,7 +92,10 @@ const Applause = ( props ) => {
 				</span>
 				{ renderStyleProbe() }
 			</div>
-			<BrandLink showBranding={ hasVoted && ! attributes.hideBranding } />
+			<BrandLink
+				showBranding={ hasVoted && ! attributes.hideBranding }
+				referralCode="cs-forms-applause"
+			/>
 		</>
 	);
 };

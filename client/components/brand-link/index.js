@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * Internal dependencies
@@ -26,6 +27,11 @@ const BrandLink = ( { showBranding, referralCode } ) => {
 			) }
 		</div>
 	);
+};
+
+BrandLink.propTypes = {
+	showBranding: PropTypes.bool,
+	referralCode: PropTypes.string.isRequired,
 };
 
 export default BrandLink;
