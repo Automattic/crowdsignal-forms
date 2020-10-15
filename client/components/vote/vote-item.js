@@ -39,6 +39,7 @@ const VoteItem = ( props ) => {
 	};
 
 	const Icon = 'up' === type ? ThumbsUp : ThumbsDown;
+	const typeClass = `is-type-${ type }`;
 	const classes = getBlockCssClasses(
 		attributes,
 		'crowdsignal-forms-vote-item',
@@ -47,7 +48,8 @@ const VoteItem = ( props ) => {
 			'is-voted-on': isVotedOn,
 			'is-disabled': disabled,
 			'is-in-editor': isInEditor,
-		}
+		},
+		typeClass
 	);
 	const blockStyle = getVoteItemStyleVars( attributes, fallbackStyles );
 
