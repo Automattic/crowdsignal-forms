@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.4.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,14 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.2.1 =
+* Center brand link with vote items (#336)
+* Fix CSS Animation for Voting Thumbs (#332)
+* Vote Block: Set focus Styling to hover styling (#329)
+* clean up attribute passing to vote-item (#323)
+* Add referral code to public Crowdsignal links (#330)
+
 = 1.2.0 =
 * add more keywords to vote and poll block (#310)
 * Show current account info on API key selection screen (#317)
@@ -80,45 +88,6 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Check API key is not empty before attempting to update connection settings
 * Adding a slight opacity change when hovering a button that has a custom bg color set. (#303)
 * Update/security fixes (#302)
-
-= 1.1.1 =
-* Don't Request User Code on Save if there is nothing to save
-* Skip the setup screen if a user code is saved
-
-= 1.1.0 =
-* Implement a poll width setting
-* fix method used when updating poll ids in post meta
-* Fix archiving of poll blocks in comments
-* Address the comments from the p2tenberg compatibility pr
-* P2tenberg: Get The Edit Bar To Display in p2tenberg
-* keep button placeholder on focus of button answers for a less jarring editing experience
-* P2tenberg compatibility
-* Change radio/checkbox fill colour to text colour
-* Add release preparation script
-* Add Button Answer Type (with actual buttons)
-* Add a link for crowdsignal.com In Sidebar for an Unpublished Poll
-* remove ios styling from submit button
-* Move asset definitions to the `block` class to simplify adding new blocks
-* update branches that travis will build
-* Add wp-editor dependency
-
-= 1.0 =
-* Update default sidebar status
-* Increase Default Poll Margins
-* Test suite for admin hooks
-* Copy text reviews
-* Added support for loading curated list of google fonts
-* Normalize "thanks you" message
-* Fix display of "thank you" message (custom and default) on dark backgrounds
-* Add Separate Question and Body Font Family fallbacks
-* Fix styles on wp-admin not honoring margins
-* Fix submit button styling for themes with very specific selectors (ex TwentyNineteen theme)
-* Add Unverified Account Check
-* Code cleanup
-* Update translations
-
-= 0.9 =
-* Initial release
 
 == Upgrade Notice ==
 

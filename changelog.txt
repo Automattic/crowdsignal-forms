@@ -1,3 +1,10 @@
+= 1.2.1 =
+* Center brand link with vote items (#336)
+* Fix CSS Animation for Voting Thumbs (#332)
+* Vote Block: Set focus Styling to hover styling (#329)
+* clean up attribute passing to vote-item (#323)
+* Add referral code to public Crowdsignal links (#330)
+
 = 1.2.0 =
 * add more keywords to vote and poll block (#310)
 * Show current account info on API key selection screen (#317)
