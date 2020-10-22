@@ -1,9 +1,8 @@
 /**
  * Internal dependencies
  */
-//import VoteIcon from 'components/icon/vote';
+import ApplauseIcon from 'components/icon/applause';
 import { __ } from 'lib/i18n';
-// import './store';
 import EditApplauseBlock from './edit';
 import attributes from './attributes';
 
@@ -12,7 +11,7 @@ export default {
 	description: __( 'TODO DESCRIPTION HERE — powered by Crowdsignal.' ),
 	category: 'crowdsignal-forms',
 	keywords: [ 'crowdsignal', __( 'applause' ), __( 'clap' ) ],
-	//icon: <VoteIcon />,
+	icon: <ApplauseIcon />,
 	edit: EditApplauseBlock,
 	attributes,
 	example: {},

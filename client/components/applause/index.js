@@ -8,7 +8,6 @@ import { values } from 'lodash';
 /**
  * Internal dependencies
  */
-import ApplauseIcon from 'components/icon/applause';
 import { isPollClosed } from 'blocks/poll/util';
 import { getApplauseStyleVars, getBlockCssClasses } from 'blocks/applause/util';
 import { ApplauseStyles, getApplauseStyles } from './styles';
@@ -16,6 +15,7 @@ import { withFallbackStyles } from 'components/with-fallback-styles';
 import { usePollVote, usePollResults } from 'data/hooks';
 import { formatVoteCount } from 'components/vote/util';
 import BrandLink from 'components/brand-link';
+import ApplauseAnimation from './animation';
 
 const Applause = ( props ) => {
 	const { attributes, fallbackStyles, renderStyleProbe } = props;
@@ -24,34 +24,51 @@ const Applause = ( props ) => {
 	const [ currentVote, setCurrentVote ] = useState( 0 );
 	const [ queuedVotes, setQueuedVotes ] = useState( 0 );
 	const [ timeoutHandle, setTimeoutHandle ] = useState( null );
+	const [ animationActiveState, setAnimationActiveState ] = useState( false );
+	const [ animationTimeoutHandle, setAnimationTimeoutHandle ] = useState(
+		null
+	);
 	const { results } = usePollResults( apiPollId );
 
 	const handleVote = () => {
-		if ( null !== apiPollId ) {
-			const newQueuedVoteCount = queuedVotes + 1;
-			setQueuedVotes( newQueuedVoteCount );
-			setCurrentVote( currentVote + 1 );
-
-			const answerId = attributes.apiPollData.answers[ 0 ].id;
-
-			if ( null !== timeoutHandle ) {
-				clearTimeout( timeoutHandle );
-				// eslint-disable-next-line no-console
-				console.log( 'clearing existing handle' );
-			}
-
-			const handle = setTimeout( () => {
-				// eslint-disable-next-line no-console
-				console.log(
-					`sending vote request for ${ newQueuedVoteCount } votes`
-				);
-				vote( [ answerId ], newQueuedVoteCount );
-				setTimeoutHandle( null );
-				setQueuedVotes( 0 );
-			}, 1000 );
-
-			setTimeoutHandle( handle );
+		if ( apiPollId === null ) {
+			return;
 		}
+
+		if ( animationTimeoutHandle ) {
+			clearTimeout( animationTimeoutHandle );
+		}
+
+		setAnimationActiveState( true );
+		setAnimationTimeoutHandle(
+			setTimeout( () => {
+				setAnimationActiveState( false );
+			}, 200 )
+		);
+
+		const newQueuedVoteCount = queuedVotes + 1;
+		setQueuedVotes( newQueuedVoteCount );
+		setCurrentVote( currentVote + 1 );
+
+		const answerId = attributes.apiPollData.answers[ 0 ].id;
+
+		if ( null !== timeoutHandle ) {
+			clearTimeout( timeoutHandle );
+			// eslint-disable-next-line no-console
+			console.log( 'clearing existing handle' );
+		}
+
+		const handle = setTimeout( () => {
+			// eslint-disable-next-line no-console
+			console.log(
+				`sending vote request for ${ newQueuedVoteCount } votes`
+			);
+			vote( [ answerId ], newQueuedVoteCount );
+			setTimeoutHandle( null );
+			setQueuedVotes( 0 );
+		}, 1000 );
+
+		setTimeoutHandle( handle );
 	};
 
 	const isClosed = isPollClosed(
@@ -83,9 +100,12 @@ const Applause = ( props ) => {
 				role="button"
 				tabIndex={ 0 }
 			>
-				<ApplauseIcon
-					className="crowdsignal-forms-applause__icon"
-					fillColor="currentColor"
+				<ApplauseAnimation
+					active={ animationActiveState }
+					backgroundColor={
+						attributes.backgroundColor ||
+						fallbackStyles.backgroundColor
+					}
 				/>
 				<span className="crowdsignal-forms-applause__count">
 					{ formatVoteCount( displayedVoteCount ) } Claps

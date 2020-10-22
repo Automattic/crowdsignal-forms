@@ -1,13 +1,9 @@
 /* public Applause style */
-.crowdsignal-forms-applause__icon {
-	margin-inline-end: 5px;
-}
-
-
 .crowdsignal-forms-applause {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	outline: 0;
 	width: max-content;
 	cursor: pointer;
 
@@ -19,14 +15,8 @@
 		padding: 18px 10px;
 		height: 0.7em;
 
-		.crowdsignal-forms-applause__icon {
-			width: 0.7em;
-			height: 0.7em;
-			max-height: 0.7em;
-		}
-
 		.crowdsignal-forms-applause__count {
-			font-size: 0.6em;
+			font-size: 0.65em;
 		}
 	}
 
@@ -34,14 +24,8 @@
 		height: 1em;
 		padding: 20px 10px;
 
-		.crowdsignal-forms-applause__icon {
-			width: 1em;
-			height: 1em;
-			max-height: 1em;
-		}
-
 		.crowdsignal-forms-applause__count {
-			font-size: 0.8em;
+			font-size: 0.75em;
 		}
 	}
 
@@ -49,14 +33,8 @@
 		height: 1.2em;
 		padding: 22px 16px;
 
-		.crowdsignal-forms-applause__icon {
-			width: 1.2em;
-			height: 1.2em;
-			max-height: 1.2em;
-		}
-
 		.crowdsignal-forms-applause__count {
-			font-size: 1em;
+			font-size: 0.9em;
 		}
 	}
 
@@ -88,4 +66,85 @@
 		}
 	}
 
+}
+
+.crowdsignal-forms-applause__animation {
+	fill: var(--crowdsignal-forms-applause-text-color);
+	margin-inline-end: 5px;
+
+	.crowdsignal-forms-applause.size-small & {
+		width: 1.5em;
+		height: 1.5em;
+		max-height: 1.5em;
+	}
+
+	.crowdsignal-forms-applause.size-medium & {
+		width: 2.3em;
+		height: 2.3em;
+		max-height: 2.3em;
+	}
+
+	.crowdsignal-forms-applause.size-large & {
+		width: 2.7em;
+		height: 2.7em;
+		max-height: 2.7em;
+	}
+
+	.crowdsignal-forms-applause:hover & {
+		fill: var(--crowdsignal-forms-applause-hover-color);
+	}
+}
+
+.crowdsignal-forms-applause__animation-right {
+	transition: transform 0.3s;
+
+	.crowdsignal-forms-applause:hover & {
+		transform: translateX(3%) translateY(-3%);
+	}
+}
+
+.crowdsignal-forms-applause__animation-left {
+	transition: transform 0.3s;
+
+	.crowdsignal-forms-applause:hover & {
+		transform: translateX(-3%) translateY(0);
+	}
+}
+
+.crowdsignal-forms-applause__animation-wave-small {
+	opacity: 1;
+
+	.crowdsignal-forms-applause:hover & {
+		animation: crowdsignal-forms-animation__fade-out 0.3s forwards;
+		transform: translateY(-5%);
+		transition: transform 0.3s;
+	}
+}
+
+.crowdsignal-forms-applause__animation-wave-large {
+	opacity: 0;
+}
+
+.crowdsignal-forms-applause .crowdsignal-forms-applause__animation.is-active {
+
+	.crowdsignal-forms-applause__animation-right {
+		transform: translateX(-3%) translateY(0);
+		transition: transform 0.1s;
+	}
+
+	.crowdsignal-forms-applause__animation-left {
+		transform: translateX(3%) translateY(0);
+		transition: transform 0.1s;
+	}
+
+	.crowdsignal-forms-applause__animation-wave-small {
+		animation: crowdsignal-forms-animation__fade-out 0.3s forwards;
+		transform: translateY(-5%);
+		transition: transform 0.3s;
+	}
+
+	.crowdsignal-forms-applause__animation-wave-large {
+		animation: crowdsignal-forms-animation__fade-in 0.03s forwards;
+		animation-delay: 0.07s;
+	}
 }
