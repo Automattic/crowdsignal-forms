@@ -74,6 +74,7 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 							isVotedOn={ apiAnswerId === votedOnId }
 							voteCount={ results ? results[ apiAnswerId ] : 0 }
 							hideCount={ attributes.hideResults }
+							type={ voteAttributes.type }
 						/>
 					);
 				} ) }
