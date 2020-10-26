@@ -15,10 +15,12 @@ export const getApplauseStyleVars = ( attributes, fallbackStyles ) => {
 
 	return mapKeys(
 		{
-			borderColor: attributes.borderColor,
 			bgColor: attributes.backgroundColor,
 			textColor,
 			hoverColor: fallbackStyles.accent,
+			borderRadius: `${ attributes.borderRadius || 0 }px`,
+			borderWidth: `${ attributes.borderWidth || 0 }px`,
+			borderColor: attributes.borderColor,
 		},
 		( _, key ) => `--crowdsignal-forms-applause-${ kebabCase( key ) }`
 	);

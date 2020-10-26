@@ -44,4 +44,12 @@ export default {
 	borderColor: {
 		type: 'string',
 	},
+	borderWidth: {
+		type: 'number',
+		default: 0,
+	},
+	borderRadius: {
+		type: 'number',
+		default: 0,
+	},
 };
