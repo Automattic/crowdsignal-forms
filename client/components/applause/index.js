@@ -30,8 +30,13 @@ const Applause = ( props ) => {
 	);
 	const { results } = usePollResults( apiPollId );
 
+	const isClosed = isPollClosed(
+		attributes.pollStatus,
+		attributes.closedAfterDateTime
+	);
+
 	const handleVote = () => {
-		if ( apiPollId === null ) {
+		if ( apiPollId === null || isClosed ) {
 			return;
 		}
 
@@ -70,11 +75,6 @@ const Applause = ( props ) => {
 
 		setTimeoutHandle( handle );
 	};
-
-	const isClosed = isPollClosed(
-		attributes.pollStatus,
-		attributes.closedAfterDateTime
-	);
 
 	const classes = getBlockCssClasses(
 		attributes,

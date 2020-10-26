@@ -59,7 +59,7 @@
 		background-color: var(--crowdsignal-forms-applause-bg-color);
 	}
 
-	&:hover {
+	&:not(.is-closed):hover {
 		color: var(--crowdsignal-forms-applause-hover-color);
 		border-color: var(--crowdsignal-forms-applause-hover-color);
 
@@ -95,7 +95,7 @@
 		max-height: 2.7em;
 	}
 
-	.crowdsignal-forms-applause:hover & {
+	.crowdsignal-forms-applause:not(.is-closed):hover & {
 		fill: var(--crowdsignal-forms-applause-hover-color);
 	}
 }
@@ -103,7 +103,7 @@
 .crowdsignal-forms-applause__animation-right {
 	transition: transform 0.3s;
 
-	.crowdsignal-forms-applause:hover & {
+	.crowdsignal-forms-applause:not(.is-closed):hover & {
 		transform: translateX(3%) translateY(-3%);
 	}
 }
@@ -111,7 +111,7 @@
 .crowdsignal-forms-applause__animation-left {
 	transition: transform 0.3s;
 
-	.crowdsignal-forms-applause:hover & {
+	.crowdsignal-forms-applause:not(.is-closed):hover & {
 		transform: translateX(-3%) translateY(0);
 	}
 }
@@ -119,7 +119,7 @@
 .crowdsignal-forms-applause__animation-wave-small {
 	opacity: 1;
 
-	.crowdsignal-forms-applause:hover & {
+	.crowdsignal-forms-applause:not(.is-closed):hover & {
 		animation: crowdsignal-forms-animation__fade-out 0.3s forwards;
 		transform: translateY(-5%);
 		transition: transform 0.3s;
