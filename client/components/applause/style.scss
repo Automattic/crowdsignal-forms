@@ -14,29 +14,32 @@
 	}
 
 	&.size-small {
-		padding: 18px 10px;
+		padding: 20px 16px 18px 12px;
 		height: 0.7em;
 
 		.crowdsignal-forms-applause__count {
 			font-size: 0.65em;
+			padding-bottom: 2px;
 		}
 	}
 
 	&.size-medium {
 		height: 1em;
-		padding: 20px 10px;
+		padding: 24px 16px 20px 8px;
 
 		.crowdsignal-forms-applause__count {
 			font-size: 0.75em;
+			padding-bottom: 4px;
 		}
 	}
 
 	&.size-large {
 		height: 1.2em;
-		padding: 22px 16px;
+		padding: 28px 18px 22px 8px;
 
 		.crowdsignal-forms-applause__count {
 			font-size: 0.9em;
+			padding-bottom: 6px;
 		}
 	}
 
