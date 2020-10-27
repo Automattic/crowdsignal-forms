@@ -98,14 +98,14 @@ const ToolBar = ( { attributes, setAttributes } ) => {
 							type="number"
 							className="crowdsignal-forms__small-text-input"
 							onChange={ handleChangeBorderWidth }
-							value={ attributes.borderWidth }
+							value={ attributes.borderWidth || 0 }
 						/>
 						<TextControl
 							label={ __( 'Corner radius' ) }
 							type="number"
 							className="crowdsignal-forms__small-text-input"
 							onChange={ handleChangeBorderRadius }
-							value={ attributes.borderRadius }
+							value={ attributes.borderRadius || 0 }
 						/>
 					</div>
 				</Popover>

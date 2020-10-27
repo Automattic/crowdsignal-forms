@@ -30,6 +30,7 @@ const EditVoteItemBlock = ( props ) => {
 				className={ className }
 				voteCount={ 0 }
 				isInEditor={ true }
+				type={ attributes.type }
 			/>
 
 			{ renderStyleProbe() }
