@@ -15,6 +15,7 @@
 		"build:styles": "npm run build:styles:editor && npm run build:styles:poll && npm run build:styles:vote && npm run build:styles:applause",
 		"watch:editor": "calypso-build --env.WP --output-path='./build' editor=./client/editor.js --watch",
 		"watch:poll": "calypso-build --env.WP --output-path='./build' poll=./client/poll.js --watch",
+		"watch:applause": "calypso-build --env.WP --output-path='./build' applause=./client/applause.js --watch",
 		"format:js": "wp-scripts format-js ./client",
 		"lint:js": "wp-scripts lint-js ./client",
 		"lint:styles": "wp-scripts lint-style ./assets/stylesheets ./client/**/*.scss",
