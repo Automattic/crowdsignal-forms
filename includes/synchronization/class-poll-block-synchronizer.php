@@ -208,7 +208,9 @@ class Poll_Block_Synchronizer {
 
 		foreach ( $default_attributes as $attribute_name => $attribute ) {
 			if ( ! isset( $block['attrs'][ $attribute_name ] ) ) {
-				$block['attrs'][ $attribute_name ] = $attribute['default'];
+				// phpcs:ignore Generic.Formatting.MultipleStatementAlignment.NotSameWarning
+				$default = isset( $attribute['default'] ) ? $attribute['default'] : null;
+				$block['attrs'][ $attribute_name ] = $default;
 			}
 		}
 	}

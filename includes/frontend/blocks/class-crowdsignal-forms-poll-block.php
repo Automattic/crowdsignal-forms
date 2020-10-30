@@ -77,9 +77,11 @@ class Crowdsignal_Forms_Poll_Block extends Crowdsignal_Forms_Block {
 			$attributes['apiPollData'] = $platform_poll_data;
 		}
 
+		$align = ! empty( $attributes['align'] ) ? $attributes['align'] : '';
+
 		return sprintf(
 			'<div class="align%s crowdsignal-poll-wrapper" data-crowdsignal-poll="%s"></div>',
-			esc_attr( $attributes['align'] ),
+			esc_attr( $align ),
 			htmlentities( wp_json_encode( $attributes ) )
 		);
 	}
