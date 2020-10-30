@@ -8,10 +8,8 @@
 	cursor: pointer;
 	border: var(--crowdsignal-forms-applause-border-width) solid rgb(210, 210, 210);
 	border-radius: var(--crowdsignal-forms-applause-border-radius);
-
-	.crowdsignal-forms-applause__count {
-		user-select: none;
-	}
+	user-select: none;
+	--webkit-user-select: none;
 
 	&.size-small {
 		padding: 20px 16px 18px 12px;
@@ -63,11 +61,10 @@
 		color: var(--crowdsignal-forms-applause-hover-color);
 		border-color: var(--crowdsignal-forms-applause-hover-color);
 
-		&.has-bg-color,
-		&.has-text-color {
+		&.has-bg-color {
+			color: var(--crowdsignal-forms-applause-bg-color);
 			background-color: var(--crowdsignal-forms-applause-text-color);
 			border-color: var(--crowdsignal-forms-applause-bg-color);
-			color: var(--crowdsignal-forms-applause-bg-color);
 		}
 	}
 
@@ -95,8 +92,20 @@
 		max-height: 2.7em;
 	}
 
+	.crowdsignal-forms-applause__animation-inner-fill {
+		fill: var(--crowdsignal-forms-applause-bg-color);
+	}
+
 	.crowdsignal-forms-applause:not(.is-closed):hover & {
 		fill: var(--crowdsignal-forms-applause-hover-color);
+	}
+
+	.crowdsignal-forms-applause.has-bg-color:not(.is-closed):hover & {
+		fill: var(--crowdsignal-forms-applause-bg-color);
+
+		.crowdsignal-forms-applause__animation-inner-fill {
+			fill: var(--crowdsignal-forms-applause-text-color);
+		}
 	}
 }
 

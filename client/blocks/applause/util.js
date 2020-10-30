@@ -15,7 +15,7 @@ export const getApplauseStyleVars = ( attributes, fallbackStyles ) => {
 
 	return mapKeys(
 		{
-			bgColor: attributes.backgroundColor,
+			bgColor: attributes.backgroundColor || fallbackStyles.surface,
 			textColor,
 			hoverColor: fallbackStyles.accent,
 			borderRadius: `${ attributes.borderRadius || 0 }px`,

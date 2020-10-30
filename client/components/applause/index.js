@@ -59,15 +59,9 @@ const Applause = ( props ) => {
 
 		if ( null !== timeoutHandle ) {
 			clearTimeout( timeoutHandle );
-			// eslint-disable-next-line no-console
-			console.log( 'clearing existing handle' );
 		}
 
 		const handle = setTimeout( () => {
-			// eslint-disable-next-line no-console
-			console.log(
-				`sending vote request for ${ newQueuedVoteCount } votes`
-			);
 			vote( [ answerId ], newQueuedVoteCount );
 			setTimeoutHandle( null );
 			setQueuedVotes( 0 );
@@ -100,13 +94,7 @@ const Applause = ( props ) => {
 				role="button"
 				tabIndex={ 0 }
 			>
-				<ApplauseAnimation
-					active={ animationActiveState }
-					backgroundColor={
-						attributes.backgroundColor ||
-						fallbackStyles.backgroundColor
-					}
-				/>
+				<ApplauseAnimation active={ animationActiveState } />
 				<span className="crowdsignal-forms-applause__count">
 					{ formatVoteCount( displayedVoteCount ) } Claps
 				</span>
