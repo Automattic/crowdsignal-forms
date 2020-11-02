@@ -3,7 +3,7 @@
  * Contains Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Applause_Block
  *
  * @package Crowdsignal_Forms\Frontend\Blocks
- * @since   [next-version-number]
+ * @since   1.3.0
  */
 
 namespace Crowdsignal_Forms\Frontend\Blocks;
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles Crowdsignal Forms' Applause block.
  *
  * @package  Crowdsignal_Forms\Frontend\Blocks
- * @since    [next-version-number]
+ * @since    1.3.0
  */
 class Crowdsignal_Forms_Applause_Block extends Crowdsignal_Forms_Block {
 
