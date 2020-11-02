@@ -20,7 +20,7 @@ import ApplauseAnimation from './animation';
 const Applause = ( props ) => {
 	const { attributes, fallbackStyles, renderStyleProbe } = props;
 	const apiPollId = attributes.apiPollData ? attributes.apiPollData.id : null;
-	const { hasVoted, vote } = usePollVote( apiPollId );
+	const { hasVoted, vote } = usePollVote( apiPollId, true );
 	const [ currentVote, setCurrentVote ] = useState( 0 );
 	const [ queuedVotes, setQueuedVotes ] = useState( 0 );
 	const [ timeoutHandle, setTimeoutHandle ] = useState( null );
