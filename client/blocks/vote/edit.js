@@ -9,6 +9,7 @@ import classNames from 'classnames';
  */
 import { InnerBlocks } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -16,7 +17,6 @@ import { compose } from '@wordpress/compose';
 import SideBar from './sidebar';
 import ToolBar from './toolbar';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
-import { __ } from 'lib/i18n';
 import withClientId from 'components/with-client-id';
 import { getVoteStyleVars } from 'blocks/vote/util';
 import { isPollClosed } from 'blocks/poll/util';
@@ -28,7 +28,7 @@ const EditVoteBlock = ( props ) => {
 
 	useNumberedTitle(
 		props.name,
-		__( 'Untitled Vote' ),
+		__( 'Untitled Vote', 'crowdsignal-forms' ),
 		attributes,
 		setAttributes
 	);
@@ -57,7 +57,7 @@ const EditVoteBlock = ( props ) => {
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
-			blockName={ __( 'Crowdsignal Vote' ) }
+			blockName={ __( 'Crowdsignal Vote', 'crowdsignal-forms' ) }
 		>
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 			<ToolBar { ...props } />

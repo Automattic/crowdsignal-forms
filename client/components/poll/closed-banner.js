@@ -3,11 +3,7 @@
  */
 import React from 'react';
 import classNames from 'classnames';
-
-/**
- * Internal dependencies
- */
-import { __ } from 'lib/i18n';
+import { __ } from '@wordpress/i18n';
 
 const ClosedBanner = ( {
 	hasVoted,
@@ -24,9 +20,11 @@ const ClosedBanner = ( {
 
 	return (
 		<div className={ classes }>
-			{ isPollHidden && __( 'This Poll is Hidden' ) }
-			{ isPollClosed && ! isPollHidden && __( 'This Poll is Closed' ) }
-			{ hasVoted && __( 'Thanks For Voting!' ) }
+			{ isPollHidden && __( 'This Poll is Hidden', 'crowdsignal-forms' ) }
+			{ isPollClosed &&
+				! isPollHidden &&
+				__( 'This Poll is Closed', 'crowdsignal-forms' ) }
+			{ hasVoted && __( 'Thanks For Voting!', 'crowdsignal-forms' ) }
 		</div>
 	);
 };

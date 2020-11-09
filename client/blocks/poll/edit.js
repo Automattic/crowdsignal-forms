@@ -11,6 +11,7 @@ import { RichText } from '@wordpress/block-editor';
 import { ResizableBox } from '@wordpress/components';
 import { decodeEntities } from '@wordpress/html-entities';
 import { compose } from '@wordpress/compose';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -24,7 +25,6 @@ import {
 	loadCustomFont,
 } from 'components/poll/util';
 import { withFallbackStyles } from 'components/with-fallback-styles';
-import { __ } from 'lib/i18n';
 import { ClosedPollState } from './constants';
 import EditAnswers from './edit-answers';
 import SideBar from './sidebar';
@@ -142,7 +142,7 @@ const PollBlock = ( props ) => {
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ <PollIcon /> }
-			blockName={ __( 'Crowdsignal Poll' ) }
+			blockName={ __( 'Crowdsignal Poll', 'crowdsignal-forms' ) }
 		>
 			<Toolbar { ...props } />
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
@@ -185,7 +185,10 @@ const PollBlock = ( props ) => {
 							<RichText
 								tagName="h3"
 								className="crowdsignal-forms-poll__question"
-								placeholder={ __( 'Enter your question' ) }
+								placeholder={ __(
+									'Enter your question',
+									'crowdsignal-forms'
+								) }
 								onChange={ handleChangeQuestion }
 								value={ attributes.question }
 								allowedFormats={ [] }
@@ -194,7 +197,10 @@ const PollBlock = ( props ) => {
 							<h3 className="crowdsignal-forms-poll__question">
 								{ attributes.question
 									? decodeEntities( attributes.question )
-									: __( 'Enter your question' ) }
+									: __(
+											'Enter your question',
+											'crowdsignal-forms'
+									  ) }
 							</h3>
 						) }
 
@@ -204,7 +210,8 @@ const PollBlock = ( props ) => {
 									tagName="p"
 									className="crowdsignal-forms-poll__note"
 									placeholder={ __(
-										'Add a note (optional)'
+										'Add a note (optional)',
+										'crowdsignal-forms'
 									) }
 									onChange={ handleChangeNote }
 									value={ attributes.note }
@@ -214,7 +221,10 @@ const PollBlock = ( props ) => {
 								<p className="crowdsignal-forms-poll__note">
 									{ attributes.note
 										? decodeEntities( attributes.note )
-										: __( 'Add a note (optional)' ) }
+										: __(
+												'Add a note (optional)',
+												'crowdsignal-forms'
+										  ) }
 								</p>
 							) ) }
 

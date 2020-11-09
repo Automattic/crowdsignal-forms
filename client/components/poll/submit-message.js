@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { isEmpty } from 'lodash';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -11,7 +12,6 @@ import CloseIcon from 'components/icon/close';
 import CheckCircleIcon from 'components/icon/check-circle';
 import ThankYouIcon from 'components/icon/thank-you';
 import FooterBranding from './footer-branding';
-import { __ } from 'lib/i18n';
 
 const toggleAnimationPlayPause = ( event ) => {
 	const player = event.target;
@@ -68,7 +68,7 @@ const SubmitMessage = ( {
 					</div>
 					<div className="crowdsignal-forms-poll__custom-message">
 						{ isEmpty( customConfirmMessage )
-							? __( 'Thanks for voting!' )
+							? __( 'Thanks for voting!', 'crowdsignal-forms' )
 							: customConfirmMessage }
 					</div>
 				</>

@@ -2,47 +2,48 @@
  * WordPress dependencies
  */
 import { InnerBlocks } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import VoteIcon from 'components/icon/vote';
-import { __ } from 'lib/i18n';
 // import './store';
 import EditVoteBlock from './edit';
 import attributes from './attributes';
 
 export default {
-	title: __( 'Vote' ),
+	title: __( 'Vote', 'crowdsignal-forms' ),
 	description: __(
-		'Allow your audience to rate your work or express their opinion — powered by Crowdsignal.'
+		'Allow your audience to rate your work or express their opinion — powered by Crowdsignal.',
+		'crowdsignal-forms'
 	),
 	category: 'crowdsignal-forms',
 	keywords: [
-		__( 'ballot' ),
-		__( 'button' ),
-		__( 'count' ),
+		__( 'ballot', 'crowdsignal-forms' ),
+		__( 'button', 'crowdsignal-forms' ),
+		__( 'count', 'crowdsignal-forms' ),
 		'crowdsignal',
-		__( 'deciding' ),
-		__( 'decision' ),
-		__( 'elect' ),
-		__( 'election' ),
-		__( 'feedback' ),
-		__( 'form' ),
-		__( 'like' ),
-		__( 'nero' ),
-		__( 'opinion' ),
-		__( 'poll' ),
-		__( 'polling' ),
-		__( 'rate' ),
-		__( 'rating' ),
-		__( 'research' ),
-		__( 'survey' ),
-		__( 'thumb down' ),
-		__( 'thumb up' ),
-		__( 'thumbs' ),
-		__( 'vote' ),
-		__( 'voting' ),
+		__( 'deciding', 'crowdsignal-forms' ),
+		__( 'decision', 'crowdsignal-forms' ),
+		__( 'elect', 'crowdsignal-forms' ),
+		__( 'election', 'crowdsignal-forms' ),
+		__( 'feedback', 'crowdsignal-forms' ),
+		__( 'form', 'crowdsignal-forms' ),
+		__( 'like', 'crowdsignal-forms' ),
+		__( 'nero', 'crowdsignal-forms' ),
+		__( 'opinion', 'crowdsignal-forms' ),
+		__( 'poll', 'crowdsignal-forms' ),
+		__( 'polling', 'crowdsignal-forms' ),
+		__( 'rate', 'crowdsignal-forms' ),
+		__( 'rating', 'crowdsignal-forms' ),
+		__( 'research', 'crowdsignal-forms' ),
+		__( 'survey', 'crowdsignal-forms' ),
+		__( 'thumb down', 'crowdsignal-forms' ),
+		__( 'thumb up', 'crowdsignal-forms' ),
+		__( 'thumbs', 'crowdsignal-forms' ),
+		__( 'vote', 'crowdsignal-forms' ),
+		__( 'voting', 'crowdsignal-forms' ),
 	],
 	icon: <VoteIcon />,
 	edit: EditVoteBlock,

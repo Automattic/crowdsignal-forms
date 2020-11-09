@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies
+ */
+import { __ } from '@wordpress/i18n';
+
+/**
  * Internal dependencies
  */
 import {
@@ -8,7 +13,6 @@ import {
 	ClosedPollState,
 	ButtonAlignment,
 } from './constants';
-import { __ } from 'lib/i18n';
 
 /*
  * Note: Any changes made to the attributes definition need to be duplicated in
@@ -55,7 +59,7 @@ export default {
 	},
 	submitButtonLabel: {
 		type: 'string',
-		default: __( 'Submit' ),
+		default: __( 'Submit', 'crowdsignal-forms' ),
 	},
 	submitButtonTextColor: {
 		type: 'string',

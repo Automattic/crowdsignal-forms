@@ -1,33 +1,38 @@
 /**
+ * WordPress dependencies
+ */
+import { __ } from '@wordpress/i18n';
+
+/**
  * Internal dependencies
  */
 import ApplauseIcon from 'components/icon/applause';
-import { __ } from 'lib/i18n';
 import EditApplauseBlock from './edit';
 import attributes from './attributes';
 
 export default {
-	title: __( 'Applause' ),
+	title: __( 'Applause', 'crowdsignal-forms' ),
 	description: __(
-		'Let your audience cheer with a big round of applause — powered by Crowdsignal.'
+		'Let your audience cheer with a big round of applause — powered by Crowdsignal.',
+		'crowdsignal-forms'
 	),
 	category: 'crowdsignal-forms',
 	keywords: [
 		'crowdsignal',
-		__( 'applause' ),
-		__( 'cheer' ),
-		__( 'cheering' ),
-		__( 'clap' ),
-		__( 'feedback' ),
-		__( 'kudos' ),
-		__( 'like' ),
-		__( 'opinion' ),
-		__( 'praise' ),
-		__( 'rating' ),
-		__( 'upvote' ),
-		__( 'upvoting' ),
-		__( 'votes' ),
-		__( 'voting' ),
+		__( 'applause', 'crowdsignal-forms' ),
+		__( 'cheer', 'crowdsignal-forms' ),
+		__( 'cheering', 'crowdsignal-forms' ),
+		__( 'clap', 'crowdsignal-forms' ),
+		__( 'feedback', 'crowdsignal-forms' ),
+		__( 'kudos', 'crowdsignal-forms' ),
+		__( 'like', 'crowdsignal-forms' ),
+		__( 'opinion', 'crowdsignal-forms' ),
+		__( 'praise', 'crowdsignal-forms' ),
+		__( 'rating', 'crowdsignal-forms' ),
+		__( 'upvote', 'crowdsignal-forms' ),
+		__( 'upvoting', 'crowdsignal-forms' ),
+		__( 'votes', 'crowdsignal-forms' ),
+		__( 'voting', 'crowdsignal-forms' ),
 	],
 	icon: <ApplauseIcon />,
 	edit: EditApplauseBlock,

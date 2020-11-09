@@ -8,6 +8,7 @@ import { includes, isEmpty, kebabCase, mapKeys } from 'lodash';
  * WordPress dependencies
  */
 import { registerBlockStyle, unregisterBlockStyle } from '@wordpress/blocks';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -18,7 +19,6 @@ import {
 	PollStatus,
 	AnswerStyle,
 } from './constants';
-import { __ } from 'lib/i18n';
 
 /**
  * Creates a new Answer object then returns a copy of the passed in `answers` array with the new answer appended to it.
@@ -198,7 +198,7 @@ export const toggleButtonStyleAvailability = ( enable ) => {
 	if ( enable ) {
 		registerBlockStyle( 'crowdsignal-forms/poll', {
 			name: 'buttons',
-			label: __( 'Buttons' ),
+			label: __( 'Buttons', 'crowdsignal-forms' ),
 		} );
 	} else {
 		unregisterBlockStyle( 'crowdsignal-forms/poll', 'buttons' );

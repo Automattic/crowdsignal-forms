@@ -47,7 +47,7 @@ const ToolBar = ( { attributes, setAttributes } ) => {
 			<ToolbarGroup
 				isCollapsed={ true }
 				icon={ SizeIcon }
-				label={ __( 'Change block size' ) }
+				label={ __( 'Change block size', 'crowdsignal-forms' ) }
 				popoverProps={ POPOVER_PROPS }
 				controls={ sizeControls.map( ( control ) => {
 					const { size: controlSize } = control;
@@ -77,14 +77,17 @@ const ToolBar = ( { attributes, setAttributes } ) => {
 				>
 					<div className="crowdsignal-forms__row">
 						<TextControl
-							label={ __( 'Border thickness' ) }
+							label={ __(
+								'Border thickness',
+								'crowdsignal-forms'
+							) }
 							type="number"
 							className="crowdsignal-forms__small-text-input"
 							onChange={ handleChangeBorderWidth }
 							value={ attributes.borderWidth }
 						/>
 						<TextControl
-							label={ __( 'Corner radius' ) }
+							label={ __( 'Corner radius', 'crowdsignal-forms' ) }
 							type="number"
 							className="crowdsignal-forms__small-text-input"
 							onChange={ handleChangeBorderRadius }

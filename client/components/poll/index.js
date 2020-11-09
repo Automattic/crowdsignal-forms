@@ -10,6 +10,7 @@ import classNames from 'classnames';
  * WordPress dependencies
  */
 import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -27,7 +28,6 @@ import PollResults from './results';
 import PollVote from './vote';
 import { PollStyles, getPollStyles } from './styles';
 import { shuffleWithGenerator, loadCustomFont } from './util';
-import { __ } from 'lib/i18n';
 import { usePollVote } from 'data/hooks';
 import { CrowdsignalFormsError } from 'data/poll';
 import ErrorBanner from './error-banner';
@@ -61,7 +61,9 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			if ( ex instanceof CrowdsignalFormsError ) {
 				setErrorMessage( ex.message );
 			} else {
-				setErrorMessage( __( 'Server error. Please try again.' ) );
+				setErrorMessage(
+					__( 'Server error. Please try again.', 'crowdsignal-forms' )
+				);
 			}
 		}
 	};

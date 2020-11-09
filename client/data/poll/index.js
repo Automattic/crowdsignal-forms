@@ -2,11 +2,7 @@
  * External dependencies
  */
 import apiFetch from '@wordpress/api-fetch';
-
-/**
- * Internal dependencies
- */
-import { __ } from 'lib/i18n';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Fetch the poll results for the given pollId
@@ -91,7 +87,7 @@ export const requestVote = async (
 export class CrowdsignalFormsError extends Error {}
 export class CrowdsignalFormsServerError extends CrowdsignalFormsError {
 	constructor() {
-		super( __( 'Server error. Please try again.' ) );
+		super( __( 'Server error. Please try again.', 'crowdsignal-forms' ) );
 	}
 }
 

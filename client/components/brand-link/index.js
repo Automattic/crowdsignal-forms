@@ -3,11 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-
-/**
- * Internal dependencies
- */
-import { __ } from 'lib/i18n';
+import { __ } from '@wordpress/i18n';
 
 const BrandLink = ( { showBranding, referralCode } ) => {
 	return (
@@ -19,7 +15,7 @@ const BrandLink = ( { showBranding, referralCode } ) => {
 					target="blank"
 					rel="noopener noreferrer"
 				>
-					{ __( 'Powered by Crowdsignal' ) }
+					{ __( 'Powered by Crowdsignal', 'crowdsignal-forms' ) }
 				</a>
 			) }
 			{ ! showBranding && (

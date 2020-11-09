@@ -1,31 +1,36 @@
 /**
+ * WordPress dependencies
+ */
+import { __ } from '@wordpress/i18n';
+
+/**
  * Internal dependencies
  */
 import PollIcon from 'components/icon/poll';
-import { __ } from 'lib/i18n';
 import './store';
 import EditPollBlock from './edit';
 import attributes from './attributes';
 
 export default {
-	title: __( 'Poll' ),
+	title: __( 'Poll', 'crowdsignal-forms' ),
 	description: __(
-		'Create polls and get your audience’s opinion — powered by Crowdsignal.'
+		'Create polls and get your audience’s opinion — powered by Crowdsignal.',
+		'crowdsignal-forms'
 	),
 	category: 'crowdsignal-forms',
 	keywords: [
-		__( 'ask' ),
+		__( 'ask', 'crowdsignal-forms' ),
 		'crowdsignal',
-		__( 'feedback' ),
-		__( 'form' ),
-		__( 'opinion' ),
-		__( 'poll' ),
-		__( 'pop' ),
-		__( 'question' ),
-		__( 'quiz' ),
-		__( 'research' ),
-		__( 'survey' ),
-		__( 'vote' ),
+		__( 'feedback', 'crowdsignal-forms' ),
+		__( 'form', 'crowdsignal-forms' ),
+		__( 'opinion', 'crowdsignal-forms' ),
+		__( 'poll', 'crowdsignal-forms' ),
+		__( 'pop', 'crowdsignal-forms' ),
+		__( 'question', 'crowdsignal-forms' ),
+		__( 'quiz', 'crowdsignal-forms' ),
+		__( 'research', 'crowdsignal-forms' ),
+		__( 'survey', 'crowdsignal-forms' ),
+		__( 'vote', 'crowdsignal-forms' ),
 	],
 	icon: <PollIcon />,
 	edit: EditPollBlock,
@@ -38,16 +43,16 @@ export default {
 	} ),
 	example: {
 		attributes: {
-			question: __( 'How did you hear about us?' ),
+			question: __( 'How did you hear about us?', 'crowdsignal-forms' ),
 			answers: [
 				{
-					text: __( 'Search' ),
+					text: __( 'Search', 'crowdsignal-forms' ),
 				},
 				{
-					text: __( 'Friend' ),
+					text: __( 'Friend', 'crowdsignal-forms' ),
 				},
 				{
-					text: __( 'Email' ),
+					text: __( 'Email', 'crowdsignal-forms' ),
 				},
 			],
 		},
@@ -55,7 +60,7 @@ export default {
 	styles: [
 		{
 			name: 'default',
-			label: __( 'Default' ),
+			label: __( 'Default', 'crowdsignal-forms' ),
 			isDefault: true,
 		},
 	],

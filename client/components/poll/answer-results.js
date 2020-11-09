@@ -9,11 +9,7 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { decodeEntities } from '@wordpress/html-entities';
-
-/**
- * Internal dependencies
- */
-import { _n, sprintf } from 'lib/i18n';
+import { _n, sprintf } from '@wordpress/i18n';
 
 const PollAnswerResults = ( { error, loading, text, totalVotes, votes } ) => {
 	const classes = classnames( 'crowdsignal-forms-poll__answer-results', {
@@ -40,7 +36,12 @@ const PollAnswerResults = ( { error, loading, text, totalVotes, votes } ) => {
 					{ showResults &&
 						sprintf(
 							// translators: %s: Number of votes.
-							_n( '%s vote', '%s votes', votes ),
+							_n(
+								'%s vote',
+								'%s votes',
+								votes,
+								'crowdsignal-forms'
+							),
 							votes.toLocaleString()
 						) }
 				</span>

@@ -10,11 +10,11 @@ import { noop } from 'lodash';
  */
 import { RichText } from '@wordpress/block-editor';
 import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import { __ } from 'lib/i18n';
 import { AnswerStyle } from './constants';
 
 const EditAnswer = ( {
@@ -50,7 +50,10 @@ const EditAnswer = ( {
 					<RichText
 						className="crowdsignal-forms-poll__answer-label"
 						tagName="span"
-						placeholder={ __( 'Enter an answer' ) }
+						placeholder={ __(
+							'Enter an answer',
+							'crowdsignal-forms'
+						) }
 						multiline={ false }
 						preserveWhiteSpace={ false }
 						onChange={ handleChangeText }
@@ -65,7 +68,7 @@ const EditAnswer = ( {
 					<span className="crowdsignal-forms-poll__answer-label">
 						{ answer.text
 							? decodeEntities( answer.text )
-							: __( 'Enter an answer' ) }
+							: __( 'Enter an answer', 'crowdsignal-forms' ) }
 					</span>
 				) }
 			</div>
@@ -77,7 +80,7 @@ const EditAnswer = ( {
 			{ ! disabled ? (
 				<RichText
 					className="wp-block-button__link crowdsignal-forms-poll__submit-button"
-					placeholder={ __( 'Enter an answer' ) }
+					placeholder={ __( 'Enter an answer', 'crowdsignal-forms' ) }
 					multiline={ false }
 					preserveWhiteSpace={ false }
 					onChange={ handleChangeText }
@@ -93,7 +96,7 @@ const EditAnswer = ( {
 				<div className="wp-block-button__link crowdsignal-forms-poll__submit-button">
 					{ answer.text
 						? decodeEntities( answer.text )
-						: __( 'Enter an answer' ) }
+						: __( 'Enter an answer', 'crowdsignal-forms' ) }
 				</div>
 			) }
 		</div>
