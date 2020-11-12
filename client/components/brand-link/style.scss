@@ -4,9 +4,14 @@
 	.crowdsignal-forms__branding-link {
 		font-family: $font-sans-serif;
 		font-size: 8px;
-		padding: 8px 20px 0;
+		padding: 8px 12px 0;
 		text-decoration: none !important;
 		text-transform: uppercase;
+		box-shadow: none;
+
+		&:hover {
+			box-shadow: none;
+		}
 
 		&.with-external-icon::after {
 			content: "\2197";
