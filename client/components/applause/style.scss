@@ -15,6 +15,10 @@
 	user-select: none;
 	--webkit-user-select: none;
 
+	.crowdsignal-forms-applause__count {
+		margin: 0;
+	}
+
 	&.size-small {
 		padding: 20px 16px 18px 12px;
 		height: 0.7em;

@@ -95,9 +95,9 @@ const Applause = ( props ) => {
 				tabIndex={ 0 }
 			>
 				<ApplauseAnimation active={ animationActiveState } />
-				<span className="crowdsignal-forms-applause__count">
+				<p className="crowdsignal-forms-applause__count">
 					{ formatVoteCount( displayedVoteCount ) } Claps
-				</span>
+				</p>
 				{ renderStyleProbe() }
 			</div>
 			<BrandLink
