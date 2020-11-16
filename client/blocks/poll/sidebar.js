@@ -354,107 +354,107 @@ const SideBar = ( {
 							value: FontFamilyType.THEME_DEFAULT,
 						},
 						{
-							label: __( 'Alegreya Sans', 'crowdsignal-forms' ),
+							label: 'Alegreya Sans',
 							value: FontFamilyType.ALEGREYA_SANS,
 						},
 						{
-							label: __( 'Arial', 'crowdsignal-forms' ),
+							label: 'Arial',
 							value: FontFamilyType.ARIAL,
 						},
 						{
-							label: __( 'Cabin', 'crowdsignal-forms' ),
+							label: 'Cabin',
 							value: FontFamilyType.CABIN,
 						},
 						{
-							label: __( 'Chivo', 'crowdsignal-forms' ),
+							label: 'Chivo',
 							value: FontFamilyType.CHIVO,
 						},
 						{
-							label: __( 'Courier', 'crowdsignal-forms' ),
+							label: 'Courier',
 							value: FontFamilyType.COURIER,
 						},
 						{
-							label: __( 'Fira Sans', 'crowdsignal-forms' ),
+							label: 'Fira Sans',
 							value: FontFamilyType.FIRA_SANS,
 						},
 						{
-							label: __( 'Georgia', 'crowdsignal-forms' ),
+							label: 'Georgia',
 							value: FontFamilyType.GEORGIA,
 						},
 						{
-							label: __( 'Impact', 'crowdsignal-forms' ),
+							label: 'Impact',
 							value: FontFamilyType.IMPACT,
 						},
 						{
-							label: __( 'Josefin Sans', 'crowdsignal-forms' ),
+							label: 'Josefin Sans',
 							value: FontFamilyType.JOSEFIN_SANS,
 						},
 						{
-							label: __( 'Lato', 'crowdsignal-forms' ),
+							label: 'Lato',
 							value: FontFamilyType.LATO,
 						},
 						{
-							label: __( 'Libre Franklin', 'crowdsignal-forms' ),
+							label: 'Libre Franklin',
 							value: FontFamilyType.LIBRE_FRANKLIN,
 						},
 						{
-							label: __( 'Lucida', 'crowdsignal-forms' ),
+							label: 'Lucida',
 							value: FontFamilyType.LUCIDA,
 						},
 						{
-							label: __( 'Montserrat', 'crowdsignal-forms' ),
+							label: 'Montserrat',
 							value: FontFamilyType.MONTSERRAT,
 						},
 						{
-							label: __( 'Nunito', 'crowdsignal-forms' ),
+							label: 'Nunito',
 							value: FontFamilyType.NUNITO,
 						},
 						{
-							label: __( 'Open Sans', 'crowdsignal-forms' ),
+							label: 'Open Sans',
 							value: FontFamilyType.OPEN_SANS,
 						},
 						{
-							label: __( 'Oswald', 'crowdsignal-forms' ),
+							label: 'Oswald',
 							value: FontFamilyType.OSWALD,
 						},
 						{
-							label: __( 'Overpass', 'crowdsignal-forms' ),
+							label: 'Overpass',
 							value: FontFamilyType.OVERPASS,
 						},
 						{
-							label: __( 'Palatino', 'crowdsignal-forms' ),
+							label: 'Palatino',
 							value: FontFamilyType.PALATINO,
 						},
 						{
-							label: __( 'Poppins', 'crowdsignal-forms' ),
+							label: 'Poppins',
 							value: FontFamilyType.POPPINS,
 						},
 						{
-							label: __( 'Raleway', 'crowdsignal-forms' ),
+							label: 'Raleway',
 							value: FontFamilyType.RALEWAY,
 						},
 						{
-							label: __( 'Roboto', 'crowdsignal-forms' ),
+							label: 'Roboto',
 							value: FontFamilyType.ROBOTO,
 						},
 						{
-							label: __( 'Rubik', 'crowdsignal-forms' ),
+							label: 'Rubik',
 							value: FontFamilyType.RUBIK,
 						},
 						{
-							label: __( 'Tahoma', 'crowdsignal-forms' ),
+							label: 'Tahoma',
 							value: FontFamilyType.TAHOMA,
 						},
 						{
-							label: __( 'Times New Roman', 'crowdsignal-forms' ),
+							label: 'Times New Roman',
 							value: FontFamilyType.TIMES_NEW_ROMAN,
 						},
 						{
-							label: __( 'Trebuchet', 'crowdsignal-forms' ),
+							label: 'Trebuchet',
 							value: FontFamilyType.TREBUCHET,
 						},
 						{
-							label: __( 'Verdana', 'crowdsignal-forms' ),
+							label: 'Verdana',
 							value: FontFamilyType.VERDANA,
 						},
 					] }
