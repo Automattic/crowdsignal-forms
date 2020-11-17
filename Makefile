@@ -22,7 +22,7 @@ client:
 	npm run build:applause
 
 # Package for release
-release: clean-release install-node client pot
+release: clean-release install-node pot client
 	./scripts/package-for-release.sh
 
 # Clean the build directory
