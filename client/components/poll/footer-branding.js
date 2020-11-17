@@ -1,7 +1,7 @@
 /**
- * Internal dependencies
+ * WordPress dependencies
  */
-import { __ } from 'lib/i18n';
+import { __ } from '@wordpress/i18n';
 
 const FooterBranding = ( { showLogo } ) => (
 	<div className="crowdsignal-forms-poll__footer-branding">
@@ -11,7 +11,10 @@ const FooterBranding = ( { showLogo } ) => (
 			target="_blank"
 			rel="noopener noreferrer"
 		>
-			{ __( 'Create your own poll with Crowdsignal' ) }
+			{ __(
+				'Create your own poll with Crowdsignal',
+				'crowdsignal-forms'
+			) }
 		</a>
 		{ showLogo && (
 			<img

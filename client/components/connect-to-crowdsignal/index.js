@@ -2,11 +2,11 @@
  * External dependencies
  */
 import { Button } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import { __ } from 'lib/i18n';
 import { useIsCsConnected } from 'data/hooks';
 
 const ConnectToCrowdsignal = ( props ) => {
@@ -50,17 +50,23 @@ const ConnectToCrowdsignal = ( props ) => {
 			<div className="crowdsignal-forms__connect-to-crowdsignal-body">
 				{ showConnectionMessage &&
 					__(
-						'You need to connect to a Crowdsignal account to collect and manage your results.'
+						'You need to connect to a Crowdsignal account to collect and manage your results.',
+						'crowdsignal-forms'
 					) }
 				{ showVerificationMessage &&
 					__(
-						'Please verify your WordPress.com email address in order to publish your poll.'
+						'Please verify your WordPress.com email address in order to publish your poll.',
+						'crowdsignal-forms'
 					) }
 			</div>
 			<Button isPrimary onClick={ handleConnectClick }>
-				{ showConnectionMessage && __( 'Connect to Crowdsignal' ) }
+				{ showConnectionMessage &&
+					__( 'Connect to Crowdsignal', 'crowdsignal-forms' ) }
 				{ showVerificationMessage &&
-					__( 'Verify or Change your Email Address' ) }
+					__(
+						'Verify or Change your Email Address',
+						'crowdsignal-forms'
+					) }
 			</Button>
 		</div>
 	);

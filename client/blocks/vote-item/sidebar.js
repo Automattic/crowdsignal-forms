@@ -7,11 +7,7 @@ import React from 'react';
  * WordPress dependencies
  */
 import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
-
-/**
- * Internal dependencies
- */
-import { __ } from 'lib/i18n';
+import { __ } from '@wordpress/i18n';
 
 const SideBar = ( { attributes, setAttributes } ) => {
 	const handleChangeTextColor = ( textColor ) =>
@@ -25,23 +21,23 @@ const SideBar = ( { attributes, setAttributes } ) => {
 	return (
 		<InspectorControls>
 			<PanelColorSettings
-				title={ __( 'Styling' ) }
+				title={ __( 'Styling', 'crowdsignal-forms' ) }
 				initialOpen={ true }
 				colorSettings={ [
 					{
 						value: attributes.textColor,
 						onChange: handleChangeTextColor,
-						label: __( 'Text color' ),
+						label: __( 'Text color', 'crowdsignal-forms' ),
 					},
 					{
 						value: attributes.backgroundColor,
 						onChange: handleChangeBackgroundColor,
-						label: __( 'Background color' ),
+						label: __( 'Background color', 'crowdsignal-forms' ),
 					},
 					{
 						value: attributes.borderColor,
 						onChange: handleChangeBorderColor,
-						label: __( 'Border color' ),
+						label: __( 'Border color', 'crowdsignal-forms' ),
 					},
 				] }
 			></PanelColorSettings>

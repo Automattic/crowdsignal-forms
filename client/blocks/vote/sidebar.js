@@ -15,15 +15,13 @@ import {
 	TimePicker,
 } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
-
 import { includes } from 'lodash';
-
-import { PollStatus } from './constants';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import { __ } from 'lib/i18n';
+import { PollStatus } from './constants';
 
 const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
@@ -54,11 +52,17 @@ const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
 
 	return (
 		<InspectorControls>
-			<PanelBody title={ __( 'Results' ) } initialOpen={ true }>
+			<PanelBody
+				title={ __( 'Results', 'crowdsignal-forms' ) }
+				initialOpen={ true }
+			>
 				<p>
 					{ resultsLinkEnabled
-						? __( 'Manage results on ' )
-						: __( 'Publish this post to enable results on ' ) }
+						? __( 'Manage results on ', 'crowdsignal-forms' )
+						: __(
+								'Publish this post to enable results on ',
+								'crowdsignal-forms'
+						  ) }
 					<ExternalLink
 						href={
 							resultsLinkEnabled
@@ -76,31 +80,34 @@ const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
 						target="_blank"
 						disabled={ ! resultsLinkEnabled }
 					>
-						{ __( 'View results' ) }
+						{ __( 'View results', 'crowdsignal-forms' ) }
 					</Button>
 				</p>
 
 				<TextControl
 					value={ attributes.title }
-					label={ __( 'Title of the vote block' ) }
+					label={ __(
+						'Title of the vote block',
+						'crowdsignal-forms'
+					) }
 					onChange={ handleChangeTitle }
 				/>
 			</PanelBody>
-			<PanelBody title={ __( 'Status' ) }>
+			<PanelBody title={ __( 'Status', 'crowdsignal-forms' ) }>
 				<SelectControl
 					value={ attributes.pollStatus }
-					label={ __( 'Currently' ) }
+					label={ __( 'Currently', 'crowdsignal-forms' ) }
 					options={ [
 						{
-							label: __( 'Open' ),
+							label: __( 'Open', 'crowdsignal-forms' ),
 							value: PollStatus.OPEN,
 						},
 						{
-							label: __( 'Closed after' ),
+							label: __( 'Closed after', 'crowdsignal-forms' ),
 							value: PollStatus.CLOSED_AFTER,
 						},
 						{
-							label: __( 'Closed' ),
+							label: __( 'Closed', 'crowdsignal-forms' ),
 							value: PollStatus.CLOSED,
 						},
 					] }
@@ -109,7 +116,10 @@ const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
 				{ PollStatus.CLOSED_AFTER === attributes.pollStatus && (
 					<TimePicker
 						currentTime={ attributes.closedAfterDateTime }
-						label={ __( 'Close vote block on' ) }
+						label={ __(
+							'Close vote block on',
+							'crowdsignal-forms'
+						) }
 						onChange={ handleChangeCloseAfterDateTime }
 						is12Hour={ true }
 					/>

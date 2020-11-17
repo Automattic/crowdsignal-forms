@@ -25,6 +25,7 @@ import {
 } from '@wordpress/block-editor';
 import { includes } from 'lodash';
 import { decodeEntities } from '@wordpress/html-entities';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -37,7 +38,6 @@ import {
 	AnswerStyle,
 	ButtonAlignment,
 } from './constants';
-import { __ } from 'lib/i18n';
 import { getAnswerStyle } from './util';
 
 const SideBar = ( {
@@ -148,11 +148,17 @@ const SideBar = ( {
 
 	return (
 		<InspectorControls>
-			<PanelBody title={ __( 'Results' ) } initialOpen={ true }>
+			<PanelBody
+				title={ __( 'Results', 'crowdsignal-forms' ) }
+				initialOpen={ true }
+			>
 				<p>
 					{ resultsLinkEnabled
-						? __( 'Manage results on ' )
-						: __( 'Publish this post to enable results on ' ) }
+						? __( 'Manage results on ', 'crowdsignal-forms' )
+						: __(
+								'Publish this post to enable results on ',
+								'crowdsignal-forms'
+						  ) }
 					<ExternalLink
 						href={
 							resultsLinkEnabled
@@ -170,7 +176,7 @@ const SideBar = ( {
 						target="_blank"
 						disabled={ ! resultsLinkEnabled }
 					>
-						{ __( 'View results' ) }
+						{ __( 'View results', 'crowdsignal-forms' ) }
 					</Button>
 				</p>
 
@@ -178,32 +184,44 @@ const SideBar = ( {
 					value={ decodeEntities(
 						attributes.title ?? attributes.question
 					) }
-					label={ __( 'Title of the poll block' ) }
+					label={ __(
+						'Title of the poll block',
+						'crowdsignal-forms'
+					) }
 					onChange={ handleChangeTitle }
 				/>
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Confirmation message' ) }
+				title={ __( 'Confirmation message', 'crowdsignal-forms' ) }
 				initialOpen={ false }
 			>
 				<SelectControl
 					value={ attributes.confirmMessageType }
-					label={ __( 'On submission' ) }
+					label={ __( 'On submission', 'crowdsignal-forms' ) }
 					options={ [
 						{
-							label: __( 'Show results' ),
+							label: __( 'Show results', 'crowdsignal-forms' ),
 							value: ConfirmMessageType.RESULTS,
 						},
 						{
-							label: __( 'Show "Thank You" message' ),
+							label: __(
+								'Show "Thank You" message',
+								'crowdsignal-forms'
+							),
 							value: ConfirmMessageType.THANK_YOU,
 						},
 						{
-							label: __( 'Show a custom text message' ),
+							label: __(
+								'Show a custom text message',
+								'crowdsignal-forms'
+							),
 							value: ConfirmMessageType.CUSTOM_TEXT,
 						},
 						{
-							label: __( 'Redirect to another webpage' ),
+							label: __(
+								'Redirect to another webpage',
+								'crowdsignal-forms'
+							),
 							value: ConfirmMessageType.REDIRECT,
 						},
 					] }
@@ -214,8 +232,11 @@ const SideBar = ( {
 					attributes.confirmMessageType && (
 					<TextareaControl
 						value={ attributes.customConfirmMessage }
-						label={ __( 'Message text' ) }
-						placeholder={ __( 'Thanks for voting!' ) }
+						label={ __( 'Message text', 'crowdsignal-forms' ) }
+						placeholder={ __(
+							'Thanks for voting!',
+							'crowdsignal-forms'
+						) }
 						onChange={ handleChangeCustomConfirmMessage }
 					/>
 				) }
@@ -225,26 +246,29 @@ const SideBar = ( {
 					<URLInput
 						className="crowdsignal-forms__redirect-url"
 						value={ attributes.redirectAddress }
-						label={ __( 'Redirect address' ) }
+						label={ __( 'Redirect address', 'crowdsignal-forms' ) }
 						onChange={ handleChangeRedirectAddress }
 					/>
 				) }
 			</PanelBody>
-			<PanelBody title={ __( 'Poll status' ) } initialOpen={ false }>
+			<PanelBody
+				title={ __( 'Poll status', 'crowdsignal-forms' ) }
+				initialOpen={ false }
+			>
 				<SelectControl
 					value={ attributes.pollStatus }
-					label={ __( 'Currently' ) }
+					label={ __( 'Currently', 'crowdsignal-forms' ) }
 					options={ [
 						{
-							label: __( 'Open' ),
+							label: __( 'Open', 'crowdsignal-forms' ),
 							value: PollStatus.OPEN,
 						},
 						{
-							label: __( 'Closed after' ),
+							label: __( 'Closed after', 'crowdsignal-forms' ),
 							value: PollStatus.CLOSED_AFTER,
 						},
 						{
-							label: __( 'Closed' ),
+							label: __( 'Closed', 'crowdsignal-forms' ),
 							value: PollStatus.CLOSED,
 						},
 					] }
@@ -254,7 +278,7 @@ const SideBar = ( {
 				{ PollStatus.CLOSED_AFTER === attributes.pollStatus && (
 					<TimePicker
 						currentTime={ attributes.closedAfterDateTime }
-						label={ __( 'Close poll on' ) }
+						label={ __( 'Close poll on', 'crowdsignal-forms' ) }
 						onChange={ handleChangeCloseAfterDateTime }
 						is12Hour={ true }
 					/>
@@ -263,18 +287,27 @@ const SideBar = ( {
 				{ PollStatus.OPEN !== attributes.pollStatus && (
 					<SelectControl
 						value={ attributes.closedPollState }
-						label={ __( 'When poll is closed' ) }
+						label={ __(
+							'When poll is closed',
+							'crowdsignal-forms'
+						) }
 						options={ [
 							{
-								label: __( 'Show results' ),
+								label: __(
+									'Show results',
+									'crowdsignal-forms'
+								),
 								value: ClosedPollState.SHOW_RESULTS,
 							},
 							{
-								label: __( 'Show poll with "Closed" banner' ),
+								label: __(
+									'Show poll with "Closed" banner',
+									'crowdsignal-forms'
+								),
 								value: ClosedPollState.SHOW_CLOSED_BANNER,
 							},
 							{
-								label: __( 'Hide poll' ),
+								label: __( 'Hide poll', 'crowdsignal-forms' ),
 								value: ClosedPollState.HIDDEN,
 							},
 						] }
@@ -283,23 +316,23 @@ const SideBar = ( {
 				) }
 			</PanelBody>
 			<PanelColorSettings
-				title={ __( 'Block styling' ) }
+				title={ __( 'Block styling', 'crowdsignal-forms' ) }
 				initialOpen={ false }
 				colorSettings={ [
 					{
 						value: attributes.textColor,
 						onChange: handleChangeTextColor,
-						label: __( 'Text color' ),
+						label: __( 'Text color', 'crowdsignal-forms' ),
 					},
 					{
 						value: attributes.backgroundColor,
 						onChange: handleChangeBackgroundColor,
-						label: __( 'Background color' ),
+						label: __( 'Background color', 'crowdsignal-forms' ),
 					},
 					{
 						value: attributes.borderColor,
 						onChange: handleChangeBorderColor,
-						label: __( 'Border color' ),
+						label: __( 'Border color', 'crowdsignal-forms' ),
 					},
 				] }
 			>
@@ -311,114 +344,117 @@ const SideBar = ( {
 				/>
 				<SelectControl
 					value={ attributes.fontFamily }
-					label={ __( 'Choose font' ) }
+					label={ __( 'Choose font', 'crowdsignal-forms' ) }
 					options={ [
 						{
-							label: __( 'Default theme font' ),
+							label: __(
+								'Default theme font',
+								'crowdsignal-forms'
+							),
 							value: FontFamilyType.THEME_DEFAULT,
 						},
 						{
-							label: __( 'Alegreya Sans' ),
+							label: 'Alegreya Sans',
 							value: FontFamilyType.ALEGREYA_SANS,
 						},
 						{
-							label: __( 'Arial' ),
+							label: 'Arial',
 							value: FontFamilyType.ARIAL,
 						},
 						{
-							label: __( 'Cabin' ),
+							label: 'Cabin',
 							value: FontFamilyType.CABIN,
 						},
 						{
-							label: __( 'Chivo' ),
+							label: 'Chivo',
 							value: FontFamilyType.CHIVO,
 						},
 						{
-							label: __( 'Courier' ),
+							label: 'Courier',
 							value: FontFamilyType.COURIER,
 						},
 						{
-							label: __( 'Fira Sans' ),
+							label: 'Fira Sans',
 							value: FontFamilyType.FIRA_SANS,
 						},
 						{
-							label: __( 'Georgia' ),
+							label: 'Georgia',
 							value: FontFamilyType.GEORGIA,
 						},
 						{
-							label: __( 'Impact' ),
+							label: 'Impact',
 							value: FontFamilyType.IMPACT,
 						},
 						{
-							label: __( 'Josefin Sans' ),
+							label: 'Josefin Sans',
 							value: FontFamilyType.JOSEFIN_SANS,
 						},
 						{
-							label: __( 'Lato' ),
+							label: 'Lato',
 							value: FontFamilyType.LATO,
 						},
 						{
-							label: __( 'Libre Franklin' ),
+							label: 'Libre Franklin',
 							value: FontFamilyType.LIBRE_FRANKLIN,
 						},
 						{
-							label: __( 'Lucida' ),
+							label: 'Lucida',
 							value: FontFamilyType.LUCIDA,
 						},
 						{
-							label: __( 'Montserrat' ),
+							label: 'Montserrat',
 							value: FontFamilyType.MONTSERRAT,
 						},
 						{
-							label: __( 'Nunito' ),
+							label: 'Nunito',
 							value: FontFamilyType.NUNITO,
 						},
 						{
-							label: __( 'Open Sans' ),
+							label: 'Open Sans',
 							value: FontFamilyType.OPEN_SANS,
 						},
 						{
-							label: __( 'Oswald' ),
+							label: 'Oswald',
 							value: FontFamilyType.OSWALD,
 						},
 						{
-							label: __( 'Overpass' ),
+							label: 'Overpass',
 							value: FontFamilyType.OVERPASS,
 						},
 						{
-							label: __( 'Palatino' ),
+							label: 'Palatino',
 							value: FontFamilyType.PALATINO,
 						},
 						{
-							label: __( 'Poppins' ),
+							label: 'Poppins',
 							value: FontFamilyType.POPPINS,
 						},
 						{
-							label: __( 'Raleway' ),
+							label: 'Raleway',
 							value: FontFamilyType.RALEWAY,
 						},
 						{
-							label: __( 'Roboto' ),
+							label: 'Roboto',
 							value: FontFamilyType.ROBOTO,
 						},
 						{
-							label: __( 'Rubik' ),
+							label: 'Rubik',
 							value: FontFamilyType.RUBIK,
 						},
 						{
-							label: __( 'Tahoma' ),
+							label: 'Tahoma',
 							value: FontFamilyType.TAHOMA,
 						},
 						{
-							label: __( 'Times New Roman' ),
+							label: 'Times New Roman',
 							value: FontFamilyType.TIMES_NEW_ROMAN,
 						},
 						{
-							label: __( 'Trebuchet' ),
+							label: 'Trebuchet',
 							value: FontFamilyType.TREBUCHET,
 						},
 						{
-							label: __( 'Verdana' ),
+							label: 'Verdana',
 							value: FontFamilyType.VERDANA,
 						},
 					] }
@@ -428,7 +464,7 @@ const SideBar = ( {
 					<div className="crowdsignal-forms__row">
 						<TextControl
 							type="number"
-							label={ __( 'Width (%)' ) }
+							label={ __( 'Width (%)', 'crowdsignal-forms' ) }
 							value={ attributes.width }
 							onChange={ handleChangeWidth }
 						/>
@@ -437,20 +473,20 @@ const SideBar = ( {
 							className="crowdsignal-forms__reset-width-button"
 							onClick={ handleResetWidth }
 						>
-							{ __( 'Reset' ) }
+							{ __( 'Reset', 'crowdsignal-forms' ) }
 						</Button>
 					</div>
 				) }
 				<div className="crowdsignal-forms__row">
 					<TextControl
-						label={ __( 'Border thickness' ) }
+						label={ __( 'Border thickness', 'crowdsignal-forms' ) }
 						value={ attributes.borderWidth }
 						onChange={ handleChangeBorderWidth }
 						type="number"
 						className="crowdsignal-forms__small-text-input"
 					/>
 					<TextControl
-						label={ __( 'Corner radius' ) }
+						label={ __( 'Corner radius', 'crowdsignal-forms' ) }
 						value={ attributes.borderRadius }
 						onChange={ handleChangeBorderRadius }
 						type="number"
@@ -458,24 +494,24 @@ const SideBar = ( {
 					/>
 				</div>
 				<ToggleControl
-					label={ __( 'Drop shadow' ) }
+					label={ __( 'Drop shadow', 'crowdsignal-forms' ) }
 					checked={ attributes.hasBoxShadow }
 					onChange={ handleChangeHasBoxShadow }
 				/>
 			</PanelColorSettings>
 			<PanelColorSettings
-				title={ __( 'Button styling' ) }
+				title={ __( 'Button styling', 'crowdsignal-forms' ) }
 				initialOpen={ false }
 				colorSettings={ [
 					{
 						value: attributes.submitButtonTextColor,
 						onChange: handleChangeSubmitButtonTextColor,
-						label: __( 'Text color' ),
+						label: __( 'Text color', 'crowdsignal-forms' ),
 					},
 					{
 						value: attributes.submitButtonBackgroundColor,
 						onChange: handleChangeSubmitButtonBackgroundColor,
-						label: __( 'Background color' ),
+						label: __( 'Background color', 'crowdsignal-forms' ),
 					},
 				] }
 			>
@@ -490,30 +526,39 @@ const SideBar = ( {
 				{ AnswerStyle.BUTTON === answerStyle && (
 					<SelectControl
 						value={ attributes.buttonAlignment }
-						label={ __( 'Alignment' ) }
+						label={ __( 'Alignment', 'crowdsignal-forms' ) }
 						options={ [
 							{
 								value: ButtonAlignment.LIST,
-								label: __( 'List' ),
+								label: __( 'List', 'crowdsignal-forms' ),
 							},
 							{
 								value: ButtonAlignment.INLINE,
-								label: __( 'Inline' ),
+								label: __( 'Inline', 'crowdsignal-forms' ),
 							},
 						] }
 						onChange={ handleChangeButtonAlignment }
 					/>
 				) }
 			</PanelColorSettings>
-			<PanelBody title={ __( 'Answer settings' ) } initialOpen={ true }>
+			<PanelBody
+				title={ __( 'Answer settings', 'crowdsignal-forms' ) }
+				initialOpen={ true }
+			>
 				<CheckboxControl
 					checked={ attributes.hasOneResponsePerComputer }
-					label={ __( 'One response per computer' ) }
+					label={ __(
+						'One response per computer',
+						'crowdsignal-forms'
+					) }
 					onChange={ handleChangeHasOneResponsePerComputer }
 				/>
 				<CheckboxControl
 					checked={ attributes.randomizeAnswers }
-					label={ __( 'Randomize answer order' ) }
+					label={ __(
+						'Randomize answer order',
+						'crowdsignal-forms'
+					) }
 					onChange={ handleChangeRandomizeAnswers }
 				/>
 			</PanelBody>

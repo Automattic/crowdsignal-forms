@@ -11,15 +11,15 @@ export const PollStatus = Object.freeze( {
 
 export const DEFAULT_SIZE_CONTROLS = [
 	{
-		title: __( 'Small' ),
+		title: __( 'Small', 'crowdsignal-forms' ),
 		size: 'small',
 	},
 	{
-		title: __( 'Medium' ),
+		title: __( 'Medium', 'crowdsignal-forms' ),
 		size: 'medium',
 	},
 	{
-		title: __( 'Large' ),
+		title: __( 'Large', 'crowdsignal-forms' ),
 		size: 'large',
 	},
 ];

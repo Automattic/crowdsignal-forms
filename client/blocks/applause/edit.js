@@ -7,12 +7,12 @@ import React from 'react';
  * WordPress dependencies
  */
 import { compose } from '@wordpress/compose';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
-import { __ } from 'lib/i18n';
 import withClientId from 'components/with-client-id';
 import useNumberedTitle from 'components/use-numbered-title';
 import Applause from 'components/applause';
@@ -29,7 +29,7 @@ const EditApplauseBlock = ( props ) => {
 
 	useNumberedTitle(
 		props.name,
-		__( 'Untitled Applause' ),
+		__( 'Untitled Applause', 'crowdsignal-forms' ),
 		attributes,
 		setAttributes
 	);
@@ -37,7 +37,7 @@ const EditApplauseBlock = ( props ) => {
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
-			blockName={ __( 'Crowdsignal Applause' ) }
+			blockName={ __( 'Crowdsignal Applause', 'crowdsignal-forms' ) }
 		>
 			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
 			<Toolbar { ...props } />

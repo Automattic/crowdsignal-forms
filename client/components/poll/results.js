@@ -5,12 +5,12 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { map, sum, values } from 'lodash';
+import { __, _n, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import { usePollResults } from 'data/hooks';
-import { __, _n, sprintf } from 'lib/i18n';
 import PollAnswerResults from './answer-results';
 import FooterBranding from './footer-branding';
 import { isAnswerEmpty } from './util';
@@ -28,7 +28,8 @@ const PollResults = ( {
 			error
 				? __(
 						`Unfortunately, we're having some trouble retrieving ` +
-							`the results for this poll at this time.`
+							`the results for this poll at this time.`,
+						'crowdsignal-forms'
 				  )
 				: ''
 		);
@@ -68,7 +69,12 @@ const PollResults = ( {
 				<span className="crowdsignal-forms-poll__results-total">
 					{ sprintf(
 						// translators: %s: Number of votes
-						_n( '%s total vote', '%s total votes', total ),
+						_n(
+							'%s total vote',
+							'%s total votes',
+							total,
+							'crowdsignal-forms'
+						),
 						total ? total.toLocaleString() : 0
 					) }
 				</span>
