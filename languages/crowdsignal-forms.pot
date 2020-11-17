@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Crowdsignal Forms 1.3.0\n"
+"Project-Id-Version: Crowdsignal Forms 1.3.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/crowdsignal-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-11-02T19:48:26+00:00\n"
+"POT-Creation-Date: 2020-11-17T18:55:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0-alpha-75cb7e3\n"
 "X-Domain: crowdsignal-forms\n"
@@ -182,6 +182,7 @@ msgid "<a href=\"%1s\" target=\"_blank\">Read more about us here.</a>"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:152
+#: client/blocks/poll/attributes.js:62
 msgid "Submit"
 msgstr ""
 
@@ -207,3 +208,568 @@ msgstr ""
 #: includes/rest-api/controllers/class-polls-controller.php:435
 msgid "Resource not found"
 msgstr ""
+
+#: client/blocks/applause/constants.js:14
+#: client/blocks/vote/constants.js:20
+msgid "Small"
+msgstr ""
+
+#: client/blocks/applause/constants.js:18
+#: client/blocks/vote/constants.js:24
+msgid "Medium"
+msgstr ""
+
+#: client/blocks/applause/constants.js:22
+#: client/blocks/vote/constants.js:28
+msgid "Large"
+msgstr ""
+
+#: client/blocks/applause/edit.js:32
+msgid "Untitled Applause"
+msgstr ""
+
+#: client/blocks/applause/edit.js:40
+msgid "Crowdsignal Applause"
+msgstr ""
+
+#: client/blocks/applause/index.js:14
+msgid "Applause"
+msgstr ""
+
+#: client/blocks/applause/index.js:15
+msgid "Let your audience cheer with a big round of applause — powered by Crowdsignal."
+msgstr ""
+
+#: client/blocks/applause/index.js:22
+msgid "applause"
+msgstr ""
+
+#: client/blocks/applause/index.js:23
+msgid "cheer"
+msgstr ""
+
+#: client/blocks/applause/index.js:24
+msgid "cheering"
+msgstr ""
+
+#: client/blocks/applause/index.js:25
+msgid "clap"
+msgstr ""
+
+#: client/blocks/applause/index.js:26
+#: client/blocks/poll/index.js:24
+#: client/blocks/vote/index.js:31
+msgid "feedback"
+msgstr ""
+
+#: client/blocks/applause/index.js:27
+msgid "kudos"
+msgstr ""
+
+#: client/blocks/applause/index.js:28
+#: client/blocks/vote/index.js:33
+msgid "like"
+msgstr ""
+
+#: client/blocks/applause/index.js:29
+#: client/blocks/poll/index.js:26
+#: client/blocks/vote/index.js:35
+msgid "opinion"
+msgstr ""
+
+#: client/blocks/applause/index.js:30
+msgid "praise"
+msgstr ""
+
+#: client/blocks/applause/index.js:31
+#: client/blocks/vote/index.js:39
+msgid "rating"
+msgstr ""
+
+#: client/blocks/applause/index.js:32
+msgid "upvote"
+msgstr ""
+
+#: client/blocks/applause/index.js:33
+msgid "upvoting"
+msgstr ""
+
+#: client/blocks/applause/index.js:34
+msgid "votes"
+msgstr ""
+
+#: client/blocks/applause/index.js:35
+#: client/blocks/vote/index.js:46
+msgid "voting"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:65
+#: client/blocks/poll/sidebar.js:152
+#: client/blocks/vote/sidebar.js:56
+msgid "Results"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:70
+#: client/blocks/poll/sidebar.js:157
+#: client/blocks/vote/sidebar.js:61
+msgid "Manage results on "
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:71
+#: client/blocks/poll/sidebar.js:158
+#: client/blocks/vote/sidebar.js:62
+msgid "Publish this post to enable results on "
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:92
+#: client/blocks/poll/sidebar.js:179
+#: client/blocks/vote/sidebar.js:83
+msgid "View results"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:98
+msgid "Title of the applause block"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:105
+#: client/blocks/vote/sidebar.js:96
+msgid "Status"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:108
+#: client/blocks/poll/sidebar.js:260
+#: client/blocks/vote/sidebar.js:99
+msgid "Currently"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:111
+#: client/blocks/poll/sidebar.js:263
+#: client/blocks/vote/sidebar.js:102
+msgid "Open"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:115
+#: client/blocks/poll/sidebar.js:267
+#: client/blocks/vote/sidebar.js:106
+msgid "Closed after"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:119
+#: client/blocks/poll/sidebar.js:271
+#: client/blocks/vote/sidebar.js:110
+msgid "Closed"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:128
+msgid "Close applause block on"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:138
+#: client/blocks/vote-item/sidebar.js:24
+msgid "Styling"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:144
+#: client/blocks/poll/sidebar.js:325
+#: client/blocks/poll/sidebar.js:509
+#: client/blocks/vote-item/sidebar.js:30
+msgid "Text color"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:149
+#: client/blocks/poll/sidebar.js:330
+#: client/blocks/poll/sidebar.js:514
+#: client/blocks/vote-item/sidebar.js:35
+msgid "Background color"
+msgstr ""
+
+#: client/blocks/applause/sidebar.js:154
+#: client/blocks/poll/sidebar.js:335
+#: client/blocks/vote-item/sidebar.js:40
+msgid "Border color"
+msgstr ""
+
+#: client/blocks/applause/toolbar.js:50
+#: client/blocks/vote/toolbar.js:60
+msgid "Change block size"
+msgstr ""
+
+#: client/blocks/applause/toolbar.js:80
+#: client/blocks/poll/sidebar.js:482
+#: client/blocks/vote/toolbar.js:97
+msgid "Border thickness"
+msgstr ""
+
+#: client/blocks/applause/toolbar.js:90
+#: client/blocks/poll/sidebar.js:489
+#: client/blocks/vote/toolbar.js:107
+msgid "Corner radius"
+msgstr ""
+
+#: client/blocks/poll/edit-answer.js:53
+#: client/blocks/poll/edit-answer.js:71
+#: client/blocks/poll/edit-answer.js:83
+#: client/blocks/poll/edit-answer.js:99
+msgid "Enter an answer"
+msgstr ""
+
+#: client/blocks/poll/edit-bar.js:18
+msgid "Warning! This poll is published. Deleting or reordering answers may cause the loss of existing responses."
+msgstr ""
+
+#: client/blocks/poll/edit-bar.js:27
+msgid "Edit"
+msgstr ""
+
+#: client/blocks/poll/edit.js:145
+msgid "Crowdsignal Poll"
+msgstr ""
+
+#: client/blocks/poll/edit.js:188
+#: client/blocks/poll/edit.js:200
+msgid "Enter your question"
+msgstr ""
+
+#: client/blocks/poll/edit.js:212
+#: client/blocks/poll/edit.js:224
+msgid "Add a note (optional)"
+msgstr ""
+
+#: client/blocks/poll/index.js:15
+msgid "Poll"
+msgstr ""
+
+#: client/blocks/poll/index.js:16
+msgid "Create polls and get your audience’s opinion — powered by Crowdsignal."
+msgstr ""
+
+#: client/blocks/poll/index.js:22
+msgid "ask"
+msgstr ""
+
+#: client/blocks/poll/index.js:25
+#: client/blocks/vote/index.js:32
+msgid "form"
+msgstr ""
+
+#: client/blocks/poll/index.js:27
+#: client/blocks/vote/index.js:36
+msgid "poll"
+msgstr ""
+
+#: client/blocks/poll/index.js:28
+msgid "pop"
+msgstr ""
+
+#: client/blocks/poll/index.js:29
+msgid "question"
+msgstr ""
+
+#: client/blocks/poll/index.js:30
+msgid "quiz"
+msgstr ""
+
+#: client/blocks/poll/index.js:31
+#: client/blocks/vote/index.js:40
+msgid "research"
+msgstr ""
+
+#: client/blocks/poll/index.js:32
+#: client/blocks/vote/index.js:41
+msgid "survey"
+msgstr ""
+
+#: client/blocks/poll/index.js:33
+#: client/blocks/vote/index.js:45
+msgid "vote"
+msgstr ""
+
+#: client/blocks/poll/index.js:46
+msgid "How did you hear about us?"
+msgstr ""
+
+#: client/blocks/poll/index.js:49
+msgid "Search"
+msgstr ""
+
+#: client/blocks/poll/index.js:52
+msgid "Friend"
+msgstr ""
+
+#: client/blocks/poll/index.js:55
+msgid "Email"
+msgstr ""
+
+#: client/blocks/poll/index.js:63
+msgid "Default"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:187
+msgid "Title of the poll block"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:195
+msgid "Confirmation message"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:200
+msgid "On submission"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:203
+#: client/blocks/poll/sidebar.js:296
+msgid "Show results"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:207
+msgid "Show \"Thank You\" message"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:214
+msgid "Show a custom text message"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:221
+msgid "Redirect to another webpage"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:235
+msgid "Message text"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:236
+#: client/components/poll/submit-message.js:71
+msgid "Thanks for voting!"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:249
+msgid "Redirect address"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:255
+msgid "Poll status"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:281
+msgid "Close poll on"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:290
+msgid "When poll is closed"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:303
+msgid "Show poll with \"Closed\" banner"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:310
+msgid "Hide poll"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:319
+msgid "Block styling"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:347
+msgid "Choose font"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:350
+msgid "Default theme font"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:467
+msgid "Width (%)"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:476
+msgid "Reset"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:497
+msgid "Drop shadow"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:503
+msgid "Button styling"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:529
+msgid "Alignment"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:533
+msgid "List"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:537
+msgid "Inline"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:545
+msgid "Answer settings"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:550
+msgid "One response per computer"
+msgstr ""
+
+#: client/blocks/poll/sidebar.js:558
+msgid "Randomize answer order"
+msgstr ""
+
+#: client/blocks/poll/toolbar.js:24
+msgid "Choose one answer"
+msgstr ""
+
+#: client/blocks/poll/toolbar.js:29
+msgid "Choose multiple answers"
+msgstr ""
+
+#: client/blocks/poll/util.js:201
+msgid "Buttons"
+msgstr ""
+
+#: client/blocks/vote-item/index.js:14
+msgid "Vote Item"
+msgstr ""
+
+#: client/blocks/vote-item/index.js:15
+#: client/blocks/vote/index.js:17
+msgid "Allow your audience to rate your work or express their opinion — powered by Crowdsignal."
+msgstr ""
+
+#: client/blocks/vote/edit.js:31
+msgid "Untitled Vote"
+msgstr ""
+
+#: client/blocks/vote/edit.js:60
+msgid "Crowdsignal Vote"
+msgstr ""
+
+#: client/blocks/vote/index.js:16
+msgid "Vote"
+msgstr ""
+
+#: client/blocks/vote/index.js:23
+msgid "ballot"
+msgstr ""
+
+#: client/blocks/vote/index.js:24
+msgid "button"
+msgstr ""
+
+#: client/blocks/vote/index.js:25
+msgid "count"
+msgstr ""
+
+#: client/blocks/vote/index.js:27
+msgid "deciding"
+msgstr ""
+
+#: client/blocks/vote/index.js:28
+msgid "decision"
+msgstr ""
+
+#: client/blocks/vote/index.js:29
+msgid "elect"
+msgstr ""
+
+#: client/blocks/vote/index.js:30
+msgid "election"
+msgstr ""
+
+#: client/blocks/vote/index.js:34
+msgid "nero"
+msgstr ""
+
+#: client/blocks/vote/index.js:37
+msgid "polling"
+msgstr ""
+
+#: client/blocks/vote/index.js:38
+msgid "rate"
+msgstr ""
+
+#: client/blocks/vote/index.js:42
+msgid "thumb down"
+msgstr ""
+
+#: client/blocks/vote/index.js:43
+msgid "thumb up"
+msgstr ""
+
+#: client/blocks/vote/index.js:44
+msgid "thumbs"
+msgstr ""
+
+#: client/blocks/vote/sidebar.js:89
+msgid "Title of the vote block"
+msgstr ""
+
+#: client/blocks/vote/sidebar.js:119
+msgid "Close vote block on"
+msgstr ""
+
+#: client/blocks/vote/toolbar.js:52
+msgid "Show vote counters"
+msgstr ""
+
+#: client/blocks/vote/toolbar.js:53
+msgid "Hide vote counters"
+msgstr ""
+
+#: client/components/brand-link/index.js:18
+msgid "Powered by Crowdsignal"
+msgstr ""
+
+#: client/components/connect-to-crowdsignal/index.js:52
+msgid "You need to connect to a Crowdsignal account to collect and manage your results."
+msgstr ""
+
+#: client/components/connect-to-crowdsignal/index.js:57
+msgid "Please verify your WordPress.com email address in order to publish your poll."
+msgstr ""
+
+#: client/components/connect-to-crowdsignal/index.js:64
+msgid "Connect to Crowdsignal"
+msgstr ""
+
+#: client/components/connect-to-crowdsignal/index.js:66
+msgid "Verify or Change your Email Address"
+msgstr ""
+
+#. translators: %s: Number of votes.
+#: client/components/poll/answer-results.js:39
+msgid "%s vote"
+msgid_plural "%s votes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: client/components/poll/closed-banner.js:23
+msgid "This Poll is Hidden"
+msgstr ""
+
+#: client/components/poll/closed-banner.js:26
+msgid "This Poll is Closed"
+msgstr ""
+
+#: client/components/poll/closed-banner.js:27
+msgid "Thanks For Voting!"
+msgstr ""
+
+#: client/components/poll/footer-branding.js:14
+msgid "Create your own poll with Crowdsignal"
+msgstr ""
+
+#: client/components/poll/index.js:65
+#: client/data/poll/index.js:90
+msgid "Server error. Please try again."
+msgstr ""
+
+#. translators: %s: Number of votes
+#: client/components/poll/results.js:72
+msgid "%s total vote"
+msgid_plural "%s total votes"
+msgstr[0] ""
+msgstr[1] ""

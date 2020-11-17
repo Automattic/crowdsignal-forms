@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.4.2
-Stable tag: 1.3.0
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,11 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.3.3 =
+* Unwrap all i18n calls (#1)
+* Use default theme font for Applause count (#3)
+* Fix applause branding styles (#4)
 
 = 1.3.0 =
 * Track vote to be able to tell when user has already "clapped" (#355)
