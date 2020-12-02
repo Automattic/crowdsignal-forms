@@ -16,7 +16,7 @@
 	--webkit-user-select: none;
 
 	.crowdsignal-forms-applause__count {
-		margin: 0;
+		margin: unset !important;
 	}
 
 	&.size-small {
