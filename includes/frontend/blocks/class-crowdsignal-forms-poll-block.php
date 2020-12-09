@@ -71,8 +71,9 @@ class Crowdsignal_Forms_Poll_Block extends Crowdsignal_Forms_Block {
 		wp_enqueue_script( $this->asset_identifier() );
 		wp_enqueue_style( $this->asset_identifier() );
 
-		$attributes['hideBranding'] = $this->should_hide_branding();
-		$platform_poll_data         = $this->get_platform_poll_data( $attributes['pollId'] );
+		$attributes['redirectAddress'] = esc_url( $attributes['redirectAddress'] );
+		$attributes['hideBranding']    = $this->should_hide_branding();
+		$platform_poll_data            = $this->get_platform_poll_data( $attributes['pollId'] );
 		if ( ! empty( $platform_poll_data ) ) {
 			$attributes['apiPollData'] = $platform_poll_data;
 		}
