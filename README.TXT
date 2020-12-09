@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,11 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+= 1.3.4 =
+* Escape the redirect address to avoid XSS. (#7)
+* Bump tested version to 5.6 (#8)
+* Unset margins on applause count container (#6)
+
 = 1.3.3 =
 * Unwrap all i18n calls (#1)
 * Use default theme font for Applause count (#3)
@@ -99,32 +104,10 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * add support for syncing applause block type to crowdsignal (#318)
 * Add skeleton of applause block (#314)
 
-= 1.2.1 =
-* Center brand link with vote items (#336)
-* Fix CSS Animation for Voting Thumbs (#332)
-* Vote Block: Set focus Styling to hover styling (#329)
-* clean up attribute passing to vote-item (#323)
-* Add referral code to public Crowdsignal links (#330)
-
-= 1.2.0 =
-* add more keywords to vote and poll block (#310)
-* Show current account info on API key selection screen (#317)
-* refactor common code for poll based blocks (#311)
-* set mappings for missing meta values (#309)
-* Fix Default Title not syncing to platform (#253)
-* Consolidate Custom Mutation Observers Into Library Function (#244)
-* change Block interface into abstract class, move common helpers there. (#243)
-* Add Crowdsignal block category to house all blocks within the plugin (#246)
-* Vote block
-* Update admin notices style (#305)
-* Check API key is not empty before attempting to update connection settings
-* Adding a slight opacity change when hovering a button that has a custom bg color set. (#303)
-* Update/security fixes (#302)
-
 == Upgrade Notice ==
 
-= 1.3 =
-Introduces the Applause block
+= 1.3.4 =
+Style and security fixes. Please update.
 
 = 0.9 =
 Initial release
