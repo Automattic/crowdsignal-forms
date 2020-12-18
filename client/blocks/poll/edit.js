@@ -44,6 +44,7 @@ import PollIcon from 'components/icon/poll';
 import withPollBase from 'components/with-poll-base';
 import FooterBranding from 'components/poll/footer-branding';
 import { useAccountInfo } from 'data/hooks';
+import SignalWarning from 'components/signal-warning';
 
 const withPollAndAnswerIds = ( Element ) => {
 	return ( props ) => {
@@ -146,14 +147,28 @@ const PollBlock = ( props ) => {
 		loadCustomFont( attributes.fontFamily );
 	}
 
+	const shouldPromote = get( accountInfo, [
+		'signalCount',
+		'shouldDisplay',
+	] );
+	const signalWarning =
+		shouldPromote &&
+		get( accountInfo, [ 'signalCount', 'count' ] ) >=
+			get( accountInfo, [ 'signalCount', 'userLimit' ] );
+
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ <PollIcon /> }
 			blockName={ __( 'Crowdsignal Poll', 'crowdsignal-forms' ) }
 		>
 			<Toolbar { ...props } />
-			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
-
+			<SideBar
+				{ ...props }
+				viewResultsUrl={ viewResultsUrl }
+				shouldPromote={ shouldPromote }
+				signalWarning={ signalWarning }
+			/>
+			{ signalWarning && <SignalWarning /> }
 			<ResizableBox
 				className="crowdsignal-forms-poll__resize-wrapper"
 				size={ { height: 'auto', width: blockWidth } }
