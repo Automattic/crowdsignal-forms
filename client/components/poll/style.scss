@@ -454,6 +454,7 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
+	margin-top: 16px;
 
 	img.crowdsignal-forms-poll__footer-branding-logo {
 		width: 50px;
@@ -464,13 +465,12 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 
 	.crowdsignal-forms__branding-promote {
 		font-family: $font-sans-serif;
-		font-size: 12px;
-		line-height: 1.5;
+		font-size: 10px;
 		text-decoration: none !important;
 		box-shadow: none;
 		border: 0;
 		background-color: #666;
-		color: #eee;
+		color: #a4a4a4;
 		cursor: pointer;
 		padding-right: 8px;
 		padding-left: 8px;
@@ -478,6 +478,8 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 		border-radius: 2px;
 		display: inline-block;
 		vertical-align: middle;
+		padding-top: 4px;
+		padding-bottom: 4px;
 	}
 }
 
