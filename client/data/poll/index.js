@@ -102,3 +102,10 @@ export const requestIsCsConnected = async () => {
 		method: 'GET',
 	} );
 };
+
+export const requestAccountInfo = async () => {
+	return await apiFetch( {
+		path: '/crowdsignal-forms/v1/account/info',
+		method: 'GET',
+	} );
+};

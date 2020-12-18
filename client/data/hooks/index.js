@@ -12,6 +12,7 @@ import {
 	requestVoteNonce,
 	requestVote,
 	requestIsCsConnected,
+	requestAccountInfo,
 } from 'data/poll';
 import { useFetch } from './util';
 import { ConnectedAccountState } from 'blocks/poll/constants';
@@ -112,4 +113,29 @@ export const useIsCsConnected = () => {
 		checkIsConnected();
 	}, [] );
 	return { isConnected, isAccountVerified, checkIsConnected };
+};
+
+const defaultAccountInfo = {
+	is_verified: true,
+	capabilities: [ 'hide-branding' ],
+	signal_count: {
+		count: 0,
+		userLimit: 2500,
+		shouldDisplay: false,
+	},
+};
+
+export const useAccountInfo = () => {
+	// assume everything is fine with the user and
+	// hide branding until request comes back
+	const [ accountInfo, setAccountInfo ] = useState( defaultAccountInfo );
+	const getAccountInfo = async () => {
+		const info = await requestAccountInfo();
+		setAccountInfo( info );
+	};
+
+	useEffect( () => {
+		getAccountInfo();
+	}, [] );
+	return accountInfo;
 };
