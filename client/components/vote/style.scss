@@ -26,8 +26,7 @@
 	/* Gutenberg 9 fix for vertically overridden margins in a horizontal
 	orientation block. */
 	margin-top: 28px !important;
-	margin-bottom: 28px !important;
-
+	margin-bottom: 0 !important;
 }
 
 .crowdsignal-forms-vote__items {
