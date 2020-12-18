@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useState, useEffect } from 'react';
-import { filter, isEmpty, map, round, some } from 'lodash';
+import { get, filter, isEmpty, map, round, some } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -42,6 +42,8 @@ import EditBar from './edit-bar';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import PollIcon from 'components/icon/poll';
 import withPollBase from 'components/with-poll-base';
+import FooterBranding from 'components/poll/footer-branding';
+import { useAccountInfo } from 'data/hooks';
 
 const withPollAndAnswerIds = ( Element ) => {
 	return ( props ) => {
@@ -121,7 +123,12 @@ const PollBlock = ( props ) => {
 		isClosed && ClosedPollState.SHOW_RESULTS === attributes.closedPollState;
 	const isHidden =
 		isClosed && ClosedPollState.HIDDEN === attributes.closedPollState;
-	const hideBranding = true; // hide branding in editor for now
+
+	const accountInfo = useAccountInfo();
+
+	const hideBranding = get( accountInfo, 'capabilities' ).includes(
+		'hide-branding'
+	);
 
 	useEffect( () => setIsPollEditable( ! pollIsPublished ), [ isSelected ] );
 
@@ -251,6 +258,9 @@ const PollBlock = ( props ) => {
 								hideBranding={ hideBranding }
 								setErrorMessage={ setErrorMessage }
 							/>
+						) }
+						{ ! hideBranding && (
+							<FooterBranding editing={ true } />
 						) }
 					</div>
 
