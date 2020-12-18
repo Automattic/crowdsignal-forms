@@ -1,0 +1,23 @@
+.crowdsignal-forms__signal-warning {
+	font-size: 0.75em;
+	border: 1px solid #444;
+	border-left: 8px solid var(--wp-admin-theme-color);
+	border-radius: 4px;
+	padding: 8px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 16px;
+}
+
+.crowdsignal-forms__signal-warning-icon {
+	line-height: 0;
+	padding: 8px 16px 8px 8px;
+}
+.crowdsignal-forms__signal-warning-message {
+	font-size: 12px;
+
+	a {
+		text-decoration: underline;
+	}
+}
