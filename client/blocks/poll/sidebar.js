@@ -39,6 +39,7 @@ import {
 	ButtonAlignment,
 } from './constants';
 import { getAnswerStyle } from './util';
+import SidebarPromote from 'components/sidebar-promote';
 
 const SideBar = ( {
 	attributes,
@@ -49,6 +50,8 @@ const SideBar = ( {
 	fallbackSubmitButtonBackgroundColor,
 	fallbackSubmitButtonTextColor,
 	viewResultsUrl,
+	shouldPromote,
+	signalWarning,
 } ) => {
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
@@ -190,6 +193,9 @@ const SideBar = ( {
 					) }
 					onChange={ handleChangeTitle }
 				/>
+				{ shouldPromote && (
+					<SidebarPromote signalWarning={ signalWarning } />
+				) }
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Confirmation message', 'crowdsignal-forms' ) }

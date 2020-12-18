@@ -22,8 +22,15 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { PollStatus } from './constants';
+import SidebarPromote from 'components/sidebar-promote';
 
-const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
+const SideBar = ( {
+	attributes,
+	setAttributes,
+	viewResultsUrl,
+	shouldPromote,
+	signalWarning,
+} ) => {
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
 	const resultsLinkEnabled = '' !== viewResultsUrl;
@@ -101,6 +108,9 @@ const SideBar = ( { attributes, setAttributes, viewResultsUrl } ) => {
 					) }
 					onChange={ handleChangeTitle }
 				/>
+				{ shouldPromote && (
+					<SidebarPromote signalWarning={ signalWarning } />
+				) }
 			</PanelBody>
 			<PanelBody title={ __( 'Status', 'crowdsignal-forms' ) }>
 				<SelectControl
