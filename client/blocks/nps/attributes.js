@@ -13,4 +13,8 @@ export default {
 		type: 'string',
 		default: null,
 	},
+	viewThreshold: {
+		type: 'string',
+		default: 3,
+	},
 };
