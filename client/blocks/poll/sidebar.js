@@ -222,13 +222,14 @@ const SideBar = ( {
 							),
 							value: ConfirmMessageType.CUSTOM_TEXT,
 						},
-						{
-							label: __(
-								'Redirect to another webpage',
-								'crowdsignal-forms'
-							),
-							value: ConfirmMessageType.REDIRECT,
-						},
+						// Suspended until some workaround to prevent phishing
+						// {
+						// 	label: __(
+						// 		'Redirect to another webpage',
+						// 		'crowdsignal-forms'
+						// 	),
+						// 	value: ConfirmMessageType.REDIRECT,
+						// },
 					] }
 					onChange={ handleChangeConfirmMessageType }
 				/>
