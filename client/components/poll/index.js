@@ -57,11 +57,12 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 			await vote( selectedAnswerIds );
 
-			if (
-				ConfirmMessageType.REDIRECT === attributes.confirmMessageType
-			) {
-				window.open( attributes.redirectAddress );
-			}
+			// Suspended until some workaround to prevent phishing
+			// if (
+			// 	ConfirmMessageType.REDIRECT === attributes.confirmMessageType
+			// ) {
+			// 	window.open( attributes.redirectAddress );
+			// }
 		} catch ( ex ) {
 			if ( ex instanceof CrowdsignalFormsError ) {
 				setErrorMessage( ex.message );
@@ -89,10 +90,9 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			ConfirmMessageType.RESULTS === attributes.confirmMessageType );
 
 	const showSubmitMessage =
-		hasVoted &&
-		! showResults &&
-		! dismissSubmitMessage &&
-		ConfirmMessageType.REDIRECT !== attributes.confirmMessageType;
+		hasVoted && ! showResults && ! dismissSubmitMessage;
+	// Suspended until some workaround to prevent phishing
+	// && ConfirmMessageType.REDIRECT !== attributes.confirmMessageType;
 
 	const hasDefaultThankyou =
 		ConfirmMessageType.THANK_YOU === attributes.confirmMessageType;
