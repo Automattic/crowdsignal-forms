@@ -45,6 +45,11 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		attributes.hasOneResponsePerComputer
 	);
 
+	// Force redirect into simple THANK_YOU until some workaround to prevent phishing
+	if ( ConfirmMessageType.REDIRECT === attributes.confirmMessageType ) {
+		attributes.confirmMessageType = ConfirmMessageType.THANK_YOU;
+	}
+
 	const handleSubmit = async ( selectedAnswerIds ) => {
 		try {
 			setErrorMessage( '' );

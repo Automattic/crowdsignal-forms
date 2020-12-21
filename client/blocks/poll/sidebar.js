@@ -146,6 +146,11 @@ const SideBar = ( {
 
 	const answerStyle = getAnswerStyle( attributes, className );
 
+	// Force redirect into simple THANK_YOU until some workaround to prevent phishing
+	if ( ConfirmMessageType.REDIRECT === attributes.confirmMessageType ) {
+		attributes.confirmMessageType = ConfirmMessageType.THANK_YOU;
+	}
+
 	return (
 		<InspectorControls>
 			<PanelBody
