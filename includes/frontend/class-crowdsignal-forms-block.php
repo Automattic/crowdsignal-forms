@@ -70,7 +70,7 @@ abstract class Crowdsignal_Forms_Block {
 
 		try {
 			$capabilities  = Crowdsignal_Forms::instance()->get_api_gateway()->get_capabilities();
-			$hide_branding = false !== array_search( 'hide-branding', $capabilities, true )
+			$hide_branding = is_wp_error( $capabilities) || false !== array_search( 'hide-branding', $capabilities, true )
 				? self::HIDE_BRANDING_YES
 				: self::HIDE_BRANDING_NO;
 		} catch ( \Exception $ex ) {
