@@ -59,7 +59,7 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	/**
 	 * Renders the NPS dynamic block
 	 *
-	 * @param  array $attributes The block's attributes.2
+	 * @param  array $attributes The block's attributes.
 	 * @return string
 	 */
 	public function render( $attributes ) {
