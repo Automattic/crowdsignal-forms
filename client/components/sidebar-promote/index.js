@@ -18,12 +18,15 @@ const SidebarPromote = ( { signalWarning } ) => {
 				<div className="crowdsignal-forms__sidebar-promote">
 					<em>
 						{ __(
-							'Your free Crowdsignal account has reached the signals limit. ',
+							'Your free Crowdsignal account has ',
 							'crowdsignal-forms'
 						) }
 						<strong>
 							<ExternalLink href="https://crowdsignal.com/support/what-is-a-signal/">
-								{ __( 'Learn more!', 'crowdsignal-forms' ) }
+								{ __(
+									'reached the signals limit.',
+									'crowdsignal-forms'
+								) }
 							</ExternalLink>
 						</strong>
 					</em>
