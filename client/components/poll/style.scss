@@ -478,6 +478,7 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 		border-radius: 2px;
 		padding-top: 4px;
 		padding-bottom: 4px;
+		vertical-align: middle;
 	}
 }
 
@@ -486,6 +487,7 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 	font-size: 16px;
 	text-decoration: none;
 	text-transform: uppercase;
+	vertical-align: middle;
 
 	&:not(:hover) {
 		color: var(--crowdsignal-forms-text-color);
