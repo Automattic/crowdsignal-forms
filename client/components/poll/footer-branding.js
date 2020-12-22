@@ -37,9 +37,14 @@ const FooterBranding = ( { showLogo, editing } ) => (
 			</a>
 			{ editing && (
 				<Tooltip text={ promoteLink } position="top center">
-					<span className="crowdsignal-forms__branding-promote">
+					<a
+						href="https://crowdsignal.com/pricing"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="crowdsignal-forms__branding-promote"
+					>
 						{ __( 'Hide', 'crowdsignal-forms' ) }
-					</span>
+					</a>
 				</Tooltip>
 			) }
 		</div>
