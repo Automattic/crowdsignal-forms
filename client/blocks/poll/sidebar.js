@@ -146,7 +146,7 @@ const SideBar = ( {
 
 	const answerStyle = getAnswerStyle( attributes, className );
 
-	// Force redirect into simple THANK_YOU until some workaround to prevent phishing
+	// https://github.com/Automattic/crowdsignal-forms/issues/14
 	if ( ConfirmMessageType.REDIRECT === attributes.confirmMessageType ) {
 		attributes.confirmMessageType = ConfirmMessageType.THANK_YOU;
 	}
@@ -222,7 +222,7 @@ const SideBar = ( {
 							),
 							value: ConfirmMessageType.CUSTOM_TEXT,
 						},
-						// Suspended until some workaround to prevent phishing
+						// https://github.com/Automattic/crowdsignal-forms/issues/14
 						// {
 						// 	label: __(
 						// 		'Redirect to another webpage',
