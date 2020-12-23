@@ -84,7 +84,7 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	 * @return bool
 	 */
 	private function should_hide_block() {
-		return ! $this->is_cs_connected();
+		return ! $this->is_cs_connected() || ! is_single();
 	}
 
 	/**
@@ -97,13 +97,17 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'hideBranding' => array(
+			'hideBranding'  => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'surveyId'     => array(
+			'surveyId'      => array(
 				'type'    => 'string',
 				'default' => null,
+			),
+			'viewThreshold' => array(
+				'type'    => 'string',
+				'default' => 3,
 			),
 		);
 	}
