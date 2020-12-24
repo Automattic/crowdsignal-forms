@@ -146,6 +146,11 @@ const SideBar = ( {
 
 	const answerStyle = getAnswerStyle( attributes, className );
 
+	// https://github.com/Automattic/crowdsignal-forms/issues/14
+	if ( ConfirmMessageType.REDIRECT === attributes.confirmMessageType ) {
+		attributes.confirmMessageType = ConfirmMessageType.THANK_YOU;
+	}
+
 	return (
 		<InspectorControls>
 			<PanelBody
@@ -217,13 +222,14 @@ const SideBar = ( {
 							),
 							value: ConfirmMessageType.CUSTOM_TEXT,
 						},
-						{
-							label: __(
-								'Redirect to another webpage',
-								'crowdsignal-forms'
-							),
-							value: ConfirmMessageType.REDIRECT,
-						},
+						// https://github.com/Automattic/crowdsignal-forms/issues/14
+						// {
+						// 	label: __(
+						// 		'Redirect to another webpage',
+						// 		'crowdsignal-forms'
+						// 	),
+						// 	value: ConfirmMessageType.REDIRECT,
+						// },
 					] }
 					onChange={ handleChangeConfirmMessageType }
 				/>
