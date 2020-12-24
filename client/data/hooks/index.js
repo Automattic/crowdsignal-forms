@@ -12,6 +12,7 @@ import {
 	requestVoteNonce,
 	requestVote,
 	requestIsCsConnected,
+	requestAccountInfo,
 } from 'data/poll';
 import { useFetch } from './util';
 import { ConnectedAccountState } from 'blocks/poll/constants';
@@ -33,12 +34,12 @@ export const usePollResults = ( pollId, doFetch = true ) => {
  * React Hook that returns state variables for voting status and a function to perform a vote.
  *
  * @param {number} pollId ID of the poll being loaded.
- * @param {boolean} enableVoteRestriction sets whether or not the vote cookie is read and set
+ * @param {boolean} enableVoteTracking sets whether or not the vote cookie is read and set
  * @param {boolean} storeAnswerIdsInCookie sets whether or not the answer ids are stored in the vote restriction cookie
  */
 export const usePollVote = (
 	pollId,
-	enableVoteRestriction = false,
+	enableVoteTracking = false,
 	storeAnswerIdsInCookie = false
 ) => {
 	const cookieName = `cs-poll-${ pollId }`;
@@ -47,10 +48,7 @@ export const usePollVote = (
 	const [ storedCookieValue, setStoredCookieValue ] = useState( '' );
 
 	useEffect( () => {
-		if (
-			enableVoteRestriction &&
-			undefined !== Cookies.get( cookieName )
-		) {
+		if ( enableVoteTracking && undefined !== Cookies.get( cookieName ) ) {
 			setHasVoted( true );
 			setStoredCookieValue( Cookies.get( cookieName ) );
 		}
@@ -63,7 +61,7 @@ export const usePollVote = (
 			await requestVote( nonce, pollId, selectedAnswerIds, voteCount );
 
 			setHasVoted( true );
-			if ( enableVoteRestriction ) {
+			if ( enableVoteTracking ) {
 				const cookieValue = storeAnswerIdsInCookie
 					? selectedAnswerIds.join( ',' )
 					: new Date().getTime();
@@ -115,4 +113,29 @@ export const useIsCsConnected = () => {
 		checkIsConnected();
 	}, [] );
 	return { isConnected, isAccountVerified, checkIsConnected };
+};
+
+const defaultAccountInfo = {
+	is_verified: true,
+	capabilities: [ 'hide-branding' ],
+	signal_count: {
+		count: 0,
+		userLimit: 2500,
+		shouldDisplay: false,
+	},
+};
+
+export const useAccountInfo = () => {
+	// assume everything is fine with the user and
+	// hide branding until request comes back
+	const [ accountInfo, setAccountInfo ] = useState( defaultAccountInfo );
+	const getAccountInfo = async () => {
+		const info = await requestAccountInfo();
+		setAccountInfo( info );
+	};
+
+	useEffect( () => {
+		getAccountInfo();
+	}, [] );
+	return accountInfo;
 };

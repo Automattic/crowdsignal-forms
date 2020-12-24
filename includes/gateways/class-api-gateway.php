@@ -368,4 +368,30 @@ class Api_Gateway implements Api_Gateway_Interface {
 
 		return $response_data['is_verified'];
 	}
+
+	/**
+	 * Get the account's summary.
+	 *
+	 * @since [next-version-number]
+	 *
+	 * @return bool|\WP_Error
+	 */
+	public function get_account_info() {
+		$response = $this->perform_request( 'GET', '/account/info' );
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$body          = wp_remote_retrieve_body( $response );
+		$response_data = json_decode( $body, true );
+
+		if ( ! is_array( $response_data ) || isset( $response_data['error'] ) ) {
+			if ( isset( $response_data['error'] ) ) {
+				return new \WP_Error( $response_data['error'], $response_data );
+			}
+			return new \WP_Error( 'decode-failed' );
+		}
+
+		return $response_data;
+	}
 }

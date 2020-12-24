@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import { get } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -19,6 +20,7 @@ import Applause from 'components/applause';
 import withPollBase from 'components/with-poll-base';
 import Toolbar from './toolbar';
 import SideBar from './sidebar';
+import { useAccountInfo } from 'data/hooks';
 
 const EditApplauseBlock = ( props ) => {
 	const { attributes, setAttributes, pollDataFromApi } = props;
@@ -34,12 +36,28 @@ const EditApplauseBlock = ( props ) => {
 		setAttributes
 	);
 
+	const accountInfo = useAccountInfo();
+
+	const shouldPromote = get( accountInfo, [
+		'signalCount',
+		'shouldDisplay',
+	] );
+	const signalWarning =
+		shouldPromote &&
+		get( accountInfo, [ 'signalCount', 'count' ] ) >=
+			get( accountInfo, [ 'signalCount', 'userLimit' ] );
+
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
 			blockName={ __( 'Crowdsignal Applause', 'crowdsignal-forms' ) }
 		>
-			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
+			<SideBar
+				{ ...props }
+				shouldPromote={ shouldPromote }
+				signalWarning={ signalWarning }
+				viewResultsUrl={ viewResultsUrl }
+			/>
 			<Toolbar { ...props } />
 			<Applause { ...props } />
 		</ConnectToCrowdsignal>

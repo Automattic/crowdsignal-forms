@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import classNames from 'classnames';
+import { get } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -22,6 +23,7 @@ import { getVoteStyleVars } from 'blocks/vote/util';
 import { isPollClosed } from 'blocks/poll/util';
 import useNumberedTitle from 'components/use-numbered-title';
 import withPollBase from 'components/with-poll-base';
+import { useAccountInfo } from 'data/hooks';
 
 const EditVoteBlock = ( props ) => {
 	const { attributes, setAttributes, className, pollDataFromApi } = props;
@@ -54,12 +56,28 @@ const EditVoteBlock = ( props ) => {
 
 	const voteItemStyleVars = getVoteStyleVars( attributes );
 
+	const accountInfo = useAccountInfo();
+
+	const shouldPromote = get( accountInfo, [
+		'signalCount',
+		'shouldDisplay',
+	] );
+	const signalWarning =
+		shouldPromote &&
+		get( accountInfo, [ 'signalCount', 'count' ] ) >=
+			get( accountInfo, [ 'signalCount', 'userLimit' ] );
+
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
 			blockName={ __( 'Crowdsignal Vote', 'crowdsignal-forms' ) }
 		>
-			<SideBar { ...props } viewResultsUrl={ viewResultsUrl } />
+			<SideBar
+				{ ...props }
+				shouldPromote={ shouldPromote }
+				signalWarning={ signalWarning }
+				viewResultsUrl={ viewResultsUrl }
+			/>
 			<ToolBar { ...props } />
 
 			<div className={ classes } style={ voteItemStyleVars }>

@@ -43,13 +43,12 @@ class Account_Controller {
 	public function register_routes() {
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/capabilities',
+			'/' . $this->rest_base . '/info',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'get_capabilities' ),
+					'callback'            => array( $this, 'get_cs_account_info' ),
 					'permission_callback' => array( $this, 'get_account_permissions_check' ),
-					'args'                => $this->get_collection_params(),
 				),
 			)
 		);
@@ -75,24 +74,6 @@ class Account_Controller {
 	 */
 	protected function get_collection_params() {
 		return array();
-	}
-
-	/**
-	 * Get the capabilities for the account.
-	 *
-	 * @since 0.9.0
-	 *
-	 * @param \WP_REST_Request $request
-	 *
-	 * @return \WP_REST_Response|\WP_Error
-	 **/
-	public function get_capabilities( $request ) {
-		$capabilities = Crowdsignal_Forms::instance()->get_api_gateway()->get_capabilities();
-		if ( is_wp_error( $capabilities ) ) {
-			return rest_ensure_response( $capabilities );
-		}
-
-		return rest_ensure_response( $capabilities );
 	}
 
 	/**
@@ -130,5 +111,17 @@ class Account_Controller {
 
 		$res = $is_verified ? 'connected' : 'not-verified';
 		return rest_ensure_response( $res );
+	}
+
+	/**
+	 * Gets a summary of the Crowdsignal account for the user.
+	 *
+	 * @since [next-version-number]
+	 *
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function get_cs_account_info() {
+		$summary = Crowdsignal_Forms::instance()->get_api_gateway()->get_account_info();
+		return rest_ensure_response( $summary );
 	}
 }
