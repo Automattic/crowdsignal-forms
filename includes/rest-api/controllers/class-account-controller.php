@@ -116,7 +116,7 @@ class Account_Controller {
 	/**
 	 * Gets a summary of the Crowdsignal account for the user.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.3.5
 	 *
 	 * @return \WP_REST_Response|\WP_Error
 	 */
