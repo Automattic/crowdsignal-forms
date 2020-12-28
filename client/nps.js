@@ -19,9 +19,9 @@ window.addEventListener( 'load', () =>
 		( element ) => {
 			try {
 				const attributes = JSON.parse( element.dataset.crowdsignalNps );
-				const { surveyId, viewThreshold } = attributes;
+				const viewThreshold = parseInt( attributes.viewThreshold, 10 );
 
-				const key = `${ NPS_VIEWS_STORAGE_PREFIX }${ surveyId }`;
+				const key = `${ NPS_VIEWS_STORAGE_PREFIX }${ attributes.surveyId }`;
 				const viewCount =
 					1 + parseInt( window.localStorage.getItem( key ) || 0, 10 );
 
@@ -36,6 +36,8 @@ window.addEventListener( 'load', () =>
 				element.removeAttribute( 'data-crowdsignal-nps' );
 
 				if ( viewCount !== viewThreshold ) {
+					console.log( viewCount );
+					console.log( viewThreshold );
 					return;
 				}
 

@@ -5,13 +5,25 @@
  */
 
 export default {
+	feedbackQuestion: {
+		type: 'string',
+		default: '',
+	},
 	hideBranding: {
 		type: 'boolean',
 		default: false,
 	},
+	ratingQuestion: {
+		type: 'string',
+		default: '',
+	},
 	surveyId: {
 		type: 'string',
 		default: null,
+	},
+	title: {
+		type: 'string',
+		default: '',
 	},
 	viewThreshold: {
 		type: 'string',
