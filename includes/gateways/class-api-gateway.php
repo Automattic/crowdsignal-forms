@@ -372,7 +372,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 	/**
 	 * Get the account's summary.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.3.5
 	 *
 	 * @return bool|\WP_Error
 	 */

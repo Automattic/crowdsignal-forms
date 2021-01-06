@@ -488,6 +488,7 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 	text-decoration: none;
 	text-transform: uppercase;
 	vertical-align: middle;
+	border-bottom: 0 solid var(--crowdsignal-forms-text-color) !important;
 
 	&:not(:hover) {
 		color: var(--crowdsignal-forms-text-color);
