@@ -38,6 +38,7 @@ const EditVoteItemBlock = ( props ) => {
 	);
 };
 
-export default compose( [ withFallbackStyles( VoteStyles, getVoteStyles ) ] )(
-	withClientId( EditVoteItemBlock, 'answerId' )
-);
+export default compose( [
+	withFallbackStyles( VoteStyles, getVoteStyles ),
+	withClientId( [ 'answerId' ] ),
+] )( EditVoteItemBlock );
