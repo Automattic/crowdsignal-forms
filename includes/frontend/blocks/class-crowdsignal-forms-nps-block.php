@@ -97,15 +97,27 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'hideBranding'  => array(
+			'feedbackQuestion' => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'hideBranding'     => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'surveyId'      => array(
+			'ratingQuestion'   => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'surveyId'         => array(
 				'type'    => 'string',
 				'default' => null,
 			),
-			'viewThreshold' => array(
+			'title'            => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'viewThreshold'    => array(
 				'type'    => 'string',
 				'default' => 3,
 			),
