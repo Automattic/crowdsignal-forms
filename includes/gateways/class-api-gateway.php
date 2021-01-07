@@ -9,6 +9,7 @@
 namespace Crowdsignal_Forms\Gateways;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
+use Crowdsignal_Forms\Models\Nps_Survey;
 use Crowdsignal_Forms\Models\Poll;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -159,6 +160,45 @@ class Api_Gateway implements Api_Gateway_Interface {
 	public function unarchive_poll( $id_to_unarchive ) {
 		$response = $this->perform_request( 'POST', '/polls/' . $id_to_unarchive . '/unarchive' );
 		return $this->handle_api_response( $response );
+	}
+
+	/**
+	 * Fires a call to the Crowdsignal API to update the survey.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param  Nps_Survey $survey  Survey.
+	 * @return Nps_Survey|WP_Error
+	 */
+	public function update_nps( Nps_Survey $survey ) {
+		$response = $this->perform_request(
+			'POST',
+			$survey->get_id() ? '/nps/' . $survey->get_id() : '/nps',
+			$survey->to_array()
+		);
+
+		if ( is_wp_error( $response ) ) {
+			$this->log_webservice_event(
+				'response_error',
+				array(
+					'error' => $response,
+				)
+			);
+
+			return $response;
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body, true );
+
+		$this->log_webservice_event(
+			'response_success',
+			array(
+				'data' => $data,
+			)
+		);
+
+		return Nps_Survey::from_array( $data );
 	}
 
 	/**
