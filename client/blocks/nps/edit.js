@@ -2,21 +2,24 @@
  * External dependencies
  */
 import React from 'react';
+import { pick } from 'lodash';
 
 /**
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
+import { dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
+import { updateNps } from 'data/nps';
 import Sidebar from './sidebar';
 
 const EditNpsBlock = ( props ) => {
-	const { attributes, setAttributes } = props;
+	const { attributes, clientId, setAttributes } = props;
 
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
@@ -30,6 +33,32 @@ const EditNpsBlock = ( props ) => {
 			feedbackQuestion,
 		} );
 
+	const handleSaveNPS = async () => {
+		dispatch( 'core/editor' ).lockPostSaving( clientId );
+
+		try {
+			const { surveyId } = await updateNps(
+				pick( attributes, [
+					'feedbackQuestion',
+					'ratingQuestion',
+					'surveyId',
+					'title',
+				] )
+			);
+
+			if ( attributes.surveyId ) {
+				return;
+			}
+
+			setAttributes( { surveyId } );
+		} catch ( error ) {
+			// eslint-disable-next-line no-console
+			console.error( error );
+		} finally {
+			dispatch( 'core/editor' ).unlockPostSaving( clientId );
+		}
+	};
+
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
@@ -38,13 +67,14 @@ const EditNpsBlock = ( props ) => {
 			<Sidebar { ...props } />
 
 			<div className="crowdsignal-forms-nps">
+				<button onClick={ handleSaveNPS }>
+					{ __( 'Save', 'crowdsignal-forms' ) }
+				</button>
+
 				<RichText
 					tagName="h3"
 					className="crowdsignal-forms-nps__title"
-					placeholder={ __(
-						'Title',
-						'crowdsignal-forms'
-					) }
+					placeholder={ __( 'Title', 'crowdsignal-forms' ) }
 					onChange={ handleChangeTitle }
 					value={ attributes.title }
 					allowedFormats={ [] }
