@@ -36,8 +36,6 @@ window.addEventListener( 'load', () =>
 				element.removeAttribute( 'data-crowdsignal-nps' );
 
 				if ( viewCount !== viewThreshold ) {
-					console.log( viewCount );
-					console.log( viewThreshold );
 					return;
 				}
 
