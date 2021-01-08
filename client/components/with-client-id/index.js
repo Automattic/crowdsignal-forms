@@ -2,26 +2,24 @@
  * External dependencies
  */
 import React, { useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { isArray, map } from 'lodash';
+import { v4 as uuid } from 'uuid';
+import { forEach } from 'lodash';
 
-const withClientId = ( Element, clientIdAttributeNames ) => {
+const withClientId = ( clientIdAttributes ) => ( Element ) => {
 	return ( props ) => {
 		const { attributes, setAttributes } = props;
-		const clientIdNames = isArray( clientIdAttributeNames )
-			? clientIdAttributeNames
-			: [ clientIdAttributeNames ];
-		useEffect( () => {
-			map( clientIdNames, ( name ) => {
-				if ( ! attributes[ name ] ) {
-					const clientId = uuidv4();
-					const newAttribute = {};
-					newAttribute[ name ] = clientId;
 
-					setAttributes( newAttribute );
+		useEffect( () => {
+			forEach( clientIdAttributes, ( key ) => {
+				if ( attributes[ key ] ) {
+					return;
 				}
+
+				setAttributes( {
+					[ key ]: uuid(),
+				} );
 			} );
-		} );
+		}, [] );
 
 		return <Element { ...props } />;
 	};

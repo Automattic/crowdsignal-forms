@@ -64,6 +64,7 @@ const EditApplauseBlock = ( props ) => {
 	);
 };
 
-export default compose( [ withPollBase ] )(
-	withClientId( EditApplauseBlock, [ 'pollId', 'answerId' ] )
-);
+export default compose( [
+	withPollBase,
+	withClientId( [ 'pollId', 'answerId' ] ),
+] )( EditApplauseBlock );

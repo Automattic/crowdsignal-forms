@@ -99,6 +99,6 @@ const EditVoteBlock = ( props ) => {
 	);
 };
 
-export default compose( [ withPollBase ] )(
-	withClientId( EditVoteBlock, 'pollId' )
+export default compose( [ withPollBase, withClientId( [ 'pollId' ] ) ] )(
+	EditVoteBlock
 );
