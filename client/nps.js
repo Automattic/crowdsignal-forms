@@ -43,7 +43,11 @@ window.addEventListener( 'load', () =>
 
 				render(
 					<DialogWrapper onClose={ closeDialog }>
-						<NpsBlock attributes={ attributes } />
+						<NpsBlock
+							attributes={ attributes }
+							contentWidth={ element.scrollWidth }
+							onClose={ closeDialog }
+						/>
 					</DialogWrapper>,
 					element
 				);
