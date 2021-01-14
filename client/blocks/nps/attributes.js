@@ -35,7 +35,7 @@ export default {
 		default: __( 'Submit', 'crowdsignal-forms' ),
 	},
 	surveyId: {
-		type: 'string',
+		type: 'number',
 		default: null,
 	},
 	title: {
