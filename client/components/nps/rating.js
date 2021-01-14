@@ -3,15 +3,29 @@
  */
 import React, { useState } from 'react';
 import classnames from 'classnames';
-import { times } from 'lodash';
+import { pick, times } from 'lodash';
 
-const NpsRating = ( { attributes, onSubmit } ) => {
+/**
+ * Internal dependencies
+ */
+import { updateNpsResponse } from 'data/nps';
+
+const NpsRating = ( { attributes, onFailure, onSubmit } ) => {
 	const [ selected, setSelected ] = useState( -1 );
 
-	const selectRating = ( n ) => () => {
-		setSelected( n );
+	const handleSubmit = ( rating ) => async () => {
+		setSelected( rating );
 
-		setTimeout( () => onSubmit(), 1000 );
+		try {
+			const data = await updateNpsResponse( attributes.surveyId, {
+				nonce: attributes.nonce,
+				score: rating,
+			} );
+
+			onSubmit( pick( data, [ 'r', 'checksum' ] ) );
+		} catch ( error ) {
+			onFailure();
+		}
 	};
 
 	return (
@@ -35,7 +49,7 @@ const NpsRating = ( { attributes, onSubmit } ) => {
 							key={ `rating-${ n }` }
 							disabled={ 0 <= selected }
 							className={ classes }
-							onClick={ selectRating( n ) }
+							onClick={ handleSubmit( n ) }
 						>
 							{ n }
 						</button>

@@ -20,3 +20,14 @@ export const updateNps = ( data ) =>
 			data,
 		} )
 	);
+
+export const updateNpsResponse = ( surveyId, data ) =>
+	withRequestTimeout(
+		apiFetch( {
+			path: trimEnd(
+				`/crowdsignal-forms/v1/nps/${ surveyId || '' }/response`
+			),
+			method: 'POST',
+			data,
+		} )
+	);
