@@ -6,5 +6,82 @@
 	background-color: #fff;
 	height: auto;
 	padding: 50px;
-	width: 600px;
+	position: relative;
+}
+
+.crowdsignal-forms-nps__close-button {
+	align-items: center;
+	background-color: #002c40;
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	height: 40px;
+	justify-content: center;
+	outline: 0;
+	padding: 0;
+	position: absolute;
+	right: -20px;
+	top: -20px;
+	width: 40px;
+}
+
+.crowdsignal-forms-nps__question {
+	margin-top: 0 !important;
+}
+
+.crowdsignal-forms-nps__rating {
+	display: flex;
+	flex-direction: column;
+}
+
+.crowdsignal-forms-nps__rating-labels {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.crowdsignal-forms-nps__rating-scale {
+	display: flex;
+	margin: 10px auto 0;
+	width: 100%;
+}
+
+.crowdsignal-forms-nps__rating-button {
+	background-color: #cd2653;
+	border: 1px solid #cd2653;
+	color: #fff;
+	display: inline-flex;
+	flex: 1;
+	font-size: 15px;
+	font-weight: 600;
+	height: 50px;
+	justify-content: center;
+	line-height: 50px;
+	margin: 0 0 0 0.7em;
+	padding: 0;
+	text-align: center;
+	transition: background-color 0.2s, color 0.2s;
+
+	&:first-child {
+		margin: 0;
+	}
+
+	&:disabled:not(.is-active) {
+		background-color: transparent;
+		color: #cd2653;
+	}
+}
+
+.crowdsignal-forms-nps__feedback {
+	display: flex;
+	flex-direction: column;
+}
+
+.crowdsignal-forms-nps__feedback-text {
+	margin-bottom: 25px;
+	width: 100%;
+}
+
+.crowdsignal-forms-nps__feedback-button {
+	align-self: flex-end;
 }

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React from 'react';
-import { pick } from 'lodash';
+import { pick, times } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -21,16 +21,9 @@ import Sidebar from './sidebar';
 const EditNpsBlock = ( props ) => {
 	const { attributes, clientId, setAttributes } = props;
 
-	const handleChangeTitle = ( title ) => setAttributes( { title } );
-
-	const handleChangeRatingQuestion = ( ratingQuestion ) =>
+	const handleChangeAttribute = ( attribute ) => ( value ) =>
 		setAttributes( {
-			ratingQuestion,
-		} );
-
-	const handleChangeFeedbackQuestion = ( feedbackQuestion ) =>
-		setAttributes( {
-			feedbackQuestion,
+			[ attribute ]: value,
 		} );
 
 	const handleSaveNPS = async () => {
@@ -66,20 +59,20 @@ const EditNpsBlock = ( props ) => {
 		>
 			<Sidebar { ...props } />
 
+			<button onClick={ handleSaveNPS }>
+				{ __( 'Save', 'crowdsignal-forms' ) }
+			</button>
+
+			<RichText
+				tagName="h3"
+				className="crowdsignal-forms-nps__title"
+				placeholder={ __( 'Title', 'crowdsignal-forms' ) }
+				onChange={ handleChangeAttribute( 'title' ) }
+				value={ attributes.title }
+				allowedFormats={ [] }
+			/>
+
 			<div className="crowdsignal-forms-nps">
-				<button onClick={ handleSaveNPS }>
-					{ __( 'Save', 'crowdsignal-forms' ) }
-				</button>
-
-				<RichText
-					tagName="h3"
-					className="crowdsignal-forms-nps__title"
-					placeholder={ __( 'Title', 'crowdsignal-forms' ) }
-					onChange={ handleChangeTitle }
-					value={ attributes.title }
-					allowedFormats={ [] }
-				/>
-
 				<RichText
 					tagName="p"
 					className="crowdsignal-forms-nps__question"
@@ -87,22 +80,74 @@ const EditNpsBlock = ( props ) => {
 						'Enter your rating question',
 						'crowdsignal-forms'
 					) }
-					onChange={ handleChangeRatingQuestion }
+					onChange={ handleChangeAttribute( 'ratingQuestion' ) }
 					value={ attributes.ratingQuestion }
 					allowedFormats={ [] }
 				/>
 
-				<RichText
-					tagName="p"
-					className="crowdsignal-forms-nps__question"
-					placeholder={ __(
-						'Enter your feedback question',
-						'crowdsignal-forms'
-					) }
-					onChange={ handleChangeFeedbackQuestion }
-					value={ attributes.feedbackQuestion }
-					allowedFormats={ [] }
-				/>
+				<div className="crowdsignal-forms-nps__rating">
+					<div className="crowdsignal-forms-nps__rating-labels">
+						<RichText
+							tagName="span"
+							placeholder={ __( 'Low', 'crowdsignal-forms' ) }
+							onChange={ handleChangeAttribute(
+								'lowRatingLabel'
+							) }
+							value={ attributes.lowRatingLabel }
+							allowedFormats={ [] }
+						/>
+						<RichText
+							tagName="span"
+							placeholder={ __( 'High', 'crowdsignal-forms' ) }
+							onChange={ handleChangeAttribute(
+								'highRatingLabel'
+							) }
+							value={ attributes.highRatingLabel }
+							allowedFormats={ [] }
+						/>
+					</div>
+
+					<div className="crowdsignal-forms-nps__rating-scale">
+						{ times( 11, ( n ) => (
+							<div
+								key={ `rating-${ n }` }
+								className="crowdsignal-forms-nps__rating-button"
+							>
+								{ n }
+							</div>
+						) ) }
+					</div>
+				</div>
+			</div>
+
+			<div className="crowdsignal-forms-nps">
+				<div className="crowdsignal-forms-nps__feedback">
+					<RichText
+						tagName="p"
+						className="crowdsignal-forms-nps__question"
+						placeholder={ __(
+							'Enter your feedback question',
+							'crowdsignal-forms'
+						) }
+						onChange={ handleChangeAttribute( 'feedbackQuestion' ) }
+						value={ attributes.feedbackQuestion }
+						allowedFormats={ [] }
+					/>
+
+					<textarea
+						className="crowdsignal-forms-nps__feedback-text"
+						rows={ 6 }
+					/>
+
+					<RichText
+						className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
+						onChange={ handleChangeAttribute(
+							'submitButtonLabel'
+						) }
+						value={ attributes.submitButtonLabel }
+						allowedFormats={ [] }
+					/>
+				</div>
 			</div>
 		</ConnectToCrowdsignal>
 	);
