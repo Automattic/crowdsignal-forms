@@ -43,6 +43,7 @@ const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 				className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
 				disabled={ submitting }
 				onClick={ handleSubmit }
+				type="button"
 			>
 				{ attributes.submitButtonLabel }
 			</button>
