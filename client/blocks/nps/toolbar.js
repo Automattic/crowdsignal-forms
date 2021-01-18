@@ -11,7 +11,7 @@ import {
 	Popover,
 	TextControl,
 	ToolbarGroup,
-	ToolbarButton
+	ToolbarButton,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -20,16 +20,18 @@ import { __ } from '@wordpress/i18n';
  */
 import { views } from './constants';
 
-const PollToolbar = ( { attributes, currentView, onViewChange, setAttributes } ) => {
+const PollToolbar = ( {
+	attributes,
+	currentView,
+	onViewChange,
+	setAttributes,
+} ) => {
 	const [ showThreshold, setShowThreshold ] = useState( false );
 
 	const handleViewChange = ( view ) => () => onViewChange( view );
 
-	const showThresholdPopover = () =>
-		setShowThreshold( true );
-
-	const hideThresholdPopover = () =>
-		setShowThreshold( false );
+	const showThresholdPopover = () => setShowThreshold( true );
+	const hideThresholdPopover = () => setShowThreshold( false );
 
 	const handleChangeViewThreshold = ( viewThreshold ) =>
 		setAttributes( {
@@ -67,7 +69,10 @@ const PollToolbar = ( { attributes, currentView, onViewChange, setAttributes } )
 						<Popover onClose={ hideThresholdPopover }>
 							<div className="crowdsignal-forms-nps__toolbar-popover">
 								<TextControl
-									label={ __( 'Show this block after n visits:', 'crowdsignal-forms' ) }
+									label={ __(
+										'Show this block after n visits:',
+										'crowdsignal-forms'
+									) }
 									value={ attributes.viewThreshold }
 									onChange={ handleChangeViewThreshold }
 									type="number"

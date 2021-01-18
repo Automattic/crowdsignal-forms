@@ -108,7 +108,10 @@ const EditNpsBlock = ( props ) => {
 							/>
 							<RichText
 								tagName="span"
-								placeholder={ __( 'High', 'crowdsignal-forms' ) }
+								placeholder={ __(
+									'High',
+									'crowdsignal-forms'
+								) }
 								onChange={ handleChangeAttribute(
 									'highRatingLabel'
 								) }
@@ -141,7 +144,9 @@ const EditNpsBlock = ( props ) => {
 								'Enter your feedback question',
 								'crowdsignal-forms'
 							) }
-							onChange={ handleChangeAttribute( 'feedbackQuestion' ) }
+							onChange={ handleChangeAttribute(
+								'feedbackQuestion'
+							) }
 							value={ attributes.feedbackQuestion }
 							allowedFormats={ [] }
 						/>
