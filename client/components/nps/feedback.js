@@ -31,7 +31,7 @@ const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 	};
 
 	return (
-		<form className="crowdsignal-forms-nps__feedback">
+		<div className="crowdsignal-forms-nps__feedback">
 			<textarea
 				className="crowdsignal-forms-nps__feedback-text"
 				disabled={ submitting }
@@ -47,7 +47,7 @@ const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 			>
 				{ attributes.submitButtonLabel }
 			</button>
-		</form>
+		</div>
 	);
 };
 
