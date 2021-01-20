@@ -20,9 +20,13 @@ const views = {
 };
 
 const Nps = ( { attributes, contentWidth, onClose } ) => {
+	const [ responseMeta, setResponseMeta ] = useState( null );
 	const [ view, setView ] = useState( views.RATING );
 
-	const showRating = () => setView( views.FEEDBACK );
+	const handleRatingSubmit = ( meta ) => {
+		setResponseMeta( meta );
+		setView( views.FEEDBACK );
+	};
 
 	const questionText =
 		view === views.RATING
@@ -47,11 +51,20 @@ const Nps = ( { attributes, contentWidth, onClose } ) => {
 			</button>
 
 			{ view === views.RATING && (
-				<NpsRating attributes={ attributes } onSubmit={ showRating } />
+				<NpsRating
+					attributes={ attributes }
+					onFailure={ onClose }
+					onSubmit={ handleRatingSubmit }
+				/>
 			) }
 
 			{ view === views.FEEDBACK && (
-				<NpsFeedback attributes={ attributes } onSubmit={ onClose } />
+				<NpsFeedback
+					attributes={ attributes }
+					responseMeta={ responseMeta }
+					onFailure={ onClose }
+					onSubmit={ onClose }
+				/>
 			) }
 		</div>
 	);

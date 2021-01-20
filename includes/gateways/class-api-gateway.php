@@ -202,6 +202,46 @@ class Api_Gateway implements Api_Gateway_Interface {
 	}
 
 	/**
+	 * Fires a proxy call to the Crowdsignal API NPS response endpoint
+	 * passing $data as is and returns the response body as an array or
+	 * a WP_Error.
+	 *
+	 * @param  int   $survey_id Survey ID.
+	 * @param  array $data      Request data.
+	 * @return array|WP_Error
+	 */
+	public function update_nps_response( $survey_id, array $data ) {
+		$response = $this->perform_request(
+			'POST',
+			'/nps/' . $survey_id . '/response',
+			$data
+		);
+
+		if ( is_wp_error( $response ) ) {
+			$this->log_webservice_event(
+				'response_error',
+				array(
+					'error' => $response,
+				)
+			);
+
+			return $response;
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body, true );
+
+		$this->log_webservice_event(
+			'response_success',
+			array(
+				'data' => $data,
+			)
+		);
+
+		return $data;
+	}
+
+	/**
 	 * Common method for either creating or updating a Poll.
 	 *
 	 * @param Poll $poll The poll.

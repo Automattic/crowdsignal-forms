@@ -21,22 +21,25 @@ window.addEventListener( 'load', () =>
 				const attributes = JSON.parse( element.dataset.crowdsignalNps );
 				const viewThreshold = parseInt( attributes.viewThreshold, 10 );
 
-				const key = `${ NPS_VIEWS_STORAGE_PREFIX }${ attributes.surveyId }`;
-				const viewCount =
-					1 + parseInt( window.localStorage.getItem( key ) || 0, 10 );
-
-				window.localStorage.setItem( key, viewCount );
-
-				// eslint-disable-next-line no-console
-				console.log(
-					`NPS block: Current view count: ${ viewCount }. Threshold: ${ viewThreshold }.` +
-						`Use "localStorage.setItem( '${ key }', 0 );" to reset the counter.`
-				);
-
 				element.removeAttribute( 'data-crowdsignal-nps' );
 
-				if ( viewCount !== viewThreshold ) {
-					return;
+				if ( ! attributes.isPreview ) {
+					const key = `${ NPS_VIEWS_STORAGE_PREFIX }${ attributes.surveyId }`;
+					const viewCount =
+						1 +
+						parseInt( window.localStorage.getItem( key ) || 0, 10 );
+
+					window.localStorage.setItem( key, viewCount );
+
+					// eslint-disable-next-line no-console
+					console.log(
+						`NPS block: Current view count: ${ viewCount }. Threshold: ${ viewThreshold }.` +
+							`Use "localStorage.setItem( '${ key }', 0 );" to reset the counter.`
+					);
+
+					if ( viewCount !== viewThreshold ) {
+						return;
+					}
 				}
 
 				const closeDialog = () => element.remove();

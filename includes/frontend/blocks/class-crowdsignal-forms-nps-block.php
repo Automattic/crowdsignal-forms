@@ -24,6 +24,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 
 	/**
+	 * The nonce identifier string for NPS vote submittion.
+	 *
+	 * @since 1.4.0
+	 * @var string
+	 */
+	const NONCE = 'crowdsignal-forms-nps__submit';
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function asset_identifier() {
@@ -71,6 +79,8 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 		wp_enqueue_style( $this->asset_identifier() );
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
+		$attributes['isPreview']    = is_preview();
+		$attributes['nonce']        = wp_create_nonce( self::NONCE );
 
 		return sprintf(
 			'<div class="crowdsignal-nps-wrapper" data-crowdsignal-nps="%s"></div>',
@@ -122,7 +132,7 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 				'default' => __( 'Submit', 'crowdsignal-forms' ),
 			),
 			'surveyId'          => array(
-				'type'    => 'string',
+				'type'    => 'number',
 				'default' => null,
 			),
 			'title'             => array(
