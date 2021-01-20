@@ -107,6 +107,12 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
+			'backgroundColor'   => array(
+				'type' => 'string',
+			),
+			'buttonColor'       => array(
+				'type' => 'string',
+			),
 			'feedbackQuestion'  => array(
 				'type'    => 'string',
 				'default' => '',
@@ -134,6 +140,9 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 			'surveyId'          => array(
 				'type'    => 'number',
 				'default' => null,
+			),
+			'textColor'         => array(
+				'type' => 'string',
 			),
 			'title'             => array(
 				'type'    => 'string',

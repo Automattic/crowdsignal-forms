@@ -11,6 +11,8 @@ import { Icon } from '@wordpress/components';
 /**
  * Internal dependencies
  */
+import { getStyleVars } from 'blocks/nps/util';
+import { withFallbackStyles } from 'components/with-fallback-styles';
 import NpsFeedback from './feedback';
 import NpsRating from './rating';
 
@@ -19,7 +21,7 @@ const views = {
 	FEEDBACK: 'feedback',
 };
 
-const Nps = ( { attributes, contentWidth, onClose } ) => {
+const Nps = ( { attributes, contentWidth, fallbackStyles, onClose } ) => {
 	const [ responseMeta, setResponseMeta ] = useState( null );
 	const [ view, setView ] = useState( views.RATING );
 
@@ -35,6 +37,7 @@ const Nps = ( { attributes, contentWidth, onClose } ) => {
 
 	const style = {
 		width: `${ contentWidth }px`,
+		...getStyleVars( attributes, fallbackStyles ),
 	};
 
 	return (
@@ -70,4 +73,4 @@ const Nps = ( { attributes, contentWidth, onClose } ) => {
 	);
 };
 
-export default Nps;
+export default withFallbackStyles( Nps );

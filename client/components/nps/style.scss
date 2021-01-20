@@ -3,7 +3,7 @@
 .crowdsignal-forms-nps {
 	border: 0;
 	border-top: 5px solid #002c40;
-	background-color: #fff;
+	background-color: var(--crowdsignal-forms-background-color);
 	height: auto;
 	padding: 50px;
 	position: relative;
@@ -13,7 +13,7 @@
 	align-items: center;
 	background-color: #002c40;
 	border-radius: 20px;
-	color: #fff;
+	color: var(--crowdsignal-forms-text-color-inverted);
 	display: flex;
 	height: 40px;
 	justify-content: center;
@@ -47,9 +47,9 @@
 }
 
 .crowdsignal-forms-nps__rating-button {
-	background-color: #cd2653;
-	border: 1px solid #cd2653;
-	color: #fff;
+	background-color: var(--crowdsignal-forms-button-color);
+	border: 1px solid var(--crowdsignal-forms-button-color);
+	color: var(--crowdsignal-forms-text-color-inverted);
 	display: inline-flex;
 	flex: 1;
 	font-size: 15px;
@@ -68,7 +68,7 @@
 
 	&:disabled:not(.is-active) {
 		background-color: transparent;
-		color: #cd2653;
+		color: var(--crowdsignal-forms-button-color);
 	}
 }
 

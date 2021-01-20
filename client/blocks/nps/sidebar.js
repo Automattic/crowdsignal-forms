@@ -12,7 +12,7 @@ import {
 	PanelBody,
 	TextControl,
 } from '@wordpress/components';
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
 
@@ -24,6 +24,15 @@ const Sidebar = ( { attributes, setAttributes } ) => {
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
 	const resultsUrl = `https://app.crowdsignal.com/surveys/${ attributes.surveyId }/report/overview`;
+
+	const handleChangeBackgroundColor = ( backgroundColor ) =>
+		setAttributes( { backgroundColor } );
+
+	const handleChangeButtonColor = ( buttonColor ) =>
+		setAttributes( { buttonColor } );
+
+	const handleChangeTextColor = ( textColor ) =>
+		setAttributes( { textColor } );
 
 	return (
 		<InspectorControls>
@@ -70,6 +79,27 @@ const Sidebar = ( { attributes, setAttributes } ) => {
 					) }
 				/>
 			</PanelBody>
+			<PanelColorSettings
+				title={ __( 'Block styling', 'crowdsignal-forms' ) }
+				initialOpen={ false }
+				colorSettings={ [
+					{
+						label: __( 'Background color', 'crowdsignal-forms' ),
+						onChange: handleChangeBackgroundColor,
+						value: attributes.backgroundColor,
+					},
+					{
+						label: __( 'Button color', 'crowdsignal-forms' ),
+						onChange: handleChangeButtonColor,
+						value: attributes.buttonColor,
+					},
+					{
+						label: __( 'Text color', 'crowdsignal-forms' ),
+						onChange: handleChangeTextColor,
+						value: attributes.textColor,
+					},
+				] }
+			/>
 		</InspectorControls>
 	);
 };
