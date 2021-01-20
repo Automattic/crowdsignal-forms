@@ -3,12 +3,15 @@
  */
 import React, { useState } from 'react';
 import { pick, tap, times } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * WordPress dependencies
  */
+import { Icon, Notice } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
-import { dispatch } from '@wordpress/data';
+import { dispatch, withSelect } from '@wordpress/data';
+import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -29,6 +32,8 @@ const EditNpsBlock = ( props ) => {
 		attributes,
 		clientId,
 		fallbackStyles,
+		isSelected,
+		postPreviewLink,
 		setAttributes,
 		renderStyleProbe,
 	} = props;
@@ -71,6 +76,10 @@ const EditNpsBlock = ( props ) => {
 		}
 	};
 
+	const classes = classnames( 'crowdsignal-forms-nps', {
+		'is-inactive': ! isSelected,
+	} );
+
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
@@ -87,9 +96,28 @@ const EditNpsBlock = ( props ) => {
 				{ __( 'Save', 'crowdsignal-forms' ) }
 			</button>
 
-			{ view === views.RATING && (
+			<Notice
+				className="crowdsignal-forms-nps__editor-notice"
+				isDismissible={ false }
+				actions={ [
+					{
+						label: __( 'Preview', 'crowdsignal-forms' ),
+						onClick: () => window.open( postPreviewLink, 'blank' ),
+					},
+				] }
+			>
+				<Icon icon="visibility" />
+				<span className="crowdsignal-forms-nps__editor-notice-text">
+					{ __(
+						'This block will appear as a popup window to people who have visited this page at least 3 times.',
+						'crowdsignal-forms'
+					) }
+				</span>
+			</Notice>
+
+			{ ( view === views.RATING || ! isSelected ) && (
 				<div
-					className="crowdsignal-forms-nps"
+					className={ classes }
 					style={ getStyleVars( attributes, fallbackStyles ) }
 				>
 					<RichText
@@ -143,14 +171,14 @@ const EditNpsBlock = ( props ) => {
 				</div>
 			) }
 
-			{ view === views.FEEDBACK && (
+			{ view === views.FEEDBACK && isSelected && (
 				<div
-					className="crowdsignal-forms-nps"
+					className={ classes }
 					style={ getStyleVars( attributes, fallbackStyles ) }
 				>
 					<div className="crowdsignal-forms-nps__feedback">
 						<RichText
-							tagName="p"
+							tagName="h3"
 							className="crowdsignal-forms-nps__question"
 							placeholder={ __(
 								'Enter your feedback question',
@@ -185,4 +213,9 @@ const EditNpsBlock = ( props ) => {
 	);
 };
 
-export default withFallbackStyles( EditNpsBlock );
+export default compose( [
+	withSelect( ( select ) => ( {
+		postPreviewLink: select( 'core/editor' ).getEditedPostPreviewLink(),
+	} ) ),
+	withFallbackStyles,
+] )( EditNpsBlock );
