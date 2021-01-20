@@ -10,6 +10,12 @@ import { __ } from '@wordpress/i18n';
  */
 
 export default {
+	backgroundColor: {
+		type: 'string',
+	},
+	buttonColor: {
+		type: 'string',
+	},
 	feedbackQuestion: {
 		type: 'string',
 		default: '',
@@ -37,6 +43,9 @@ export default {
 	surveyId: {
 		type: 'number',
 		default: null,
+	},
+	textColor: {
+		type: 'string',
 	},
 	title: {
 		type: 'string',

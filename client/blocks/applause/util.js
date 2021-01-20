@@ -10,14 +10,15 @@ import { isEmpty, kebabCase, mapKeys } from 'lodash';
 
 export const getApplauseStyleVars = ( attributes, fallbackStyles ) => {
 	const textColor = isEmpty( attributes.textColor )
-		? fallbackStyles.text
+		? fallbackStyles.textColor
 		: attributes.textColor;
 
 	return mapKeys(
 		{
-			bgColor: attributes.backgroundColor || fallbackStyles.surface,
+			bgColor:
+				attributes.backgroundColor || fallbackStyles.backgroundColor,
 			textColor,
-			hoverColor: fallbackStyles.accent,
+			hoverColor: fallbackStyles.accentColor,
 			borderRadius: `${ attributes.borderRadius || 0 }px`,
 			borderWidth: `${ attributes.borderWidth || 0 }px`,
 			borderColor: attributes.borderColor,

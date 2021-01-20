@@ -17,7 +17,6 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import ClosedBanner from 'components/poll/closed-banner';
-import { PollStyles, getPollStyles } from 'components/poll/styles';
 import PollResults from 'components/poll/results';
 import {
 	addApiAnswerIds,
@@ -294,7 +293,7 @@ const PollBlock = ( props ) => {
 };
 
 export default compose( [
-	withFallbackStyles( PollStyles, getPollStyles ),
+	withFallbackStyles,
 	withPollBase,
 	withPollAndAnswerIds,
 ] )( PollBlock );

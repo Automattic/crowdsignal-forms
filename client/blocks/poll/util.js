@@ -45,25 +45,27 @@ export const getFontFamilyFromType = ( type ) => {
 
 export const getStyleVars = ( attributes, fallbackStyles ) => {
 	const textColor = isEmpty( attributes.textColor )
-		? fallbackStyles.text
+		? fallbackStyles.textColor
 		: attributes.textColor;
 
 	return mapKeys(
 		{
-			borderColor: attributes.borderColor ?? fallbackStyles.accent,
+			borderColor: attributes.borderColor ?? fallbackStyles.accentColor,
 			borderRadius: `${ attributes.borderRadius }px`,
 			borderWidth: `${ attributes.borderWidth }px`,
 			bgColor: attributes.backgroundColor,
 			bodyFontFamily:
 				getFontFamilyFromType( attributes.fontFamily ) ??
-				fallbackStyles.bodyFontFamily,
+				fallbackStyles.textFont,
 			questionFontFamily:
 				getFontFamilyFromType( attributes.fontFamily ) ??
-				fallbackStyles.questionFontFamily,
+				fallbackStyles.headingFont,
 			submitButtonBgColor:
-				attributes.submitButtonBackgroundColor || fallbackStyles.accent,
+				attributes.submitButtonBackgroundColor ||
+				fallbackStyles.accentColor,
 			submitButtonTextColor:
-				attributes.submitButtonTextColor || fallbackStyles.textInverted,
+				attributes.submitButtonTextColor ||
+				fallbackStyles.textColorInverted,
 			textColor,
 			textColorProperties:
 				extractRGBColorProperties( textColor ) ?? '0, 0, 0',
