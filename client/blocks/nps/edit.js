@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useState } from 'react';
-import { pick, times } from 'lodash';
+import { pick, tap, times } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -35,12 +35,19 @@ const EditNpsBlock = ( props ) => {
 
 		try {
 			const { surveyId } = await updateNps(
-				pick( attributes, [
-					'feedbackQuestion',
-					'ratingQuestion',
-					'surveyId',
-					'title',
-				] )
+				tap(
+					pick( attributes, [
+						'feedbackQuestion',
+						'ratingQuestion',
+						'surveyId',
+						'title',
+					] ),
+					( data ) => {
+						if ( ! data.title ) {
+							data.title = data.ratingQuestion;
+						}
+					}
+				)
 			);
 
 			if ( attributes.surveyId ) {
