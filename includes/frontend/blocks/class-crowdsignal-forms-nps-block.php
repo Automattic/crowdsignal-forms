@@ -107,51 +107,64 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'backgroundColor'   => array(
+			'backgroundColor'     => array(
 				'type' => 'string',
 			),
-			'buttonColor'       => array(
+			'buttonColor'         => array(
 				'type' => 'string',
 			),
-			'buttonTextColor'   => array(
+			'buttonTextColor'     => array(
 				'type' => 'string',
 			),
-			'feedbackQuestion'  => array(
+			'feedbackPlaceholder' => array(
 				'type'    => 'string',
-				'default' => '',
+				'default' => __(
+					'Please help us understand your rating',
+					'crowdsignal-forms'
+				),
 			),
-			'hideBranding'      => array(
+			'feedbackQuestion'    => array(
+				'type'    => 'string',
+				'default' => __(
+					'Thanks so much for your response! How could we do better?',
+					'crowdsignal-forms'
+				),
+			),
+			'hideBranding'        => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'highRatingLabel'   => array(
+			'highRatingLabel'     => array(
 				'type'    => 'string',
-				'default' => '',
+				'default' => __( 'Extremely likely', 'crowdsignal-forms' ),
 			),
-			'lowRatingLabel'    => array(
+			'lowRatingLabel'      => array(
 				'type'    => 'string',
-				'default' => '',
+				'default' => __( 'Not likely at all', 'crowdsignal-forms' ),
 			),
-			'ratingQuestion'    => array(
+			'ratingQuestion'      => array(
 				'type'    => 'string',
-				'default' => '',
+				'default' => __(
+					'How likely is it that you would recommend this project to a friend or colleague?',
+					'crowdsignal-forms'
+				),
 			),
-			'submitButtonLabel' => array(
+			'submitButtonLabel'   => array(
 				'type'    => 'string',
 				'default' => __( 'Submit', 'crowdsignal-forms' ),
 			),
-			'surveyId'          => array(
+			'surveyId'            => array(
 				'type'    => 'number',
 				'default' => null,
 			),
-			'textColor'         => array(
+			'textColor'           => array(
 				'type' => 'string',
 			),
-			'title'             => array(
+			'title'               => array(
 				'type'    => 'string',
 				'default' => '',
 			),
-			'viewThreshold'     => array(
+			'viewThreshold'       => array(
 				'type'    => 'string',
 				'default' => 3,
 			),
