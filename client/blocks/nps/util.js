@@ -8,8 +8,9 @@ export const getStyleVars = ( attributes, fallbackStyles ) =>
 		{
 			backgroundColor: attributes.backgroundColor || '#ffffff',
 			buttonColor: attributes.buttonColor || fallbackStyles.accentColor,
+			buttonTextColor:
+				attributes.buttonTextColor || fallbackStyles.textColorInverted,
 			textColor: attributes.textColor || fallbackStyles.textColor,
-			textColorInverted: fallbackStyles.textColorInverted,
 		},
 		( _, key ) => `--crowdsignal-forms-${ kebabCase( key ) }`
 	);
