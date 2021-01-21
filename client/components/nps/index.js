@@ -26,7 +26,7 @@ const Nps = ( {
 	contentWidth,
 	fallbackStyles,
 	onClose,
-	renderStyleProbe
+	renderStyleProbe,
 } ) => {
 	const [ responseMeta, setResponseMeta ] = useState( null );
 	const [ view, setView ] = useState( views.RATING );
