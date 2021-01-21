@@ -8,7 +8,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { Icon, Notice } from '@wordpress/components';
+import { Icon, Notice, TextareaControl } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
 import { dispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
@@ -144,7 +144,10 @@ const EditNpsBlock = ( props ) => {
 						<div className="crowdsignal-forms-nps__rating-labels">
 							<RichText
 								tagName="span"
-								placeholder={ __( 'Low', 'crowdsignal-forms' ) }
+								placeholder={ __(
+									'Not likely',
+									'crowdsignal-forms'
+								) }
 								onChange={ handleChangeAttribute(
 									'lowRatingLabel'
 								) }
@@ -154,7 +157,7 @@ const EditNpsBlock = ( props ) => {
 							<RichText
 								tagName="span"
 								placeholder={ __(
-									'High',
+									'Very likely',
 									'crowdsignal-forms'
 								) }
 								onChange={ handleChangeAttribute(
@@ -199,9 +202,13 @@ const EditNpsBlock = ( props ) => {
 							allowedFormats={ [] }
 						/>
 
-						<textarea
+						<TextareaControl
 							className="crowdsignal-forms-nps__feedback-text"
 							rows={ 6 }
+							onChange={ handleChangeAttribute(
+								'feedbackPlaceholder'
+							) }
+							value={ attributes.feedbackPlaceholder }
 						/>
 
 						<RichText
