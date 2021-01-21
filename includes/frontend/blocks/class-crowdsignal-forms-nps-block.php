@@ -113,6 +113,9 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 			'buttonColor'       => array(
 				'type' => 'string',
 			),
+			'buttonTextColor'   => array(
+				'type' => 'string',
+			),
 			'feedbackQuestion'  => array(
 				'type'    => 'string',
 				'default' => '',
