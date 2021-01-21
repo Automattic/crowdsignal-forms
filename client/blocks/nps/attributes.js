@@ -16,6 +16,9 @@ export default {
 	buttonColor: {
 		type: 'string',
 	},
+	buttonTextColor: {
+		type: 'string',
+	},
 	feedbackQuestion: {
 		type: 'string',
 		default: '',

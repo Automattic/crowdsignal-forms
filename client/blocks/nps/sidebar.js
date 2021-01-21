@@ -25,14 +25,10 @@ const Sidebar = ( { attributes, setAttributes } ) => {
 
 	const resultsUrl = `https://app.crowdsignal.com/surveys/${ attributes.surveyId }/report/overview`;
 
-	const handleChangeBackgroundColor = ( backgroundColor ) =>
-		setAttributes( { backgroundColor } );
-
-	const handleChangeButtonColor = ( buttonColor ) =>
-		setAttributes( { buttonColor } );
-
-	const handleChangeTextColor = ( textColor ) =>
-		setAttributes( { textColor } );
+	const handleChangeAttribute = ( attribute ) => ( value ) =>
+		setAttributes( {
+			[ attribute ]: value,
+		} );
 
 	return (
 		<InspectorControls>
@@ -85,18 +81,23 @@ const Sidebar = ( { attributes, setAttributes } ) => {
 				colorSettings={ [
 					{
 						label: __( 'Background color', 'crowdsignal-forms' ),
-						onChange: handleChangeBackgroundColor,
+						onChange: handleChangeAttribute( 'backgroundColor' ),
 						value: attributes.backgroundColor,
 					},
 					{
+						label: __( 'Text color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute( 'textColor' ),
+						value: attributes.textColor,
+					},
+					{
 						label: __( 'Button color', 'crowdsignal-forms' ),
-						onChange: handleChangeButtonColor,
+						onChange: handleChangeAttribute( 'buttonColor' ),
 						value: attributes.buttonColor,
 					},
 					{
-						label: __( 'Text color', 'crowdsignal-forms' ),
-						onChange: handleChangeTextColor,
-						value: attributes.textColor,
+						label: __( 'Button text color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute( 'buttonTextColor' ),
+						value: attributes.buttonTextColor,
 					},
 				] }
 			/>
