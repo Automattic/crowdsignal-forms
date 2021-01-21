@@ -21,7 +21,13 @@ const views = {
 	FEEDBACK: 'feedback',
 };
 
-const Nps = ( { attributes, contentWidth, fallbackStyles, onClose } ) => {
+const Nps = ( {
+	attributes,
+	contentWidth,
+	fallbackStyles,
+	onClose,
+	renderStyleProbe
+} ) => {
 	const [ responseMeta, setResponseMeta ] = useState( null );
 	const [ view, setView ] = useState( views.RATING );
 
@@ -41,35 +47,39 @@ const Nps = ( { attributes, contentWidth, fallbackStyles, onClose } ) => {
 	};
 
 	return (
-		<div className="crowdsignal-forms-nps" style={ style }>
-			<h3 className="crowdsignal-forms-nps__question">
-				{ questionText }
-			</h3>
+		<>
+			<div className="crowdsignal-forms-nps" style={ style }>
+				<h3 className="crowdsignal-forms-nps__question">
+					{ questionText }
+				</h3>
 
-			<button
-				className="crowdsignal-forms-nps__close-button"
-				onClick={ onClose }
-			>
-				<Icon icon="no-alt" />
-			</button>
+				<button
+					className="crowdsignal-forms-nps__close-button"
+					onClick={ onClose }
+				>
+					<Icon icon="no-alt" />
+				</button>
 
-			{ view === views.RATING && (
-				<NpsRating
-					attributes={ attributes }
-					onFailure={ onClose }
-					onSubmit={ handleRatingSubmit }
-				/>
-			) }
+				{ view === views.RATING && (
+					<NpsRating
+						attributes={ attributes }
+						onFailure={ onClose }
+						onSubmit={ handleRatingSubmit }
+					/>
+				) }
 
-			{ view === views.FEEDBACK && (
-				<NpsFeedback
-					attributes={ attributes }
-					responseMeta={ responseMeta }
-					onFailure={ onClose }
-					onSubmit={ onClose }
-				/>
-			) }
-		</div>
+				{ view === views.FEEDBACK && (
+					<NpsFeedback
+						attributes={ attributes }
+						responseMeta={ responseMeta }
+						onFailure={ onClose }
+						onSubmit={ onClose }
+					/>
+				) }
+			</div>
+
+			{ renderStyleProbe() }
+		</>
 	);
 };
 
