@@ -4,6 +4,11 @@
 import React, { useState } from 'react';
 
 /**
+ * WordPress dependencies
+ */
+import { TextareaControl } from '@wordpress/components';
+
+/**
  * Internal dependencies
  */
 import { updateNpsResponse } from 'data/nps';
@@ -11,8 +16,6 @@ import { updateNpsResponse } from 'data/nps';
 const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 	const [ feedback, setFeedback ] = useState( '' );
 	const [ submitting, setSubmitting ] = useState( false );
-
-	const handleFeedbackChange = ( event ) => setFeedback( event.target.value );
 
 	const handleSubmit = async () => {
 		setSubmitting( true );
@@ -32,11 +35,13 @@ const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 
 	return (
 		<div className="crowdsignal-forms-nps__feedback">
-			<textarea
+			<TextareaControl
 				className="crowdsignal-forms-nps__feedback-text"
 				disabled={ submitting }
 				rows={ 6 }
-				onChange={ handleFeedbackChange }
+				placeholder={ attributes.feedbackPlaceholder }
+				onChange={ setFeedback }
+				value={ feedback }
 			/>
 
 			<button
