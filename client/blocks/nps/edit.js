@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { pick, tap, times } from 'lodash';
 import classnames from 'classnames';
 
@@ -37,6 +37,14 @@ const EditNpsBlock = ( props ) => {
 		setAttributes,
 		renderStyleProbe,
 	} = props;
+
+	useEffect( () => {
+		if ( isSelected ) {
+			return;
+		}
+
+		setView( views.RATING );
+	}, [ isSelected ] );
 
 	const handleChangeAttribute = ( attribute ) => ( value ) =>
 		setAttributes( {
@@ -121,7 +129,7 @@ const EditNpsBlock = ( props ) => {
 					style={ getStyleVars( attributes, fallbackStyles ) }
 				>
 					<RichText
-						tagName="p"
+						tagName="h3"
 						className="crowdsignal-forms-nps__question"
 						placeholder={ __(
 							'Enter your rating question',
