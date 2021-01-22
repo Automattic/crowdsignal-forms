@@ -1,5 +1,9 @@
 /* Editor styles */
 
+.crowdsignal-forms-nps.is-inactive {
+	opacity: 0.6;
+}
+
 .crowdsignal-forms-nps__toolbar-toggle {
 	font-weight: 600;
 	padding-left: 16px !important;
@@ -12,6 +16,24 @@
 
 .crowdsignal-forms-nps__toolbar-popover-button svg {
 	margin-right: 0 !important;
+}
+
+.crowdsignal-forms-nps__editor-notice {
+	margin: 0 0 15px !important;
+
+	.components-notice__content {
+		align-items: center;
+		display: flex;
+
+		svg:first-child {
+			margin-right: 12px;
+		}
+	}
+}
+
+.crowdsignal-forms-nps__editor-notice-text {
+	display: flex;
+	flex: 1;
 }
 
 .crowdsignal-forms-nps__rating-button:hover {
