@@ -13,3 +13,9 @@
 .crowdsignal-forms-nps__toolbar-popover-button svg {
 	margin-right: 0 !important;
 }
+
+.crowdsignal-forms-nps__rating-button:hover {
+	background-color: var(--crowdsignal-forms-button-text-color);
+	border-color: var(--crowdsignal-forms-button-text-color);
+	color: var(--crowdsignal-forms-button-color);
+}

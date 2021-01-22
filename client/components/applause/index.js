@@ -10,7 +10,6 @@ import { values } from 'lodash';
  */
 import { isPollClosed } from 'blocks/poll/util';
 import { getApplauseStyleVars, getBlockCssClasses } from 'blocks/applause/util';
-import { ApplauseStyles, getApplauseStyles } from './styles';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { usePollVote, usePollResults } from 'data/hooks';
 import { formatVoteCount } from 'components/vote/util';
@@ -112,7 +111,4 @@ Applause.propTypes = {
 	className: PropTypes.string,
 };
 
-export default withFallbackStyles(
-	ApplauseStyles,
-	getApplauseStyles
-)( Applause );
+export default withFallbackStyles( Applause );

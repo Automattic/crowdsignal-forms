@@ -2,8 +2,9 @@
 
 .crowdsignal-forms-nps {
 	border: 0;
-	border-top: 5px solid #002c40;
-	background-color: #fff;
+	border-top: 5px solid var(--crowdsignal-forms-button-color);
+	background-color: var(--crowdsignal-forms-background-color);
+	color: var(--crowdsignal-forms-text-color);
 	height: auto;
 	padding: 50px;
 	position: relative;
@@ -11,9 +12,9 @@
 
 .crowdsignal-forms-nps__close-button {
 	align-items: center;
-	background-color: #002c40;
+	background-color: var(--crowdsignal-forms-button-color);
 	border-radius: 20px;
-	color: #fff;
+	color: var(--crowdsignal-forms-button-text-color);
 	display: flex;
 	height: 40px;
 	justify-content: center;
@@ -23,6 +24,11 @@
 	right: -20px;
 	top: -20px;
 	width: 40px;
+
+	&:hover {
+		background-color: var(--crowdsignal-forms-button-text-color);
+		color: var(--crowdsignal-forms-button-color);
+	}
 }
 
 .crowdsignal-forms-nps__question {
@@ -47,9 +53,10 @@
 }
 
 .crowdsignal-forms-nps__rating-button {
-	background-color: #cd2653;
-	border: 1px solid #cd2653;
-	color: #fff;
+	background-color: var(--crowdsignal-forms-button-color);
+	border: 1px solid var(--crowdsignal-forms-button-color);
+	color: var(--crowdsignal-forms-button-text-color);
+	cursor: pointer;
 	display: inline-flex;
 	flex: 1;
 	font-size: 15px;
@@ -66,9 +73,15 @@
 		margin: 0;
 	}
 
+	&:hover:enabled {
+		background-color: var(--crowdsignal-forms-button-text-color);
+		border-color: var(--crowdsignal-forms-button-text-color);
+		color: var(--crowdsignal-forms-button-color);
+	}
+
 	&:disabled:not(.is-active) {
 		background-color: transparent;
-		color: #cd2653;
+		color: var(--crowdsignal-forms-button-color);
 	}
 }
 
@@ -84,4 +97,11 @@
 
 .crowdsignal-forms-nps__feedback-button {
 	align-self: flex-end;
+	background-color: var(--crowdsignal-forms-button-color) !important;
+	color: var(--crowdsignal-forms-button-text-color) !important;
+
+	&:hover {
+		background-color: var(--crowdsignal-forms-button-text-color) !important;
+		color: var(--crowdsignal-forms-button-color) !important;
+	}
 }

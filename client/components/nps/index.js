@@ -11,6 +11,8 @@ import { Icon } from '@wordpress/components';
 /**
  * Internal dependencies
  */
+import { getStyleVars } from 'blocks/nps/util';
+import { withFallbackStyles } from 'components/with-fallback-styles';
 import NpsFeedback from './feedback';
 import NpsRating from './rating';
 
@@ -19,7 +21,13 @@ const views = {
 	FEEDBACK: 'feedback',
 };
 
-const Nps = ( { attributes, contentWidth, onClose } ) => {
+const Nps = ( {
+	attributes,
+	contentWidth,
+	fallbackStyles,
+	onClose,
+	renderStyleProbe,
+} ) => {
 	const [ responseMeta, setResponseMeta ] = useState( null );
 	const [ view, setView ] = useState( views.RATING );
 
@@ -35,39 +43,44 @@ const Nps = ( { attributes, contentWidth, onClose } ) => {
 
 	const style = {
 		width: `${ contentWidth }px`,
+		...getStyleVars( attributes, fallbackStyles ),
 	};
 
 	return (
-		<div className="crowdsignal-forms-nps" style={ style }>
-			<h3 className="crowdsignal-forms-nps__question">
-				{ questionText }
-			</h3>
+		<>
+			<div className="crowdsignal-forms-nps" style={ style }>
+				<h3 className="crowdsignal-forms-nps__question">
+					{ questionText }
+				</h3>
 
-			<button
-				className="crowdsignal-forms-nps__close-button"
-				onClick={ onClose }
-			>
-				<Icon icon="no-alt" />
-			</button>
+				<button
+					className="crowdsignal-forms-nps__close-button"
+					onClick={ onClose }
+				>
+					<Icon icon="no-alt" />
+				</button>
 
-			{ view === views.RATING && (
-				<NpsRating
-					attributes={ attributes }
-					onFailure={ onClose }
-					onSubmit={ handleRatingSubmit }
-				/>
-			) }
+				{ view === views.RATING && (
+					<NpsRating
+						attributes={ attributes }
+						onFailure={ onClose }
+						onSubmit={ handleRatingSubmit }
+					/>
+				) }
 
-			{ view === views.FEEDBACK && (
-				<NpsFeedback
-					attributes={ attributes }
-					responseMeta={ responseMeta }
-					onFailure={ onClose }
-					onSubmit={ onClose }
-				/>
-			) }
-		</div>
+				{ view === views.FEEDBACK && (
+					<NpsFeedback
+						attributes={ attributes }
+						responseMeta={ responseMeta }
+						onFailure={ onClose }
+						onSubmit={ onClose }
+					/>
+				) }
+			</div>
+
+			{ renderStyleProbe() }
+		</>
 	);
 };
 
-export default Nps;
+export default withFallbackStyles( Nps );

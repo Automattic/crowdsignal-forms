@@ -11,7 +11,6 @@ import classNames from 'classnames';
 import VoteItem from 'components/vote/vote-item';
 import { usePollResults, usePollVote } from 'data/hooks';
 import { getVoteStyleVars } from 'blocks/vote/util';
-import { VoteStyles, getVoteStyles } from './styles';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import BrandLink from 'components/brand-link';
 import { isPollClosed } from 'blocks/poll/util';
@@ -89,4 +88,4 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	);
 };
 
-export default withFallbackStyles( VoteStyles, getVoteStyles )( Vote );
+export default withFallbackStyles( Vote );

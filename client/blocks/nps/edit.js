@@ -15,15 +15,23 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
+import { withFallbackStyles } from 'components/with-fallback-styles';
 import { updateNps } from 'data/nps';
+import { views } from './constants';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
-import { views } from './constants';
+import { getStyleVars } from './util';
 
 const EditNpsBlock = ( props ) => {
 	const [ view, setView ] = useState( views.RATING );
 
-	const { attributes, clientId, setAttributes } = props;
+	const {
+		attributes,
+		clientId,
+		fallbackStyles,
+		setAttributes,
+		renderStyleProbe,
+	} = props;
 
 	const handleChangeAttribute = ( attribute ) => ( value ) =>
 		setAttributes( {
@@ -79,17 +87,11 @@ const EditNpsBlock = ( props ) => {
 				{ __( 'Save', 'crowdsignal-forms' ) }
 			</button>
 
-			<RichText
-				tagName="h3"
-				className="crowdsignal-forms-nps__title"
-				placeholder={ __( 'Title', 'crowdsignal-forms' ) }
-				onChange={ handleChangeAttribute( 'title' ) }
-				value={ attributes.title }
-				allowedFormats={ [] }
-			/>
-
 			{ view === views.RATING && (
-				<div className="crowdsignal-forms-nps">
+				<div
+					className="crowdsignal-forms-nps"
+					style={ getStyleVars( attributes, fallbackStyles ) }
+				>
 					<RichText
 						tagName="p"
 						className="crowdsignal-forms-nps__question"
@@ -142,7 +144,10 @@ const EditNpsBlock = ( props ) => {
 			) }
 
 			{ view === views.FEEDBACK && (
-				<div className="crowdsignal-forms-nps">
+				<div
+					className="crowdsignal-forms-nps"
+					style={ getStyleVars( attributes, fallbackStyles ) }
+				>
 					<div className="crowdsignal-forms-nps__feedback">
 						<RichText
 							tagName="p"
@@ -174,8 +179,10 @@ const EditNpsBlock = ( props ) => {
 					</div>
 				</div>
 			) }
+
+			{ renderStyleProbe() }
 		</ConnectToCrowdsignal>
 	);
 };
 
-export default EditNpsBlock;
+export default withFallbackStyles( EditNpsBlock );
