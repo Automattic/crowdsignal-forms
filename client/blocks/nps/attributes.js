@@ -19,9 +19,19 @@ export default {
 	buttonTextColor: {
 		type: 'string',
 	},
+	feedbackPlaceholder: {
+		type: 'string',
+		default: __(
+			'Please help us understand your rating',
+			'crowdsignal-forms'
+		),
+	},
 	feedbackQuestion: {
 		type: 'string',
-		default: '',
+		default: __(
+			'Thanks so much for your response! How could we do better?',
+			'crowdsignal-forms'
+		),
 	},
 	hideBranding: {
 		type: 'boolean',
@@ -29,15 +39,18 @@ export default {
 	},
 	highRatingLabel: {
 		type: 'string',
-		default: '',
+		default: __( 'Extremely likely', 'crowdsignal-forms' ),
 	},
 	lowRatingLabel: {
 		type: 'string',
-		default: '',
+		default: __( 'Not likely at all', 'crowdsignal-forms' ),
 	},
 	ratingQuestion: {
 		type: 'string',
-		default: '',
+		default: __(
+			'How likely is it that you would recommend this project to a friend or colleague?',
+			'crowdsignal-forms'
+		),
 	},
 	submitButtonLabel: {
 		type: 'string',
