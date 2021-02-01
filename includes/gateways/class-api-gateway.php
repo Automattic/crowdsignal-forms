@@ -171,10 +171,15 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @return Nps_Survey|WP_Error
 	 */
 	public function update_nps( Nps_Survey $survey ) {
+		$survey_array = $survey->to_array();
+
+		// Inject source attribute.
+		$survey_array['source'] = 'crowdsignal-forms';
+
 		$response = $this->perform_request(
 			'POST',
 			$survey->get_id() ? '/nps/' . $survey->get_id() : '/nps',
-			$survey->to_array()
+			$survey_array
 		);
 
 		if ( is_wp_error( $response ) ) {
