@@ -50,6 +50,14 @@ class Nps_Survey {
 	private $feedback_question = '';
 
 	/**
+	 * Permalink URL where the NPS is published.
+	 *
+	 * @since [next-version-number]
+	 * @var string
+	 */
+	private $source_link = '';
+
+	/**
 	 * Creates a new Nps_Survey object from an array of params.
 	 *
 	 * @param  array $data An array containing the survey data.
@@ -60,7 +68,8 @@ class Nps_Survey {
 			$data['id'],
 			$data['title'],
 			$data['rating_text'],
-			$data['feedback_text']
+			$data['feedback_text'],
+			! empty( $data['source_link'] ) ? $data['source_link'] : ''
 		);
 	}
 
@@ -75,7 +84,8 @@ class Nps_Survey {
 			$attributes['surveyId'],
 			$attributes['title'],
 			$attributes['ratingQuestion'],
-			$attributes['feedbackQuestion']
+			$attributes['feedbackQuestion'],
+			! empty( $attributes['sourceLink'] ) ? $attributes['sourceLink'] : ''
 		);
 	}
 
@@ -89,12 +99,14 @@ class Nps_Survey {
 	 * @param string $title             Survey title.
 	 * @param string $rating_question   Rating question.
 	 * @param string $feedback_question Feedback question.
+	 * @param string $source_link       Blog post/page permalink.
 	 */
-	public function __construct( $id, $title, $rating_question, $feedback_question ) {
+	public function __construct( $id, $title, $rating_question, $feedback_question, $source_link = '' ) {
 		$this->id                = $id;
 		$this->title             = $title;
 		$this->rating_question   = $rating_question;
 		$this->feedback_question = $feedback_question;
+		$this->source_link       = $source_link;
 	}
 
 	/**
@@ -120,6 +132,7 @@ class Nps_Survey {
 			'title'         => $this->title,
 			'rating_text'   => $this->rating_question,
 			'feedback_text' => $this->feedback_question,
+			'source_link'   => $this->source_link,
 		);
 
 		if ( $this->id ) {
@@ -142,6 +155,7 @@ class Nps_Survey {
 			'title'            => $this->title,
 			'ratingQuestion'   => $this->rating_question,
 			'feedbackQuestion' => $this->feedback_question,
+			'sourceLink'       => $this->source_link,
 		);
 	}
 }
