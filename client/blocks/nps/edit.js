@@ -36,6 +36,7 @@ const EditNpsBlock = ( props ) => {
 		postPreviewLink,
 		setAttributes,
 		renderStyleProbe,
+		sourceLink,
 	} = props;
 
 	useEffect( () => {
@@ -57,11 +58,12 @@ const EditNpsBlock = ( props ) => {
 		try {
 			const { surveyId } = await updateNps(
 				tap(
-					pick( attributes, [
+					pick( { ...attributes, sourceLink }, [
 						'feedbackQuestion',
 						'ratingQuestion',
 						'surveyId',
 						'title',
+						'sourceLink',
 					] ),
 					( data ) => {
 						if ( ! data.title ) {
@@ -231,6 +233,7 @@ const EditNpsBlock = ( props ) => {
 export default compose( [
 	withSelect( ( select ) => ( {
 		postPreviewLink: select( 'core/editor' ).getEditedPostPreviewLink(),
+		sourceLink: select( 'core/editor' ).getPermalink(),
 	} ) ),
 	withFallbackStyles,
 ] )( EditNpsBlock );
