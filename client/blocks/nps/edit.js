@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useEffect, useState } from 'react';
-import { pick, tap, times } from 'lodash';
+import { times } from 'lodash';
 import classnames from 'classnames';
 
 /**
@@ -36,6 +36,7 @@ const EditNpsBlock = ( props ) => {
 		postPreviewLink,
 		setAttributes,
 		renderStyleProbe,
+		sourceLink,
 	} = props;
 
 	useEffect( () => {
@@ -55,27 +56,26 @@ const EditNpsBlock = ( props ) => {
 		dispatch( 'core/editor' ).lockPostSaving( clientId );
 
 		try {
-			const { surveyId } = await updateNps(
-				tap(
-					pick( attributes, [
-						'feedbackQuestion',
-						'ratingQuestion',
-						'surveyId',
-						'title',
-					] ),
-					( data ) => {
-						if ( ! data.title ) {
-							data.title = data.ratingQuestion;
-						}
-					}
-				)
-			);
+			const {
+				feedbackQuestion,
+				ratingQuestion,
+				surveyId,
+				title,
+			} = attributes;
+
+			const { apiSurveyId } = await updateNps( {
+				feedbackQuestion,
+				ratingQuestion,
+				sourceLink,
+				surveyId,
+				title: title || ratingQuestion,
+			} );
 
 			if ( attributes.surveyId ) {
 				return;
 			}
 
-			setAttributes( { surveyId } );
+			setAttributes( { apiSurveyId } );
 		} catch ( error ) {
 			// eslint-disable-next-line no-console
 			console.error( error );
@@ -231,6 +231,7 @@ const EditNpsBlock = ( props ) => {
 export default compose( [
 	withSelect( ( select ) => ( {
 		postPreviewLink: select( 'core/editor' ).getEditedPostPreviewLink(),
+		sourceLink: select( 'core/editor' ).getPermalink(),
 	} ) ),
 	withFallbackStyles,
 ] )( EditNpsBlock );
