@@ -10,7 +10,7 @@ import classnames from 'classnames';
  */
 import { Icon, Notice, TextareaControl } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
-import { dispatch, withSelect } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 
@@ -18,9 +18,10 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
+import { withAutosave } from 'components/with-autosave';
 import { withFallbackStyles } from 'components/with-fallback-styles';
-import { updateNps } from 'data/nps';
 import { views } from './constants';
+import { saveNps } from './data';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars } from './util';
@@ -30,14 +31,24 @@ const EditNpsBlock = ( props ) => {
 
 	const {
 		attributes,
-		clientId,
 		fallbackStyles,
+		forceSave,
 		isSelected,
 		postPreviewLink,
+		saveError,
 		setAttributes,
 		renderStyleProbe,
 		sourceLink,
 	} = props;
+
+	// Save to Crowdsignal.com as soon as the block is created
+	useEffect( () => {
+		if ( attributes.surveyId ) {
+			return;
+		}
+
+		forceSave();
+	}, [] );
 
 	useEffect( () => {
 		if ( isSelected ) {
@@ -51,38 +62,6 @@ const EditNpsBlock = ( props ) => {
 		setAttributes( {
 			[ attribute ]: value,
 		} );
-
-	const handleSaveNPS = async () => {
-		dispatch( 'core/editor' ).lockPostSaving( clientId );
-
-		try {
-			const {
-				feedbackQuestion,
-				ratingQuestion,
-				surveyId,
-				title,
-			} = attributes;
-
-			const { apiSurveyId } = await updateNps( {
-				feedbackQuestion,
-				ratingQuestion,
-				sourceLink,
-				surveyId,
-				title: title || ratingQuestion,
-			} );
-
-			if ( attributes.surveyId ) {
-				return;
-			}
-
-			setAttributes( { apiSurveyId } );
-		} catch ( error ) {
-			// eslint-disable-next-line no-console
-			console.error( error );
-		} finally {
-			dispatch( 'core/editor' ).unlockPostSaving( clientId );
-		}
-	};
 
 	const classes = classnames( 'crowdsignal-forms-nps', {
 		'is-inactive': ! isSelected,
@@ -100,9 +79,27 @@ const EditNpsBlock = ( props ) => {
 			/>
 			<Sidebar { ...props } />
 
-			<button onClick={ handleSaveNPS }>
-				{ __( 'Save', 'crowdsignal-forms' ) }
-			</button>
+			{ saveError && (
+				<Notice
+					className="crowdsignal-forms-nps__editor-notice"
+					status="error"
+					isDismissible={ false }
+					actions={ [
+						{
+							label: __( 'Save', 'crowdsignal-forms' ),
+							onClick: forceSave,
+						},
+					] }
+				>
+					<Icon icon="warning" />
+					<span className="crowdsignal-forms-nps__editor-notice-text">
+						{ __(
+							`Unfortunately, the block couldn't be saved to Crowdsignal.com. Click 'save' to retry.`,
+							'crowdsignal-forms'
+						) }
+					</span>
+				</Notice>
+			) }
 
 			<Notice
 				className="crowdsignal-forms-nps__editor-notice"
@@ -229,6 +226,7 @@ const EditNpsBlock = ( props ) => {
 };
 
 export default compose( [
+	withAutosave( saveNps, [ 'feedbackQuestion', 'ratingQuestion', 'title' ] ),
 	withSelect( ( select ) => ( {
 		postPreviewLink: select( 'core/editor' ).getEditedPostPreviewLink(),
 		sourceLink: select( 'core/editor' ).getPermalink(),
