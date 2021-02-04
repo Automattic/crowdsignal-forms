@@ -50,6 +50,7 @@ const EditNpsBlock = ( props ) => {
 				const response = await updateNps( {
 					feedbackQuestion: data.feedbackQuestion,
 					ratingQuestion: data.ratingQuestion,
+					sourceLink: data.sourceLink,
 					surveyId: data.surveyId,
 					title: data.title || data.ratingQuestion,
 				} );
@@ -61,7 +62,7 @@ const EditNpsBlock = ( props ) => {
 				dispatch( 'core/editor' ).unlockPostSaving( clientId );
 			}
 		},
-		{ feedbackQuestion, ratingQuestion, surveyId, title }
+		{ feedbackQuestion, ratingQuestion, sourceLink, surveyId, title }
 	);
 
 	// Force a save to Crowdsignal.com as soon as a new block is created
