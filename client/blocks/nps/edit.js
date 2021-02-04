@@ -10,7 +10,7 @@ import classnames from 'classnames';
  */
 import { Icon, Notice, TextareaControl } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
-import { withSelect } from '@wordpress/data';
+import { dispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 
@@ -18,10 +18,10 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
-import { withAutosave } from 'components/with-autosave';
+import { useAutosave } from 'components/use-autosave';
 import { withFallbackStyles } from 'components/with-fallback-styles';
+import { updateNps } from 'data/nps';
 import { views } from './constants';
-import { saveNps } from './data';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars } from './util';
@@ -31,23 +31,46 @@ const EditNpsBlock = ( props ) => {
 
 	const {
 		attributes,
+		clientId,
 		fallbackStyles,
-		forceSave,
 		isSelected,
 		postPreviewLink,
-		saveError,
 		setAttributes,
 		renderStyleProbe,
 		sourceLink,
 	} = props;
 
-	// Save to Crowdsignal.com as soon as the block is created
+	const { feedbackQuestion, ratingQuestion, surveyId, title } = attributes;
+
+	const { error: saveError, save: saveBlock } = useAutosave(
+		async ( data ) => {
+			dispatch( 'core/editor' ).lockPostSaving( clientId );
+
+			try {
+				const response = await updateNps( {
+					feedbackQuestion: data.feedbackQuestion,
+					ratingQuestion: data.ratingQuestion,
+					surveyId: data.surveyId,
+					title: data.title || data.ratingQuestion,
+				} );
+
+				if ( ! data.surveyId ) {
+					setAttributes( { surveyId: response.surveyId } );
+				}
+			} finally {
+				dispatch( 'core/editor' ).unlockPostSaving( clientId );
+			}
+		},
+		{ feedbackQuestion, ratingQuestion, surveyId, title }
+	);
+
+	// Force a save to Crowdsignal.com as soon as a new block is created
 	useEffect( () => {
 		if ( attributes.surveyId ) {
 			return;
 		}
 
-		forceSave();
+		saveBlock();
 	}, [] );
 
 	useEffect( () => {
@@ -87,7 +110,7 @@ const EditNpsBlock = ( props ) => {
 					actions={ [
 						{
 							label: __( 'Save', 'crowdsignal-forms' ),
-							onClick: forceSave,
+							onClick: saveBlock,
 						},
 					] }
 				>
@@ -133,7 +156,7 @@ const EditNpsBlock = ( props ) => {
 							'crowdsignal-forms'
 						) }
 						onChange={ handleChangeAttribute( 'ratingQuestion' ) }
-						value={ attributes.ratingQuestion }
+						value={ ratingQuestion }
 						allowedFormats={ [] }
 					/>
 
@@ -195,7 +218,7 @@ const EditNpsBlock = ( props ) => {
 							onChange={ handleChangeAttribute(
 								'feedbackQuestion'
 							) }
-							value={ attributes.feedbackQuestion }
+							value={ feedbackQuestion }
 							allowedFormats={ [] }
 						/>
 
@@ -226,7 +249,6 @@ const EditNpsBlock = ( props ) => {
 };
 
 export default compose( [
-	withAutosave( saveNps, [ 'feedbackQuestion', 'ratingQuestion', 'title' ] ),
 	withSelect( ( select ) => ( {
 		postPreviewLink: select( 'core/editor' ).getEditedPostPreviewLink(),
 		sourceLink: select( 'core/editor' ).getPermalink(),
