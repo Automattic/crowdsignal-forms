@@ -14,5 +14,8 @@ export default {
 	description: __( 'Net Promoter Score', 'crowdsignal-forms' ),
 	category: 'crowdsignal-forms',
 	attributes,
+	supports: {
+		multiple: false,
+	},
 	edit,
 };
