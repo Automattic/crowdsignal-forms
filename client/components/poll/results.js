@@ -12,7 +12,7 @@ import { __, _n, sprintf } from '@wordpress/i18n';
  */
 import { usePollResults } from 'data/hooks';
 import PollAnswerResults from './answer-results';
-import FooterBranding from './footer-branding';
+import FooterBranding from 'components/footer-branding';
 import { isAnswerEmpty } from './util';
 
 const PollResults = ( {

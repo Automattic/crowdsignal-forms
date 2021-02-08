@@ -21,19 +21,20 @@ const promoteLink = (
 	</span>
 );
 
-const FooterBranding = ( { showLogo, editing } ) => (
-	<div className="crowdsignal-forms-poll__footer-branding">
+const FooterBranding = ( { showLogo, editing, message } ) => (
+	<div className="crowdsignal-forms__footer-branding">
 		<div>
 			<a
-				className="crowdsignal-forms-poll__footer-cs-link"
+				className="crowdsignal-forms__footer-cs-link"
 				href="https://crowdsignal.com?ref=cs-forms-poll"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				{ __(
-					'Create your own poll with Crowdsignal',
-					'crowdsignal-forms'
-				) }
+				{ message ||
+					__(
+						'Create your own poll with Crowdsignal',
+						'crowdsignal-forms'
+					) }
 			</a>
 			{ editing && (
 				<Tooltip text={ promoteLink } position="top center">
@@ -50,7 +51,7 @@ const FooterBranding = ( { showLogo, editing } ) => (
 		</div>
 		{ showLogo && (
 			<img
-				className="crowdsignal-forms-poll__footer-branding-logo"
+				className="crowdsignal-forms__footer-branding-logo"
 				src="https://app.crowdsignal.com/images/svg/cs-logo-dots.svg"
 				alt="Crowdsignal sticker"
 			/>
