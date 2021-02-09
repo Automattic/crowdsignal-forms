@@ -12,14 +12,14 @@ import Icon from 'components/icon/warning-circle';
 const SignalWarning = () => {
 	return (
 		<Notice
-			className="crowdsignal-forms__signal-warning"
-			status="info"
+			className="crowdsignal-forms__editor-notice"
+			status="warn"
 			isDismissible={ false }
 		>
-			<div className="crowdsignal-forms__signal-warning-icon">
+			<div className="crowdsignal-forms__editor-notice-icon">
 				<Icon />
 			</div>
-			<div className="crowdsignal-forms__signal-warning-message">
+			<div className="crowdsignal-forms__editor-notice-text">
 				{ __(
 					'Your free Crowdsignal account has exceeded ',
 					'crowdsignal-forms'

@@ -127,7 +127,7 @@ const EditNpsBlock = ( props ) => {
 			{ signalWarning && <SignalWarning /> }
 			{ saveError && (
 				<Notice
-					className="crowdsignal-forms-nps__editor-notice"
+					className="crowdsignal-forms__editor-notice"
 					status="error"
 					isDismissible={ false }
 					actions={ [
@@ -137,10 +137,12 @@ const EditNpsBlock = ( props ) => {
 						},
 					] }
 				>
-					<Icon icon="warning" />
-					<span className="crowdsignal-forms-nps__editor-notice-text">
+					<div className="crowdsignal-forms__editor-notice-icon">
+						<Icon icon="warning" />
+					</div>
+					<span className="crowdsignal-forms__editor-notice-text">
 						{ __(
-							`Unfortunately, the block couldn't be saved to Crowdsignal.com. Click 'save' to retry.`,
+							`Unfortunately, the block couldn't be saved to Crowdsignal.com. Click 'Save' to retry.`,
 							'crowdsignal-forms'
 						) }
 					</span>
@@ -148,7 +150,7 @@ const EditNpsBlock = ( props ) => {
 			) }
 
 			<Notice
-				className="crowdsignal-forms-nps__editor-notice"
+				className="crowdsignal-forms__editor-notice"
 				isDismissible={ false }
 				actions={ [
 					{
@@ -157,8 +159,10 @@ const EditNpsBlock = ( props ) => {
 					},
 				] }
 			>
-				<Icon icon="visibility" />
-				<span className="crowdsignal-forms-nps__editor-notice-text">
+				<div className="crowdsignal-forms__editor-notice-icon">
+					<Icon icon="visibility" />
+				</div>
+				<span className="crowdsignal-forms__editor-notice-text">
 					{ __(
 						'This block will appear as a popup window to people who have visited this page at least 3 times.',
 						'crowdsignal-forms'
