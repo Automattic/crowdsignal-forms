@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { ExternalLink } from '@wordpress/components';
+import { ExternalLink, Notice } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -11,7 +11,11 @@ import Icon from 'components/icon/warning-circle';
 
 const SignalWarning = () => {
 	return (
-		<div className="crowdsignal-forms__signal-warning">
+		<Notice
+			className="crowdsignal-forms__signal-warning"
+			status="info"
+			isDismissible={ false }
+		>
 			<div className="crowdsignal-forms__signal-warning-icon">
 				<Icon />
 			</div>
@@ -30,7 +34,7 @@ const SignalWarning = () => {
 					</ExternalLink>
 				</strong>
 			</div>
-		</div>
+		</Notice>
 	);
 };
 
