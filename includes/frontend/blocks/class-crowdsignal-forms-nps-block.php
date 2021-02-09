@@ -168,6 +168,14 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => 3,
 			),
+			'status'              => array(
+				'type'    => 'string',
+				'default' => 'open', // See: client/blocks/nps/constants.js.
+			),
+			'closedAfterDateTime' => array(
+				'type'    => 'string',
+				'default' => null,
+			),
 		);
 	}
 }
