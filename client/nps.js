@@ -10,6 +10,7 @@ import { forEach } from 'lodash';
  */
 import DialogWrapper from 'components/dialog-wrapper';
 import NpsBlock from 'components/nps';
+import { NpsStatus } from 'blocks/nps/constants';
 
 const NPS_VIEWS_STORAGE_PREFIX = `cs-nps-views-`;
 
@@ -22,6 +23,18 @@ window.addEventListener( 'load', () =>
 				const viewThreshold = parseInt( attributes.viewThreshold, 10 );
 
 				element.removeAttribute( 'data-crowdsignal-nps' );
+
+				if ( NpsStatus.CLOSED === attributes.status ) {
+					return;
+				}
+
+				if (
+					NpsStatus.CLOSED_AFTER === attributes.status &&
+					null !== attributes.closedAfterDateTime &&
+					new Date().toISOString() > attributes.closedAfterDateTime
+				) {
+					return;
+				}
 
 				if ( ! attributes.isPreview ) {
 					const key = `${ NPS_VIEWS_STORAGE_PREFIX }${ attributes.surveyId }`;
