@@ -38,6 +38,10 @@
 .crowdsignal-forms-nps__rating {
 	display: flex;
 	flex-direction: column;
+
+	.crowdsignal-forms__footer-branding {
+		padding-top: 16px;
+	}
 }
 
 .crowdsignal-forms-nps__rating-labels {
@@ -88,6 +92,10 @@
 .crowdsignal-forms-nps__feedback {
 	display: flex;
 	flex-direction: column;
+
+	.crowdsignal-forms__footer-branding {
+		padding-top: 16px;
+	}
 }
 
 .crowdsignal-forms-nps__feedback-text {

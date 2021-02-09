@@ -11,7 +11,7 @@ import { ConfirmMessageType } from 'blocks/poll/constants';
 import CloseIcon from 'components/icon/close';
 import CheckCircleIcon from 'components/icon/check-circle';
 import ThankYouIcon from 'components/icon/thank-you';
-import FooterBranding from './footer-branding';
+import FooterBranding from 'components/footer-branding';
 
 const toggleAnimationPlayPause = ( event ) => {
 	const player = event.target;

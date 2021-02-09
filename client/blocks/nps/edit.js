@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useEffect, useState } from 'react';
-import { times } from 'lodash';
+import { times, get } from 'lodash';
 import classnames from 'classnames';
 
 /**
@@ -25,6 +25,9 @@ import { views } from './constants';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars } from './util';
+import { useAccountInfo } from 'data/hooks';
+import SignalWarning from 'components/signal-warning';
+import FooterBranding from 'components/footer-branding';
 
 const EditNpsBlock = ( props ) => {
 	const [ view, setView ] = useState( views.RATING );
@@ -91,6 +94,21 @@ const EditNpsBlock = ( props ) => {
 		'is-inactive': ! isSelected,
 	} );
 
+	const accountInfo = useAccountInfo();
+
+	const hideBranding = get( accountInfo, 'capabilities' ).includes(
+		'hide-branding'
+	);
+
+	const shouldPromote = get( accountInfo, [
+		'signalCount',
+		'shouldDisplay',
+	] );
+	const signalWarning =
+		shouldPromote &&
+		get( accountInfo, [ 'signalCount', 'count' ] ) >=
+			get( accountInfo, [ 'signalCount', 'userLimit' ] );
+
 	return (
 		<ConnectToCrowdsignal
 			blockIcon={ null }
@@ -101,8 +119,12 @@ const EditNpsBlock = ( props ) => {
 				onViewChange={ setView }
 				{ ...props }
 			/>
-			<Sidebar { ...props } />
-
+			<Sidebar
+				shouldPromote={ shouldPromote }
+				signalWarning={ signalWarning }
+				{ ...props }
+			/>
+			{ signalWarning && <SignalWarning /> }
 			{ saveError && (
 				<Notice
 					className="crowdsignal-forms-nps__editor-notice"
@@ -199,6 +221,15 @@ const EditNpsBlock = ( props ) => {
 								</div>
 							) ) }
 						</div>
+						{ ! hideBranding && (
+							<FooterBranding
+								editing={ true }
+								message={ __(
+									'Collect your own feedback with Crowdsignal',
+									'crowdsignal-forms'
+								) }
+							/>
+						) }
 					</div>
 				</div>
 			) }
@@ -240,10 +271,18 @@ const EditNpsBlock = ( props ) => {
 							value={ attributes.submitButtonLabel }
 							allowedFormats={ [] }
 						/>
+						{ ! hideBranding && (
+							<FooterBranding
+								editing={ true }
+								message={ __(
+									'Collect your own feedback with Crowdsignal',
+									'crowdsignal-forms'
+								) }
+							/>
+						) }
 					</div>
 				</div>
 			) }
-
 			{ renderStyleProbe() }
 		</ConnectToCrowdsignal>
 	);

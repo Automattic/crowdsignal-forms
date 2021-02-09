@@ -19,8 +19,14 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
+import SidebarPromote from 'components/sidebar-promote';
 
-const Sidebar = ( { attributes, setAttributes } ) => {
+const Sidebar = ( {
+	attributes,
+	setAttributes,
+	shouldPromote,
+	signalWarning,
+} ) => {
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
 	const resultsUrl = `https://app.crowdsignal.com/surveys/${ attributes.surveyId }/report/overview`;
@@ -74,6 +80,9 @@ const Sidebar = ( { attributes, setAttributes } ) => {
 						attributes.title ?? attributes.ratingQuestion
 					) }
 				/>
+				{ shouldPromote && (
+					<SidebarPromote signalWarning={ signalWarning } />
+				) }
 			</PanelBody>
 			<PanelColorSettings
 				title={ __( 'Block styling', 'crowdsignal-forms' ) }
