@@ -41,7 +41,7 @@ import EditBar from './edit-bar';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import PollIcon from 'components/icon/poll';
 import withPollBase from 'components/with-poll-base';
-import FooterBranding from 'components/poll/footer-branding';
+import FooterBranding from 'components/footer-branding';
 import { useAccountInfo } from 'data/hooks';
 import SignalWarning from 'components/signal-warning';
 

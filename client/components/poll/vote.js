@@ -11,7 +11,7 @@ import classnames from 'classnames';
  */
 import { AnswerStyle, ButtonAlignment } from 'blocks/poll/constants';
 import PollAnswer from './answer';
-import FooterBranding from './footer-branding';
+import FooterBranding from 'components/footer-branding';
 
 const PollVote = ( {
 	answers,

@@ -449,59 +449,6 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 	}
 }
 
-.crowdsignal-forms-poll__footer-branding {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	margin-top: 16px;
-
-	img.crowdsignal-forms-poll__footer-branding-logo {
-		width: 50px;
-		height: 50px;
-		margin-left: 0;
-		margin-right: 0;
-	}
-
-	.crowdsignal-forms__branding-promote {
-		font-family: $font-sans-serif;
-		font-size: 10px;
-		text-decoration: none !important;
-		box-shadow: none;
-		border: 0;
-		background-color: #a4a4a4a4;
-		color: #fff;
-		cursor: pointer;
-		padding-right: 8px;
-		padding-left: 8px;
-		margin-left: 16px;
-		border-radius: 2px;
-		padding-top: 4px;
-		padding-bottom: 4px;
-		vertical-align: middle;
-	}
-}
-
-.crowdsignal-forms-poll__footer-cs-link {
-	font-family: $font-sans-serif;
-	font-size: 16px;
-	text-decoration: none;
-	text-transform: uppercase;
-	vertical-align: middle;
-	border-bottom: 0 solid var(--crowdsignal-forms-text-color) !important;
-
-	&:not(:hover) {
-		color: var(--crowdsignal-forms-text-color);
-		opacity: 0.4;
-	}
-
-	.has-default-thankyou & {
-		// hardcoded as the background has been forced to white
-		// to match the video background
-		color: #333;
-	}
-}
-
 .crowdsignal-forms-poll__error-banner {
 	font-family: $font-sans-serif;
 	font-size: $font-size-gutenberg-system-default;
