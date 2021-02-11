@@ -129,15 +129,15 @@ const Sidebar = ( {
 					label={ __( 'Status', 'crowdsignal-forms' ) }
 					options={ [
 						{
-							label: __( 'Enabled', 'crowdsignal-forms' ),
+							label: __( 'Open', 'crowdsignal-forms' ),
 							value: NpsStatus.OPEN,
 						},
 						{
-							label: __( 'Disable after', 'crowdsignal-forms' ),
+							label: __( 'Closed after', 'crowdsignal-forms' ),
 							value: NpsStatus.CLOSED_AFTER,
 						},
 						{
-							label: __( 'Disabled', 'crowdsignal-forms' ),
+							label: __( 'Closed', 'crowdsignal-forms' ),
 							value: NpsStatus.CLOSED,
 						},
 					] }
@@ -147,7 +147,7 @@ const Sidebar = ( {
 						null !== attributes.closedAfterDateTime &&
 						new Date().toISOString() >
 							attributes.closedAfterDateTime
-							? 'Currently disabled as date has passed'
+							? 'Currently closed as date has passed'
 							: ''
 					}
 				/>
@@ -159,7 +159,7 @@ const Sidebar = ( {
 								new Date( attributes.closedAfterDateTime ) ) ||
 							new Date()
 						}
-						label={ __( 'Disable on', 'crowdsignal-forms' ) }
+						label={ __( 'Close on', 'crowdsignal-forms' ) }
 						onChange={ handleChangeCloseAfterDateTime }
 						is12Hour={ true }
 					/>
