@@ -4,6 +4,10 @@
 import { __ } from '@wordpress/i18n';
 
 /**
+ * Internal dependencies
+ */
+import { NpsStatus } from './constants';
+/**
  * Note: Any changes made to the attributes definition need to be duplicated in
  *       Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Nps_Block::attributes()
  *       inside includes/frontend/blocks/class-crowdsignal-forms-nps-block.php.
@@ -70,5 +74,13 @@ export default {
 	viewThreshold: {
 		type: 'string',
 		default: 3,
+	},
+	status: {
+		type: 'string',
+		default: NpsStatus.OPEN,
+	},
+	closedAfterDateTime: {
+		type: 'string',
+		default: null,
 	},
 };
