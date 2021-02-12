@@ -11,9 +11,9 @@ import attributes from './attributes';
 import edit from './edit';
 
 export default {
-	title: __( 'NPS', 'crowdsignal-forms' ),
+	title: __( 'Measure NPS', 'crowdsignal-forms' ),
 	description: __(
-		'Measure your Net Promoter Score! Collect feedback and track customer satisfaction over time. — powered by Crowdsignal.',
+		'Calculate your Net Promoter Score! Collect feedback and track customer satisfaction over time. — powered by Crowdsignal.',
 		'crowdsignal-forms'
 	),
 	category: 'crowdsignal-forms',
