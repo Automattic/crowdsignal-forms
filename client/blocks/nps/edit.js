@@ -8,7 +8,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { Icon, Notice, TextareaControl } from '@wordpress/components';
+import { TextareaControl } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
 import { dispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
@@ -26,8 +26,9 @@ import Sidebar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars } from './util';
 import { useAccountInfo } from 'data/hooks';
-import SignalWarning from 'components/signal-warning';
+import EditorNotice from 'components/editor-notice';
 import FooterBranding from 'components/footer-branding';
+import SignalWarning from 'components/signal-warning';
 
 const EditNpsBlock = ( props ) => {
 	const [ view, setView ] = useState( views.RATING );
@@ -126,30 +127,27 @@ const EditNpsBlock = ( props ) => {
 			/>
 			{ signalWarning && <SignalWarning /> }
 			{ saveError && (
-				<Notice
-					className="crowdsignal-forms-nps__editor-notice"
+				<EditorNotice
 					status="error"
+					icon="warning"
 					isDismissible={ false }
 					actions={ [
 						{
-							label: __( 'Save', 'crowdsignal-forms' ),
+							className: 'is-destructive',
+							label: __( 'Retry', 'crowdsignal-forms' ),
 							onClick: saveBlock,
 						},
 					] }
 				>
-					<Icon icon="warning" />
-					<span className="crowdsignal-forms-nps__editor-notice-text">
-						{ __(
-							`Unfortunately, the block couldn't be saved to Crowdsignal.com. Click 'save' to retry.`,
-							'crowdsignal-forms'
-						) }
-					</span>
-				</Notice>
+					{ __(
+						`Unfortunately, the block couldn't be saved to Crowdsignal.com.`,
+						'crowdsignal-forms'
+					) }
+				</EditorNotice>
 			) }
-
-			<Notice
-				className="crowdsignal-forms-nps__editor-notice"
+			<EditorNotice
 				isDismissible={ false }
+				icon="visibility"
 				actions={ [
 					{
 						label: __( 'Preview', 'crowdsignal-forms' ),
@@ -157,14 +155,11 @@ const EditNpsBlock = ( props ) => {
 					},
 				] }
 			>
-				<Icon icon="visibility" />
-				<span className="crowdsignal-forms-nps__editor-notice-text">
-					{ __(
-						'This block will appear as a popup window to people who have visited this page at least 3 times.',
-						'crowdsignal-forms'
-					) }
-				</span>
-			</Notice>
+				{ __(
+					'This block will appear as a popup window to people who have visited this page at least 3 times.',
+					'crowdsignal-forms'
+				) }
+			</EditorNotice>
 
 			{ ( view === views.RATING || ! isSelected ) && (
 				<div

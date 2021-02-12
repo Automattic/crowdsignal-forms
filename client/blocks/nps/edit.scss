@@ -18,24 +18,6 @@
 	margin-right: 0 !important;
 }
 
-.crowdsignal-forms-nps__editor-notice {
-	margin: 0 0 15px !important;
-
-	.components-notice__content {
-		align-items: center;
-		display: flex;
-
-		svg:first-child {
-			margin-right: 12px;
-		}
-	}
-}
-
-.crowdsignal-forms-nps__editor-notice-text {
-	display: flex;
-	flex: 1;
-}
-
 .crowdsignal-forms-nps__rating-button:hover {
 	background-color: var(--crowdsignal-forms-button-text-color);
 	border-color: var(--crowdsignal-forms-button-text-color);
