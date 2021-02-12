@@ -13,7 +13,7 @@ import edit from './edit';
 export default {
 	title: __( 'NPS', 'crowdsignal-forms' ),
 	description: __(
-		'Net Promoter Score popup — powered by Crowdsignal.',
+		'Measure your Net Promoter Score! Collect feedback and track customer satisfaction over time. — powered by Crowdsignal.',
 		'crowdsignal-forms'
 	),
 	category: 'crowdsignal-forms',
