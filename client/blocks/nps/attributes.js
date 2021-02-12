@@ -83,4 +83,8 @@ export default {
 		type: 'string',
 		default: null,
 	},
+	isExample: {
+		type: 'boolean',
+		default: false,
+	},
 };

@@ -44,7 +44,13 @@ const EditNpsBlock = ( props ) => {
 		sourceLink,
 	} = props;
 
-	const { feedbackQuestion, ratingQuestion, surveyId, title } = attributes;
+	const {
+		feedbackQuestion,
+		ratingQuestion,
+		surveyId,
+		title,
+		isExample,
+	} = attributes;
 
 	const { error: saveError, save: saveBlock } = useAutosave(
 		async ( data ) => {
@@ -66,12 +72,18 @@ const EditNpsBlock = ( props ) => {
 				dispatch( 'core/editor' ).unlockPostSaving( clientId );
 			}
 		},
-		{ feedbackQuestion, ratingQuestion, sourceLink, surveyId, title }
+		{
+			feedbackQuestion,
+			ratingQuestion,
+			sourceLink,
+			surveyId,
+			title,
+		}
 	);
 
 	// Force a save to Crowdsignal.com as soon as a new block is created
 	useEffect( () => {
-		if ( attributes.surveyId ) {
+		if ( isExample || attributes.surveyId ) {
 			return;
 		}
 
@@ -92,7 +104,7 @@ const EditNpsBlock = ( props ) => {
 		} );
 
 	const classes = classnames( 'crowdsignal-forms-nps', {
-		'is-inactive': ! isSelected,
+		'is-inactive': ! isExample && ! isSelected,
 	} );
 
 	const accountInfo = useAccountInfo();
@@ -125,8 +137,8 @@ const EditNpsBlock = ( props ) => {
 				signalWarning={ signalWarning }
 				{ ...props }
 			/>
-			{ signalWarning && <SignalWarning /> }
-			{ saveError && (
+			{ ! isExample && signalWarning && <SignalWarning /> }
+			{ ! isExample && saveError && (
 				<EditorNotice
 					status="error"
 					icon="warning"
@@ -145,21 +157,25 @@ const EditNpsBlock = ( props ) => {
 					) }
 				</EditorNotice>
 			) }
-			<EditorNotice
-				isDismissible={ false }
-				icon="visibility"
-				actions={ [
-					{
-						label: __( 'Preview', 'crowdsignal-forms' ),
-						onClick: () => window.open( postPreviewLink, 'blank' ),
-					},
-				] }
-			>
-				{ __(
-					'This block will appear as a popup window to people who have visited this page at least 3 times.',
-					'crowdsignal-forms'
-				) }
-			</EditorNotice>
+
+			{ ! isExample && (
+				<EditorNotice
+					isDismissible={ false }
+					icon="visibility"
+					actions={ [
+						{
+							label: __( 'Preview', 'crowdsignal-forms' ),
+							onClick: () =>
+								window.open( postPreviewLink, 'blank' ),
+						},
+					] }
+				>
+					{ __(
+						'This block will appear as a popup window to people who have visited this page at least 3 times.',
+						'crowdsignal-forms'
+					) }
+				</EditorNotice>
+			) }
 
 			{ ( view === views.RATING || ! isSelected ) && (
 				<div
