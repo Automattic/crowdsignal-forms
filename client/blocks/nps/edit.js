@@ -104,7 +104,7 @@ const EditNpsBlock = ( props ) => {
 		} );
 
 	const classes = classnames( 'crowdsignal-forms-nps', {
-		'is-inactive': ! isSelected,
+		'is-inactive': ! isExample && ! isSelected,
 	} );
 
 	const accountInfo = useAccountInfo();
