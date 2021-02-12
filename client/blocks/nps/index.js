@@ -6,6 +6,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
+import NpsIcon from 'components/icon/nps';
 import attributes from './attributes';
 import edit from './edit';
 
@@ -20,6 +21,7 @@ export default {
 	supports: {
 		multiple: false,
 	},
+	icon: <NpsIcon />,
 	edit,
 	keywords: [
 		__( 'ask', 'crowdsignal-forms' ),
