@@ -35,8 +35,9 @@ export default {
 	],
 	example: {
 		attributes: {
+			isExample: true,
 			ratingQuestion: __(
-				'How satisfied are your with the content of the site?',
+				'How satisfied are you with the content of the site?',
 				'crowdsignal-forms'
 			),
 			feedbackQuestion: __(
