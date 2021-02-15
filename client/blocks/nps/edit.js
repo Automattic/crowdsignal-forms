@@ -12,7 +12,7 @@ import { TextareaControl } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
 import { dispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
-import { __ } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -50,6 +50,7 @@ const EditNpsBlock = ( props ) => {
 		surveyId,
 		title,
 		isExample,
+		viewThreshold,
 	} = attributes;
 
 	const { error: saveError, save: saveBlock } = useAutosave(
@@ -170,9 +171,15 @@ const EditNpsBlock = ( props ) => {
 						},
 					] }
 				>
-					{ __(
-						'This block will appear as a popup window to people who have visited this page at least 3 times.',
-						'crowdsignal-forms'
+					{ sprintf(
+						// translators: %d: number of pageviews
+						_n(
+							'This block will appear as a popup window to people who have visited this page at least %d time.',
+							'This block will appear as a popup window to people who have visited this page at least %d times.',
+							viewThreshold,
+							'crowdsignal-forms'
+						),
+						viewThreshold
 					) }
 				</EditorNotice>
 			) }
