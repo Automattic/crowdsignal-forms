@@ -35,14 +35,16 @@ const Nps = ( {
 		setView( views.FEEDBACK );
 	};
 
-	const handleFeedbackSubmit = () =>
-		setView( views.SUBMIT );
+	const handleFeedbackSubmit = () => setView( views.SUBMIT );
 
 	const questionText = get(
 		{
 			[ views.FEEDBACK ]: attributes.feedbackQuestion,
 			[ views.RATING ]: attributes.ratingQuestion,
-			[ views.SUBMIT ]: __( 'Thanks so much for your feedback!', 'crowdsignal-forms' ),
+			[ views.SUBMIT ]: __(
+				'Thanks so much for your feedback!',
+				'crowdsignal-forms'
+			),
 		},
 		[ view ]
 	);
