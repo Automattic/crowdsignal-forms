@@ -44,14 +44,25 @@ const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 				value={ feedback }
 			/>
 
-			<button
-				className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
-				disabled={ submitting }
-				onClick={ handleSubmit }
-				type="button"
-			>
-				{ attributes.submitButtonLabel }
-			</button>
+			<div className="wp-block-button crowdsignal-forms-nps__feedback-button-wrapper">
+				<button
+					className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
+					disabled={ submitting }
+					onClick={ handleSubmit }
+					type="button"
+				>
+					{ attributes.submitButtonLabel }
+				</button>
+			</div>
+
+			{ ! attributes.hideBranding && (
+				<FooterBranding
+					message={ __(
+						'Collect your own feedback with Crowdsignal',
+						'crowdsignal-forms'
+					) }
+				/>
+			) }
 		</div>
 	);
 };

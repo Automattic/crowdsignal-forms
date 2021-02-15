@@ -6,8 +6,12 @@
 	background-color: var(--crowdsignal-forms-background-color);
 	color: var(--crowdsignal-forms-text-color);
 	height: auto;
-	padding: 32px 32px 24px 32px;
+	padding: 24px 16px;
 	position: relative;
+
+	@media screen and (min-width: 670px) {
+		padding: 32px 32px 24px 32px;
+	}
 
 	.crowdsignal-forms__footer-branding {
 		margin-top: 40px;
@@ -17,6 +21,7 @@
 .crowdsignal-forms-nps__close-button {
 	align-items: center;
 	background-color: var(--crowdsignal-forms-button-color);
+	border: 0;
 	border-radius: 20px;
 	color: var(--crowdsignal-forms-button-text-color);
 	display: flex;
@@ -26,7 +31,7 @@
 	padding: 0;
 	position: absolute;
 	right: -20px;
-	top: -20px;
+	top: -25px;
 	width: 40px;
 
 	&:hover {
@@ -47,7 +52,10 @@
 .crowdsignal-forms-nps__rating-labels {
 	display: flex;
 	flex-direction: row;
+	font-family: $font-sans-serif;
+	font-size: 14px;
 	justify-content: space-between;
+	margin-top: 8px;
 }
 
 .crowdsignal-forms-nps__rating-scale {
@@ -63,12 +71,13 @@
 	cursor: pointer;
 	display: inline-flex;
 	flex: 1;
+	font-family: $font-sans-serif;
 	font-size: 15px;
 	font-weight: 600;
 	height: 50px;
 	justify-content: center;
 	line-height: 50px;
-	margin: 0 0 0 0.7em;
+	margin: 0 0 0 0.4em;
 	padding: 0;
 	text-align: center;
 	transition: background-color 0.2s, color 0.2s;
@@ -79,13 +88,16 @@
 
 	&:hover:enabled {
 		background-color: var(--crowdsignal-forms-button-text-color);
-		border-color: var(--crowdsignal-forms-button-text-color);
 		color: var(--crowdsignal-forms-button-color);
 	}
 
 	&:disabled:not(.is-active) {
 		background-color: transparent;
 		color: var(--crowdsignal-forms-button-color);
+	}
+
+	@media screen and (min-width: 670px) {
+		margin: 0 0 0 0.7em;
 	}
 }
 
@@ -95,12 +107,17 @@
 }
 
 .crowdsignal-forms-nps__feedback-text {
+	font-size: 15px;
+	margin-top: 16px;
 	margin-bottom: 25px;
 	width: 100%;
 }
 
-.crowdsignal-forms-nps__feedback-button {
+.crowdsignal-forms-nps__feedback-button-wrapper {
 	align-self: flex-end;
+}
+
+.crowdsignal-forms-nps__feedback-button {
 	background-color: var(--crowdsignal-forms-button-color) !important;
 	color: var(--crowdsignal-forms-button-text-color) !important;
 
