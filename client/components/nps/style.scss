@@ -91,6 +91,7 @@
 	&:hover:enabled {
 		background-color: var(--crowdsignal-forms-button-text-color);
 		color: var(--crowdsignal-forms-button-color);
+		text-decoration: none;
 	}
 
 	&:disabled:not(.is-active) {
@@ -131,5 +132,6 @@
 	&:hover {
 		background-color: var(--crowdsignal-forms-button-text-color) !important;
 		color: var(--crowdsignal-forms-button-color) !important;
+		text-decoration: none;
 	}
 }
