@@ -42,6 +42,7 @@
 
 .crowdsignal-forms-nps__question {
 	margin-top: 0 !important;
+	margin-bottom: 32px !important;
 }
 
 .crowdsignal-forms-nps__rating {
@@ -80,6 +81,7 @@
 	margin: 0 0 0 0.4em;
 	padding: 0;
 	text-align: center;
+	text-decoration: none;
 	transition: background-color 0.2s, color 0.2s;
 
 	&:first-child {
@@ -107,10 +109,13 @@
 }
 
 .crowdsignal-forms-nps__feedback-text {
-	font-size: 15px;
 	margin-top: 16px;
 	margin-bottom: 25px;
 	width: 100%;
+
+	textarea {
+		font-size: var(--crowdsignal-forms-text-size);
+	}
 }
 
 .crowdsignal-forms-nps__feedback-button-wrapper {
@@ -118,8 +123,10 @@
 }
 
 .crowdsignal-forms-nps__feedback-button {
+	align-self: flex-end;
 	background-color: var(--crowdsignal-forms-button-color) !important;
 	color: var(--crowdsignal-forms-button-text-color) !important;
+	text-decoration: none;
 
 	&:hover {
 		background-color: var(--crowdsignal-forms-button-text-color) !important;
