@@ -7,13 +7,11 @@ import React, { useState } from 'react';
  * WordPress dependencies
  */
 import { TextareaControl } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import { updateNpsResponse } from 'data/nps';
-import FooterBranding from 'components/footer-branding';
 
 const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 	const [ feedback, setFeedback ] = useState( '' );
@@ -54,14 +52,6 @@ const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 			>
 				{ attributes.submitButtonLabel }
 			</button>
-			{ ! attributes.hideBranding && (
-				<FooterBranding
-					message={ __(
-						'Collect your own feedback with Crowdsignal',
-						'crowdsignal-forms'
-					) }
-				/>
-			) }
 		</div>
 	);
 };

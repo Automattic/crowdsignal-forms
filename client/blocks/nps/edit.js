@@ -239,6 +239,7 @@ const EditNpsBlock = ( props ) => {
 								</div>
 							) ) }
 						</div>
+
 						{ ! hideBranding && (
 							<FooterBranding
 								editing={ true }
@@ -289,6 +290,7 @@ const EditNpsBlock = ( props ) => {
 							value={ attributes.submitButtonLabel }
 							allowedFormats={ [] }
 						/>
+
 						{ ! hideBranding && (
 							<FooterBranding
 								editing={ true }
@@ -301,6 +303,7 @@ const EditNpsBlock = ( props ) => {
 					</div>
 				</div>
 			) }
+
 			{ renderStyleProbe() }
 		</ConnectToCrowdsignal>
 	);

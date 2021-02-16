@@ -1,6 +1,7 @@
 export const views = {
 	RATING: 'rating',
 	FEEDBACK: 'feedback',
+	SUBMIT: 'submit',
 };
 
 export const NpsStatus = Object.freeze( {

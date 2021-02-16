@@ -6,15 +6,9 @@ import classnames from 'classnames';
 import { pick, times } from 'lodash';
 
 /**
- * WordPress dependencies
- */
-import { __ } from '@wordpress/i18n';
-
-/**
  * Internal dependencies
  */
 import { updateNpsResponse } from 'data/nps';
-import FooterBranding from 'components/footer-branding';
 
 const NpsRating = ( { attributes, onFailure, onSubmit } ) => {
 	const [ selected, setSelected ] = useState( -1 );
@@ -62,14 +56,6 @@ const NpsRating = ( { attributes, onFailure, onSubmit } ) => {
 					);
 				} ) }
 			</div>
-			{ ! attributes.hideBranding && (
-				<FooterBranding
-					message={ __(
-						'Collect your own feedback with Crowdsignal',
-						'crowdsignal-forms'
-					) }
-				/>
-			) }
 		</div>
 	);
 };

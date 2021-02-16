@@ -1,18 +1,18 @@
 .crowdsignal-forms__footer-branding {
+	align-items: flex-end;
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
 	margin-top: 16px;
+	width: 100%;
 
 	img.crowdsignal-forms__footer-branding-logo {
-		width: 50px;
 		height: 50px;
-		margin-left: 0;
+		margin-left: auto;
 		margin-right: 0;
+		width: 50px;
 	}
 
 	.crowdsignal-forms__branding-promote {
+		display: inline-flex;
 		font-family: $font-sans-serif;
 		font-size: 10px;
 		text-decoration: none !important;
@@ -25,15 +25,17 @@
 		padding-left: 8px;
 		margin-left: 16px;
 		border-radius: 2px;
-		padding-top: 4px;
-		padding-bottom: 4px;
+		padding-top: 2px;
+		padding-bottom: 2px;
 		vertical-align: middle;
 	}
 }
 
 .crowdsignal-forms__footer-cs-link {
+	display: inline-flex;
 	font-family: $font-sans-serif;
 	font-size: 16px;
+	line-height: 18px;
 	text-decoration: none;
 	text-transform: uppercase;
 	vertical-align: middle;
