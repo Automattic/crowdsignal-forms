@@ -26,7 +26,6 @@ import { withFallbackStyles } from 'components/with-fallback-styles';
 import ClosedBanner from './closed-banner';
 import PollResults from './results';
 import PollVote from './vote';
-import { PollStyles, getPollStyles } from './styles';
 import { shuffleWithGenerator, loadCustomFont } from './util';
 import { usePollVote } from 'data/hooks';
 import { CrowdsignalFormsError } from 'data/poll';
@@ -209,4 +208,4 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	);
 };
 
-export default withFallbackStyles( PollStyles, getPollStyles )( Poll );
+export default withFallbackStyles( Poll );

@@ -17,7 +17,6 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import ClosedBanner from 'components/poll/closed-banner';
-import { PollStyles, getPollStyles } from 'components/poll/styles';
 import PollResults from 'components/poll/results';
 import {
 	addApiAnswerIds,
@@ -42,7 +41,7 @@ import EditBar from './edit-bar';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import PollIcon from 'components/icon/poll';
 import withPollBase from 'components/with-poll-base';
-import FooterBranding from 'components/poll/footer-branding';
+import FooterBranding from 'components/footer-branding';
 import { useAccountInfo } from 'data/hooks';
 import SignalWarning from 'components/signal-warning';
 
@@ -294,7 +293,7 @@ const PollBlock = ( props ) => {
 };
 
 export default compose( [
-	withFallbackStyles( PollStyles, getPollStyles ),
+	withFallbackStyles,
 	withPollBase,
 	withPollAndAnswerIds,
 ] )( PollBlock );

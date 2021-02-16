@@ -1,0 +1,22 @@
+.crowdsignal-forms__editor-notice {
+	margin: 0 0 15px !important;
+
+	.components-notice__content {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+}
+
+.crowdsignal-forms__editor-notice-icon {
+	line-height: 0;
+	padding: 8px 16px 8px 8px;
+}
+
+.crowdsignal-forms__editor-notice-text {
+	flex-grow: 1;
+
+	a {
+		text-decoration: underline;
+	}
+}

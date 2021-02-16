@@ -15,7 +15,6 @@ import SideBar from './sidebar';
 import withClientId from 'components/with-client-id';
 import VoteItem from 'components/vote/vote-item';
 import { withFallbackStyles } from 'components/with-fallback-styles';
-import { VoteStyles, getVoteStyles } from 'components/vote/styles';
 
 const EditVoteItemBlock = ( props ) => {
 	const { attributes, className, fallbackStyles, renderStyleProbe } = props;
@@ -39,6 +38,6 @@ const EditVoteItemBlock = ( props ) => {
 };
 
 export default compose( [
-	withFallbackStyles( VoteStyles, getVoteStyles ),
+	withFallbackStyles,
 	withClientId( [ 'answerId' ] ),
 ] )( EditVoteItemBlock );

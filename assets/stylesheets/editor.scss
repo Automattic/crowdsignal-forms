@@ -3,8 +3,9 @@
 
 // Components
 @import "components/connect-to-crowdsignal/style.scss";
-@import "components/signal-warning/style.scss";
+@import "components/editor-notice/style.scss";
 @import "components/sidebar-promote/style.scss";
+@import "components/footer-branding/style.scss";
 
 // Poll
 @import "blocks/poll/edit.scss";
@@ -19,3 +20,7 @@
 // Applause
 @import "blocks/applause/edit.scss";
 @import "components/applause/style.scss";
+
+// NPS
+@import "blocks/nps/edit.scss";
+@import "components/nps/style.scss";
