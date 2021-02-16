@@ -53,6 +53,7 @@ const getStyles = ( node ) => {
 		textColor,
 		textColorInverted: window.getComputedStyle( buttonNode ).color,
 		textFont: window.getComputedStyle( textNode ).fontFamily,
+		textSize: window.getComputedStyle( textNode ).fontSize,
 		headingFont: window.getComputedStyle( h3Node ).fontFamily,
 		contentWideWidth: window.getComputedStyle( wideContentNode ).maxWidth,
 	};
