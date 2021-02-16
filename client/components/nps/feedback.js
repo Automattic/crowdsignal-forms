@@ -54,15 +54,6 @@ const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 					{ attributes.submitButtonLabel }
 				</button>
 			</div>
-
-			{ ! attributes.hideBranding && (
-				<FooterBranding
-					message={ __(
-						'Collect your own feedback with Crowdsignal',
-						'crowdsignal-forms'
-					) }
-				/>
-			) }
 		</div>
 	);
 };
