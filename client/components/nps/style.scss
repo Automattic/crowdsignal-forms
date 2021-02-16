@@ -6,8 +6,12 @@
 	background-color: var(--crowdsignal-forms-background-color);
 	color: var(--crowdsignal-forms-text-color);
 	height: auto;
-	padding: 32px;
+	padding: 32px 32px 24px 32px;
 	position: relative;
+
+	.crowdsignal-forms__footer-branding {
+		margin-top: 40px;
+	}
 }
 
 .crowdsignal-forms-nps__close-button {
@@ -38,10 +42,6 @@
 .crowdsignal-forms-nps__rating {
 	display: flex;
 	flex-direction: column;
-
-	.crowdsignal-forms__footer-branding {
-		padding-top: 16px;
-	}
 }
 
 .crowdsignal-forms-nps__rating-labels {
@@ -92,10 +92,6 @@
 .crowdsignal-forms-nps__feedback {
 	display: flex;
 	flex-direction: column;
-
-	.crowdsignal-forms__footer-branding {
-		padding-top: 16px;
-	}
 }
 
 .crowdsignal-forms-nps__feedback-text {
