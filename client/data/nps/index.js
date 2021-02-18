@@ -55,19 +55,3 @@ export const updateNpsResponse = ( surveyId, data ) => {
 			data,
 		} )
 	);
-	// return window.fetch(
-	// 	'https://public-api.wordpress.com/crowdsignal-forms/v1/sites/155526329/nps/2601743/response?_locale=user',
-	// 	{
-	// 		headers: {
-	// 			accept: 'application/json, */*;q=0.1',
-	// 			'content-type': 'application/json',
-	// 			'x-wp-nonce': '8313ac1ea1',
-	// 		},
-	// 		referrer: 'https://dasprofilen.wordpress.com/',
-	// 		referrerPolicy: 'strict-origin-when-cross-origin',
-	// 		body: '{"nonce":"39de0f40f6","score":9}',
-	// 		method: 'POST',
-	// 		mode: 'cors',
-	// 	}
-	// );
-};
