@@ -10,6 +10,7 @@ namespace Crowdsignal_Forms\Rest_Api\Controllers;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Nps_Survey;
+use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Block\Crowdsignal_Forms_Nps_Block;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -117,7 +118,7 @@ class Nps_Controller {
 		$survey_id = $request->get_param( 'survey_id' );
 
 		if (
-			! wp_verify_nonce( $data['nonce'], 'crowdsignal-forms-nps__submit' ) ||
+			! wp_verify_nonce( $data['nonce'], Crowdsignal_Forms_Nps_Block::NONCE ) ||
 			(
 				$data['r'] &&
 				$data['checksum'] !== $this->get_response_checksum( $data['r'], $data['nonce'] )
