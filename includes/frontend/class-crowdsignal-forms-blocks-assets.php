@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Crowdsignal_Forms_Blocks_Assets {
 
+	const APIFETCH = 'crowdsignal-forms-apifetch';
 	const EDITOR = 'crowdsignal-forms-editor';
 
 	/**
@@ -34,6 +35,11 @@ class Crowdsignal_Forms_Blocks_Assets {
 		foreach ( Crowdsignal_Forms_Blocks::blocks() as $block ) {
 			$assets[ $block->asset_identifier() ] = $block->assets();
 		}
+
+		$assets[ self::APIFETCH ] = array(
+			'config' => '/build/apifetch.asset.php',
+			'script' => '/build/apifetch.js',
+		);
 
 		$assets[ self::EDITOR ] = array(
 			'config' => '/build/editor.asset.php',
