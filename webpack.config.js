@@ -7,8 +7,14 @@ const CLIENT_DIR = path.resolve( __dirname, './client' );
 function getWebpackConfig( env, argv ) {
 	const webpackConfig = getBaseWebpackConfig( env, argv );
 
+	const { outputLibraryExport } = argv;
+
 	return {
 		...webpackConfig,
+		output: {
+			...webpackConfig.output,
+			...( outputLibraryExport ? { libraryExport: outputLibraryExport } : {}),
+		},
 		resolve: {
 			...webpackConfig.resolve,
 			modules: [
