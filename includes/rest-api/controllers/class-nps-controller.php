@@ -76,6 +76,18 @@ class Nps_Controller {
 				),
 			)
 		);
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/(?P<survey_id>\d+)/nonce',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'create_nonce' ),
+					'permission_callback' => array( $this, 'create_or_update_nps_response_permissions_check' ),
+					'args'                => $this->get_nps_fetch_params(),
+				),
+			)
+		);
 	}
 
 	/**
@@ -138,6 +150,16 @@ class Nps_Controller {
 		$result['checksum'] = $this->get_response_checksum( $result['r'], $data['nonce'] );
 
 		return rest_ensure_response( $result );
+	}
+
+	/**
+	 * Desperate attempt to make this work
+	 *
+	 * @param  \WP_REST_Request $request The API Request.
+	 * @return \WP_REST_Response|WP_ERROR\
+	 */
+	public function create_nonce( $request ) {
+		return rest_ensure_response( array( 'nonce' => wp_create_nonce( 'crowdsignal-forms-nps__submit' ) ) );
 	}
 
 	/**
