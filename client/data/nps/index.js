@@ -22,29 +22,54 @@ export const updateNps = ( data ) =>
 	);
 
 export const updateNpsResponse = ( surveyId, data ) => {
-	console.log( window.csFormsSetup );
-	if ( window.csFormsSetup || window.csFormsSetup._isWpcom ) {
+	if ( window.csFormsSetup && window.csFormsSetup._isWpcom ) {
 		return window
 			.fetch(
 				'https://public-api.wordpress.com/crowdsignal-forms/v1/sites/' +
 					window.csFormsSetup._currentSiteId +
 					'/nps/' +
 					surveyId +
-					'/response?_locale=user',
+					'/nonce',
 				{
 					headers: {
 						accept: 'application/json, */*;q=0.1',
 						'content-type': 'application/json',
 						'x-wp-nonce': window.csFormsSetup._nonce,
 					},
-					referrer: window.csFormsSetup._siteUrl,
-					referrerPolicy: 'strict-origin-when-cross-origin',
-					body: JSON.stringify( data ),
-					method: 'POST',
 					mode: 'cors',
+					credentials: window.csFormsSetup._isLoggedIn
+						? 'include'
+						: 'omit',
 				}
 			)
-			.then( ( response ) => response.json() );
+			.then( ( res ) => res.json() )
+			.then( ( nonceResult ) => {
+				data.nonce = nonceResult.nonce;
+				return window
+					.fetch(
+						'https://public-api.wordpress.com/crowdsignal-forms/v1/sites/' +
+							window.csFormsSetup._currentSiteId +
+							'/nps/' +
+							surveyId +
+							'/response?_locale=user',
+						{
+							headers: {
+								accept: 'application/json, */*;q=0.1',
+								'content-type': 'application/json',
+								'x-wp-nonce': window.csFormsSetup._nonce,
+							},
+							// referrer: window.csFormsSetup._siteUrl,
+							// referrerPolicy: 'strict-origin-when-cross-origin',
+							body: JSON.stringify( data ),
+							method: 'POST',
+							mode: 'cors',
+							credentials: window.csFormsSetup._isLoggedIn
+								? 'include'
+								: 'omit',
+						}
+					)
+					.then( ( response ) => response.json() );
+			} );
 	}
 	return withRequestTimeout(
 		apiFetch( {
@@ -55,3 +80,4 @@ export const updateNpsResponse = ( surveyId, data ) => {
 			data,
 		} )
 	);
+};
