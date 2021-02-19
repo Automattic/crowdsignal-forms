@@ -88,6 +88,18 @@ class Crowdsignal_Forms_Blocks_Assets {
 				$config['version']
 			);
 		}
+
+		// REST API Requires a nonce to be present on each request for logged in users
+		if (
+			$id === self::APIFETCH &&
+			is_user_logged_in()
+		) {
+			wp_add_inline_script(
+				self::APIFETCH,
+				sprintf( "_crowdsignalFormsWpNonce='%s';", wp_create_nonce( 'wp_rest' ) ),
+				'before',
+			);
+		}
 	}
 
 	/**

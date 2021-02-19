@@ -91,4 +91,25 @@ apiFetch.use( ( { data, ...options }, next ) => {
 	} );
 } );
 
+/**
+ * Auth middleware.
+ *
+ * Detect whether the current user is logged in and if so, include credentials in the request.
+ */
+apiFetch.use( ( options, next ) => {
+	if ( ! window._crowdsignalFormsWpNonce ) {
+		return next( options );
+	}
+
+	return next( {
+		credentials: 'same-origin',
+		mode: 'same-origin',
+		...options,
+		headers: {
+			'X-WP-Nonce': window._crowdsignalFormsWpNonce,
+			...options.headers,
+		},
+	} );
+} );
+
 export default apiFetch;
