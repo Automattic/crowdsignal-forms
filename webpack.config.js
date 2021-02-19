@@ -31,7 +31,7 @@ function getWebpackConfig( env, argv ) {
 				injectPolyfill: true,
 				requestToExternal: ( request ) => {
 					if ( request === 'apifetch' ) {
-						return [ 'crowdsignalForms', 'apifetch' ];
+						return [ 'crowdsignalForms', 'apiFetch' ];
 					}
 				},
 				requestToHandle: ( request ) => {
