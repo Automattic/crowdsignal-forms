@@ -1,19 +1,20 @@
 /**
  * External dependencies
  */
+import apiFetch from '@wordpress/api-fetch';
 import { trimEnd } from 'lodash';
 
 /**
  * Internal dependencies
  */
-import apiFetch from 'apifetch';
 import { withRequestTimeout } from 'data/util';
 
-export const updateNpsResponse = ( surveyId, data ) =>
+export const updateNps = ( data ) =>
 	withRequestTimeout(
 		apiFetch( {
 			path: trimEnd(
-				`/crowdsignal-forms/v1/nps/${ surveyId || '' }/response`
+				`/crowdsignal-forms/v1/nps/${ data.surveyId || '' }`,
+				'/'
 			),
 			method: 'POST',
 			data,

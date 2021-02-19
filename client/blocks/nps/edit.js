@@ -20,7 +20,7 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import { useAutosave } from 'components/use-autosave';
 import { withFallbackStyles } from 'components/with-fallback-styles';
-import { updateNps } from 'data/nps';
+import { updateNps } from 'data/nps/edit';
 import { views } from './constants';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
