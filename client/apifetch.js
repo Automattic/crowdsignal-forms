@@ -13,7 +13,9 @@ const middlewareRegistry = [];
  */
 const run = async ( { path, ...options }, [ apply, ...middlewares ] ) => {
 	if ( ! apply ) {
-		return window.fetch( path, options );
+		const response = await window.fetch( path, options );
+
+		return response.json();
 	}
 
 	return apply(
