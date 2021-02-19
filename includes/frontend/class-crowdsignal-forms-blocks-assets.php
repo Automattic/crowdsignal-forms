@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Crowdsignal_Forms_Blocks_Assets {
 
 	const APIFETCH = 'crowdsignal-forms-apifetch';
-	const EDITOR = 'crowdsignal-forms-editor';
+	const EDITOR   = 'crowdsignal-forms-editor';
 
 	/**
 	 * Returns an array containing js and css targets
@@ -89,15 +89,15 @@ class Crowdsignal_Forms_Blocks_Assets {
 			);
 		}
 
-		// REST API Requires a nonce to be present on each request for logged in users
+		// REST API Requires a nonce to be present on each request for logged in users.
 		if (
-			$id === self::APIFETCH &&
+			self::APIFETCH === $id &&
 			is_user_logged_in()
 		) {
 			wp_add_inline_script(
 				self::APIFETCH,
 				sprintf( "_crowdsignalFormsWpNonce='%s';", wp_create_nonce( 'wp_rest' ) ),
-				'before',
+				'before'
 			);
 		}
 	}

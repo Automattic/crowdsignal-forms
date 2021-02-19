@@ -97,7 +97,7 @@ apiFetch.use( ( { data, ...options }, next ) => {
  * Detect whether the current user is logged in and if so, include credentials in the request.
  */
 apiFetch.use( ( options, next ) => {
-	if ( ! window._crowdsignalFormsWpNonce ) {
+	if ( ! window._crowdsignalFormsWpNonce ) {
 		return next( options );
 	}
 
