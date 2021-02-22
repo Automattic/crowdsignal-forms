@@ -16,6 +16,7 @@ install-php:
 # Build the frontend client
 client:
 	npm run build:styles
+	npm run build:apifetch
 	npm run build:editor
 	npm run build:poll
 	npm run build:vote

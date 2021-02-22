@@ -20,7 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Crowdsignal_Forms_Blocks_Assets {
 
-	const EDITOR = 'crowdsignal-forms-editor';
+	const APIFETCH = 'crowdsignal-forms-apifetch';
+	const EDITOR   = 'crowdsignal-forms-editor';
 
 	/**
 	 * Returns an array containing js and css targets
@@ -34,6 +35,11 @@ class Crowdsignal_Forms_Blocks_Assets {
 		foreach ( Crowdsignal_Forms_Blocks::blocks() as $block ) {
 			$assets[ $block->asset_identifier() ] = $block->assets();
 		}
+
+		$assets[ self::APIFETCH ] = array(
+			'config' => '/build/apifetch.asset.php',
+			'script' => '/build/apifetch.js',
+		);
 
 		$assets[ self::EDITOR ] = array(
 			'config' => '/build/editor.asset.php',
@@ -80,6 +86,18 @@ class Crowdsignal_Forms_Blocks_Assets {
 				$this->url_path( $paths['style'] ),
 				array( 'wp-components' ),
 				$config['version']
+			);
+		}
+
+		// REST API Requires a nonce to be present on each request for logged in users.
+		if (
+			self::APIFETCH === $id &&
+			is_user_logged_in()
+		) {
+			wp_add_inline_script(
+				self::APIFETCH,
+				sprintf( "_crowdsignalFormsWpNonce='%s';", wp_create_nonce( 'wp_rest' ) ),
+				'before'
 			);
 		}
 	}
