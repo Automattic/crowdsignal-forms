@@ -30,13 +30,13 @@ function getWebpackConfig( env, argv ) {
 			new DependencyExtractionWebpackPlugin( {
 				injectPolyfill: true,
 				requestToExternal: ( request ) => {
-					if ( request === 'apifetch' ) {
+					if ( request === '@crowdsignalForms/apifetch' ) {
 						return [ 'crowdsignalForms', 'apiFetch' ];
 					}
 				},
 				requestToHandle: ( request ) => {
-					// These handles must match the names defined in class-crowdsignal-forms-blocks-assets.php
-					if ( request === 'apifetch' ) {
+					// These values must match the names defined in class-crowdsignal-forms-blocks-assets.php
+					if ( request === '@crowdsignalForms/apifetch' ) {
 						return 'crowdsignal-forms-apifetch';
 					}
 				},

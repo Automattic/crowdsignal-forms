@@ -4,7 +4,7 @@
 	"description": "Crowdsignal powered forms for WordPress",
 	"main": "index.js",
 	"scripts": {
-		"build:apifetch": "calypso-build --env.WP --output-path='./build' --output-library=crowdsignalForms --output-library=apiFetch --output-library-export=default apifetch=./client/apifetch.js",
+		"build:apifetch": "calypso-build --env.WP --output-path='./build' --output-library=crowdsignalForms --output-library=apiFetch --output-library-export=default apifetch=./client/apifetch/index.js",
 		"build:editor": "calypso-build --env.WP --output-path='./build' editor=./client/editor.js",
 		"build:poll": "calypso-build --env.WP --output-path='./build' poll=./client/poll.js",
 		"build:vote": "calypso-build --env.WP --output-path='./build' vote=./client/vote.js",

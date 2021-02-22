@@ -6,7 +6,7 @@ import { trimEnd } from 'lodash';
 /**
  * Internal dependencies
  */
-import apiFetch from 'apifetch';
+import apiFetch from '@crowdsignalForms/apifetch';
 import { withRequestTimeout } from 'data/util';
 
 export const updateNpsResponse = ( surveyId, data ) =>
