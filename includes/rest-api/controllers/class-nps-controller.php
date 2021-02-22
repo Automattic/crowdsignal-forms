@@ -10,6 +10,7 @@ namespace Crowdsignal_Forms\Rest_Api\Controllers;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Nps_Survey;
+use Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Nps_Block;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -116,8 +117,16 @@ class Nps_Controller {
 		$data      = $request->get_json_params();
 		$survey_id = $request->get_param( 'survey_id' );
 
+		// store the logged in user ID.
+		$actual_user_id = wp_get_current_user()->ID;
+
+		// temporarily set user ID to 0 so we create a consistent nonce.
+		wp_set_current_user( 0 );
+		$verifies = wp_verify_nonce( $data['nonce'], Crowdsignal_Forms_Nps_Block::NONCE );
+		wp_set_current_user( $actual_user_id );
+
 		if (
-			! wp_verify_nonce( $data['nonce'], 'crowdsignal-forms-nps__submit' ) ||
+			! $verifies ||
 			(
 				$data['r'] &&
 				$data['checksum'] !== $this->get_response_checksum( $data['r'], $data['nonce'] )

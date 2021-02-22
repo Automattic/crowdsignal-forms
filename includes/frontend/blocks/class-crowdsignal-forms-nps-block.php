@@ -80,7 +80,13 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
 		$attributes['isPreview']    = is_preview();
-		$attributes['nonce']        = wp_create_nonce( self::NONCE );
+
+		// store the logged in user ID.
+		$actual_user_id = wp_get_current_user()->ID;
+		// temporarily set user ID to 0 so we create a consistent nonce.
+		wp_set_current_user( 0 );
+		$attributes['nonce'] = wp_create_nonce( self::NONCE );
+		wp_set_current_user( $actual_user_id );
 
 		return sprintf(
 			'<div class="crowdsignal-nps-wrapper" data-crowdsignal-nps="%s"></div>',
