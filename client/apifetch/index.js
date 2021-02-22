@@ -6,12 +6,7 @@ import { findIndex, forEach } from 'lodash';
 /**
  * Internal dependencies
  */
-import {
-	defaultHeaders,
-	formatURL,
-	formatRequest,
-	wpAuth,
-} from './middleware';
+import { defaultHeaders, formatURL, formatRequest, wpAuth } from './middleware';
 
 /**
  * Middlewares to be applied to the apiFetch call.

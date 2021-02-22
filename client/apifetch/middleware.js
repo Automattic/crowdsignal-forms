@@ -3,7 +3,7 @@
  *
  * @param  {Object}   options Request options
  * @param  {Function} next    Next middleware
- * @return {Promise}
+ * @return {Promise}          Request promsie
  */
 export const formatURL = ( options, next ) => {
 	if ( options.path.indexOf( '/crowdsignal-forms/v1' ) === 0 ) {
@@ -18,7 +18,7 @@ export const formatURL = ( options, next ) => {
  *
  * @param  {Object}   options Request options
  * @param  {Function} next    Next middleware
- * @param  {Promise}
+ * @return {Promise}          Request promsie
  */
 export const defaultHeaders = ( options, next ) => {
 	const headers = options.headers || {};
@@ -42,7 +42,7 @@ export const defaultHeaders = ( options, next ) => {
  * @param  {Object}   options      Request options
  * @param  {Object}   options.data Request data
  * @param  {Function} next         Next middleware
- * @param  {Promise}
+ * @return {Promise}               Request promsie
  */
 export const formatRequest = ( { data, ...options }, next ) => {
 	if ( ! data ) {
@@ -65,7 +65,7 @@ export const formatRequest = ( { data, ...options }, next ) => {
  *
  * @param  {Object}   options Request options
  * @param  {Function} next    Next middleware
- * @param  {Promise}
+ * @return {Promise}          Request promsie
  */
 export const wpAuth = ( options, next ) => {
 	if ( ! window._crowdsignalFormsWpNonce ) {
