@@ -163,13 +163,23 @@ const EditNpsBlock = ( props ) => {
 				<EditorNotice
 					isDismissible={ false }
 					icon="visibility"
-					actions={ [
-						{
-							label: __( 'Preview', 'crowdsignal-forms' ),
-							onClick: () =>
-								window.open( postPreviewLink, 'blank' ),
-						},
-					] }
+					actions={
+						attributes.surveyId
+							? [
+									{
+										label: __(
+											'Preview',
+											'crowdsignal-forms'
+										),
+										onClick: () =>
+											window.open(
+												postPreviewLink,
+												'blank'
+											),
+									},
+							  ]
+							: []
+					}
 				>
 					{ sprintf(
 						// translators: %d: number of pageviews

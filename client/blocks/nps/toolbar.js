@@ -76,6 +76,7 @@ const PollToolbar = ( {
 									value={ attributes.viewThreshold }
 									onChange={ handleChangeViewThreshold }
 									type="number"
+									min="1"
 								/>
 							</div>
 						</Popover>
