@@ -117,13 +117,7 @@ class Nps_Controller {
 		$data      = $request->get_json_params();
 		$survey_id = $request->get_param( 'survey_id' );
 
-		// store the logged in user ID.
-		$actual_user_id = wp_get_current_user()->ID;
-
-		// temporarily set user ID to 0 so we create a consistent nonce.
-		wp_set_current_user( 0 );
 		$verifies = wp_verify_nonce( $data['nonce'], Crowdsignal_Forms_Nps_Block::NONCE );
-		wp_set_current_user( $actual_user_id );
 
 		if (
 			! $verifies ||
