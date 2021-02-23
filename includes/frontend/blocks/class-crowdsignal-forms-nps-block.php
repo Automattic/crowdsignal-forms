@@ -184,12 +184,31 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	 * The nonce creation is first attempted through crowdsignal_forms_nps_nonce filter.
 	 *
 	 * @since [next-version-number]
+	 * @return string
 	 */
 	private function create_nonce() {
 		$nonce = apply_filters( 'crowdsignal_forms_nps_nonce', self::NONCE );
-		if ( empty( $nonce ) ) {
+
+		if ( self::NONCE === $nonce ) { // returned unfiltered.
 			$nonce = wp_create_nonce( self::NONCE );
 		}
 		return $nonce;
+	}
+
+	/**
+	 * Verifies a nonce based on the NONCE.
+	 * The nonce creation is first attempted through crowdsignal_forms_nps_nonce filter.
+	 *
+	 * @since [next-version-number]
+	 * @param string $nonce
+	 * @return bool
+	 */
+	public static function verify_nonce( $nonce ) {
+		$verifies = apply_filters( 'crowdsignal_forms_nps_nonce_check', $nonce, self::NONCE );
+
+		if ( $verifies === $nonce ) { // returned unfiltered.
+			$verifies = wp_verify_nonce( $nonce, self::NONCE );
+		}
+		return $verifies;
 	}
 }

@@ -117,7 +117,7 @@ class Nps_Controller {
 		$data      = $request->get_json_params();
 		$survey_id = $request->get_param( 'survey_id' );
 
-		$verifies = wp_verify_nonce( $data['nonce'], Crowdsignal_Forms_Nps_Block::NONCE );
+		$verifies = Crowdsignal_Forms_Nps_Block::verify_nonce( $data['nonce'] );
 
 		if (
 			! $verifies ||
