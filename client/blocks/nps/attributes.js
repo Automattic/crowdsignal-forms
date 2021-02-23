@@ -73,7 +73,7 @@ export default {
 	},
 	viewThreshold: {
 		type: 'string',
-		default: 3,
+		default: 2,
 	},
 	status: {
 		type: 'string',
