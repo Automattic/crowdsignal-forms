@@ -68,6 +68,7 @@
 .crowdsignal-forms-nps__rating-button {
 	background-color: var(--crowdsignal-forms-button-color);
 	border: 1px solid var(--crowdsignal-forms-button-color);
+	border-radius: 2px;
 	color: var(--crowdsignal-forms-button-text-color);
 	cursor: pointer;
 	display: inline-flex;
@@ -126,6 +127,7 @@
 .crowdsignal-forms-nps__feedback-button {
 	align-self: flex-end;
 	background-color: var(--crowdsignal-forms-button-color) !important;
+	border: 1px solid var(--crowdsignal-forms-button-color);
 	color: var(--crowdsignal-forms-button-text-color) !important;
 	text-decoration: none;
 
