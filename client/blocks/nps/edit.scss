@@ -12,6 +12,25 @@
 
 .crowdsignal-forms-nps__toolbar-popover {
 	padding: 15px;
+	min-width: 280px;
+
+	.components-base-control__field {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		margin-bottom: 0;
+	}
+
+	.components-base-control__label {
+		display: block;
+		flex-grow: 1;
+		line-height: 30px;
+		margin-bottom: 0;
+	}
+
+	.components-text-control__input {
+		width: 5em;
+	}
 }
 
 .crowdsignal-forms-nps__toolbar-popover-button svg {
