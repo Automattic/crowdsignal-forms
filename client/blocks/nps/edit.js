@@ -282,14 +282,16 @@ const EditNpsBlock = ( props ) => {
 							value={ attributes.feedbackPlaceholder }
 						/>
 
-						<RichText
-							className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
-							onChange={ handleChangeAttribute(
-								'submitButtonLabel'
-							) }
-							value={ attributes.submitButtonLabel }
-							allowedFormats={ [] }
-						/>
+						<div className="wp-block-button crowdsignal-forms-nps__feedback-button-wrapper">
+							<RichText
+								className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
+								onChange={ handleChangeAttribute(
+									'submitButtonLabel'
+								) }
+								value={ attributes.submitButtonLabel }
+								allowedFormats={ [] }
+							/>
+						</div>
 
 						{ ! hideBranding && (
 							<FooterBranding
