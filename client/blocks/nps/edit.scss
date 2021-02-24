@@ -33,8 +33,14 @@
 	}
 }
 
-.crowdsignal-forms-nps__toolbar-popover-button svg {
-	margin-right: 0 !important;
+.crowdsignal-forms-nps__toolbar-popover-button {
+	svg {
+		margin-right: 0 !important;
+	}
+
+	&.components-button.has-icon .dashicon {
+		margin-right: 0;
+	}
 }
 
 .crowdsignal-forms-nps__rating-button:hover {
