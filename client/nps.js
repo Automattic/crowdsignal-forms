@@ -44,12 +44,6 @@ window.addEventListener( 'load', () =>
 
 					window.localStorage.setItem( key, viewCount );
 
-					// eslint-disable-next-line no-console
-					console.log(
-						`NPS block: Current view count: ${ viewCount }. Threshold: ${ viewThreshold }.` +
-							`Use "localStorage.setItem( '${ key }', 0 );" to reset the counter.`
-					);
-
 					if ( viewCount !== viewThreshold ) {
 						return;
 					}
