@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.3.5
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,10 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+= 1.4.0 =
+* Add NPS block
+* Fixed redirect logic for the poll block
+
 = 1.3.5 =
 * Show branding on editor and a message when free signals are exhausted (#11)
 * Remove redirect URL feature (#12)
@@ -110,8 +114,8 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Upgrade Notice ==
 
-= 1.3.5 =
-Stability and security fixes. Please update.
+= 1.4.0 =
+Introduce new NPS block
 
 = 0.9 =
 Initial release

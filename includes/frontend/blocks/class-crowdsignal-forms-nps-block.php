@@ -183,7 +183,7 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	 * Returns a nonce based on the NONCE.
 	 * The nonce creation is first attempted through crowdsignal_forms_nps_nonce filter.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.4.0
 	 * @return string
 	 */
 	private function create_nonce() {
@@ -199,7 +199,7 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	 * Verifies a nonce based on the NONCE.
 	 * The nonce creation is first attempted through crowdsignal_forms_nps_nonce filter.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.4.0
 	 * @param string $nonce
 	 * @return bool
 	 */

@@ -52,7 +52,7 @@ class Nps_Survey {
 	/**
 	 * Permalink URL where the NPS is published.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.4.0
 	 * @var string
 	 */
 	private $source_link = '';
