@@ -81,10 +81,7 @@ const Sidebar = ( {
 				</p>
 
 				<TextControl
-					label={ __(
-						'Title of the NPS block',
-						'crowdsignal-forms'
-					) }
+					label={ __( 'Title (optional)', 'crowdsignal-forms' ) }
 					onChange={ handleChangeTitle }
 					value={ decodeEntities(
 						attributes.title ?? attributes.ratingQuestion
