@@ -21,7 +21,7 @@ import usePollDuplicateCleaner from 'components/use-poll-duplicate-cleaner';
 
 startSubscriptions();
 
-const isP2tenberg = () => 'p2tenberg' in window;
+const isP2tenberg = () => 'p2tenberg' in window || 'p2editor' in window;
 
 const withPollBase = ( Element ) => {
 	return ( props ) => {
