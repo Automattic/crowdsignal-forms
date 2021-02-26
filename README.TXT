@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.3.5
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,10 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+= 1.4.3 =
+* Add NPS block
+* Fixed redirect logic for the poll block
+
 = 1.3.5 =
 * Show branding on editor and a message when free signals are exhausted (#11)
 * Remove redirect URL feature (#12)
@@ -81,37 +85,10 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Use default theme font for Applause count (#3)
 * Fix applause branding styles (#4)
 
-= 1.3.0 =
-* Track vote to be able to tell when user has already "clapped" (#355)
-* Fix undefined warnings (#349)
-* Fix applause icon sizes (#352)
-* Update hover effects  (#353)
-* Fixes for missing vote props (#348)
-* Update Applause block meta (#341)
-* Make disabled state not react to hover nor click (#345)
-* Fix block paddings (#346)
-* Add border controls for applause block (#344)
-* Update composer libs (#347)
-* Pass required attribute to vote-item component (#343)
-* Add correct applause icon & animation (#337)
-* Update/referral link applause block (#333)
-* Update applause count parameter (#331)
-* Make clap text and count not selectable (#327)
-* Allow the colours of the applause block to be changed (#322)
-* Add branding to Applause Block (#326)
-* Display the applause claps from the API (#325)
-* Queue Claps On Click (#324)
-* Check for applause block when deciding if a poll block
-* Add close status to sidebar and close visual effect.
-* Add/block sizes (#316)
-* Add a thumbs up icon (placeholder) and some margin around it.
-* add support for syncing applause block type to crowdsignal (#318)
-* Add skeleton of applause block (#314)
-
 == Upgrade Notice ==
 
-= 1.3.5 =
-Stability and security fixes. Please update.
+= 1.4.3 =
+Introduce new NPS block
 
 = 0.9 =
 Initial release
