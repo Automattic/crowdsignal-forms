@@ -94,7 +94,7 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	 * @return bool
 	 */
 	private function should_hide_block() {
-		return ! $this->is_cs_connected() || ! is_single();
+		return ! $this->is_cs_connected() || ! is_singular();
 	}
 
 	/**
