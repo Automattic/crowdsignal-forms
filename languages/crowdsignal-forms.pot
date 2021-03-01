@@ -1,15 +1,15 @@
-# Copyright (C) 2020 Automattic
+# Copyright (C) 2021 Automattic
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Crowdsignal Forms 1.3.5\n"
+"Project-Id-Version: Crowdsignal Forms 1.4.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/crowdsignal-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-28T21:46:24+00:00\n"
+"POT-Creation-Date: 2021-02-26T19:31:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0-alpha-59d879d\n"
 "X-Domain: crowdsignal-forms\n"
@@ -43,12 +43,13 @@ msgid "You don&#8217;t have permission to do this."
 msgstr ""
 
 #: includes/admin/class-crowdsignal-forms-admin.php:70
-#: includes/class-crowdsignal-forms.php:419
+#: includes/class-crowdsignal-forms.php:429
 msgid "Crowdsignal"
 msgstr ""
 
 #: includes/admin/class-crowdsignal-forms-admin.php:71
 #: includes/admin/class-crowdsignal-forms-admin.php:86
+#: client/blocks/nps/sidebar.js:121
 msgid "Settings"
 msgstr ""
 
@@ -181,7 +182,34 @@ msgstr ""
 msgid "<a href=\"%1s\" target=\"_blank\">Read more about us here.</a>"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:153
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:121
+#: client/blocks/nps/attributes.js:28
+msgid "Please help us understand your rating"
+msgstr ""
+
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:128
+#: client/blocks/nps/attributes.js:35
+msgid "Thanks so much for your response! How could we do better?"
+msgstr ""
+
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:139
+#: client/blocks/nps/attributes.js:46
+msgid "Extremely likely"
+msgstr ""
+
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:143
+#: client/blocks/nps/attributes.js:50
+msgid "Not likely at all"
+msgstr ""
+
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:147
+#: client/blocks/nps/attributes.js:54
+msgid "How likely is it that you would recommend this project to a friend or colleague?"
+msgstr ""
+
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:154
+#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:155
+#: client/blocks/nps/attributes.js:61
 #: client/blocks/poll/attributes.js:62
 msgid "Submit"
 msgstr ""
@@ -257,6 +285,7 @@ msgid "clap"
 msgstr ""
 
 #: client/blocks/applause/index.js:26
+#: client/blocks/nps/index.js:32
 #: client/blocks/poll/index.js:24
 #: client/blocks/vote/index.js:31
 msgid "feedback"
@@ -272,6 +301,7 @@ msgid "like"
 msgstr ""
 
 #: client/blocks/applause/index.js:29
+#: client/blocks/nps/index.js:37
 #: client/blocks/poll/index.js:26
 #: client/blocks/vote/index.js:35
 msgid "opinion"
@@ -282,6 +312,7 @@ msgid "praise"
 msgstr ""
 
 #: client/blocks/applause/index.js:31
+#: client/blocks/nps/index.js:41
 #: client/blocks/vote/index.js:39
 msgid "rating"
 msgstr ""
@@ -304,12 +335,14 @@ msgid "voting"
 msgstr ""
 
 #: client/blocks/applause/sidebar.js:72
+#: client/blocks/nps/sidebar.js:52
 #: client/blocks/poll/sidebar.js:160
 #: client/blocks/vote/sidebar.js:63
 msgid "Results"
 msgstr ""
 
 #: client/blocks/applause/sidebar.js:77
+#: client/blocks/nps/sidebar.js:57
 #: client/blocks/poll/sidebar.js:165
 #: client/blocks/vote/sidebar.js:68
 msgid "Manage results on "
@@ -322,6 +355,7 @@ msgid "Publish this post to enable results on "
 msgstr ""
 
 #: client/blocks/applause/sidebar.js:99
+#: client/blocks/nps/sidebar.js:79
 #: client/blocks/poll/sidebar.js:187
 #: client/blocks/vote/sidebar.js:90
 msgid "View results"
@@ -332,6 +366,7 @@ msgid "Title of the applause block"
 msgstr ""
 
 #: client/blocks/applause/sidebar.js:115
+#: client/blocks/nps/sidebar.js:126
 #: client/blocks/vote/sidebar.js:106
 msgid "Status"
 msgstr ""
@@ -343,18 +378,21 @@ msgid "Currently"
 msgstr ""
 
 #: client/blocks/applause/sidebar.js:121
+#: client/blocks/nps/sidebar.js:129
 #: client/blocks/poll/sidebar.js:275
 #: client/blocks/vote/sidebar.js:112
 msgid "Open"
 msgstr ""
 
 #: client/blocks/applause/sidebar.js:125
+#: client/blocks/nps/sidebar.js:133
 #: client/blocks/poll/sidebar.js:279
 #: client/blocks/vote/sidebar.js:116
 msgid "Closed after"
 msgstr ""
 
 #: client/blocks/applause/sidebar.js:129
+#: client/blocks/nps/sidebar.js:137
 #: client/blocks/poll/sidebar.js:283
 #: client/blocks/vote/sidebar.js:120
 msgid "Closed"
@@ -370,6 +408,7 @@ msgid "Styling"
 msgstr ""
 
 #: client/blocks/applause/sidebar.js:154
+#: client/blocks/nps/sidebar.js:104
 #: client/blocks/poll/sidebar.js:337
 #: client/blocks/poll/sidebar.js:521
 #: client/blocks/vote-item/sidebar.js:30
@@ -377,6 +416,7 @@ msgid "Text color"
 msgstr ""
 
 #: client/blocks/applause/sidebar.js:159
+#: client/blocks/nps/sidebar.js:99
 #: client/blocks/poll/sidebar.js:342
 #: client/blocks/poll/sidebar.js:526
 #: client/blocks/vote-item/sidebar.js:35
@@ -406,6 +446,183 @@ msgstr ""
 msgid "Corner radius"
 msgstr ""
 
+#: client/blocks/nps/edit.js:129
+msgid "Crowdsignal NPS"
+msgstr ""
+
+#: client/blocks/nps/edit.js:150
+msgid "Retry"
+msgstr ""
+
+#: client/blocks/nps/edit.js:170
+msgid "Preview"
+msgstr ""
+
+#. translators: %d: number of pageviews
+#: client/blocks/nps/edit.js:186
+msgid "This block will appear as a popup window to people who have visited this page at least %d time."
+msgid_plural "This block will appear as a popup window to people who have visited this page at least %d times."
+msgstr[0] ""
+msgstr[1] ""
+
+#: client/blocks/nps/edit.js:205
+msgid "Enter your rating question"
+msgstr ""
+
+#: client/blocks/nps/edit.js:218
+msgid "Not likely"
+msgstr ""
+
+#: client/blocks/nps/edit.js:230
+msgid "Very likely"
+msgstr ""
+
+#: client/blocks/nps/edit.js:256
+#: client/blocks/nps/edit.js:309
+#: client/components/nps/index.js:91
+msgid "Collect your own feedback with Crowdsignal"
+msgstr ""
+
+#: client/blocks/nps/edit.js:275
+msgid "Enter your feedback question"
+msgstr ""
+
+#: client/blocks/nps/index.js:14
+msgid "Measure NPS"
+msgstr ""
+
+#: client/blocks/nps/index.js:15
+msgid "Calculate your Net Promoter Score! Collect feedback and track customer satisfaction over time. — powered by Crowdsignal."
+msgstr ""
+
+#: client/blocks/nps/index.js:27
+#: client/blocks/poll/index.js:22
+msgid "ask"
+msgstr ""
+
+#: client/blocks/nps/index.js:29
+msgid "CSAT"
+msgstr ""
+
+#: client/blocks/nps/index.js:30
+msgid "customer experience"
+msgstr ""
+
+#: client/blocks/nps/index.js:31
+msgid "customer satisfaction"
+msgstr ""
+
+#: client/blocks/nps/index.js:33
+#: client/blocks/poll/index.js:25
+#: client/blocks/vote/index.js:32
+msgid "form"
+msgstr ""
+
+#: client/blocks/nps/index.js:34
+msgid "loyalty"
+msgstr ""
+
+#: client/blocks/nps/index.js:35
+msgid "net promoter score"
+msgstr ""
+
+#: client/blocks/nps/index.js:36
+msgid "nps"
+msgstr ""
+
+#: client/blocks/nps/index.js:38
+#: client/blocks/poll/index.js:27
+#: client/blocks/vote/index.js:36
+msgid "poll"
+msgstr ""
+
+#: client/blocks/nps/index.js:39
+msgid "promoter"
+msgstr ""
+
+#: client/blocks/nps/index.js:40
+#: client/blocks/poll/index.js:31
+#: client/blocks/vote/index.js:40
+msgid "research"
+msgstr ""
+
+#: client/blocks/nps/index.js:42
+msgid "review"
+msgstr ""
+
+#: client/blocks/nps/index.js:43
+msgid "score"
+msgstr ""
+
+#: client/blocks/nps/index.js:44
+#: client/blocks/poll/index.js:32
+#: client/blocks/vote/index.js:41
+msgid "survey"
+msgstr ""
+
+#: client/blocks/nps/index.js:49
+msgid "How satisfied are you with the content of the site?"
+msgstr ""
+
+#: client/blocks/nps/index.js:53
+msgid "Any advise on how we could improve your experience?"
+msgstr ""
+
+#: client/blocks/nps/index.js:57
+msgid "Not satisfied"
+msgstr ""
+
+#: client/blocks/nps/index.js:58
+msgid "Very satisfied"
+msgstr ""
+
+#: client/blocks/nps/sidebar.js:58
+msgid "Save the block to track results on "
+msgstr ""
+
+#: client/blocks/nps/sidebar.js:84
+msgid "Title (optional)"
+msgstr ""
+
+#: client/blocks/nps/sidebar.js:95
+#: client/blocks/poll/sidebar.js:331
+msgid "Block styling"
+msgstr ""
+
+#: client/blocks/nps/sidebar.js:109
+msgid "Button color"
+msgstr ""
+
+#: client/blocks/nps/sidebar.js:114
+msgid "Button text color"
+msgstr ""
+
+#: client/blocks/nps/sidebar.js:159
+msgid "Close on"
+msgstr ""
+
+#: client/blocks/nps/toolbar.js:43
+msgid "Current view"
+msgstr ""
+
+#: client/blocks/nps/toolbar.js:47
+#: client/blocks/nps/toolbar.js:50
+msgid "Rating"
+msgstr ""
+
+#: client/blocks/nps/toolbar.js:55
+#: client/blocks/nps/toolbar.js:58
+msgid "Feedback"
+msgstr ""
+
+#: client/blocks/nps/toolbar.js:65
+msgid "Set view threshold"
+msgstr ""
+
+#: client/blocks/nps/toolbar.js:72
+msgid "Show this block after n visits:"
+msgstr ""
+
 #: client/blocks/poll/edit-answer.js:53
 #: client/blocks/poll/edit-answer.js:71
 #: client/blocks/poll/edit-answer.js:83
@@ -421,17 +638,17 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: client/blocks/poll/edit.js:162
+#: client/blocks/poll/edit.js:161
 msgid "Crowdsignal Poll"
 msgstr ""
 
-#: client/blocks/poll/edit.js:210
-#: client/blocks/poll/edit.js:222
+#: client/blocks/poll/edit.js:209
+#: client/blocks/poll/edit.js:221
 msgid "Enter your question"
 msgstr ""
 
-#: client/blocks/poll/edit.js:234
-#: client/blocks/poll/edit.js:246
+#: client/blocks/poll/edit.js:233
+#: client/blocks/poll/edit.js:245
 msgid "Add a note (optional)"
 msgstr ""
 
@@ -441,20 +658,6 @@ msgstr ""
 
 #: client/blocks/poll/index.js:16
 msgid "Create polls and get your audience’s opinion — powered by Crowdsignal."
-msgstr ""
-
-#: client/blocks/poll/index.js:22
-msgid "ask"
-msgstr ""
-
-#: client/blocks/poll/index.js:25
-#: client/blocks/vote/index.js:32
-msgid "form"
-msgstr ""
-
-#: client/blocks/poll/index.js:27
-#: client/blocks/vote/index.js:36
-msgid "poll"
 msgstr ""
 
 #: client/blocks/poll/index.js:28
@@ -467,16 +670,6 @@ msgstr ""
 
 #: client/blocks/poll/index.js:30
 msgid "quiz"
-msgstr ""
-
-#: client/blocks/poll/index.js:31
-#: client/blocks/vote/index.js:40
-msgid "research"
-msgstr ""
-
-#: client/blocks/poll/index.js:32
-#: client/blocks/vote/index.js:41
-msgid "survey"
 msgstr ""
 
 #: client/blocks/poll/index.js:33
@@ -562,10 +755,6 @@ msgstr ""
 msgid "Hide poll"
 msgstr ""
 
-#: client/blocks/poll/sidebar.js:331
-msgid "Block styling"
-msgstr ""
-
 #: client/blocks/poll/sidebar.js:359
 msgid "Choose font"
 msgstr ""
@@ -622,7 +811,7 @@ msgstr ""
 msgid "Choose multiple answers"
 msgstr ""
 
-#: client/blocks/poll/util.js:201
+#: client/blocks/poll/util.js:203
 msgid "Buttons"
 msgstr ""
 
@@ -735,6 +924,18 @@ msgstr ""
 msgid "Verify or Change your Email Address"
 msgstr ""
 
+#: client/components/footer-branding/index.js:33
+msgid "Create your own poll with Crowdsignal"
+msgstr ""
+
+#: client/components/footer-branding/index.js:47
+msgid "Hide"
+msgstr ""
+
+#: client/components/nps/index.js:44
+msgid "Thanks so much for your feedback!"
+msgstr ""
+
 #. translators: %s: Number of votes.
 #: client/components/poll/answer-results.js:39
 msgid "%s vote"
@@ -754,15 +955,7 @@ msgstr ""
 msgid "Thanks For Voting!"
 msgstr ""
 
-#: client/components/poll/footer-branding.js:33
-msgid "Create your own poll with Crowdsignal"
-msgstr ""
-
-#: client/components/poll/footer-branding.js:46
-msgid "Hide"
-msgstr ""
-
-#: client/components/poll/index.js:71
+#: client/components/poll/index.js:70
 #: client/data/poll/index.js:90
 msgid "Server error. Please try again."
 msgstr ""
@@ -794,14 +987,14 @@ msgstr ""
 msgid "unlimited signals"
 msgstr ""
 
-#: client/components/signal-warning/index.js:19
+#: client/components/signal-warning/index.js:20
 msgid "Your free Crowdsignal account has exceeded "
 msgstr ""
 
-#: client/components/signal-warning/index.js:24
+#: client/components/signal-warning/index.js:25
 msgid "the limit of 2500 signals."
 msgstr ""
 
-#: client/components/signal-warning/index.js:29
+#: client/components/signal-warning/index.js:30
 msgid "Please upgrade."
 msgstr ""
