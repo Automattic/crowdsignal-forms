@@ -378,7 +378,9 @@ class Api_Gateway implements Api_Gateway_Interface {
 		$headers = apply_filters(
 			'crowdsignal_forms_api_request_headers',
 			array(
-				'content-type' => 'application/json',
+				'content-type'    => 'application/json',
+				'user-agent'      => ! empty( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : 'unknown',
+				'x-forwarded-for' => ! empty( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
 			)
 		);
 
