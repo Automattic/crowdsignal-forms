@@ -224,6 +224,8 @@ const EditNpsBlock = ( props ) => {
 								) }
 								value={ attributes.lowRatingLabel }
 								allowedFormats={ [] }
+								multiline={ false }
+								disableLineBreaks={ true }
 							/>
 							<RichText
 								tagName="span"
@@ -236,6 +238,8 @@ const EditNpsBlock = ( props ) => {
 								) }
 								value={ attributes.highRatingLabel }
 								allowedFormats={ [] }
+								multiline={ false }
+								disableLineBreaks={ true }
 							/>
 						</div>
 
@@ -300,6 +304,8 @@ const EditNpsBlock = ( props ) => {
 								) }
 								value={ attributes.submitButtonLabel }
 								allowedFormats={ [] }
+								multiline={ false }
+								disableLineBreaks={ true }
 							/>
 						</div>
 
