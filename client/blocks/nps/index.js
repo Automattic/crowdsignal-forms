@@ -20,6 +20,8 @@ export default {
 	attributes,
 	supports: {
 		multiple: false,
+		html: false,
+		reusable: false,
 	},
 	icon: <NpsIcon />,
 	edit,
