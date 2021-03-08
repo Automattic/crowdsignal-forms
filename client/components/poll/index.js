@@ -164,9 +164,11 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 				/>
 
 				{ attributes.note && (
-					<p className="crowdsignal-forms-poll__note">
-						{ decodeEntities( attributes.note ) }
-					</p>
+					<RichText.Content
+						className="crowdsignal-forms-poll__note"
+						tagName="div"
+						value={ decodeEntities( attributes.note ) }
+					/>
 				) }
 
 				{ ! showResults && (

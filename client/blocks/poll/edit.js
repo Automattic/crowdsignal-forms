@@ -240,14 +240,15 @@ const PollBlock = ( props ) => {
 									allowedFormats={ [] }
 								/>
 							) : (
-								<p className="crowdsignal-forms-poll__note">
-									{ attributes.note
-										? decodeEntities( attributes.note )
-										: __(
-												'Add a note (optional)',
-												'crowdsignal-forms'
-										  ) }
-								</p>
+								<RichText.Content
+									tagName="div"
+									className="crowdsignal-forms-poll__note"
+									placeholder={ __(
+										'Add a note (optional)',
+										'crowdsignal-forms'
+									) }
+									value={ decodeEntities( attributes.note ) }
+								/>
 							) ) }
 
 						{ ! showResults && (
