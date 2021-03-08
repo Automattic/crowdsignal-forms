@@ -129,6 +129,8 @@ const EditAnswers = ( {
 								onChange={ handleChangeSubmitButtonLabel }
 								value={ attributes.submitButtonLabel }
 								allowedFormats={ [] }
+								multiline={ false }
+								disableLineBreaks={ true }
 							/>
 						) : (
 							<div className="wp-block-button__link crowdsignal-forms-poll__submit-button">
