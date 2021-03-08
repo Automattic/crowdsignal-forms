@@ -215,14 +215,15 @@ const PollBlock = ( props ) => {
 								allowedFormats={ [] }
 							/>
 						) : (
-							<h3 className="crowdsignal-forms-poll__question">
-								{ attributes.question
-									? decodeEntities( attributes.question )
-									: __(
-											'Enter your question',
-											'crowdsignal-forms'
-									  ) }
-							</h3>
+							<RichText.Content
+								tagName="h3"
+								className="crowdsignal-forms-poll__question"
+								placeholder={ __(
+									'Enter your question',
+									'crowdsignal-forms'
+								) }
+								value={ decodeEntities( attributes.question ) }
+							/>
 						) }
 
 						{ showNote &&

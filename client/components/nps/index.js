@@ -9,6 +9,7 @@ import { get } from 'lodash';
  */
 import { Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { RichText } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -57,9 +58,11 @@ const Nps = ( {
 	return (
 		<>
 			<div className="crowdsignal-forms-nps" style={ style }>
-				<h3 className="crowdsignal-forms-nps__question">
-					{ questionText }
-				</h3>
+				<RichText.Content
+					tagName="h3"
+					className="crowdsignal-forms-nps__question"
+					value={ questionText }
+				/>
 
 				<button
 					className="crowdsignal-forms-nps__close-button"
