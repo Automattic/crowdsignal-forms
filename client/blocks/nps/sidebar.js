@@ -123,7 +123,7 @@ const Sidebar = ( {
 			>
 				<SelectControl
 					value={ attributes.status }
-					label={ __( 'Status', 'crowdsignal-forms' ) }
+					label={ __( 'Survey Status', 'crowdsignal-forms' ) }
 					options={ [
 						{
 							label: __( 'Open', 'crowdsignal-forms' ),

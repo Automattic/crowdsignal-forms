@@ -70,7 +70,7 @@ const PollToolbar = ( {
 							<div className="crowdsignal-forms-nps__toolbar-popover">
 								<TextControl
 									label={ __(
-										'Show this block after n visits:',
+										'Show this block after __ visits:',
 										'crowdsignal-forms'
 									) }
 									value={ attributes.viewThreshold }
