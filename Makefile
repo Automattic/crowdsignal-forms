@@ -24,7 +24,7 @@ client:
 	npm run build:nps
 
 # Package for release
-release: clean-release install-node pot client
+release: clean-release install-node client pot
 	./scripts/package-for-release.sh
 
 # Clean the build directory
