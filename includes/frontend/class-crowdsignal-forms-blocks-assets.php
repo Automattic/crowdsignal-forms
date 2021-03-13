@@ -109,7 +109,7 @@ class Crowdsignal_Forms_Blocks_Assets {
 	 * @return string
 	 */
 	private function include_path( $path ) {
-		return plugin_dir_path( CROWDSIGNAL_FORMS_PLUGIN_FILE ) . $path;
+		return untrailingslashit( plugin_dir_path( CROWDSIGNAL_FORMS_PLUGIN_FILE ) ) . $path;
 	}
 
 	/**
