@@ -51,7 +51,7 @@ RUN \
 RUN a2enmod rewrite
 
 # Install wp-cli
-RUN curl -o /usr/local/bin/wp -SL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli-nightly.phar \
+RUN curl -o /usr/local/bin/wp -SL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& chmod +x /usr/local/bin/wp
 
 # Install PsySH to use in wp-cli shell
