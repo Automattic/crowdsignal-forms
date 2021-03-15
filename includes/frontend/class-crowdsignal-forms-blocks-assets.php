@@ -78,6 +78,9 @@ class Crowdsignal_Forms_Blocks_Assets {
 				$config['version'],
 				true
 			);
+			if ( function_exists( 'wp_set_script_translations' ) ) {
+				wp_set_script_translations( $id, 'crowdsignal-forms', $this->include_path( '/languages' ) );
+			}
 		}
 
 		if ( isset( $paths['style'] ) ) {
