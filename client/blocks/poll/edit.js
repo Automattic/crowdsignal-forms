@@ -215,14 +215,15 @@ const PollBlock = ( props ) => {
 								allowedFormats={ [] }
 							/>
 						) : (
-							<h3 className="crowdsignal-forms-poll__question">
-								{ attributes.question
-									? decodeEntities( attributes.question )
-									: __(
-											'Enter your question',
-											'crowdsignal-forms'
-									  ) }
-							</h3>
+							<RichText.Content
+								tagName="h3"
+								className="crowdsignal-forms-poll__question"
+								placeholder={ __(
+									'Enter your question',
+									'crowdsignal-forms'
+								) }
+								value={ decodeEntities( attributes.question ) }
+							/>
 						) }
 
 						{ showNote &&
@@ -239,14 +240,15 @@ const PollBlock = ( props ) => {
 									allowedFormats={ [] }
 								/>
 							) : (
-								<p className="crowdsignal-forms-poll__note">
-									{ attributes.note
-										? decodeEntities( attributes.note )
-										: __(
-												'Add a note (optional)',
-												'crowdsignal-forms'
-										  ) }
-								</p>
+								<RichText.Content
+									tagName="div"
+									className="crowdsignal-forms-poll__note"
+									placeholder={ __(
+										'Add a note (optional)',
+										'crowdsignal-forms'
+									) }
+									value={ decodeEntities( attributes.note ) }
+								/>
 							) ) }
 
 						{ ! showResults && (
