@@ -10,22 +10,21 @@ import { pick, times } from 'lodash';
  */
 import { updateNpsResponse } from 'data/nps';
 
-const NpsRating = ( { attributes, onFailure, onSubmit } ) => {
+const NpsRating = ( { attributes, onSubmit, onSubmitSuccess } ) => {
 	const [ selected, setSelected ] = useState( -1 );
 
 	const handleSubmit = ( rating ) => async () => {
 		setSelected( rating );
 
-		try {
-			const data = await updateNpsResponse( attributes.surveyId, {
-				nonce: attributes.nonce,
-				score: rating,
-			} );
+		updateNpsResponse( attributes.surveyId, {
+			nonce: attributes.nonce,
+			score: rating,
+		} ).then( ( data ) =>
+			onSubmitSuccess( pick( data, [ 'r', 'checksum' ] ) )
+		);
 
-			onSubmit( pick( data, [ 'r', 'checksum' ] ) );
-		} catch ( error ) {
-			onFailure();
-		}
+		// Wait for the animation to complete before proceeding to the next step
+		setTimeout( onSubmit, 300 );
 	};
 
 	return (

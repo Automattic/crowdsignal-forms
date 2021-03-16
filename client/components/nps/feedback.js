@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React, { useState } from 'react';
+import { isEmpty } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -13,31 +14,25 @@ import { TextareaControl } from '@wordpress/components';
  */
 import { updateNpsResponse } from 'data/nps';
 
-const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
+const NpsFeedback = ( { attributes, onSubmit, responseMeta } ) => {
 	const [ feedback, setFeedback ] = useState( '' );
-	const [ submitting, setSubmitting ] = useState( false );
 
 	const handleSubmit = async () => {
-		setSubmitting( true );
-
-		try {
-			await updateNpsResponse( attributes.surveyId, {
+		if ( responseMeta !== null && ! isEmpty( feedback ) ) {
+			updateNpsResponse( attributes.surveyId, {
 				nonce: attributes.nonce,
 				feedback,
 				...responseMeta,
 			} );
-
-			onSubmit();
-		} catch ( error ) {
-			onFailure();
 		}
+
+		onSubmit();
 	};
 
 	return (
 		<div className="crowdsignal-forms-nps__feedback">
 			<TextareaControl
 				className="crowdsignal-forms-nps__feedback-text"
-				disabled={ submitting }
 				rows={ 6 }
 				placeholder={ attributes.feedbackPlaceholder }
 				onChange={ setFeedback }
@@ -47,7 +42,6 @@ const NpsFeedback = ( { attributes, onFailure, onSubmit, responseMeta } ) => {
 			<div className="wp-block-button crowdsignal-forms-nps__feedback-button-wrapper">
 				<button
 					className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
-					disabled={ submitting }
 					onClick={ handleSubmit }
 					type="button"
 				>
