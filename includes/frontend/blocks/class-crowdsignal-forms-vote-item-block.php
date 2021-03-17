@@ -36,7 +36,7 @@ class Crowdsignal_Forms_Vote_Item_Block extends Crowdsignal_Forms_Block {
 	 */
 	public function assets() {
 		return array(
-			'config' => 'build/vote.asset.php', // same as vote block because they're compiled together.
+			'config' => '/build/vote.asset.php', // same as vote block because they're compiled together.
 		);
 	}
 
