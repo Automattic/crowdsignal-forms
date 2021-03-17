@@ -39,7 +39,6 @@ const EditNpsBlock = ( props ) => {
 		clientId,
 		fallbackStyles,
 		isSelected,
-		postPreviewLink,
 		setAttributes,
 		renderStyleProbe,
 		sourceLink,
@@ -161,10 +160,7 @@ const EditNpsBlock = ( props ) => {
 			) }
 
 			{ ! isExample && (
-				<EditorNotice
-					isDismissible={ false }
-					icon="visibility"
-				>
+				<EditorNotice isDismissible={ false } icon="visibility">
 					{ sprintf(
 						// translators: %d: number of pageviews
 						_n(
@@ -181,7 +177,7 @@ const EditNpsBlock = ( props ) => {
 							className={ [
 								'is-secondary',
 								'components-notice__action',
-								'crowdsignal-forms-nps__preview-button'
+								'crowdsignal-forms-nps__preview-button',
 							] }
 							textContent={ __( 'Preview', 'crowdsignal-forms' ) }
 						/>
@@ -324,7 +320,6 @@ const EditNpsBlock = ( props ) => {
 
 export default compose( [
 	withSelect( ( select ) => ( {
-		postPreviewLink: select( 'core/editor' ).getEditedPostPreviewLink(),
 		sourceLink: select( 'core/editor' ).getPermalink(),
 	} ) ),
 	withFallbackStyles,
