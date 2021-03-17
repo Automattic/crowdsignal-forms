@@ -31,10 +31,7 @@ const Nps = ( {
 	const [ responseMeta, setResponseMeta ] = useState( null );
 	const [ view, setView ] = useState( views.RATING );
 
-	const handleRatingSubmit = ( meta ) => {
-		setResponseMeta( meta );
-		setView( views.FEEDBACK );
-	};
+	const handleRatingSubmit = () => setView( views.FEEDBACK );
 
 	const handleFeedbackSubmit = () => setView( views.SUBMIT );
 
@@ -74,8 +71,8 @@ const Nps = ( {
 				{ view === views.RATING && (
 					<NpsRating
 						attributes={ attributes }
-						onFailure={ onClose }
 						onSubmit={ handleRatingSubmit }
+						onSubmitSuccess={ setResponseMeta }
 					/>
 				) }
 
@@ -83,7 +80,6 @@ const Nps = ( {
 					<NpsFeedback
 						attributes={ attributes }
 						responseMeta={ responseMeta }
-						onFailure={ onClose }
 						onSubmit={ handleFeedbackSubmit }
 					/>
 				) }
