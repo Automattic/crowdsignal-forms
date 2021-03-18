@@ -10,6 +10,7 @@ import classnames from 'classnames';
  */
 import { TextareaControl } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
+import { PostPreviewButton } from '@wordpress/editor';
 import { dispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { __, _n, sprintf } from '@wordpress/i18n';
@@ -38,7 +39,6 @@ const EditNpsBlock = ( props ) => {
 		clientId,
 		fallbackStyles,
 		isSelected,
-		postPreviewLink,
 		setAttributes,
 		renderStyleProbe,
 		sourceLink,
@@ -160,27 +160,7 @@ const EditNpsBlock = ( props ) => {
 			) }
 
 			{ ! isExample && (
-				<EditorNotice
-					isDismissible={ false }
-					icon="visibility"
-					actions={
-						attributes.surveyId
-							? [
-									{
-										label: __(
-											'Preview',
-											'crowdsignal-forms'
-										),
-										onClick: () =>
-											window.open(
-												postPreviewLink,
-												'blank'
-											),
-									},
-							  ]
-							: []
-					}
-				>
+				<EditorNotice isDismissible={ false } icon="visibility">
 					{ sprintf(
 						// translators: %d: number of pageviews
 						_n(
@@ -190,6 +170,17 @@ const EditNpsBlock = ( props ) => {
 							'crowdsignal-forms'
 						),
 						viewThreshold
+					) }
+
+					{ attributes.surveyId && (
+						<PostPreviewButton
+							className={ [
+								'is-secondary',
+								'components-notice__action',
+								'crowdsignal-forms-nps__preview-button',
+							] }
+							textContent={ __( 'Preview', 'crowdsignal-forms' ) }
+						/>
 					) }
 				</EditorNotice>
 			) }
@@ -329,7 +320,6 @@ const EditNpsBlock = ( props ) => {
 
 export default compose( [
 	withSelect( ( select ) => ( {
-		postPreviewLink: select( 'core/editor' ).getEditedPostPreviewLink(),
 		sourceLink: select( 'core/editor' ).getPermalink(),
 	} ) ),
 	withFallbackStyles,
