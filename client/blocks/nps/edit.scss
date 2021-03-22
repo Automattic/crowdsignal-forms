@@ -52,4 +52,8 @@
 
 .editor-styles-wrapper .components-button.is-secondary.crowdsignal-forms-nps__preview-button {
 	text-decoration: none;
+
+	&.is-disabled {
+		display: none;
+	}
 }
