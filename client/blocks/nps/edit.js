@@ -172,16 +172,15 @@ const EditNpsBlock = ( props ) => {
 						viewThreshold
 					) }
 
-					{ attributes.surveyId && (
-						<PostPreviewButton
-							className={ [
-								'is-secondary',
-								'components-notice__action',
-								'crowdsignal-forms-nps__preview-button',
-							] }
-							textContent={ __( 'Preview', 'crowdsignal-forms' ) }
-						/>
-					) }
+					<PostPreviewButton
+						className={ [
+							'is-secondary',
+							'components-notice__action',
+							'crowdsignal-forms-nps__preview-button',
+							attributes.surveyId ? '' : 'is-disabled',
+						] }
+						textContent={ __( 'Preview', 'crowdsignal-forms' ) }
+					/>
 				</EditorNotice>
 			) }
 
