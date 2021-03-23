@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.4.3
+Stable tag: 1.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,20 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.4.5 =
+* Merge pull request #62 from Automattic/fix/preview-button
+* Fix preview button causing the NPS block to break when creating a new block
+* Merge pull request #60 from Automattic/update/nps-preview-button
+* Fix linter errors
+* Update the NPS preview button to behave identically to the editor's one
+* Change translations pipeline (#57)
+* Add UA and X-Forwarded-For headers for proper response results tracking (#53)
+* Merge pull request #58 from Automattic/update/nps-submission-flow
+* Use RichText.Content component on frontend (#55)
+* Use optimistic requests for submitting NPS block results
+* Change copy edits (#56)
+* Disable HTML editing and block reusability
 
 = 1.4.3 =
 * Add NPS block
