@@ -2,7 +2,7 @@
 
 name: Create nightly build release
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   # push:
@@ -40,6 +40,7 @@ jobs:
       - name: install deps
         run: |
           git checkout ${{ github.events.inputs.branch }}
+          git checkout -b nightly_build
           npm install
           composer install
       - name: build
@@ -62,4 +63,4 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            release/crowdsignal-forms.*.zip
+            release/crowdsignal-forms.nightly_build.zip
