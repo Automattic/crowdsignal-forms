@@ -10,6 +10,7 @@
 		"build:vote": "calypso-build --env.WP --output-path='./build' vote=./client/vote.js",
 		"build:applause": "calypso-build --env.WP --output-path='./build' applause=./client/applause.js",
 		"build:nps": "calypso-build --env.WP --output-path='./build' nps=./client/nps.js",
+		"build:feedback": "calypso-build --env.WP --output-path=./build feedback=./client/feedback.js",
 		"build:styles:editor": "node-sass --include-path client --output-style compressed assets/stylesheets/editor.scss build/editor.css",
 		"build:styles:poll": "node-sass --include-path client --output-style compressed assets/stylesheets/poll.scss build/poll.css",
 		"build:styles:vote": "node-sass --include-path client --output-style compressed assets/stylesheets/vote.scss build/vote.css",
