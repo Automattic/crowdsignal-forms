@@ -60,12 +60,21 @@ jobs:
           npm run build:nps
         env:
           NODE_ENV: production
+<<<<<<< Updated upstream
       #
       #   - name: Package for release
       #     run: |
       #       scripts/makepot.sh
       #       scripts/package-for-release.sh
       #
+=======
+
+      - name: Package for release
+        run: |
+          scripts/makepot.sh
+          scripts/package-for-release.sh
+
+>>>>>>> Stashed changes
       # - name: Create nightly build release
       #   uses: marvinpinto/action-automatic-releases@latest
       #   with:
