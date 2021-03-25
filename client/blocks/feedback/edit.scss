@@ -1,1 +1,11 @@
 /** Editor styles */
+
+.editor-styles-wrapper {
+	.wp-block[data-type="crowdsignal-forms/feedback"] {
+		width: auto;
+	}
+
+	.crowdsignal-forms-feedback {
+		position: static;
+	}
+}
