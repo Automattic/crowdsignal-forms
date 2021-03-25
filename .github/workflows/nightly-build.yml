@@ -66,11 +66,11 @@ jobs:
           scripts/makepot.sh
           scripts/package-for-release.sh
 
-      # - name: Create nightly build release
-      #   uses: marvinpinto/action-automatic-releases@latest
-      #   with:
-      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
-      #     automatic_release_tag: nightly_build
-      #     prerelease: true
-      #     title: Development Build
-      #     files: ./release/crowdsignal-forms.nightly_build.zip
+      - name: Create nightly build release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: nightly_build
+          prerelease: true
+          title: Development Build
+          files: release/crowdsignal-forms.nightly_build.zip
