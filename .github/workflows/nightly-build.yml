@@ -5,6 +5,11 @@ name: Create nightly build release
 # Controls when the action will run.
 on:
   workflow_dispatch:
+    inputs:
+      buildBranch:
+        description: Branch to build, defaults to master
+        required: true
+        default: master
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,7 +24,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.events.inputs.branch }}
+          ref: ${{ github.event.inputs.buildBranch }}
 
       - name: Fork branch for nightly build
         run: git checkout -b nightly_build
@@ -43,15 +48,14 @@ jobs:
 
         - name: Package for release
           run: |
-            ./scripts/makepot.sh
-            ./scripts/package-for-release.sh
+            scripts/makepot.sh
+            scripts/package-for-release.sh
 
       - name: Create nightly build release
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "nightly_build"
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: nightly_build
           prerelease: true
-          title: "Development Build"
-          files: |
-            release/crowdsignal-forms.nightly_build.zip
+          title: Development Build
+          files: ./release/crowdsignal-forms.nightly_build.zip
