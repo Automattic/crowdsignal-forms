@@ -22,6 +22,11 @@ jobs:
     steps:
       - run: echo "Triggered by ${{ github.event_name }}"
 
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v2
