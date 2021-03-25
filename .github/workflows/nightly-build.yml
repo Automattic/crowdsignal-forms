@@ -51,13 +51,7 @@ jobs:
 
       - name: Build
         run: |
-          npm run build:styles
-          npm run build:apifetch
-          npm run build:editor
-          npm run build:poll
-          npm run build:vote
-          npm run build:applause
-          npm run build:nps
+          make client
         env:
           NODE_ENV: production
 
