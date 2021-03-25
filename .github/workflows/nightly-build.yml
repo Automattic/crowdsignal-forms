@@ -24,7 +24,6 @@ jobs:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
-        run: echo ${{ github.event.inputs.buildBranch }}
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.inputs.buildBranch }}
