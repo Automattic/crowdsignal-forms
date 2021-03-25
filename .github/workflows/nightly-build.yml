@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       buildBranch:
-        description: Branch to build, defaults to master
+        description: Branch to build
         required: true
         default: master
 
@@ -20,7 +20,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - run: echo "Triggered by ${{ github.event_name }}"
+      - name: "Trigger"
+        run: echo "Triggered by ${{ github.event_name }}"
+
+      - name: Setup PHP 7.4 with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Setup Node version 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
@@ -31,33 +42,35 @@ jobs:
       - name: Fork
         run: git checkout -b nightly_build
 
-      # - name: Install
-      #   run: |
-      #     npm install
-      #     composer install
-      #
-      # - name: Build
-      #   run: |
-      #     npm run build:styles
-      #     npm run build:apifetch
-      #     npm run build:editor
-      #     npm run build:poll
-      #     npm run build:vote
-      #     npm run build:applause
-      #     npm run build:nps
-      #   env:
-      #     NODE_ENV: production
-      #
-      #   - name: Package for release
-      #     run: |
-      #       scripts/makepot.sh
-      #       scripts/package-for-release.sh
-      #
-      # - name: Create nightly build release
-      #   uses: marvinpinto/action-automatic-releases@latest
-      #   with:
-      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
-      #     automatic_release_tag: nightly_build
-      #     prerelease: true
-      #     title: Development Build
-      #     files: ./release/crowdsignal-forms.nightly_build.zip
+      - name: Install
+        run: |
+          npm install
+          composer update
+          composer install
+
+
+      - name: Build
+        run: |
+          npm run build:styles
+          npm run build:apifetch
+          npm run build:editor
+          npm run build:poll
+          npm run build:vote
+          npm run build:applause
+          npm run build:nps
+        env:
+          NODE_ENV: production
+
+      - name: Package for release
+        run: |
+          scripts/makepot.sh
+          scripts/package-for-release.sh
+
+      - name: Create nightly build release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: nightly_build
+          prerelease: true
+          title: Development Build
+          files: release/crowdsignal-forms.nightly_build.zip
