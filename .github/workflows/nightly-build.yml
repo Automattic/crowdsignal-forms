@@ -20,7 +20,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: "Trigger ${{ github.event_name }}"
+      - name: "Trigger"
         run: echo "Triggered by ${{ github.event_name }}"
 
       - name: Setup PHP 7.4 with PECL extension
@@ -60,21 +60,12 @@ jobs:
           npm run build:nps
         env:
           NODE_ENV: production
-<<<<<<< Updated upstream
-      #
-      #   - name: Package for release
-      #     run: |
-      #       scripts/makepot.sh
-      #       scripts/package-for-release.sh
-      #
-=======
 
       - name: Package for release
         run: |
           scripts/makepot.sh
           scripts/package-for-release.sh
 
->>>>>>> Stashed changes
       # - name: Create nightly build release
       #   uses: marvinpinto/action-automatic-releases@latest
       #   with:
