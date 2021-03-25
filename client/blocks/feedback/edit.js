@@ -22,17 +22,22 @@ const PADDING = 20;
 
 const getHorizontalPosition = ( position ) => {
 	const body = document.body;
-	const editorWrapper = document.getElementsByClassName( 'edit-post-visual-editor' )[0];
-	const wrapperPos = editorWrapper.getBoundingClientRect();
+	const editorWrapper = document.getElementsByClassName(
+		'edit-post-visual-editor'
+	)[ 0 ];
 
 	if ( ! editorWrapper ) {
 		return {};
 	}
 
+	const wrapperPos = editorWrapper.getBoundingClientRect();
+
 	if ( 0 < position ) {
 		return {
 			left: null,
-			right: PADDING + ( body.offsetWidth - wrapperPos.width - wrapperPos.x ),
+			right:
+				PADDING +
+				( body.offsetWidth - wrapperPos.width - wrapperPos.x ),
 		};
 	}
 
@@ -44,18 +49,23 @@ const getHorizontalPosition = ( position ) => {
 
 const getVerticalPadding = ( position ) => {
 	const body = document.body;
-	const editorWrapper = document.getElementsByClassName( 'edit-post-visual-editor' )[0];
-	const wrapperPos = editorWrapper.getBoundingClientRect();
+	const editorWrapper = document.getElementsByClassName(
+		'edit-post-visual-editor'
+	)[ 0 ];
 
 	if ( ! editorWrapper ) {
 		return {};
 	}
 
+	const wrapperPos = editorWrapper.getBoundingClientRect();
+
 	if ( position < 0 ) {
 		return {
-			bottom: PADDING + ( body.offsetHeight - wrapperPos.height - wrapperPos.y ),
+			bottom:
+				PADDING +
+				( body.offsetHeight - wrapperPos.height - wrapperPos.y ),
 			top: null,
-		}
+		};
 	}
 
 	if ( 0 < position ) {
@@ -67,44 +77,48 @@ const getVerticalPadding = ( position ) => {
 
 	return {
 		bottom: null,
-		top: PADDING + wrapperPos.y + ( wrapperPos.height / 2 ), // + own height
+		top: PADDING + wrapperPos.y + wrapperPos.height / 2, // + own height
 	};
 };
 
 const EditFeedbackBlock = ( props ) => {
 	const [ position, setPosition ] = useState( [ 1, -1 ] );
 
-	const {
-		activeSidebar,
-		editorFeatures,
-		isSelected,
-	} = props;
+	const { activeSidebar, editorFeatures, isSelected } = props;
 
 	useLayoutEffect( () => {
 		const pos = {
-			...getHorizontalPosition( position[0] ),
-			...getVerticalPadding( position[1] ),
+			...getHorizontalPosition( position[ 0 ] ),
+			...getVerticalPadding( position[ 1 ] ),
 		};
 
 		props.setPosition( pos );
-	}, [ activeSidebar, editorFeatures.fullscreenMode, props.setPosition, position ] );
+	}, [
+		activeSidebar,
+		editorFeatures.fullscreenMode,
+		props.setPosition,
+		position,
+	] );
 
 	const classes = classnames( 'crowdsignal-forms-feedback', {
-		'align-left': position[0] < 0,
-		'align-right': position[0] > 0,
-		'align-top': position[1] > 0,
-		'align-center': position[1] === 0,
-		'align-bottom': position[1] < 0,
+		'align-left': position[ 0 ] < 0,
+		'align-right': position[ 0 ] > 0,
+		'align-top': position[ 1 ] > 0,
+		'align-center': position[ 1 ] === 0,
+		'align-bottom': position[ 1 ] < 0,
 	} );
 
 	return (
 		<ConnectToCrowdsignal>
-			<Toolbar onChangePosition={ setPosition } position={ position } { ...props } />
+			<Toolbar
+				onChangePosition={ setPosition }
+				position={ position }
+				{ ...props }
+			/>
 
 			<div className={ classes }>
-				{ position[0] < 0 && (
-					<button className="crowdsignal-forms-feedback__trigger-button">
-					</button>
+				{ position[ 0 ] < 0 && (
+					<button className="crowdsignal-forms-feedback__trigger-button"></button>
 				) }
 
 				{ isSelected && (
@@ -113,9 +127,8 @@ const EditFeedbackBlock = ( props ) => {
 					</div>
 				) }
 
-				{ 0 < position[0] && (
-					<button className="crowdsignal-forms-feedback__trigger-button">
-					</button>
+				{ 0 < position[ 0 ] && (
+					<button className="crowdsignal-forms-feedback__trigger-button"></button>
 				) }
 			</div>
 

@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React, { useCallback, useEffect, useState } from 'react';
-import { get, isEmpty, includes, noop, pick } from 'lodash';
+import { get, isEmpty, includes, pick } from 'lodash';
 
 /**
  * This is used as a registry to hold references to each blocks
@@ -17,9 +17,7 @@ const setOffset = {};
  *
  * @type {Array}
  */
-const enabledBlocks = [
-	'crowdsignal-forms/feedback',
-];
+const enabledBlocks = [ 'crowdsignal-forms/feedback' ];
 
 /**
  * Applies the fixed positions settings to the block list wrapper.
@@ -58,7 +56,7 @@ export const withFixedPosition = ( BlockListBlock ) => {
 			style,
 		};
 
-		return <BlockListBlock { ...props } />
+		return <BlockListBlock { ...props } />;
 	};
 };
 
@@ -77,15 +75,15 @@ export const withFixedPositionControl = ( BlockEdit ) => {
 			return <BlockEdit { ...props } />;
 		}
 
-		const setPosition = useCallback( ( value ) => {
-			setOffset[ props.clientId ]( pick( value, [
-				'top',
-				'left',
-				'right',
-				'bottom',
-			] ) );
-		}, [ props.clientId ] );
+		const setPosition = useCallback(
+			( value ) => {
+				setOffset[ props.clientId ](
+					pick( value, [ 'top', 'left', 'right', 'bottom' ] )
+				);
+			},
+			[ props.clientId ]
+		);
 
-		return <BlockEdit { ...props } setPosition={ setPosition } />
+		return <BlockEdit { ...props } setPosition={ setPosition } />;
 	};
 };

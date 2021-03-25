@@ -15,7 +15,6 @@ import {
 } from '@wordpress/components';
 
 const FeedbackToolbar = ( { onChangePosition } ) => {
-
 	const [ showPosition, setShowPosition ] = useState( false );
 
 	const showPositionPopover = () => setShowPosition( true );
@@ -24,27 +23,37 @@ const FeedbackToolbar = ( { onChangePosition } ) => {
 	return (
 		<BlockControls>
 			<ToolbarGroup>
-				<ToolbarButton
-					onClick={ showPositionPopover }
-				>
+				<ToolbarButton onClick={ showPositionPopover }>
 					{ showPosition && (
-						<Popover onClose={ hidePositionPopover}>
-							<Button onClick={ () => onChangePosition( [ -1, 1 ] ) }>
+						<Popover onClose={ hidePositionPopover }>
+							<Button
+								onClick={ () => onChangePosition( [ -1, 1 ] ) }
+							>
 								Top Left
 							</Button>
-							<Button onClick={ () => onChangePosition( [ -1, 0 ] ) }>
+							<Button
+								onClick={ () => onChangePosition( [ -1, 0 ] ) }
+							>
 								Center Left
 							</Button>
-							<Button onClick={ () => onChangePosition( [ -1, -1 ] ) }>
+							<Button
+								onClick={ () => onChangePosition( [ -1, -1 ] ) }
+							>
 								Bottom left
 							</Button>
-							<Button onClick={ () => onChangePosition( [ 1, 1 ] ) }>
+							<Button
+								onClick={ () => onChangePosition( [ 1, 1 ] ) }
+							>
 								Top right
 							</Button>
-							<Button onClick={ () => onChangePosition( [ 1, 0 ] ) }>
+							<Button
+								onClick={ () => onChangePosition( [ 1, 0 ] ) }
+							>
 								Center right
 							</Button>
-							<Button onClick={ () => onChangePosition( [ 1, -1 ] ) }>
+							<Button
+								onClick={ () => onChangePosition( [ 1, -1 ] ) }
+							>
 								Bottom right
 							</Button>
 						</Popover>
