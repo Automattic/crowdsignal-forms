@@ -98,15 +98,15 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'hideBranding'        => array(
+			'hideBranding' => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'surveyId'            => array(
+			'surveyId'     => array(
 				'type'    => 'number',
 				'default' => null,
 			),
-			'title'               => array(
+			'title'        => array(
 				'type'    => 'string',
 				'default' => '',
 			),
