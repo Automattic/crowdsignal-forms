@@ -31,10 +31,11 @@ jobs:
       - name: Fork
         run: git checkout -b nightly_build
 
-      # - name: Install
-      #   run: |
-      #     npm install
-      #     composer install
+      - name: Install
+        run: |
+          npm install
+          composer install
+
       #
       # - name: Build
       #   run: |
