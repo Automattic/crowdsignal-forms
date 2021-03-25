@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       buildBranch:
-        description: Branch to build, defaults to master
+        description: Branch to build
         required: true
         default: master
 
