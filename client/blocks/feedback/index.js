@@ -14,10 +14,7 @@ export default {
 	title: __( 'Feedback', 'crowdsignal-forms' ),
 	description: __( 'Feedback block', 'crowdsignal-forms' ),
 	category: 'crowdsignal-forms',
-	keywords: [
-		'crowdsignal',
-		__( 'feedback', 'crowdsignal-forms' ),
-	],
+	keywords: [ 'crowdsignal', __( 'feedback', 'crowdsignal-forms' ) ],
 	icon: <PollIcon />,
 	edit: EditFeedbackBlock,
 	attributes,

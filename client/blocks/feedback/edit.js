@@ -18,12 +18,9 @@ const EditFeedbackBlock = ( props ) => {
 	return (
 		<ConnectToCrowdsignal>
 			Hello! One feedback please.
-
 			{ props.renderStyleProbe() }
 		</ConnectToCrowdsignal>
 	);
 };
 
-export default compose( [
-	withFallbackStyles,
-] )( EditFeedbackBlock );
+export default compose( [ withFallbackStyles ] )( EditFeedbackBlock );
