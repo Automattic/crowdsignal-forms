@@ -17,9 +17,6 @@
 		top: 20px;
 	}
 
-	&.align-center {
-	}
-
 	&.align-bottom {
 		align-items: flex-end;
 		bottom: 20px;
@@ -29,7 +26,7 @@
 .crowdsignal-forms-feedback__trigger-button {
 	background-color: #fff;
 	border-radius: 25px;
-	box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 	height: 50px;
 	width: 50px;
 }
