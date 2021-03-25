@@ -50,8 +50,7 @@ jobs:
 
 
       - name: Build
-        run: |
-          make client
+        run: make client
         env:
           NODE_ENV: production
 
