@@ -20,42 +20,45 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - run: echo "Triggered by ${{ github.event_name }}"
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout repo
+      - name: Checkout
+        run: echo ${{ github.event.inputs.buildBranch }}
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.inputs.buildBranch }}
 
-      - name: Fork branch for nightly build
+      - name: Fork
         run: git checkout -b nightly_build
 
-      - name: Install dependencies
-        run: |
-          npm install
-          composer install
-
-      - name: Build
-        run: |
-          npm run build:styles
-          npm run build:apifetch
-          npm run build:editor
-          npm run build:poll
-          npm run build:vote
-          npm run build:applause
-          npm run build:nps
-        env:
-          NODE_ENV: production
-
-        - name: Package for release
-          run: |
-            scripts/makepot.sh
-            scripts/package-for-release.sh
-
-      - name: Create nightly build release
-        uses: marvinpinto/action-automatic-releases@latest
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: nightly_build
-          prerelease: true
-          title: Development Build
-          files: ./release/crowdsignal-forms.nightly_build.zip
+      # - name: Install
+      #   run: |
+      #     npm install
+      #     composer install
+      #
+      # - name: Build
+      #   run: |
+      #     npm run build:styles
+      #     npm run build:apifetch
+      #     npm run build:editor
+      #     npm run build:poll
+      #     npm run build:vote
+      #     npm run build:applause
+      #     npm run build:nps
+      #   env:
+      #     NODE_ENV: production
+      #
+      #   - name: Package for release
+      #     run: |
+      #       scripts/makepot.sh
+      #       scripts/package-for-release.sh
+      #
+      # - name: Create nightly build release
+      #   uses: marvinpinto/action-automatic-releases@latest
+      #   with:
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     automatic_release_tag: nightly_build
+      #     prerelease: true
+      #     title: Development Build
+      #     files: ./release/crowdsignal-forms.nightly_build.zip
