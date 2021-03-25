@@ -34,6 +34,7 @@ jobs:
       - name: Install
         run: |
           npm install
+          composer update
           composer install
 
       #
