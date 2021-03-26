@@ -79,7 +79,8 @@ class Crowdsignal_Forms_Blocks_Assets {
 				true
 			);
 			if ( function_exists( 'wp_set_script_translations' ) ) {
-				wp_set_script_translations( $id, 'crowdsignal-forms', $this->include_path( '/languages' ) );
+				$path = apply_filters( 'crowdsignal_forms_translations_path', $this->include_path( '/languages' ) );
+				wp_set_script_translations( $id, 'crowdsignal-forms', $path );
 			}
 		}
 
