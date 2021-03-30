@@ -22,6 +22,7 @@ client:
 	npm run build:vote
 	npm run build:applause
 	npm run build:nps
+	npm run build:feedback
 
 # Package for release
 release: clean-release install-node client pot

@@ -1,0 +1,38 @@
+.crowdsignal-forms-feedback {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	position: fixed;
+
+	&.align-left {
+		left: 20px;
+	}
+
+	&.align-right {
+		justify-content: flex-end;
+		right: 20px;
+	}
+
+	&.align-top {
+		top: 20px;
+	}
+
+	&.align-bottom {
+		align-items: flex-end;
+		bottom: 20px;
+	}
+}
+
+.crowdsignal-forms-feedback__trigger-button {
+	background-color: #fff;
+	border-radius: 25px;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+	height: 50px;
+	width: 50px;
+}
+
+.crowdsignal-forms-feedback__popover {
+	background-color: #fff;
+	border: 1px solid #000;
+	padding: 20px;
+}
