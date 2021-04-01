@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import classnames from 'classnames';
 import { get } from 'lodash';
 
@@ -17,7 +17,6 @@ import { withSelect } from '@wordpress/data';
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
-import SignalWarning from 'components/signal-warning';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { getAlignmentClassNames } from 'components/feedback/util';
 import { useAccountInfo } from 'data/hooks';
@@ -89,7 +88,6 @@ const getVerticalPadding = ( position ) => {
 	};
 };
 
-
 const EditFeedbackBlock = ( props ) => {
 	const {
 		attributes,
@@ -97,7 +95,7 @@ const EditFeedbackBlock = ( props ) => {
 		editorFeatures,
 		fallbackStyles,
 		isSelected,
-		setAttributes
+		setAttributes,
 	} = props;
 
 	const accountInfo = useAccountInfo();
@@ -117,8 +115,8 @@ const EditFeedbackBlock = ( props ) => {
 
 	const setPosition = ( x, y ) => setAttributes( { x, y } );
 
-	const handleChangeAttribute = ( key ) =>
-		( value ) => setAttributes( { [ key ]: value } );
+	const handleChangeAttribute = ( key ) => ( value ) =>
+		setAttributes( { [ key ]: value } );
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',
@@ -127,8 +125,8 @@ const EditFeedbackBlock = ( props ) => {
 
 	const signalWarning =
 		shouldPromote &&
-			get( accountInfo, [ 'signalCount', 'count' ] ) >=
-				get( accountInfo, [ 'signalCount', 'userLimit' ] );
+		get( accountInfo, [ 'signalCount', 'count' ] ) >=
+			get( accountInfo, [ 'signalCount', 'userLimit' ] );
 
 	const classes = classnames(
 		'crowdsignal-forms-feedback',
@@ -137,10 +135,7 @@ const EditFeedbackBlock = ( props ) => {
 
 	return (
 		<ConnectToCrowdsignal>
-			<Toolbar
-				onChangePosition={ setPosition }
-				{ ...props }
-			/>
+			<Toolbar onChangePosition={ setPosition } { ...props } />
 			<Sidebar
 				shouldPromote={ shouldPromote }
 				signalWarning={ signalWarning }
@@ -164,13 +159,17 @@ const EditFeedbackBlock = ( props ) => {
 						<TextareaControl
 							className="crowdsignal-forms-feedback__input"
 							rows={ 6 }
-							onChange={ handleChangeAttribute( 'feedbackPlaceholder' ) }
+							onChange={ handleChangeAttribute(
+								'feedbackPlaceholder'
+							) }
 							value={ attributes.feedbackPlaceholder }
 						/>
 
 						<TextControl
 							className="crowdsignal-forms-feedback__input"
-							onChange={ handleChangeAttribute( 'emailPlaceholder' ) }
+							onChange={ handleChangeAttribute(
+								'emailPlaceholder'
+							) }
 							value={ attributes.emailPlaceholder }
 						/>
 

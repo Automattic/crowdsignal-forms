@@ -10,9 +10,7 @@ import {
 	Button,
 	ExternalLink,
 	PanelBody,
-	SelectControl,
 	TextControl,
-	DateTimePicker,
 } from '@wordpress/components';
 import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import { decodeEntities } from '@wordpress/html-entities';

@@ -23,7 +23,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	const toggleDialog = () => setActive( ! active );
 
 	const classes = classnames(
-		'crowdsignal-forms-feedback', 
+		'crowdsignal-forms-feedback',
 		getAlignmentClassNames( attributes.x, attributes.y )
 	);
 
@@ -60,7 +60,6 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 							>
 								{ attributes.submitButtonLabel }
 							</button>
-
 						</div>
 					</div>
 				) }
@@ -68,8 +67,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 				<button
 					className="crowdsignal-forms-feedback__trigger"
 					onClick={ toggleDialog }
-				>
-				</button>
+				/>
 			</div>
 
 			{ renderStyleProbe() }

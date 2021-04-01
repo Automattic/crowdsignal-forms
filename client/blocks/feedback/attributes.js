@@ -25,7 +25,10 @@ export default {
 	},
 	feedbackPlaceholder: {
 		type: 'string',
-		default: __( 'Please let us know how we can do better...', 'crowdsignal-forms' ),
+		default: __(
+			'Please let us know how we can do better…',
+			'crowdsignal-forms'
+		),
 	},
 	header: {
 		type: 'string',

@@ -71,7 +71,6 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 		wp_enqueue_style( $this->asset_identifier() );
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
-		// $attributes['isPreview']    = is_preview();
 
 		return sprintf(
 			'<div class="crowdsignal-feedback-wrapper" data-crowdsignal-feedback="%s"></div>',
@@ -98,52 +97,52 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'backgroundColor'	  => array(
+			'backgroundColor'     => array(
 				'type' => 'string',
 			),
-			'buttonColor'		  => array(
+			'buttonColor'         => array(
 				'type' => 'string',
 			),
-			'buttonTextColor'	  => array(
+			'buttonTextColor'     => array(
 				'type' => 'string',
 			),
-			'emailPlaceholder'	  => array(
-				'type' 	  => 'string',
+			'emailPlaceholder'    => array(
+				'type'    => 'string',
 				'default' => __( 'Your email (optional)', 'crowdsignal-forms' ),
 			),
 			'feedbackPlaceholder' => array(
-				'type' 	  => 'string',
-				'default' => __( 'Please let us know how we can do better...', 'crowdsignal-forms' ),
+				'type'    => 'string',
+				'default' => __( 'Please let us know how we can do better…', 'crowdsignal-forms' ),
 			),
-			'header'			  => array(
-				'type' 	  => 'string',
+			'header'              => array(
+				'type'    => 'string',
 				'default' => __( 'Hello there!', 'crowdsignal-forms' ),
 			),
-			'hideBranding'		  => array(
+			'hideBranding'        => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'submitButtonLabel'	  => array(
-				'type' 	  => 'string',
+			'submitButtonLabel'   => array(
+				'type'    => 'string',
 				'default' => __( 'Submit', 'crowdsignal-forms' ),
 			),
-			'surveyId'			  => array(
+			'surveyId'            => array(
 				'type'    => 'number',
 				'default' => null,
 			),
-			'textColor'			  => array(
+			'textColor'           => array(
 				'type' => 'string',
 			),
-			'title'				  => array(
+			'title'               => array(
 				'type'    => 'string',
 				'default' => '',
 			),
-			'x'					  => array(
-				'type'	  => 'string',
+			'x'                   => array(
+				'type'    => 'string',
 				'default' => 'right',
 			),
-			'y'					  => array(
-				'type'	  => 'string',
+			'y'                   => array(
+				'type'    => 'string',
 				'default' => 'bottom',
 			),
 		);
