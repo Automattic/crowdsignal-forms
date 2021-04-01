@@ -27,7 +27,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 * {@inheritDoc}
 	 */
 	public function asset_identifier() {
-		return 'crowdsignal-forms-nps';
+		return 'crowdsignal-forms-feedback';
 	}
 
 	/**
@@ -71,7 +71,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 		wp_enqueue_style( $this->asset_identifier() );
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
-		$attributes['isPreview']    = is_preview();
+		// $attributes['isPreview']    = is_preview();
 
 		return sprintf(
 			'<div class="crowdsignal-feedback-wrapper" data-crowdsignal-feedback="%s"></div>',
@@ -80,7 +80,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	}
 
 	/**
-	 * Determines if the NPS block should be rendered or not.
+	 * Determines if the Feedback block should be rendered or not.
 	 *
 	 * @return bool
 	 */
@@ -92,23 +92,59 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 * Returns the attributes definition array for register_block_type
 	 *
 	 * Note: Any changes to the array returned by this function need to be
-	 *       duplicated in client/blocks/nps/attributes.js.
+	 *       duplicated in client/blocks/feedback/attributes.js.
 	 *
 	 * @return array
 	 */
 	private function attributes() {
 		return array(
-			'hideBranding' => array(
+			'backgroundColor'	  => array(
+				'type' => 'string',
+			),
+			'buttonColor'		  => array(
+				'type' => 'string',
+			),
+			'buttonTextColor'	  => array(
+				'type' => 'string',
+			),
+			'emailPlaceholder'	  => array(
+				'type' 	  => 'string',
+				'default' => __( 'Your email (optional)', 'crowdsignal-forms' ),
+			),
+			'feedbackPlaceholder' => array(
+				'type' 	  => 'string',
+				'default' => __( 'Please let us know how we can do better...', 'crowdsignal-forms' ),
+			),
+			'header'			  => array(
+				'type' 	  => 'string',
+				'default' => __( 'Hello there!', 'crowdsignal-forms' ),
+			),
+			'hideBranding'		  => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'surveyId'     => array(
+			'submitButtonLabel'	  => array(
+				'type' 	  => 'string',
+				'default' => __( 'Submit', 'crowdsignal-forms' ),
+			),
+			'surveyId'			  => array(
 				'type'    => 'number',
 				'default' => null,
 			),
-			'title'        => array(
+			'textColor'			  => array(
+				'type' => 'string',
+			),
+			'title'				  => array(
 				'type'    => 'string',
 				'default' => '',
+			),
+			'x'					  => array(
+				'type'	  => 'string',
+				'default' => 'right',
+			),
+			'y'					  => array(
+				'type'	  => 'string',
+				'default' => 'bottom',
 			),
 		);
 	}

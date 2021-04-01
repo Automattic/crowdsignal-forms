@@ -45,6 +45,7 @@ class Crowdsignal_Forms_Blocks {
 			new Blocks\Crowdsignal_Forms_Vote_Item_Block(),
 			new Blocks\Crowdsignal_Forms_Applause_Block(),
 			new Blocks\Crowdsignal_Forms_Nps_Block(),
+			new Blocks\Crowdsignal_Forms_Feedback_Block(),
 		);
 
 		return self::$blocks;

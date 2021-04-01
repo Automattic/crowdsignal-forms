@@ -1,5 +1,4 @@
 /** Editor styles */
-
 .editor-styles-wrapper {
 
 	.wp-block[data-type="crowdsignal-forms/feedback"] {
@@ -7,6 +6,65 @@
 	}
 
 	.crowdsignal-forms-feedback {
+		justify-content: center;
+		margin: 0 !important;
+		padding: 20px;
+		position: relative;
+
+		&.align-left {
+			padding-left: 60px;
+		}
+
+		&.align-right {
+			padding-right: 60px;
+		}
+
+		&.vertical-align-top {
+			padding-top: 60px;
+		}
+
+		&.align-left.vertical-align-center {
+			padding-left: 70px;
+		}
+
+		&.align-right.vertical-align-center {
+			padding-right: 70px;
+		}
+
+		&.vertical-align-bottom {
+			padding-bottom: 60px;
+		}
+	}
+
+	.crowdsignal-forms-feedback__popover {
 		position: static;
+	}
+
+	.crowdsignal-forms-feedback__trigger {
+		position: absolute;
+	}
+}
+
+
+.crowdsignal-forms-feedback__trigger {
+	.editor-styles-wrapper .crowdsignal-forms-feedback.align-left & {
+		left: 10px;
+	}
+
+	.editor-styles-wrapper .crowdsignal-forms-feedback.align-right & {
+		right: 10px;
+	}
+
+	.editor-styles-wrapper .crowdsignal-forms-feedback.vertical-align-top & {
+		top: 0;
+	}
+
+	.editor-styles-wrapper .crowdsignal-forms-feedback.vertical-align-center & {
+		margin-top: -25px;
+		top: 50%;
+	}
+
+	.editor-styles-wrapper .crowdsignal-forms-feedback.vertical-align-bottom & {
+		bottom: 10px;
 	}
 }

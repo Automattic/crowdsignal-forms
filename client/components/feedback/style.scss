@@ -1,26 +1,96 @@
 .crowdsignal-forms-feedback {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	position: fixed;
+}
 
-	&.align-left {
+.crowdsignal-forms-feedback__trigger {
+	border-radius: 25px;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+	height: 50px;
+	outline: 0;
+	position: fixed;
+	width: 50px;
+	z-index: 100;
+
+	.crowdsignal-forms-feedback.align-left & {
 		left: 20px;
 	}
 
-	&.align-right {
-		justify-content: flex-end;
+	.crowdsignal-forms-feedback.align-right & {
 		right: 20px;
 	}
 
-	&.align-top {
+	.crowdsignal-forms-feedback.vertical-align-top & {
 		top: 20px;
+
+		.admin-bar & {
+			top: 52px;
+		}
 	}
 
-	&.align-bottom {
-		align-items: flex-end;
+	.crowdsignal-forms-feedback.vertical-align-center & {
+		margin-top: -25px;
+		top: 50%;
+	}
+
+	.crowdsignal-forms-feedback.vertical-align-bottom & {
 		bottom: 20px;
 	}
+}
+
+.crowdsignal-forms-feedback__popover {
+	background-color: var(--crowdsignal-forms-background-color);
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-top: 10px solid var(--crowdsignal-forms-button-color);
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+	color: var(--crowdsignal-forms-background-color);
+	padding: 24px;
+	position: fixed;
+	width: 380px;
+	z-index: 100;
+
+	.crowdsignal-forms-feedback.align-left & {
+		left: 70px;
+	}
+
+	.crowdsignal-forms-feedback.align-right & {
+		right: 70px;
+	}
+
+	.crowdsignal-forms-feedback.vertical-align-top & {
+		top: 70px;
+
+		.admin-bar & {
+			top: 102px;
+		}
+	}
+
+	.crowdsignal-forms-feedback.vertical-align-center & {
+		top: 50%;
+	}
+
+	.crowdsignal-forms-feedback.vertical-align-bottom & {
+		bottom: 70px;
+	}
+}
+
+.crowdsignal-forms-feedback__header {
+	color: var(--crowdsignal-forms-text-color);
+	margin-top: 0 !important;
+	margin-bottom: 32px !important;
+}
+
+.crowdsignal-forms-feedback__input {
+	margin-top: 16px;
+	font-size: var(--crowdsignal-forms-text-size);
+	width: 100%;
+}
+
+.crowdsignal-forms-feedback__button-wrapper {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 35px;
+	width: 100%;
 }
 
 .crowdsignal-forms-feedback__trigger-button {
@@ -29,10 +99,4 @@
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 	height: 50px;
 	width: 50px;
-}
-
-.crowdsignal-forms-feedback__popover {
-	background-color: #fff;
-	border: 1px solid #000;
-	padding: 20px;
 }
