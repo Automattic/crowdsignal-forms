@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import classnames from 'classnames';
 import { get } from 'lodash';
 
@@ -11,7 +11,7 @@ import { get } from 'lodash';
 import { RichText } from '@wordpress/block-editor';
 import { TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-import { withSelect } from '@wordpress/data';
+import { withSelect, dispatch } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -23,6 +23,8 @@ import { useAccountInfo } from 'data/hooks';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars } from './util';
+import { useAutosave } from 'components/use-autosave';
+import { updateFeedback } from 'data/feedback/edit';
 
 // Probably dependent on the button style
 const PADDING = 20;
@@ -96,9 +98,57 @@ const EditFeedbackBlock = ( props ) => {
 		fallbackStyles,
 		isSelected,
 		setAttributes,
+		clientId,
 	} = props;
 
 	const accountInfo = useAccountInfo();
+
+	const {
+		isExample,
+		feedbackPlaceholder,
+		emailPlaceholder,
+		surveyId,
+		sourceLink,
+		title,
+	} = attributes;
+
+	const { save: saveBlock } = useAutosave(
+		async ( data ) => {
+			dispatch( 'core/editor' ).lockPostSaving( clientId );
+
+			try {
+				const response = await updateFeedback( {
+					feedbackPlaceholder: data.feedbackPlaceholder,
+					emailPlaceholder: data.emailPlaceholder,
+					sourceLink: data.sourceLink,
+					surveyId: data.surveyId,
+					title: data.title || data.feedbackPlaceholder,
+				} );
+
+				if ( ! data.surveyId ) {
+					setAttributes( { surveyId: response.surveyId } );
+				}
+			} finally {
+				dispatch( 'core/editor' ).unlockPostSaving( clientId );
+			}
+		},
+		{
+			feedbackPlaceholder,
+			emailPlaceholder,
+			sourceLink,
+			surveyId,
+			title,
+		}
+	);
+
+	// Force a save to Crowdsignal.com as soon as a new block is created
+	useEffect( () => {
+		if ( isExample || attributes.surveyId ) {
+			return;
+		}
+
+		saveBlock();
+	}, [] );
 
 	useLayoutEffect( () => {
 		props.setPosition( {
@@ -200,6 +250,7 @@ export default compose( [
 	withSelect( ( select ) => ( {
 		activeSidebar: select( 'core/edit-post' ).getActiveGeneralSidebarName(),
 		editorFeatures: select( 'core/edit-post' ).getPreference( 'features' ),
+		sourceLink: select( 'core/editor' ).getPermalink(),
 	} ) ),
 	withFallbackStyles,
 ] )( EditFeedbackBlock );
