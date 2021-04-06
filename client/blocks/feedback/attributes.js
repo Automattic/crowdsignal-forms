@@ -5,8 +5,8 @@ import { __ } from '@wordpress/i18n';
 
 /**
  * Note: Any changes made to the attributes definition need to be duplicated in
- *       Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Nps_Block::attributes()
- *       inside includes/frontend/blocks/class-crowdsignal-forms-nps-block.php.
+ *       Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Feedback_Block::attributes()
+ *       inside includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php.
  */
 
 export default {
