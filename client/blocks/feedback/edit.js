@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, { useLayoutEffect, useEffect } from 'react';
 import classnames from 'classnames';
 import { get } from 'lodash';
 
@@ -99,6 +99,7 @@ const EditFeedbackBlock = ( props ) => {
 		isSelected,
 		setAttributes,
 		clientId,
+		sourceLink,
 	} = props;
 
 	const accountInfo = useAccountInfo();
@@ -108,7 +109,6 @@ const EditFeedbackBlock = ( props ) => {
 		feedbackPlaceholder,
 		emailPlaceholder,
 		surveyId,
-		sourceLink,
 		title,
 	} = attributes;
 
