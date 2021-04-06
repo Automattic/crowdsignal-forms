@@ -15,6 +15,7 @@ use Crowdsignal_Forms\Gateways\Api_Gateway;
 use Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway;
 use Crowdsignal_Forms\Logging\Webservice_Logger;
 use Crowdsignal_Forms\Rest_Api\Controllers\Nps_Controller;
+use Crowdsignal_Forms\Rest_Api\Controllers\Feedback_Controller;
 use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
 use Crowdsignal_Forms\Rest_Api\Controllers\Account_Controller;
 use Crowdsignal_Forms\Admin\Admin_Hooks;
@@ -80,6 +81,13 @@ final class Crowdsignal_Forms {
 	 * @var Nps_Controller
 	 */
 	public $rest_api_nps_controller;
+
+	/**
+	 * The feedback controller.
+	 *
+	 * @var Feedback_Controller
+	 */
+	public $rest_api_feedback_controller;
 
 	/**
 	 * The api gateway.
@@ -206,13 +214,14 @@ final class Crowdsignal_Forms {
 	 * @return $this
 	 */
 	public function bootstrap() {
-		$this->blocks                      = new Crowdsignal_Forms_Blocks();
-		$this->blocks_assets               = new Crowdsignal_Forms_Blocks_Assets();
-		$this->rest_api_account_controller = new Account_Controller();
-		$this->rest_api_nps_controller     = new Nps_Controller();
-		$this->rest_api_polls_controller   = new Polls_Controller();
-		$this->admin_hooks                 = new Admin_Hooks();
-		$this->webservice_logger           = new Webservice_Logger();
+		$this->blocks                       = new Crowdsignal_Forms_Blocks();
+		$this->blocks_assets                = new Crowdsignal_Forms_Blocks_Assets();
+		$this->rest_api_account_controller  = new Account_Controller();
+		$this->rest_api_nps_controller      = new Nps_Controller();
+		$this->rest_api_feedback_controller = new Feedback_Controller();
+		$this->rest_api_polls_controller    = new Polls_Controller();
+		$this->admin_hooks                  = new Admin_Hooks();
+		$this->webservice_logger            = new Webservice_Logger();
 
 		return $this;
 	}
@@ -257,6 +266,7 @@ final class Crowdsignal_Forms {
 		$this->rest_api_account_controller->register_routes();
 		$this->rest_api_nps_controller->register_routes();
 		$this->rest_api_polls_controller->register_routes();
+		$this->rest_api_feedback_controller->register_routes();
 
 		/**
 		 * Any additional controllers from companion plugins can be registered using this hook.
