@@ -1,5 +1,4 @@
-.crowdsignal-forms-feedback {
-}
+/** Public styles */
 
 .crowdsignal-forms-feedback__trigger {
 	border-radius: 25px;
@@ -19,14 +18,6 @@
 		right: 20px;
 	}
 
-	.crowdsignal-forms-feedback.vertical-align-top & {
-		top: 20px;
-
-		.admin-bar & {
-			top: 52px;
-		}
-	}
-
 	.crowdsignal-forms-feedback.vertical-align-center & {
 		margin-top: -25px;
 		top: 50%;
@@ -34,6 +25,14 @@
 
 	.crowdsignal-forms-feedback.vertical-align-bottom & {
 		bottom: 20px;
+	}
+
+	.crowdsignal-forms-feedback.vertical-align-top & {
+		top: 20px;
+
+		.admin-bar & {
+			top: 52px;
+		}
 	}
 }
 
@@ -57,20 +56,20 @@
 		right: 70px;
 	}
 
-	.crowdsignal-forms-feedback.vertical-align-top & {
-		top: 70px;
-
-		.admin-bar & {
-			top: 102px;
-		}
-	}
-
 	.crowdsignal-forms-feedback.vertical-align-center & {
 		top: 50%;
 	}
 
 	.crowdsignal-forms-feedback.vertical-align-bottom & {
 		bottom: 70px;
+	}
+
+	.crowdsignal-forms-feedback.vertical-align-top & {
+		top: 70px;
+
+		.admin-bar & {
+			top: 102px;
+		}
 	}
 }
 

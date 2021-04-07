@@ -1,8 +1,13 @@
 /** Editor styles */
+
 .editor-styles-wrapper {
 
 	.wp-block[data-type="crowdsignal-forms/feedback"] {
 		width: auto;
+	}
+
+	.crowdsignal-forms-feedback__popover {
+		position: static;
 	}
 
 	.crowdsignal-forms-feedback {
@@ -35,18 +40,14 @@
 			padding-bottom: 60px;
 		}
 	}
-
-	.crowdsignal-forms-feedback__popover {
-		position: static;
-	}
-
-	.crowdsignal-forms-feedback__trigger {
-		position: absolute;
-	}
 }
 
-
 .crowdsignal-forms-feedback__trigger {
+
+	.editor-styles-wrapper & {
+		position: absolute;
+	}
+
 	.editor-styles-wrapper .crowdsignal-forms-feedback.align-left & {
 		left: 10px;
 	}
