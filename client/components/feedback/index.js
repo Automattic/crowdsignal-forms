@@ -55,7 +55,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 						<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
 							<button
-								className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
+								className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
 								type="button"
 							>
 								{ attributes.submitButtonLabel }

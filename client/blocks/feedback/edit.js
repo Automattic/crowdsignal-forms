@@ -175,7 +175,7 @@ const EditFeedbackBlock = ( props ) => {
 
 						<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
 							<RichText
-								className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
+								className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
 								onChange={ handleChangeAttribute(
 									'submitButtonLabel'
 								) }
