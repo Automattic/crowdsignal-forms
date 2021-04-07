@@ -27,32 +27,44 @@ const FeedbackToolbar = ( { onChangePosition } ) => {
 					{ showPosition && (
 						<Popover onClose={ hidePositionPopover }>
 							<Button
-								onClick={ () => onChangePosition( [ -1, 1 ] ) }
+								onClick={ () =>
+									onChangePosition( 'left', 'top' )
+								}
 							>
 								Top Left
 							</Button>
 							<Button
-								onClick={ () => onChangePosition( [ -1, 0 ] ) }
+								onClick={ () =>
+									onChangePosition( 'left', 'center' )
+								}
 							>
 								Center Left
 							</Button>
 							<Button
-								onClick={ () => onChangePosition( [ -1, -1 ] ) }
+								onClick={ () =>
+									onChangePosition( 'left', 'bottom' )
+								}
 							>
 								Bottom left
 							</Button>
 							<Button
-								onClick={ () => onChangePosition( [ 1, 1 ] ) }
+								onClick={ () =>
+									onChangePosition( 'right', 'top' )
+								}
 							>
 								Top right
 							</Button>
 							<Button
-								onClick={ () => onChangePosition( [ 1, 0 ] ) }
+								onClick={ () =>
+									onChangePosition( 'right', 'center' )
+								}
 							>
 								Center right
 							</Button>
 							<Button
-								onClick={ () => onChangePosition( [ 1, -1 ] ) }
+								onClick={ () =>
+									onChangePosition( 'right', 'bottom' )
+								}
 							>
 								Bottom right
 							</Button>

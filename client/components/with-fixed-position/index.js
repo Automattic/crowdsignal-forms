@@ -49,14 +49,15 @@ export const withFixedPosition = ( BlockListBlock ) => {
 			...get( props, [ 'wrapperProps', 'style' ], {} ),
 			...offset,
 			position: ! isEmpty( offset ) ? 'fixed' : null,
+			margin: 0,
 		};
 
-		props.wrapperProps = {
+		const wrapperProps = {
 			...props.wrapperProps,
 			style,
 		};
 
-		return <BlockListBlock { ...props } />;
+		return <BlockListBlock { ...props } wrapperProps={ wrapperProps } />;
 	};
 };
 
