@@ -160,7 +160,22 @@ const EditNpsBlock = ( props ) => {
 			) }
 
 			{ ! isExample && (
-				<EditorNotice isDismissible={ false } icon="visibility">
+				<EditorNotice
+					isDismissible={ false }
+					icon="visibility"
+					componentActions={ [
+						<PostPreviewButton
+							key={ 1 }
+							className={ [
+								'is-secondary',
+								'components-notice__action',
+								'crowdsignal-forms-nps__preview-button',
+								attributes.surveyId ? '' : 'is-disabled',
+							] }
+							textContent={ __( 'Preview', 'crowdsignal-forms' ) }
+						/>,
+					] }
+				>
 					{ sprintf(
 						// translators: %d: number of pageviews
 						_n(
@@ -171,16 +186,6 @@ const EditNpsBlock = ( props ) => {
 						),
 						viewThreshold
 					) }
-
-					<PostPreviewButton
-						className={ [
-							'is-secondary',
-							'components-notice__action',
-							'crowdsignal-forms-nps__preview-button',
-							attributes.surveyId ? '' : 'is-disabled',
-						] }
-						textContent={ __( 'Preview', 'crowdsignal-forms' ) }
-					/>
 				</EditorNotice>
 			) }
 
