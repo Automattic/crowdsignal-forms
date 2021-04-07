@@ -12,6 +12,7 @@ import { RichText } from '@wordpress/block-editor';
 import { TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withSelect, dispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -25,6 +26,8 @@ import Toolbar from './toolbar';
 import { getStyleVars } from './util';
 import { useAutosave } from 'components/use-autosave';
 import { updateFeedback } from 'data/feedback/edit';
+import SignalWarning from 'components/signal-warning';
+import EditorNotice from 'components/editor-notice';
 
 // Probably dependent on the button style
 const PADDING = 20;
@@ -112,7 +115,7 @@ const EditFeedbackBlock = ( props ) => {
 		title,
 	} = attributes;
 
-	const { save: saveBlock } = useAutosave(
+	const { error: saveError, save: saveBlock } = useAutosave(
 		async ( data ) => {
 			dispatch( 'core/editor' ).lockPostSaving( clientId );
 
@@ -209,6 +212,31 @@ const EditFeedbackBlock = ( props ) => {
 							onClick={ toggleBlock }
 						/>
 						<div className="crowdsignal-forms-feedback__popover">
+							{ ! isExample && signalWarning && (
+								<SignalWarning />
+							) }
+							{ ! isExample && saveError && (
+								<EditorNotice
+									status="error"
+									icon="warning"
+									isDismissible={ false }
+									actions={ [
+										{
+											className: 'is-destructive',
+											label: __(
+												'Retry',
+												'crowdsignal-forms'
+											),
+											onClick: saveBlock,
+										},
+									] }
+								>
+									{ __(
+										`Unfortunately, the block couldn't be saved to Crowdsignal.com.`,
+										'crowdsignal-forms'
+									) }
+								</EditorNotice>
+							) }
 							<RichText
 								tagName="h3"
 								className="crowdsignal-forms-feedback__header"
