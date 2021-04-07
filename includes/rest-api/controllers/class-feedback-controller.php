@@ -131,8 +131,6 @@ class Feedback_Controller {
 			return $result;
 		}
 
-		$result['checksum'] = $this->get_response_checksum( $result['r'], $data['nonce'] );
-
 		return rest_ensure_response( $result );
 	}
 
@@ -174,16 +172,5 @@ class Feedback_Controller {
 				},
 			),
 		);
-	}
-
-	/**
-	 * Creates a checksum hash for a response ID and nonce combination.
-	 *
-	 * @param  string $response_id Response ID.
-	 * @param  string $nonce       Nonce.
-	 * @return string
-	 */
-	private function get_response_checksum( $response_id, $nonce ) {
-		return hash( 'sha1', $response_id . $nonce );
 	}
 }
