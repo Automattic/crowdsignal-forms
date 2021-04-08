@@ -4,6 +4,22 @@
 
 	.wp-block[data-type="crowdsignal-forms/feedback"] {
 		width: auto;
+		// This number is was carefully chosen so the block and its overlay
+		// don't block any editor UI elements but appear in front of regular
+		// content
+		z-index: 10;
+	}
+
+	.crowdsignal-forms-feedback__popover-overlay {
+		background-color: rgba(0, 0, 0, 0.3);
+		content: "";
+		display: block;
+		position: fixed;
+		bottom: 25px;
+		left: 0;
+		right: 0;
+		top: 0;
+		z-index: -1;
 	}
 
 	.crowdsignal-forms-feedback__popover {
