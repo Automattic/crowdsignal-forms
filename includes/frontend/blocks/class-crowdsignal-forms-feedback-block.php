@@ -24,6 +24,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 
 	/**
+	 * The nonce identifier string for Feedback submission.
+	 *
+	 * @since [next-version-number]
+	 * @var string
+	 */
+	const NONCE = 'crowdsignal-forms-feedback__submit';
+
+	/**
 	 * {@inheritDoc}
 	 */
 	public function asset_identifier() {
@@ -71,6 +79,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 		wp_enqueue_style( $this->asset_identifier() );
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
+		$attributes['nonce']        = $this->create_nonce();
 
 		return sprintf(
 			'<div class="crowdsignal-feedback-wrapper" data-crowdsignal-feedback="%s"></div>',
@@ -146,5 +155,38 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 				'default' => 'bottom',
 			),
 		);
+	}
+
+	/**
+	 * Verifies a nonce based on the NONCE.
+	 * The nonce creation is first attempted through crowdsignal_forms_nps_nonce filter.
+	 *
+	 * @since [next-version-number]
+	 * @param string $nonce
+	 * @return bool
+	 */
+	public static function verify_nonce( $nonce ) {
+		$verifies = apply_filters( 'crowdsignal_forms_feedback_nonce_check', $nonce, self::NONCE );
+
+		if ( $verifies === $nonce ) { // returned unfiltered.
+			$verifies = wp_verify_nonce( $nonce, self::NONCE );
+		}
+		return $verifies;
+	}
+
+	/**
+	 * Returns a nonce based on the NONCE.
+	 * The nonce creation is first attempted through crowdsignal_forms_feedback_nonce filter.
+	 *
+	 * @since [next-version-number]
+	 * @return string
+	 */
+	private function create_nonce() {
+		$nonce = apply_filters( 'crowdsignal_forms_feedback_nonce', self::NONCE );
+
+		if ( self::NONCE === $nonce ) { // returned unfiltered.
+			$nonce = wp_create_nonce( self::NONCE );
+		}
+		return $nonce;
 	}
 }

@@ -17,5 +17,10 @@ export default {
 	keywords: [ 'crowdsignal', __( 'feedback', 'crowdsignal-forms' ) ],
 	icon: <PollIcon />,
 	edit: EditFeedbackBlock,
+	supports: {
+		multiple: false,
+		html: false,
+		reusable: false,
+	},
 	attributes,
 };

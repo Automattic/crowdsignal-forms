@@ -10,6 +10,7 @@ namespace Crowdsignal_Forms\Gateways;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Nps_Survey;
+use Crowdsignal_Forms\Models\Feedback_Survey;
 use Crowdsignal_Forms\Models\Poll;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -219,6 +220,91 @@ class Api_Gateway implements Api_Gateway_Interface {
 		$response = $this->perform_request(
 			'POST',
 			'/nps/' . $survey_id . '/response',
+			$data
+		);
+
+		if ( is_wp_error( $response ) ) {
+			$this->log_webservice_event(
+				'response_error',
+				array(
+					'error' => $response,
+				)
+			);
+
+			return $response;
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body, true );
+
+		$this->log_webservice_event(
+			'response_success',
+			array(
+				'data' => $data,
+			)
+		);
+
+		return $data;
+	}
+
+	/**
+	 * Fires a call to the Crowdsignal API to update the survey.
+	 *
+	 * @since [next-version-number]
+	 *
+	 * @param  Feedback_Survey $survey  Survey.
+	 * @return Feedback_Survey|WP_Error
+	 */
+	public function update_feedback( Feedback_Survey $survey ) {
+		$survey_array = $survey->to_array();
+
+		// Inject source attribute.
+		$survey_array['source'] = 'crowdsignal-forms';
+
+		$response = $this->perform_request(
+			'POST',
+			$survey->get_id() ? '/feedback/' . $survey->get_id() : '/feedback',
+			$survey_array
+		);
+
+		if ( is_wp_error( $response ) ) {
+			$this->log_webservice_event(
+				'response_error',
+				array(
+					'error' => $response,
+				)
+			);
+
+			return $response;
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body, true );
+
+		$this->log_webservice_event(
+			'response_success',
+			array(
+				'data' => $data,
+			)
+		);
+
+		return Feedback_Survey::from_array( $data );
+	}
+
+	/**
+	 * Fires a proxy call to the Crowdsignal API Feedback response endpoint
+	 * passing $data as is and returns the response body as an array or
+	 * a WP_Error.
+	 *
+	 * @since [next-version-number]
+	 * @param  int   $survey_id Survey ID.
+	 * @param  array $data      Request data.
+	 * @return array|WP_Error
+	 */
+	public function update_feedback_response( $survey_id, array $data ) {
+		$response = $this->perform_request(
+			'POST',
+			'/feedback/' . $survey_id . '/response',
 			$data
 		);
 

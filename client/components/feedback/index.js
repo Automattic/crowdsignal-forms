@@ -3,6 +3,7 @@
  */
 import React, { useState } from 'react';
 import classnames from 'classnames';
+import { isEmpty } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -16,9 +17,26 @@ import { TextControl, TextareaControl } from '@wordpress/components';
 import { getStyleVars } from 'blocks/feedback/util';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { getAlignmentClassNames } from './util';
+import { updateFeedbackResponse } from 'data/feedback';
 
 const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	const [ active, setActive ] = useState( false );
+
+	const [ feedback, setFeedback ] = useState( '' );
+	const [ email, setEmail ] = useState( '' );
+
+	const handleSubmit = async () => {
+		if ( ! isEmpty( feedback ) ) {
+			updateFeedbackResponse( attributes.surveyId, {
+				nonce: attributes.nonce,
+				feedback,
+				email,
+			} );
+		}
+
+		// no thanks nor anything right now, needs improvement
+		toggleDialog();
+	};
 
 	const toggleDialog = () => setActive( ! active );
 
@@ -45,18 +63,22 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 							className="crowdsignal-forms-feedback__input"
 							rows={ 6 }
 							placeholder={ attributes.feedbackPlaceholder }
-							value={ '' }
+							value={ feedback }
+							onChange={ setFeedback }
 						/>
 
 						<TextControl
 							className="crowdsignal-forms-feedback__input"
 							placeholder={ attributes.emailPlaceholder }
+							value={ email }
+							onChange={ setEmail }
 						/>
 
 						<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
 							<button
 								className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
 								type="button"
+								onClick={ handleSubmit }
 							>
 								{ attributes.submitButtonLabel }
 							</button>
