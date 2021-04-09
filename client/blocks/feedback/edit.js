@@ -202,29 +202,6 @@ const EditFeedbackBlock = ( props ) => {
 				className={ classes }
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
-				{ isSelected && ! isExample && signalWarning && (
-					<SignalWarning />
-				) }
-				{ isSelected && ! isExample && saveError && (
-					<EditorNotice
-						status="error"
-						icon="warning"
-						isDismissible={ false }
-						actions={ [
-							{
-								className: 'is-destructive',
-								label: __( 'Retry', 'crowdsignal-forms' ),
-								onClick: saveBlock,
-							},
-						] }
-					>
-						{ __(
-							`Unfortunately, the block couldn't be saved to Crowdsignal.com.`,
-							'crowdsignal-forms'
-						) }
-					</EditorNotice>
-				) }
-
 				{ isSelected && (
 					<>
 						{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */ }
@@ -234,32 +211,30 @@ const EditFeedbackBlock = ( props ) => {
 							className="crowdsignal-forms-feedback__popover-overlay"
 							onClick={ toggleBlock }
 						/>
+						{ ! isExample && signalWarning && <SignalWarning /> }
+						{ ! isExample && saveError && (
+							<EditorNotice
+								status="error"
+								icon="warning"
+								isDismissible={ false }
+								actions={ [
+									{
+										className: 'is-destructive',
+										label: __(
+											'Retry',
+											'crowdsignal-forms'
+										),
+										onClick: saveBlock,
+									},
+								] }
+							>
+								{ __(
+									`Unfortunately, the block couldn't be saved to Crowdsignal.com.`,
+									'crowdsignal-forms'
+								) }
+							</EditorNotice>
+						) }
 						<div className="crowdsignal-forms-feedback__popover">
-							{ ! isExample && signalWarning && (
-								<SignalWarning />
-							) }
-							{ ! isExample && saveError && (
-								<EditorNotice
-									status="error"
-									icon="warning"
-									isDismissible={ false }
-									actions={ [
-										{
-											className: 'is-destructive',
-											label: __(
-												'Retry',
-												'crowdsignal-forms'
-											),
-											onClick: saveBlock,
-										},
-									] }
-								>
-									{ __(
-										`Unfortunately, the block couldn't be saved to Crowdsignal.com.`,
-										'crowdsignal-forms'
-									) }
-								</EditorNotice>
-							) }
 							<RichText
 								tagName="h3"
 								className="crowdsignal-forms-feedback__header"
