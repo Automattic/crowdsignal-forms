@@ -165,6 +165,9 @@ const EditFeedbackBlock = ( props ) => {
 
 	const setPosition = ( x, y ) => setAttributes( { x, y } );
 
+	const toggleBlock = () =>
+		dispatch( 'core/block-editor' ).clearSelectedBlock();
+
 	const handleChangeAttribute = ( key ) => ( value ) =>
 		setAttributes( { [ key ]: value } );
 
@@ -197,45 +200,54 @@ const EditFeedbackBlock = ( props ) => {
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
 				{ isSelected && (
-					<div className="crowdsignal-forms-feedback__popover">
-						<RichText
-							tagName="h3"
-							className="crowdsignal-forms-feedback__header"
-							onChange={ handleChangeAttribute( 'header' ) }
-							value={ attributes.header }
-							allowedFormats={ [] }
+					<>
+						{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */ }
+						<div
+							aria-modal="true"
+							role="dialog"
+							className="crowdsignal-forms-feedback__popover-overlay"
+							onClick={ toggleBlock }
 						/>
-
-						<TextareaControl
-							className="crowdsignal-forms-feedback__input"
-							rows={ 6 }
-							onChange={ handleChangeAttribute(
-								'feedbackPlaceholder'
-							) }
-							value={ attributes.feedbackPlaceholder }
-						/>
-
-						<TextControl
-							className="crowdsignal-forms-feedback__input"
-							onChange={ handleChangeAttribute(
-								'emailPlaceholder'
-							) }
-							value={ attributes.emailPlaceholder }
-						/>
-
-						<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
+						<div className="crowdsignal-forms-feedback__popover">
 							<RichText
-								className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
-								onChange={ handleChangeAttribute(
-									'submitButtonLabel'
-								) }
-								value={ attributes.submitButtonLabel }
+								tagName="h3"
+								className="crowdsignal-forms-feedback__header"
+								onChange={ handleChangeAttribute( 'header' ) }
+								value={ attributes.header }
 								allowedFormats={ [] }
-								multiline={ false }
-								disableLineBreaks={ true }
 							/>
+
+							<TextareaControl
+								className="crowdsignal-forms-feedback__input"
+								rows={ 6 }
+								onChange={ handleChangeAttribute(
+									'feedbackPlaceholder'
+								) }
+								value={ attributes.feedbackPlaceholder }
+							/>
+
+							<TextControl
+								className="crowdsignal-forms-feedback__input"
+								onChange={ handleChangeAttribute(
+									'emailPlaceholder'
+								) }
+								value={ attributes.emailPlaceholder }
+							/>
+
+							<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
+								<RichText
+									className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
+									onChange={ handleChangeAttribute(
+										'submitButtonLabel'
+									) }
+									value={ attributes.submitButtonLabel }
+									allowedFormats={ [] }
+									multiline={ false }
+									disableLineBreaks={ true }
+								/>
+							</div>
 						</div>
-					</div>
+					</>
 				) }
 
 				<button className="crowdsignal-forms-feedback__trigger"></button>
