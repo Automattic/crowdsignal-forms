@@ -55,6 +55,12 @@
 		&.vertical-align-bottom {
 			padding-bottom: 60px;
 		}
+
+		.crowdsignal-forms__editor-notice {
+			// this width must match the width of
+			// .crowdsignal-forms-feedback__popover on components/feedback/style.scss
+			width: 380px;
+		}
 	}
 }
 
