@@ -51,7 +51,7 @@ export default {
 	},
 	title: {
 		type: 'string',
-		default: '',
+		default: __( 'Untitled Feedback', 'crowdsignal-forms' ),
 	},
 	x: {
 		type: 'string',

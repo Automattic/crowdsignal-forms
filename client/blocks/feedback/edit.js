@@ -114,6 +114,7 @@ const EditFeedbackBlock = ( props ) => {
 		emailPlaceholder,
 		surveyId,
 		title,
+		header,
 	} = attributes;
 
 	const { error: saveError, save: saveBlock } = useAutosave(
@@ -126,7 +127,7 @@ const EditFeedbackBlock = ( props ) => {
 					emailPlaceholder: data.emailPlaceholder,
 					sourceLink: data.sourceLink,
 					surveyId: data.surveyId,
-					title: data.title || data.feedbackPlaceholder,
+					title: data.title || data.header,
 				} );
 
 				if ( ! data.surveyId ) {
@@ -142,6 +143,7 @@ const EditFeedbackBlock = ( props ) => {
 			sourceLink,
 			surveyId,
 			title,
+			header,
 		}
 	);
 
