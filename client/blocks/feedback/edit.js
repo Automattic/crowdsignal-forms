@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useLayoutEffect, useEffect } from 'react';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
 import classnames from 'classnames';
 import { get } from 'lodash';
 
@@ -29,6 +29,7 @@ import { useAutosave } from 'components/use-autosave';
 import { updateFeedback } from 'data/feedback/edit';
 import SignalWarning from 'components/signal-warning';
 import EditorNotice from 'components/editor-notice';
+import { views } from './constants';
 
 // Probably dependent on the button style
 const PADDING = 20;
@@ -95,6 +96,8 @@ const getVerticalPadding = ( position ) => {
 };
 
 const EditFeedbackBlock = ( props ) => {
+	const [ view, setView ] = useState( views.QUESTION );
+
 	const {
 		attributes,
 		activeSidebar,
@@ -154,6 +157,14 @@ const EditFeedbackBlock = ( props ) => {
 		saveBlock();
 	}, [] );
 
+	useEffect( () => {
+		if ( isSelected ) {
+			return;
+		}
+
+		setView( views.QUESTION );
+	}, [ isSelected ] );
+
 	useLayoutEffect( () => {
 		props.setPosition( {
 			...getHorizontalPosition( attributes.x ),
@@ -192,7 +203,12 @@ const EditFeedbackBlock = ( props ) => {
 
 	return (
 		<ConnectToCrowdsignal>
-			<Toolbar onChangePosition={ setPosition } { ...props } />
+			<Toolbar
+				currentView={ view }
+				onChangePosition={ setPosition }
+				onViewChange={ setView }
+				{ ...props }
+			/>
 			<Sidebar
 				shouldPromote={ shouldPromote }
 				signalWarning={ signalWarning }
@@ -212,6 +228,7 @@ const EditFeedbackBlock = ( props ) => {
 							className="crowdsignal-forms-feedback__popover-overlay"
 							onClick={ toggleBlock }
 						/>
+
 						{ ! isExample && signalWarning && <SignalWarning /> }
 						{ ! isExample && saveError && (
 							<EditorNotice
@@ -235,45 +252,64 @@ const EditFeedbackBlock = ( props ) => {
 								) }
 							</EditorNotice>
 						) }
-						<div className="crowdsignal-forms-feedback__popover">
-							<RichText
-								tagName="h3"
-								className="crowdsignal-forms-feedback__header"
-								onChange={ handleChangeAttribute( 'header' ) }
-								value={ attributes.header }
-								allowedFormats={ [] }
-							/>
 
-							<TextareaControl
-								className="crowdsignal-forms-feedback__input"
-								rows={ 6 }
-								onChange={ handleChangeAttribute(
-									'feedbackPlaceholder'
-								) }
-								value={ attributes.feedbackPlaceholder }
-							/>
-
-							<TextControl
-								className="crowdsignal-forms-feedback__input"
-								onChange={ handleChangeAttribute(
-									'emailPlaceholder'
-								) }
-								value={ attributes.emailPlaceholder }
-							/>
-
-							<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
+						{ view === views.QUESTION && (
+							<div className="crowdsignal-forms-feedback__popover">
 								<RichText
-									className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
+									tagName="h3"
+									className="crowdsignal-forms-feedback__header"
 									onChange={ handleChangeAttribute(
-										'submitButtonLabel'
+										'header'
 									) }
-									value={ attributes.submitButtonLabel }
+									value={ attributes.header }
 									allowedFormats={ [] }
-									multiline={ false }
-									disableLineBreaks={ true }
+								/>
+
+								<TextareaControl
+									className="crowdsignal-forms-feedback__input"
+									rows={ 6 }
+									onChange={ handleChangeAttribute(
+										'feedbackPlaceholder'
+									) }
+									value={ attributes.feedbackPlaceholder }
+								/>
+
+								<TextControl
+									className="crowdsignal-forms-feedback__input"
+									onChange={ handleChangeAttribute(
+										'emailPlaceholder'
+									) }
+									value={ attributes.emailPlaceholder }
+								/>
+
+								<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
+									<RichText
+										className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
+										onChange={ handleChangeAttribute(
+											'submitButtonLabel'
+										) }
+										value={ attributes.submitButtonLabel }
+										allowedFormats={ [] }
+										multiline={ false }
+										disableLineBreaks={ true }
+									/>
+								</div>
+							</div>
+						) }
+
+						{ view === views.SUBMIT && (
+							<div className="crowdsignal-forms-feedback__popover">
+								<RichText
+									tagName="h3"
+									className="crowdsignal-forms-feedback__header"
+									onChange={ handleChangeAttribute(
+										'submitText'
+									) }
+									value={ attributes.submitText }
+									allowedFormats={ [] }
 								/>
 							</div>
-						</div>
+						) }
 					</>
 				) }
 

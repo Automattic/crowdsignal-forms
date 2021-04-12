@@ -14,6 +14,7 @@ import {
 	ToolbarButton,
 	ToolbarGroup,
 } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -24,6 +25,7 @@ import {
 	BottomLeftPlacementIcon,
 	BottomRightPlacementIcon,
 } from 'components/icon/placement';
+import { views } from './constants';
 
 const placementIcons = {
 	'top-left': TopLeftPlacementIcon,
@@ -32,8 +34,10 @@ const placementIcons = {
 	'bottom-right': BottomRightPlacementIcon,
 };
 
-const FeedbackToolbar = ( { attributes, onChangePosition } ) => {
+const FeedbackToolbar = ( { attributes, currentView, onChangePosition, onViewChange } ) => {
 	const [ showPosition, setShowPosition ] = useState( false );
+
+	const handleViewChange = ( view ) => () => onViewChange( view );
 
 	const showPositionPopover = () => setShowPosition( true );
 	const hidePositionPopover = () => setShowPosition( false );
@@ -42,6 +46,24 @@ const FeedbackToolbar = ( { attributes, onChangePosition } ) => {
 
 	return (
 		<BlockControls>
+			<ToolbarGroup label={ __( 'Current view', 'crowdsignal-forms' ) }>
+				<ToolbarButton
+					className="crowdsignal-forms-feedback__toolbar-toggle"
+					isActive={ currentView === views.QUESTION }
+					label={ __( 'Question', 'crowdsignal-forms' ) }
+					onClick={ handleViewChange( views.QUESTION ) }
+				>
+					{ __( 'Question', 'crowdsignal-forms' ) }
+				</ToolbarButton>
+				<ToolbarButton
+					className="crowdsignal-forms-feedback__toolbar-toggle"
+					isActive={ currentView === views.SUBMIT }
+					label={ __( 'Submit', 'crowdsignal-forms' ) }
+					onClick={ handleViewChange( views.SUBMIT ) }
+				>
+					{ __( 'Submit', 'crowdsignal-forms' ) }
+				</ToolbarButton>
+			</ToolbarGroup>
 			<ToolbarGroup>
 				<ToolbarButton
 					className="crowdsignal-forms-feedback__toolbar-position-toggle"

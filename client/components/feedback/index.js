@@ -19,8 +19,10 @@ import { getStyleVars } from 'blocks/feedback/util';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { getAlignmentClassNames } from './util';
 import { updateFeedbackResponse } from 'data/feedback';
+import { views } from 'blocks/feedback/constants';
 
 const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
+	const [ view, setView ] = useState( views.QUESTION );
 	const [ active, setActive ] = useState( false );
 
 	const [ feedback, setFeedback ] = useState( '' );
@@ -35,8 +37,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			} );
 		}
 
-		// no thanks nor anything right now, needs improvement
-		toggleDialog();
+		setView( views.SUBMIT );
 	};
 
 	const toggleDialog = () => setActive( ! active );
@@ -52,7 +53,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 				className={ classes }
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
-				{ active && (
+				{ active && view === views.QUESTION && (
 					<div className="crowdsignal-forms-feedback__popover">
 						<RichText.Content
 							tagName="h3"
@@ -84,6 +85,16 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 								{ attributes.submitButtonLabel }
 							</button>
 						</div>
+					</div>
+				) }
+
+				{ active && view === views.SUBMIT && (
+					<div className="crowdsignal-forms-feedback__popover">
+						<RichText.Content
+							tagName="h3"
+							className="crowdsignal-forms-feedback__header"
+							value={ attributes.submitText }
+						/>
 					</div>
 				) }
 

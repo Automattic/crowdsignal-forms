@@ -39,8 +39,12 @@ export default {
 		default: false,
 	},
 	submitButtonLabel: {
-		type: 'text',
+		type: 'string',
 		default: __( 'Submit', 'crowdsignal-forms' ),
+	},
+	submitText: {
+		type: 'string',
+		default: __( 'Thanks for letting us know!', 'crowdsignal-forms' ),
 	},
 	surveyId: {
 		type: 'number',
