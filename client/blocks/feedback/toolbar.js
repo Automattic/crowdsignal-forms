@@ -44,6 +44,7 @@ const FeedbackToolbar = ( { attributes, onChangePosition } ) => {
 		<BlockControls>
 			<ToolbarGroup>
 				<ToolbarButton
+					className="crowdsignal-forms-feedback__toolbar-position-toggle"
 					onClick={ showPositionPopover }
 					icon={ placementIcons[ `${ y }-${ x }` ] }
 				>
