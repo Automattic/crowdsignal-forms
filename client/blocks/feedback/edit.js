@@ -18,6 +18,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
+import SignalIcon from 'components/icon/signal';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { getAlignmentClassNames } from 'components/feedback/util';
 import { useAccountInfo } from 'data/hooks';
@@ -276,7 +277,9 @@ const EditFeedbackBlock = ( props ) => {
 					</>
 				) }
 
-				<button className="crowdsignal-forms-feedback__trigger"></button>
+				<button className="crowdsignal-forms-feedback__trigger">
+					<SignalIcon />
+				</button>
 			</div>
 
 			{ props.renderStyleProbe() }

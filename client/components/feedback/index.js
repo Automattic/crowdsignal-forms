@@ -14,6 +14,7 @@ import { TextControl, TextareaControl } from '@wordpress/components';
 /**
  * Internal dependencies
  */
+import SignalIcon from 'components/icon/signal';
 import { getStyleVars } from 'blocks/feedback/util';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { getAlignmentClassNames } from './util';
@@ -89,7 +90,9 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 				<button
 					className="crowdsignal-forms-feedback__trigger"
 					onClick={ toggleDialog }
-				/>
+				>
+					<SignalIcon />
+				</button>
 			</div>
 
 			{ renderStyleProbe() }

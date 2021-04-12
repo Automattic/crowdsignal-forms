@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import PollIcon from 'components/icon/poll';
+import FeedbackIcon from 'components/icon/feedback';
 import attributes from './attributes';
 import EditFeedbackBlock from './edit';
 
@@ -15,7 +15,7 @@ export default {
 	description: __( 'Feedback block', 'crowdsignal-forms' ),
 	category: 'crowdsignal-forms',
 	keywords: [ 'crowdsignal', __( 'feedback', 'crowdsignal-forms' ) ],
-	icon: <PollIcon />,
+	icon: <FeedbackIcon />,
 	edit: EditFeedbackBlock,
 	supports: {
 		multiple: false,
