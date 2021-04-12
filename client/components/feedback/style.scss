@@ -2,13 +2,14 @@
 
 .crowdsignal-forms-feedback__trigger {
 	border: 0;
-	border-radius: 25px;
+	border-radius: 50%;
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 	cursor: pointer;
-	height: 50px;
+	height: 75px;
 	outline: 0;
+	padding: 0;
 	position: fixed;
-	width: 50px;
+	width: 75px;
 	z-index: 100;
 
 	.crowdsignal-forms-feedback.align-left & {
