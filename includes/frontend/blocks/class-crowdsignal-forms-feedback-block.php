@@ -159,7 +159,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 
 	/**
 	 * Verifies a nonce based on the NONCE.
-	 * The nonce creation is first attempted through crowdsignal_forms_nps_nonce filter.
+	 * The nonce creation is first attempted through crowdsignal_forms_feedback_nonce filter.
 	 *
 	 * @since [next-version-number]
 	 * @param string $nonce

@@ -74,7 +74,7 @@ const Sidebar = ( {
 					label={ __( 'Title (optional)', 'crowdsignal-forms' ) }
 					onChange={ handleChangeTitle }
 					value={ decodeEntities(
-						attributes.title ?? attributes.ratingQuestion
+						attributes.title || attributes.header
 					) }
 				/>
 				{ shouldPromote && (
