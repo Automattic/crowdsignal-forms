@@ -12,7 +12,6 @@ import { RichText } from '@wordpress/block-editor';
 import { TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withSelect, dispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -28,8 +27,8 @@ import { getStyleVars } from './util';
 import { useAutosave } from 'components/use-autosave';
 import { updateFeedback } from 'data/feedback/edit';
 import SignalWarning from 'components/signal-warning';
-import EditorNotice from 'components/editor-notice';
 import { views } from './constants';
+import RetryNotice from 'components/retry-notice';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -194,26 +193,7 @@ const EditFeedbackBlock = ( props ) => {
 
 						{ ! isExample && signalWarning && <SignalWarning /> }
 						{ ! isExample && saveError && (
-							<EditorNotice
-								status="error"
-								icon="warning"
-								isDismissible={ false }
-								actions={ [
-									{
-										className: 'is-destructive',
-										label: __(
-											'Retry',
-											'crowdsignal-forms'
-										),
-										onClick: saveBlock,
-									},
-								] }
-							>
-								{ __(
-									`Unfortunately, the block couldn't be saved to Crowdsignal.com.`,
-									'crowdsignal-forms'
-								) }
-							</EditorNotice>
+							<RetryNotice retryHandler={ saveBlock } />
 						) }
 
 						{ view === views.QUESTION && (
