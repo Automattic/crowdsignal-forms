@@ -8,15 +8,10 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import EditorNotice from 'components/editor-notice';
-import WarningIcon from 'components/icon/warning-circle';
 
 const SignalWarning = () => {
 	return (
-		<EditorNotice
-			icon={ <WarningIcon /> }
-			status="warn"
-			isDismissible={ false }
-		>
+		<EditorNotice icon="warning" status="warn" isDismissible={ false }>
 			{ __(
 				'Your free Crowdsignal account has exceeded ',
 				'crowdsignal-forms'
