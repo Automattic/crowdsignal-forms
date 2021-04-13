@@ -137,7 +137,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 			),
 			'submitText'          => array(
 				'type'    => 'string',
-				'default' => __( 'Thanks for letting us know!', 'crowdsignal-team' ),
+				'default' => __( 'Thanks for letting us know!', 'crowdsignal-forms' ),
 			),
 			'surveyId'            => array(
 				'type'    => 'number',

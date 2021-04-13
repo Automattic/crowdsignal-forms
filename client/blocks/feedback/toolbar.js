@@ -34,7 +34,12 @@ const placementIcons = {
 	'bottom-right': BottomRightPlacementIcon,
 };
 
-const FeedbackToolbar = ( { attributes, currentView, onChangePosition, onViewChange } ) => {
+const FeedbackToolbar = ( {
+	attributes,
+	currentView,
+	onChangePosition,
+	onViewChange,
+} ) => {
 	const [ showPosition, setShowPosition ] = useState( false );
 
 	const handleViewChange = ( view ) => () => onViewChange( view );
