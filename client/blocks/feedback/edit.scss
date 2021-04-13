@@ -23,37 +23,36 @@
 	}
 
 	.crowdsignal-forms-feedback__popover {
-		position: static;
+		margin-top: 15px;
 	}
 
 	.crowdsignal-forms-feedback {
+		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		margin: 0 !important;
-		padding: 20px;
 		position: relative;
 
 		&.align-left {
-			padding-left: 60px;
+			align-items: flex-start;
 		}
 
 		&.align-right {
-			padding-right: 60px;
+			align-items: flex-end;
 		}
 
 		&.vertical-align-top {
-			padding-top: 60px;
-		}
-
-		&.align-left.vertical-align-center {
-			padding-left: 70px;
-		}
-
-		&.align-right.vertical-align-center {
-			padding-right: 70px;
+			justify-content: flex-start;
 		}
 
 		&.vertical-align-bottom {
-			padding-bottom: 60px;
+			justify-content: flex-end;
+			flex-direction: column-reverse;
+
+			.crowdsignal-forms-feedback__popover {
+				margin-bottom: 15px;
+				margin-top: 0;
+			}
 		}
 
 		.crowdsignal-forms__editor-notice {
@@ -67,28 +66,7 @@
 .crowdsignal-forms-feedback__trigger {
 
 	.editor-styles-wrapper & {
-		position: absolute;
-	}
-
-	.editor-styles-wrapper .crowdsignal-forms-feedback.align-left & {
-		left: 10px;
-	}
-
-	.editor-styles-wrapper .crowdsignal-forms-feedback.align-right & {
-		right: 10px;
-	}
-
-	.editor-styles-wrapper .crowdsignal-forms-feedback.vertical-align-top & {
-		top: 0;
-	}
-
-	.editor-styles-wrapper .crowdsignal-forms-feedback.vertical-align-center & {
-		margin-top: -25px;
-		top: 50%;
-	}
-
-	.editor-styles-wrapper .crowdsignal-forms-feedback.vertical-align-bottom & {
-		bottom: 10px;
+		position: static;
 	}
 }
 

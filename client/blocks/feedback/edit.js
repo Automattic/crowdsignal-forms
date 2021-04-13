@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useLayoutEffect, useEffect, useState } from 'react';
+import React, { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import { get } from 'lodash';
 
@@ -20,7 +20,7 @@ import { __ } from '@wordpress/i18n';
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import SignalIcon from 'components/icon/signal';
 import { withFallbackStyles } from 'components/with-fallback-styles';
-import { getAlignmentClassNames } from 'components/feedback/util';
+import { getFeedbackButtonPosition } from 'components/feedback/util';
 import { useAccountInfo } from 'data/hooks';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
@@ -30,70 +30,6 @@ import { updateFeedback } from 'data/feedback/edit';
 import SignalWarning from 'components/signal-warning';
 import EditorNotice from 'components/editor-notice';
 import { views } from './constants';
-
-// Probably dependent on the button style
-const PADDING = 20;
-
-const getHorizontalPosition = ( position ) => {
-	const body = document.body;
-	const editorWrapper = document.getElementsByClassName(
-		'interface-interface-skeleton__content'
-	)[ 0 ];
-
-	if ( ! editorWrapper ) {
-		return {};
-	}
-
-	const wrapperPos = editorWrapper.getBoundingClientRect();
-
-	if ( position === 'right' ) {
-		return {
-			left: null,
-			right:
-				PADDING +
-				( body.offsetWidth - wrapperPos.width - wrapperPos.x ),
-		};
-	}
-
-	return {
-		left: PADDING + wrapperPos.x,
-		right: null,
-	};
-};
-
-const getVerticalPadding = ( position ) => {
-	const body = document.body;
-	const editorWrapper = document.getElementsByClassName(
-		'interface-interface-skeleton__content'
-	)[ 0 ];
-
-	if ( ! editorWrapper ) {
-		return {};
-	}
-
-	const wrapperPos = editorWrapper.getBoundingClientRect();
-
-	if ( position === 'bottom' ) {
-		return {
-			bottom:
-				PADDING +
-				( body.offsetHeight - wrapperPos.height - wrapperPos.y ),
-			top: null,
-		};
-	}
-
-	if ( position === 'top' ) {
-		return {
-			bottom: null,
-			top: PADDING + wrapperPos.y + 50, // 50 to account for the toolbar
-		};
-	}
-
-	return {
-		bottom: null,
-		top: PADDING + wrapperPos.y + wrapperPos.height / 2, // + own height
-	};
-};
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -109,8 +45,6 @@ const EditFeedbackBlock = ( props ) => {
 		sourceLink,
 	} = props;
 
-	const accountInfo = useAccountInfo();
-
 	const {
 		isExample,
 		feedbackPlaceholder,
@@ -119,6 +53,10 @@ const EditFeedbackBlock = ( props ) => {
 		title,
 		header,
 	} = attributes;
+
+	const triggerButton = useRef( null );
+
+	const accountInfo = useAccountInfo();
 
 	const { error: saveError, save: saveBlock } = useAutosave(
 		async ( data ) => {
@@ -168,16 +106,31 @@ const EditFeedbackBlock = ( props ) => {
 	}, [ isSelected ] );
 
 	useLayoutEffect( () => {
-		props.setPosition( {
-			...getHorizontalPosition( attributes.x ),
-			...getVerticalPadding( attributes.y ),
-		} );
+		props.setPosition(
+			getFeedbackButtonPosition(
+				attributes.x,
+				attributes.y,
+				triggerButton.current.offsetWidth,
+				triggerButton.current.offsetHeight,
+				{
+					left: 20,
+					right: 20,
+					top: isSelected ? 80 : 20,
+					bottom: 20,
+				},
+				document.getElementsByClassName(
+					'interface-interface-skeleton__content'
+				)[ 0 ]
+			)
+		);
 	}, [
 		activeSidebar,
 		editorFeatures.fullscreenMode,
+		isSelected,
 		props.setPosition,
 		attributes.x,
 		attributes.y,
+		triggerButton.current,
 	] );
 
 	const setPosition = ( x, y ) => setAttributes( { x, y } );
@@ -200,7 +153,8 @@ const EditFeedbackBlock = ( props ) => {
 
 	const classes = classnames(
 		'crowdsignal-forms-feedback',
-		getAlignmentClassNames( attributes.x, attributes.y )
+		`align-${ attributes.x }`,
+		`vertical-align-${ attributes.y }`
 	);
 
 	return (
@@ -221,6 +175,13 @@ const EditFeedbackBlock = ( props ) => {
 				className={ classes }
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
+				<button
+					ref={ triggerButton }
+					className="crowdsignal-forms-feedback__trigger"
+				>
+					<SignalIcon />
+				</button>
+
 				{ isSelected && (
 					<>
 						{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */ }
@@ -314,10 +275,6 @@ const EditFeedbackBlock = ( props ) => {
 						) }
 					</>
 				) }
-
-				<button className="crowdsignal-forms-feedback__trigger">
-					<SignalIcon />
-				</button>
 			</div>
 
 			{ props.renderStyleProbe() }
