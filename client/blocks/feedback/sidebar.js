@@ -11,7 +11,9 @@ import {
 	ExternalLink,
 	Icon,
 	PanelBody,
+	SelectControl,
 	TextControl,
+	DateTimePicker,
 } from '@wordpress/components';
 import {
 	InspectorControls,
@@ -28,6 +30,7 @@ import { __ } from '@wordpress/i18n';
 import SignalIcon from 'components/icon/signal';
 import SidebarPromote from 'components/sidebar-promote';
 import { getTriggerStyles } from './util';
+import { FeedbackStatus } from './constants';
 
 const Sidebar = ( {
 	attributes,
@@ -60,6 +63,13 @@ const Sidebar = ( {
 		} );
 
 	const triggerStyles = getTriggerStyles( attributes );
+
+	const handleChangeStatus = ( status ) => setAttributes( { status } );
+
+	const handleChangeCloseAfterDateTime = ( closedAfterDateTime ) => {
+		const dateTime = new Date( closedAfterDateTime );
+		setAttributes( { closedAfterDateTime: dateTime.toISOString() } );
+	};
 
 	return (
 		<InspectorControls>
@@ -173,6 +183,51 @@ const Sidebar = ( {
 					},
 				] }
 			/>
+			<PanelBody
+				title={ __( 'Settings', 'crowdsignal-forms' ) }
+				initialOpen={ false }
+			>
+				<SelectControl
+					value={ attributes.status }
+					label={ __( 'Survey Status', 'crowdsignal-forms' ) }
+					options={ [
+						{
+							label: __( 'Open', 'crowdsignal-forms' ),
+							value: FeedbackStatus.OPEN,
+						},
+						{
+							label: __( 'Closed after', 'crowdsignal-forms' ),
+							value: FeedbackStatus.CLOSED_AFTER,
+						},
+						{
+							label: __( 'Closed', 'crowdsignal-forms' ),
+							value: FeedbackStatus.CLOSED,
+						},
+					] }
+					onChange={ handleChangeStatus }
+					help={
+						FeedbackStatus.CLOSED_AFTER === attributes.status &&
+						null !== attributes.closedAfterDateTime &&
+						new Date().toISOString() >
+							attributes.closedAfterDateTime
+							? 'Currently closed as date has passed'
+							: ''
+					}
+				/>
+
+				{ FeedbackStatus.CLOSED_AFTER === attributes.status && (
+					<DateTimePicker
+						currentDate={
+							( attributes.closedAfterDateTime &&
+								new Date( attributes.closedAfterDateTime ) ) ||
+							new Date()
+						}
+						label={ __( 'Close on', 'crowdsignal-forms' ) }
+						onChange={ handleChangeCloseAfterDateTime }
+						is12Hour={ true }
+					/>
+				) }
+			</PanelBody>
 		</InspectorControls>
 	);
 };
