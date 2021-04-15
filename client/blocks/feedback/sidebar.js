@@ -8,12 +8,13 @@ import React from 'react';
  */
 import {
 	Button,
+	DateTimePicker,
 	ExternalLink,
 	Icon,
 	PanelBody,
 	SelectControl,
 	TextControl,
-	DateTimePicker,
+	ToggleControl,
 } from '@wordpress/components';
 import {
 	InspectorControls,
@@ -111,6 +112,14 @@ const Sidebar = ( {
 					value={ decodeEntities(
 						attributes.title || attributes.header
 					) }
+				/>
+				<ToggleControl
+					label={ __(
+						'Send me responses via email',
+						'crowdsignal-forms'
+					) }
+					checked={ attributes.emailResponses }
+					onChange={ handleChangeAttribute( 'emailResponses' ) }
 				/>
 				{ shouldPromote && (
 					<SidebarPromote signalWarning={ signalWarning } />
