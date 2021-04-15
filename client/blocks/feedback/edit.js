@@ -53,6 +53,7 @@ const EditFeedbackBlock = ( props ) => {
 		title,
 		triggerBackgroundImage,
 		header,
+		emailResponses,
 	} = attributes;
 
 	const triggerButton = useRef( null );
@@ -70,6 +71,7 @@ const EditFeedbackBlock = ( props ) => {
 					sourceLink: data.sourceLink,
 					surveyId: data.surveyId,
 					title: data.title || data.header,
+					emailResponses: data.emailResponses,
 				} );
 
 				if ( ! data.surveyId ) {
@@ -86,6 +88,7 @@ const EditFeedbackBlock = ( props ) => {
 			surveyId,
 			title,
 			header,
+			emailResponses,
 		}
 	);
 

@@ -90,4 +90,8 @@ export default {
 		type: 'string',
 		default: null,
 	},
+	emailResponses: {
+		type: 'boolean',
+		default: true,
+	},
 };
