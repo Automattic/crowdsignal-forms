@@ -9,7 +9,12 @@ import { isEmpty } from 'lodash';
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { Icon, Popover, TextControl, TextareaControl } from '@wordpress/components';
+import {
+	Icon,
+	Popover,
+	TextControl,
+	TextareaControl,
+} from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -77,7 +82,9 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 					onClick={ showDialog }
 					style={ triggerStyles }
 				>
-					{ ! attributes.triggerBackgroundImage && <Icon icon={ SignalIcon } size={ 75 } /> }
+					{ ! attributes.triggerBackgroundImage && (
+						<Icon icon={ SignalIcon } size={ 75 } />
+					) }
 
 					{ active && (
 						<Popover

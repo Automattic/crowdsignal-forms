@@ -183,7 +183,9 @@ const EditFeedbackBlock = ( props ) => {
 					className="crowdsignal-forms-feedback__trigger"
 					style={ triggerStyles }
 				>
-					{ ! triggerBackgroundImage && <Icon icon={ SignalIcon } size={ 75 } /> }
+					{ ! triggerBackgroundImage && (
+						<Icon icon={ SignalIcon } size={ 75 } />
+					) }
 				</button>
 
 				{ isSelected && (
@@ -287,7 +289,7 @@ const EditFeedbackBlock = ( props ) => {
 };
 
 export default compose( [
-	withSelect( ( select, { attributes } ) => ( {
+	withSelect( ( select ) => ( {
 		activeSidebar: select( 'core/edit-post' ).getActiveGeneralSidebarName(),
 		editorFeatures: select( 'core/edit-post' ).getPreference( 'features' ),
 		sourceLink: select( 'core/editor' ).getPermalink(),

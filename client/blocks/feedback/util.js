@@ -17,5 +17,7 @@ export const getStyleVars = ( attributes, fallbackStyles ) =>
 	);
 
 export const getTriggerStyles = ( { triggerBackgroundImage } ) => ( {
-	backgroundImage: triggerBackgroundImage ? `url("${ triggerBackgroundImage }")` : 'none',
+	backgroundImage: triggerBackgroundImage
+		? `url("${ triggerBackgroundImage }")`
+		: 'none',
 } );

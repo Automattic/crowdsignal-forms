@@ -13,7 +13,12 @@ import {
 	PanelBody,
 	TextControl,
 } from '@wordpress/components';
-import { InspectorControls, MediaUpload, MediaUploadCheck, PanelColorSettings } from '@wordpress/block-editor';
+import {
+	InspectorControls,
+	MediaUpload,
+	MediaUploadCheck,
+	PanelColorSettings,
+} from '@wordpress/block-editor';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
 
@@ -30,10 +35,7 @@ const Sidebar = ( {
 	shouldPromote,
 	signalWarning,
 } ) => {
-	const {
-		triggerBackgroundImage,
-		triggerBackgroundImageId,
-	} = attributes;
+	const { triggerBackgroundImage, triggerBackgroundImageId } = attributes;
 
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
@@ -49,7 +51,6 @@ const Sidebar = ( {
 			triggerBackgroundImageId: media.id,
 			triggerBackgroundImage: media.url,
 		} );
-
 	};
 
 	const clearTriggerImage = () =>
@@ -123,15 +124,18 @@ const Sidebar = ( {
 										style={ triggerStyles }
 									>
 										{ ! triggerBackgroundImage && (
-											<Icon icon={ SignalIcon } size={ 70 } />
+											<Icon
+												icon={ SignalIcon }
+												size={ 70 }
+											/>
 										) }
 									</Button>
 
-									<Button
-										isSecondary
-										onClick={ open }
-									>
-										{ __( 'Upload Image', 'crowdsignal-forms' ) }
+									<Button isSecondary onClick={ open }>
+										{ __(
+											'Upload Image',
+											'crowdsignal-forms'
+										) }
 									</Button>
 
 									<Button onClick={ clearTriggerImage }>
