@@ -9,13 +9,13 @@ import { isEmpty } from 'lodash';
  * WordPress dependencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { Popover, TextControl, TextareaControl } from '@wordpress/components';
+import { Icon, Popover, TextControl, TextareaControl } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import SignalIcon from 'components/icon/signal';
-import { getStyleVars } from 'blocks/feedback/util';
+import { getStyleVars, getTriggerStyles } from 'blocks/feedback/util';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { getFeedbackButtonPosition } from './util';
 import { updateFeedbackResponse } from 'data/feedback';
@@ -60,6 +60,11 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 	const classes = classnames( 'crowdsignal-forms-feedback' );
 
+	const triggerStyles = {
+		...position,
+		...getTriggerStyles( attributes ),
+	};
+
 	return (
 		<>
 			<div
@@ -70,9 +75,9 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 					ref={ triggerButton }
 					className="crowdsignal-forms-feedback__trigger"
 					onClick={ showDialog }
-					style={ position }
+					style={ triggerStyles }
 				>
-					<SignalIcon />
+					{ ! attributes.triggerBackgroundImage && <Icon icon={ SignalIcon } size={ 75 } /> }
 
 					{ active && (
 						<Popover
