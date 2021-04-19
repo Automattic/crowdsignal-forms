@@ -187,11 +187,11 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => 'bottom',
 			),
-			'status'              => array(
+			'status'                   => array(
 				'type'    => 'string',
 				'default' => 'open', // See: client/blocks/feedback/constants.js.
 			),
-			'closedAfterDateTime' => array(
+			'closedAfterDateTime'      => array(
 				'type'    => 'string',
 				'default' => null,
 			),
