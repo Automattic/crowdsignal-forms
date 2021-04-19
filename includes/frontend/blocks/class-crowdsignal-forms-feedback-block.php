@@ -71,7 +71,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 * @return string
 	 */
 	public function render( $attributes ) {
-		if ( $this->should_hide_block() ) {
+		if ( $this->should_hide_block( $attributes ) ) {
 			return '';
 		}
 
@@ -90,10 +90,31 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	/**
 	 * Determines if the Feedback block should be rendered or not.
 	 *
+	 * @param  array $attributes The block's attributes.
 	 * @return bool
 	 */
-	private function should_hide_block() {
-		return ! $this->is_cs_connected() || ! is_singular();
+	private function should_hide_block( $attributes = array() ) {
+		if ( ! $this->is_cs_connected() || ! is_singular() ) {
+			return true;
+		}
+
+		if ( isset( $attributes['status'] ) ) {
+			if ( self::STATUS_TYPE_CLOSED === $attributes['status'] ) {
+				return true;
+			} elseif ( self::STATUS_TYPE_SCHEDULED === $attributes['status'] && isset( $attributes['closedAfterDateTime'] ) ) {
+				try {
+					$close_date = \DateTime::createFromFormat( 'Y-m-d\TH:i:s+', $attributes['closedAfterDateTime'] );
+					$timestamp  = $close_date->getTimestamp();
+				} catch ( \Exception $e ) {
+					return false;
+				}
+
+				if ( time() > $timestamp ) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -165,6 +186,14 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 			'y'                        => array(
 				'type'    => 'string',
 				'default' => 'bottom',
+			),
+			'status'                   => array(
+				'type'    => 'string',
+				'default' => 'open', // See: client/blocks/feedback/constants.js.
+			),
+			'closedAfterDateTime'      => array(
+				'type'    => 'string',
+				'default' => null,
 			),
 		);
 	}

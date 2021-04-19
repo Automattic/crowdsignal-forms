@@ -4,6 +4,11 @@
 import { __ } from '@wordpress/i18n';
 
 /**
+ * Internal dependencies
+ */
+import { FeedbackStatus } from './constants';
+
+/**
  * Note: Any changes made to the attributes definition need to be duplicated in
  *       Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Feedback_Block::attributes()
  *       inside includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php.
@@ -76,5 +81,13 @@ export default {
 	y: {
 		type: 'string',
 		default: 'bottom',
+	},
+	status: {
+		type: 'string',
+		default: FeedbackStatus.OPEN,
+	},
+	closedAfterDateTime: {
+		type: 'string',
+		default: null,
 	},
 };
