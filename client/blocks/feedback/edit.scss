@@ -95,3 +95,19 @@
 .crowdsignal-forms-feedback__position-button {
 	width: fit-content;
 }
+
+.crowdsignal-forms-feedback__trigger-settings {
+	align-items: center;
+	display: flex;
+}
+
+.crowdsignal-forms-feedback__trigger-settings-trigger {
+	background-size: cover;
+	border: 1px solid #c4c4c4;
+	border-radius: 50%;
+	height: 70px;
+	margin-right: 12px;
+	overflow: hidden;
+	padding: 0;
+	width: 70px;
+}

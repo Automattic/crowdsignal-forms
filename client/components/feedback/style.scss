@@ -1,7 +1,8 @@
 /** Public styles */
 
 .crowdsignal-forms-feedback__trigger {
-	background: transparent !important;
+	background: transparent;
+	background-size: cover;
 	border: 0;
 	border-radius: 50%;
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
@@ -12,6 +13,10 @@
 	position: fixed;
 	width: 75px;
 	z-index: 100;
+
+	&:hover {
+		background-size: cover;
+	}
 }
 
 .crowdsignal-forms-feedback__popover-wrapper.components-popover .components-popover__content {
@@ -55,6 +60,7 @@
 
 .crowdsignal-forms-feedback__trigger-button {
 	background-color: #fff;
+	background-size: cover;
 	border-radius: 25px;
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 	height: 50px;

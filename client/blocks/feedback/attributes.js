@@ -53,6 +53,18 @@ export default {
 	textColor: {
 		type: 'string',
 	},
+	triggerBackgroundImageId: {
+		type: 'number',
+		default: 0,
+	},
+	triggerBackgroundImage: {
+		type: 'string',
+		default: '',
+	},
+	triggerShadow: {
+		type: 'boolean',
+		default: true,
+	},
 	title: {
 		type: 'string',
 		default: '',

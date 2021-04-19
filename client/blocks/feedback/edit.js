@@ -9,7 +9,7 @@ import { get } from 'lodash';
  * WordPress depenencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { TextControl, TextareaControl } from '@wordpress/components';
+import { Icon, TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withSelect, dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -24,7 +24,7 @@ import { getFeedbackButtonPosition } from 'components/feedback/util';
 import { useAccountInfo } from 'data/hooks';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
-import { getStyleVars } from './util';
+import { getStyleVars, getTriggerStyles } from './util';
 import { useAutosave } from 'components/use-autosave';
 import { updateFeedback } from 'data/feedback/edit';
 import SignalWarning from 'components/signal-warning';
@@ -51,6 +51,7 @@ const EditFeedbackBlock = ( props ) => {
 		emailPlaceholder,
 		surveyId,
 		title,
+		triggerBackgroundImage,
 		header,
 	} = attributes;
 
@@ -157,6 +158,8 @@ const EditFeedbackBlock = ( props ) => {
 		`vertical-align-${ attributes.y }`
 	);
 
+	const triggerStyles = getTriggerStyles( attributes );
+
 	return (
 		<ConnectToCrowdsignal>
 			<Toolbar
@@ -178,8 +181,11 @@ const EditFeedbackBlock = ( props ) => {
 				<button
 					ref={ triggerButton }
 					className="crowdsignal-forms-feedback__trigger"
+					style={ triggerStyles }
 				>
-					<SignalIcon />
+					{ ! triggerBackgroundImage && (
+						<Icon icon={ SignalIcon } size={ 75 } />
+					) }
 				</button>
 
 				{ isSelected && (
