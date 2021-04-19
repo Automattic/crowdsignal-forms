@@ -30,6 +30,7 @@ import { useAccountInfo } from 'data/hooks';
 import EditorNotice from 'components/editor-notice';
 import FooterBranding from 'components/footer-branding';
 import SignalWarning from 'components/signal-warning';
+import RetryNotice from 'components/retry-notice';
 
 const EditNpsBlock = ( props ) => {
 	const [ view, setView ] = useState( views.RATING );
@@ -140,23 +141,7 @@ const EditNpsBlock = ( props ) => {
 			/>
 			{ ! isExample && signalWarning && <SignalWarning /> }
 			{ ! isExample && saveError && (
-				<EditorNotice
-					status="error"
-					icon="warning"
-					isDismissible={ false }
-					actions={ [
-						{
-							className: 'is-destructive',
-							label: __( 'Retry', 'crowdsignal-forms' ),
-							onClick: saveBlock,
-						},
-					] }
-				>
-					{ __(
-						`Unfortunately, the block couldn't be saved to Crowdsignal.com.`,
-						'crowdsignal-forms'
-					) }
-				</EditorNotice>
+				<RetryNotice retryHandler={ saveBlock } />
 			) }
 
 			{ ! isExample && (
