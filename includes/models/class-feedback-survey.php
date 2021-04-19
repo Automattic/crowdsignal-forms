@@ -60,6 +60,14 @@ class Feedback_Survey {
 	private $source_link = '';
 
 	/**
+	 * Whether or not responses should be sent by email.
+	 *
+	 * @since [next-version-number]
+	 * @var boolean
+	 */
+	private $email_responses = true;
+
+	/**
 	 * Creates a new Feedback_Survey object from an array of params.
 	 *
 	 * @param  array $data An array containing the survey data.
@@ -71,7 +79,8 @@ class Feedback_Survey {
 			$data['title'],
 			$data['feedback_text'],
 			$data['email_text'],
-			! empty( $data['source_link'] ) ? $data['source_link'] : ''
+			! empty( $data['source_link'] ) ? $data['source_link'] : '',
+			$data['email_responses']
 		);
 	}
 
@@ -87,7 +96,8 @@ class Feedback_Survey {
 			$attributes['title'],
 			$attributes['feedbackPlaceholder'],
 			$attributes['emailPlaceholder'],
-			! empty( $attributes['sourceLink'] ) ? $attributes['sourceLink'] : ''
+			! empty( $attributes['sourceLink'] ) ? $attributes['sourceLink'] : '',
+			$attributes['emailResponses']
 		);
 	}
 
@@ -102,13 +112,15 @@ class Feedback_Survey {
 	 * @param string $feedback_placeholder   Feedback question.
 	 * @param string $email_placeholder      Email question.
 	 * @param string $source_link            Blog post/page permalink.
+	 * @param string $email_responses        Enable sending responses via email.
 	 */
-	public function __construct( $id, $title, $feedback_placeholder, $email_placeholder, $source_link = '' ) {
+	public function __construct( $id, $title, $feedback_placeholder, $email_placeholder, $source_link = '', $email_responses = true ) {
 		$this->id                   = $id;
 		$this->title                = $title;
 		$this->feedback_placeholder = $feedback_placeholder;
 		$this->email_placeholder    = $email_placeholder;
 		$this->source_link          = $source_link;
+		$this->email_responses      = $email_responses;
 	}
 
 	/**
@@ -131,10 +143,11 @@ class Feedback_Survey {
 	 */
 	public function to_array() {
 		$data = array(
-			'title'         => $this->title,
-			'feedback_text' => $this->feedback_placeholder,
-			'email_text'    => $this->email_placeholder,
-			'source_link'   => $this->source_link,
+			'title'           => $this->title,
+			'feedback_text'   => $this->feedback_placeholder,
+			'email_text'      => $this->email_placeholder,
+			'source_link'     => $this->source_link,
+			'email_responses' => $this->email_responses,
 		);
 
 		if ( $this->id ) {
@@ -158,6 +171,7 @@ class Feedback_Survey {
 			'feedbackPlaceholder' => $this->feedback_placeholder,
 			'emailPlaceholder'    => $this->email_placeholder,
 			'sourceLink'          => $this->source_link,
+			'emailResponses'      => $this->email_responses,
 		);
 	}
 }

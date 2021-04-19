@@ -195,6 +195,10 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => null,
 			),
+			'emailResponses'           => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
 		);
 	}
 
