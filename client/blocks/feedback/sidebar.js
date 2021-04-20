@@ -23,7 +23,7 @@ import {
 	PanelColorSettings,
 } from '@wordpress/block-editor';
 import { decodeEntities } from '@wordpress/html-entities';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -38,6 +38,7 @@ const Sidebar = ( {
 	setAttributes,
 	shouldPromote,
 	signalWarning,
+	email,
 } ) => {
 	const { triggerBackgroundImage, triggerBackgroundImageId } = attributes;
 
@@ -120,6 +121,18 @@ const Sidebar = ( {
 					) }
 					checked={ attributes.emailResponses }
 					onChange={ handleChangeAttribute( 'emailResponses' ) }
+					help={
+						attributes.emailResponses &&
+						email &&
+						sprintf(
+							// translators: %s: email address
+							__(
+								'Responses will be sent to %s',
+								'crowdsignal-forms'
+							),
+							email
+						)
+					}
 				/>
 				{ shouldPromote && (
 					<SidebarPromote signalWarning={ signalWarning } />
