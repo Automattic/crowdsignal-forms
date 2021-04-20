@@ -56,6 +56,10 @@
 	justify-content: flex-end;
 	margin-top: 35px;
 	width: 100%;
+
+	&:hover {
+		color: var(--crowdsignal-forms-button-color);
+	}
 }
 
 .crowdsignal-forms-feedback__trigger-button {
