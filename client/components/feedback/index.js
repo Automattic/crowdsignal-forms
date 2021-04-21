@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React, { useLayoutEffect, useState, useRef } from 'react';
+import classnames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -35,6 +36,10 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		);
 	}, [ attributes.x, attributes.y, toggle.current ] );
 
+	const classes = classnames( 'crowdsignal-forms-feedback', {
+		'no-shadow': attributes.hideTriggerShadow,
+	} );
+
 	const styles = {
 		...position,
 		...getStyleVars( attributes, fallbackStyles ),
@@ -42,7 +47,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 	return (
 		<>
-			<div className="crowdsignal-forms-feedback" style={ styles }>
+			<div className={ classes } style={ styles }>
 				<Dropdown
 					popoverProps={ {
 						className:

@@ -152,6 +152,10 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'boolean',
 				'default' => false,
 			),
+			'hideTriggerShadow'        => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
 			'submitButtonLabel'        => array(
 				'type'    => 'string',
 				'default' => __( 'Submit', 'crowdsignal-forms' ),

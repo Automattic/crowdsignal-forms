@@ -30,6 +30,10 @@
 			fill: var(--crowdsignal-forms-button-text-color);
 		}
 	}
+
+	.crowdsignal-forms-feedback.no-shadow & {
+		box-shadow: none;
+	}
 }
 
 .crowdsignal-forms-feedback__popover-wrapper.components-popover .components-popover__content {
@@ -71,15 +75,6 @@
 	justify-content: flex-end;
 	margin-top: 35px;
 	width: 100%;
-}
-
-.crowdsignal-forms-feedback__trigger-button {
-	background-color: #fff;
-	background-size: cover;
-	border-radius: 25px;
-	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-	height: 50px;
-	width: 50px;
 }
 
 .crowdsignal-forms-feedback__feedback-button {

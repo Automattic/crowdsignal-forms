@@ -158,7 +158,10 @@ const EditFeedbackBlock = ( props ) => {
 	const classes = classnames(
 		'crowdsignal-forms-feedback',
 		`align-${ attributes.x }`,
-		`vertical-align-${ attributes.y }`
+		`vertical-align-${ attributes.y }`,
+		{
+			'no-shadow': attributes.hideTriggerShadow,
+		}
 	);
 
 	const triggerStyles = getTriggerStyles( attributes );

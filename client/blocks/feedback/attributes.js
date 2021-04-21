@@ -43,6 +43,10 @@ export default {
 		type: 'boolean',
 		default: false,
 	},
+	hideTriggerShadow: {
+		type: 'boolean',
+		default: false,
+	},
 	submitButtonLabel: {
 		type: 'string',
 		default: __( 'Submit', 'crowdsignal-forms' ),
