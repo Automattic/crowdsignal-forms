@@ -11,7 +11,6 @@ import { map } from 'lodash';
 import { BlockControls } from '@wordpress/block-editor';
 import {
 	Button,
-	Icon,
 	Dropdown,
 	ToolbarButton,
 	ToolbarGroup,
@@ -21,12 +20,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import {
-	TopLeftPlacementIcon,
-	TopRightPlacementIcon,
-	BottomLeftPlacementIcon,
-	BottomRightPlacementIcon,
-} from 'components/icon/placement';
+import { TopLeftPlacementIcon } from 'components/icon/placement';
 import { views } from './constants';
 
 const blockPositions = [

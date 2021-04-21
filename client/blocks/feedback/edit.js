@@ -137,8 +137,10 @@ const EditFeedbackBlock = ( props ) => {
 		triggerButton.current,
 	] );
 
-	const toggleBlock = () =>
+	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
+		triggerButton.current.parentElement.parentElement.parentElement.blur();
+	};
 
 	const handleChangeAttribute = ( key ) => ( value ) =>
 		setAttributes( { [ key ]: value } );
