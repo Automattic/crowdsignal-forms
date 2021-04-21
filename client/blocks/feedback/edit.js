@@ -42,6 +42,7 @@ const EditFeedbackBlock = ( props ) => {
 		setAttributes,
 		clientId,
 		sourceLink,
+		setPosition,
 	} = props;
 
 	const {
@@ -109,7 +110,7 @@ const EditFeedbackBlock = ( props ) => {
 	}, [ isSelected ] );
 
 	useLayoutEffect( () => {
-		props.setPosition(
+		setPosition(
 			getFeedbackButtonPosition(
 				attributes.x,
 				attributes.y,
@@ -130,13 +131,11 @@ const EditFeedbackBlock = ( props ) => {
 		activeSidebar,
 		editorFeatures.fullscreenMode,
 		isSelected,
-		props.setPosition,
+		setPosition,
 		attributes.x,
 		attributes.y,
 		triggerButton.current,
 	] );
-
-	const setPosition = ( x, y ) => setAttributes( { x, y } );
 
 	const toggleBlock = () =>
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
@@ -166,7 +165,6 @@ const EditFeedbackBlock = ( props ) => {
 		<ConnectToCrowdsignal>
 			<Toolbar
 				currentView={ view }
-				onChangePosition={ setPosition }
 				onViewChange={ setView }
 				{ ...props }
 			/>

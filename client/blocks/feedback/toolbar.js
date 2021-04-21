@@ -2,6 +2,8 @@
  * External dependencies
  */
 import React from 'react';
+import classnames from 'classnames';
+import { map } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -27,22 +29,24 @@ import {
 } from 'components/icon/placement';
 import { views } from './constants';
 
-const placementIcons = {
-	'top-left': TopLeftPlacementIcon,
-	'top-right': TopRightPlacementIcon,
-	'bottom-left': BottomLeftPlacementIcon,
-	'bottom-right': BottomRightPlacementIcon,
-};
+const blockPositions = [
+	{ x: 'left', y: 'top' },
+	{ x: 'right', y: 'top' },
+	{ x: 'left', y: 'bottom' },
+	{ x: 'right', y: 'bottom' },
+];
 
 const FeedbackToolbar = ( {
 	attributes,
 	currentView,
-	onChangePosition,
 	onViewChange,
+	setAttributes,
 } ) => {
 	const handleViewChange = ( view ) => () => onViewChange( view );
 
-	const { x, y } = attributes;
+	const handleSetPosition = ( x, y ) => setAttributes( { x, y } );
+
+	// const { x, y } = attributes;
 
 	return (
 		<BlockControls>
@@ -75,43 +79,31 @@ const FeedbackToolbar = ( {
 							<ToolbarButton
 								className="crowdsignal-forms-feedback__toolbar-position-toggle"
 								onClick={ onToggle }
-								icon={ placementIcons[ `${ y }-${ x }` ] }
+								icon={ TopLeftPlacementIcon }
 							/>
 						) }
-						renderContent={ () => (
+						renderContent={ ( { onClose } ) => (
 							<div className="crowdsignal-forms-feedback__toolbar-popover">
-								<Button
-									className="crowdsignal-forms-feedback__position-button"
-									onClick={ () =>
-										onChangePosition( 'left', 'top' )
-									}
-								>
-									<Icon icon={ TopLeftPlacementIcon } />
-								</Button>
-								<Button
-									className="crowdsignal-forms-feedback__position-button"
-									onClick={ () =>
-										onChangePosition( 'right', 'top' )
-									}
-								>
-									<Icon icon={ TopRightPlacementIcon } />
-								</Button>
-								<Button
-									className="crowdsignal-forms-feedback__position-button"
-									onClick={ () =>
-										onChangePosition( 'left', 'bottom' )
-									}
-								>
-									<Icon icon={ BottomLeftPlacementIcon } />
-								</Button>
-								<Button
-									className="crowdsignal-forms-feedback__position-button"
-									onClick={ () =>
-										onChangePosition( 'right', 'bottom' )
-									}
-								>
-									<Icon icon={ BottomRightPlacementIcon } />
-								</Button>
+								{ map( blockPositions, ( { x, y } ) => {
+									const buttonClasses = classnames(
+										'crowdsignal-forms-feedback__position-button',
+										{
+											'is-active':
+												attributes.x === x &&
+												attributes.y === y,
+										}
+									);
+
+									return (
+										<Button
+											className={ buttonClasses }
+											onClick={ () => {
+												handleSetPosition( x, y );
+												onClose();
+											} }
+										/>
+									);
+								} ) }
 							</div>
 						) }
 					/>
