@@ -1,5 +1,10 @@
 /** Public styles */
 
+.crowdsignal-forms-feedback {
+	position: fixed;
+	z-index: 100;
+}
+
 .crowdsignal-forms-feedback__trigger {
 	background: transparent;
 	background-size: cover;
@@ -10,19 +15,28 @@
 	height: 75px;
 	outline: 0;
 	padding: 0;
-	position: fixed;
 	width: 75px;
-	z-index: 100;
 
-	&:hover {
+	&:hover,
+	&:focus {
+		background: transparent;
 		background-size: cover;
+	}
+
+	&.is-active {
+		background: var(--crowdsignal-forms-button-color);
+
+		> svg {
+			fill: var(--crowdsignal-forms-button-text-color);
+		}
 	}
 }
 
 .crowdsignal-forms-feedback__popover-wrapper.components-popover .components-popover__content {
 	background-color: transparent;
 	border: 0;
-	box-shadow: 0;
+	box-shadow: none;
+	outline: 0;
 	overflow: visible;
 }
 
@@ -33,6 +47,7 @@
 	border-top: 10px solid var(--crowdsignal-forms-button-color);
 	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 	color: var(--crowdsignal-forms-background-color);
+	outline: 0;
 	padding: 24px;
 	width: 380px;
 	text-align: left;
@@ -69,4 +84,5 @@
 
 .crowdsignal-forms-feedback__feedback-button {
 	background-color: var(--crowdsignal-forms-button-color) !important;
+	color: var(--crowdsignal-forms-button-text-color);
 }

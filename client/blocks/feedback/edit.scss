@@ -8,6 +8,10 @@
 		// don't block any editor UI elements but appear in front of regular
 		// content
 		z-index: 10;
+
+		&::after {
+			display: none;
+		}
 	}
 
 	.crowdsignal-forms-feedback__popover-overlay {
@@ -63,21 +67,10 @@
 	}
 }
 
-.crowdsignal-forms-feedback__trigger {
-
-	.editor-styles-wrapper & {
-		position: static;
-	}
-}
-
 .crowdsignal-forms-feedback__toolbar-toggle {
 	font-weight: 600;
 	padding-left: 16px !important;
 	padding-right: 16px !important;
-}
-
-.crowdsignal-forms-feedback__toolbar-position-toggle svg {
-	margin-right: 0 !important;
 }
 
 .crowdsignal-forms-feedback__toolbar-popover-wrapper .components-popover__content {
@@ -88,8 +81,6 @@
 	display: grid;
 	grid-template-columns: min-content min-content;
 	grid-template-rows: auto auto;
-	padding: 2px;
-	width: fit-content;
 }
 
 .crowdsignal-forms-feedback__position-button {

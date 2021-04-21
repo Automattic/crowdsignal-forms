@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useState } from 'react';
+import React from 'react';
 
 /**
  * WordPress dependencies
@@ -10,7 +10,7 @@ import { BlockControls } from '@wordpress/block-editor';
 import {
 	Button,
 	Icon,
-	Popover,
+	Dropdown,
 	ToolbarButton,
 	ToolbarGroup,
 } from '@wordpress/components';
@@ -40,12 +40,7 @@ const FeedbackToolbar = ( {
 	onChangePosition,
 	onViewChange,
 } ) => {
-	const [ showPosition, setShowPosition ] = useState( false );
-
 	const handleViewChange = ( view ) => () => onViewChange( view );
-
-	const showPositionPopover = () => setShowPosition( true );
-	const hidePositionPopover = () => setShowPosition( false );
 
 	const { x, y } = attributes;
 
@@ -70,16 +65,20 @@ const FeedbackToolbar = ( {
 				</ToolbarButton>
 			</ToolbarGroup>
 			<ToolbarGroup>
-				<ToolbarButton
-					className="crowdsignal-forms-feedback__toolbar-position-toggle"
-					onClick={ showPositionPopover }
-					icon={ placementIcons[ `${ y }-${ x }` ] }
-				>
-					{ showPosition && (
-						<Popover
-							className="crowdsignal-forms-feedback__toolbar-popover-wrapper"
-							onClose={ hidePositionPopover }
-						>
+				<div className="crowdsignal-forms-feedback__toolbar-position-toggle-wrapper">
+					<Dropdown
+						popoverProps={ {
+							className:
+								'crowdsignal-forms-feedback__toolbar-popover-wrapper',
+						} }
+						renderToggle={ ( { onToggle } ) => (
+							<ToolbarButton
+								className="crowdsignal-forms-feedback__toolbar-position-toggle"
+								onClick={ onToggle }
+								icon={ placementIcons[ `${ y }-${ x }` ] }
+							/>
+						) }
+						renderContent={ () => (
 							<div className="crowdsignal-forms-feedback__toolbar-popover">
 								<Button
 									className="crowdsignal-forms-feedback__position-button"
@@ -114,9 +113,9 @@ const FeedbackToolbar = ( {
 									<Icon icon={ BottomRightPlacementIcon } />
 								</Button>
 							</div>
-						</Popover>
-					) }
-				</ToolbarButton>
+						) }
+					/>
+				</div>
 			</ToolbarGroup>
 		</BlockControls>
 	);
