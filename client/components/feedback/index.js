@@ -31,7 +31,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 				toggle.current.offsetWidth,
 				toggle.current.offsetHeight,
 				20,
-				document.getElementById( 'page' )
+				document.body
 			)
 		);
 	}, [ attributes.x, attributes.y, toggle.current ] );
