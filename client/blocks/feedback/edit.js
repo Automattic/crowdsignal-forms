@@ -32,6 +32,7 @@ import RetryNotice from 'components/retry-notice';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
+	const [ height, setHeight ] = useState( null );
 
 	const {
 		attributes,
@@ -57,6 +58,7 @@ const EditFeedbackBlock = ( props ) => {
 	} = attributes;
 
 	const triggerButton = useRef( null );
+	const popover = useRef( null );
 
 	const accountInfo = useAccountInfo();
 
@@ -137,6 +139,14 @@ const EditFeedbackBlock = ( props ) => {
 		triggerButton.current,
 	] );
 
+	useLayoutEffect( () => {
+		if ( ! popover.current ) {
+			return;
+		}
+
+		setHeight( popover.current.offsetHeight );
+	}, [ popover.current ] );
+
 	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
 		triggerButton.current.parentElement.parentElement.parentElement.blur();
@@ -165,6 +175,9 @@ const EditFeedbackBlock = ( props ) => {
 	);
 
 	const triggerStyles = getTriggerStyles( attributes );
+	const popoverStyles = {
+		height,
+	};
 
 	return (
 		<ConnectToCrowdsignal>
@@ -209,7 +222,11 @@ const EditFeedbackBlock = ( props ) => {
 						) }
 
 						{ view === views.QUESTION && (
-							<div className="crowdsignal-forms-feedback__popover">
+							<div
+								ref={ popover }
+								className="crowdsignal-forms-feedback__popover"
+								style={ popoverStyles }
+							>
 								<RichText
 									tagName="h3"
 									className="crowdsignal-forms-feedback__header"
@@ -253,7 +270,10 @@ const EditFeedbackBlock = ( props ) => {
 						) }
 
 						{ view === views.SUBMIT && (
-							<div className="crowdsignal-forms-feedback__popover">
+							<div
+								className="crowdsignal-forms-feedback__popover"
+								style={ popoverStyles }
+							>
 								<RichText
 									tagName="h3"
 									className="crowdsignal-forms-feedback__header"
