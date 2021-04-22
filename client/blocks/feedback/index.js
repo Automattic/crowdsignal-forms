@@ -12,7 +12,10 @@ import EditFeedbackBlock from './edit';
 
 export default {
 	title: __( 'Feedback', 'crowdsignal-forms' ),
-	description: __( 'Feedback block', 'crowdsignal-forms' ),
+	description: __(
+		'Allow your audience to share some feedback with you',
+		'crowdsignal-forms'
+	),
 	category: 'crowdsignal-forms',
 	keywords: [ 'crowdsignal', __( 'feedback', 'crowdsignal-forms' ) ],
 	icon: <FeedbackIcon />,

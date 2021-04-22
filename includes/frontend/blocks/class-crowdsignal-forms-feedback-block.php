@@ -138,7 +138,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 			),
 			'emailPlaceholder'         => array(
 				'type'    => 'string',
-				'default' => __( 'Your email (optional)', 'crowdsignal-forms' ),
+				'default' => __( 'Your Email (optional)', 'crowdsignal-forms' ),
 			),
 			'feedbackPlaceholder'      => array(
 				'type'    => 'string',
@@ -146,7 +146,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 			),
 			'header'                   => array(
 				'type'    => 'string',
-				'default' => __( 'Hello there!', 'crowdsignal-forms' ),
+				'default' => __( '👋 Hey there!', 'crowdsignal-forms' ),
 			),
 			'hideBranding'             => array(
 				'type'    => 'boolean',

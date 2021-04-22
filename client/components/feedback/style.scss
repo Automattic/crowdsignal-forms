@@ -10,7 +10,7 @@
 	background-size: cover;
 	border: 0;
 	border-radius: 50%;
-	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+	box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
 	cursor: pointer;
 	height: 75px;
 	outline: 0;
@@ -49,7 +49,7 @@
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	border-top: 10px solid var(--crowdsignal-forms-button-color);
-	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+	box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
 	color: var(--crowdsignal-forms-background-color);
 	outline: 0;
 	padding: 24px;
@@ -66,8 +66,12 @@
 
 .crowdsignal-forms-feedback__input {
 	margin-top: 16px;
-	font-size: var(--crowdsignal-forms-text-size);
 	width: 100%;
+
+	input,
+	textarea {
+		font-size: var(--crowdsignal-forms-text-size) !important;
+	}
 }
 
 .crowdsignal-forms-feedback__button-wrapper {

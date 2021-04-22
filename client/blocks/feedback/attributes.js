@@ -26,7 +26,7 @@ export default {
 	},
 	emailPlaceholder: {
 		type: 'string',
-		default: __( 'Your email (optional)', 'crowdsignal-forms' ),
+		default: __( 'Your Email (optional)', 'crowdsignal-forms' ),
 	},
 	feedbackPlaceholder: {
 		type: 'string',
@@ -37,7 +37,7 @@ export default {
 	},
 	header: {
 		type: 'string',
-		default: __( 'Hello there!', 'crowdsignal-forms' ),
+		default: __( '👋 Hey there!', 'crowdsignal-forms' ),
 	},
 	hideBranding: {
 		type: 'boolean',
