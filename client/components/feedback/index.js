@@ -56,7 +56,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 					renderToggle={ ( { isOpen, onToggle } ) => (
 						<FeedbackToggle
 							ref={ toggle }
-							active={ isOpen }
+							isOpen={ isOpen }
 							onClick={ onToggle }
 							attributes={ attributes }
 						/>
