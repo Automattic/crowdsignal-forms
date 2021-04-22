@@ -1,6 +1,7 @@
 /** Public styles */
 
 .crowdsignal-forms-feedback {
+	display: flex;
 	position: fixed;
 	z-index: 100;
 }
@@ -74,13 +75,15 @@
 	input,
 	textarea {
 		font-size: var(--crowdsignal-forms-text-size) !important;
+		padding: 16px !important;
 	}
 }
 
 .crowdsignal-forms-feedback__button-wrapper {
 	display: flex;
 	justify-content: flex-end;
-	margin-top: 35px;
+	margin-top: 16px;
+	margin-bottom: 0;
 	width: 100%;
 }
 

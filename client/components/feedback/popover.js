@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 /**
  * Internal dependencies
@@ -16,11 +16,10 @@ const FeedbackPopover = ( { attributes } ) => {
 
 	const popover = useRef( null );
 
-	useLayoutEffect( () => {
+	const handleSubmit = () => {
 		setHeight( popover.current.offsetHeight );
-	}, [ popover.current ] );
-
-	const handleSubmit = () => setView( views.SUBMIT );
+		setView( views.SUBMIT );
+	};
 
 	const styles = {
 		height,

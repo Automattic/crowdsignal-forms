@@ -145,7 +145,7 @@ const EditFeedbackBlock = ( props ) => {
 		}
 
 		setHeight( popover.current.offsetHeight );
-	}, [ popover.current ] );
+	}, [ attributes.header, popover.current ] );
 
 	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
@@ -225,7 +225,6 @@ const EditFeedbackBlock = ( props ) => {
 							<div
 								ref={ popover }
 								className="crowdsignal-forms-feedback__popover"
-								style={ popoverStyles }
 							>
 								<RichText
 									tagName="h3"
