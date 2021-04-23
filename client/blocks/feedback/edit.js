@@ -32,6 +32,7 @@ import RetryNotice from 'components/retry-notice';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
+	const [ height, setHeight ] = useState( null );
 
 	const {
 		attributes,
@@ -42,6 +43,7 @@ const EditFeedbackBlock = ( props ) => {
 		setAttributes,
 		clientId,
 		sourceLink,
+		setPosition,
 	} = props;
 
 	const {
@@ -56,6 +58,7 @@ const EditFeedbackBlock = ( props ) => {
 	} = attributes;
 
 	const triggerButton = useRef( null );
+	const popover = useRef( null );
 
 	const accountInfo = useAccountInfo();
 
@@ -109,7 +112,7 @@ const EditFeedbackBlock = ( props ) => {
 	}, [ isSelected ] );
 
 	useLayoutEffect( () => {
-		props.setPosition(
+		setPosition(
 			getFeedbackButtonPosition(
 				attributes.x,
 				attributes.y,
@@ -130,16 +133,24 @@ const EditFeedbackBlock = ( props ) => {
 		activeSidebar,
 		editorFeatures.fullscreenMode,
 		isSelected,
-		props.setPosition,
+		setPosition,
 		attributes.x,
 		attributes.y,
 		triggerButton.current,
 	] );
 
-	const setPosition = ( x, y ) => setAttributes( { x, y } );
+	useLayoutEffect( () => {
+		if ( ! popover.current ) {
+			return;
+		}
 
-	const toggleBlock = () =>
+		setHeight( popover.current.offsetHeight );
+	}, [ attributes.header, popover.current ] );
+
+	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
+		triggerButton.current.parentElement.parentElement.parentElement.blur();
+	};
 
 	const handleChangeAttribute = ( key ) => ( value ) =>
 		setAttributes( { [ key ]: value } );
@@ -157,16 +168,21 @@ const EditFeedbackBlock = ( props ) => {
 	const classes = classnames(
 		'crowdsignal-forms-feedback',
 		`align-${ attributes.x }`,
-		`vertical-align-${ attributes.y }`
+		`vertical-align-${ attributes.y }`,
+		{
+			'no-shadow': attributes.hideTriggerShadow,
+		}
 	);
 
 	const triggerStyles = getTriggerStyles( attributes );
+	const popoverStyles = {
+		height,
+	};
 
 	return (
 		<ConnectToCrowdsignal>
 			<Toolbar
 				currentView={ view }
-				onChangePosition={ setPosition }
 				onViewChange={ setView }
 				{ ...props }
 			/>
@@ -206,7 +222,10 @@ const EditFeedbackBlock = ( props ) => {
 						) }
 
 						{ view === views.QUESTION && (
-							<div className="crowdsignal-forms-feedback__popover">
+							<div
+								ref={ popover }
+								className="crowdsignal-forms-feedback__popover"
+							>
 								<RichText
 									tagName="h3"
 									className="crowdsignal-forms-feedback__header"
@@ -250,7 +269,10 @@ const EditFeedbackBlock = ( props ) => {
 						) }
 
 						{ view === views.SUBMIT && (
-							<div className="crowdsignal-forms-feedback__popover">
+							<div
+								className="crowdsignal-forms-feedback__popover"
+								style={ popoverStyles }
+							>
 								<RichText
 									tagName="h3"
 									className="crowdsignal-forms-feedback__header"

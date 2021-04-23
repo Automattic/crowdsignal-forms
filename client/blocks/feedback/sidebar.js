@@ -129,42 +129,42 @@ const Sidebar = ( {
 				title={ __( 'Feedback Button', 'crowdsignal-forms' ) }
 				initialOpen={ true }
 			>
-				<div className="crowdsignal-forms-feedback__trigger-settings">
-					<MediaUploadCheck>
-						<MediaUpload
-							allowedTypes={ [ 'image' ] }
-							onSelect={ handleSelectTriggerImage }
-							value={ triggerBackgroundImageId }
-							render={ ( { open } ) => (
-								<React.Fragment>
-									<Button
-										className="crowdsignal-forms-feedback__trigger-settings-trigger"
-										onClick={ open }
-										style={ triggerStyles }
-									>
-										{ ! triggerBackgroundImage && (
-											<Icon
-												icon={ SignalIcon }
-												size={ 70 }
-											/>
-										) }
-									</Button>
+				<MediaUploadCheck>
+					<MediaUpload
+						allowedTypes={ [ 'image' ] }
+						onSelect={ handleSelectTriggerImage }
+						value={ triggerBackgroundImageId }
+						render={ ( { open } ) => (
+							<div className="crowdsignal-forms-feedback__trigger-settings">
+								<Button
+									className="crowdsignal-forms-feedback__trigger-settings-trigger"
+									onClick={ open }
+									style={ triggerStyles }
+								>
+									{ ! triggerBackgroundImage && (
+										<Icon icon={ SignalIcon } size={ 70 } />
+									) }
+								</Button>
 
-									<Button isSecondary onClick={ open }>
-										{ __(
-											'Upload Image',
-											'crowdsignal-forms'
-										) }
-									</Button>
+								<Button isSecondary onClick={ open }>
+									{ __(
+										'Upload Image',
+										'crowdsignal-forms'
+									) }
+								</Button>
 
-									<Button onClick={ clearTriggerImage }>
-										{ __( 'Clear', 'crowdsignal-forms' ) }
-									</Button>
-								</React.Fragment>
-							) }
-						/>
-					</MediaUploadCheck>
-				</div>
+								<Button onClick={ clearTriggerImage }>
+									{ __( 'Clear', 'crowdsignal-forms' ) }
+								</Button>
+							</div>
+						) }
+					/>
+				</MediaUploadCheck>
+				<ToggleControl
+					label={ __( 'Hide Shadow', 'crowdsignal-forms' ) }
+					checked={ attributes.hideTriggerShadow }
+					onChange={ handleChangeAttribute( 'hideTriggerShadow' ) }
+				/>
 			</PanelBody>
 			<PanelColorSettings
 				title={ __( 'Block styling', 'crowdsignal-forms' ) }

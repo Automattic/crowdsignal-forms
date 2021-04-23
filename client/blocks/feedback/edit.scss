@@ -8,6 +8,10 @@
 		// don't block any editor UI elements but appear in front of regular
 		// content
 		z-index: 10;
+
+		&::after {
+			display: none;
+		}
 	}
 
 	.crowdsignal-forms-feedback__popover-overlay {
@@ -51,7 +55,7 @@
 
 			.crowdsignal-forms-feedback__popover {
 				margin-bottom: 15px;
-				margin-top: 0;
+				margin-top: 0 1;
 			}
 		}
 
@@ -61,12 +65,18 @@
 			width: 380px;
 		}
 	}
-}
 
-.crowdsignal-forms-feedback__trigger {
+	.crowdsignal-forms-feedback__input {
 
-	.editor-styles-wrapper & {
-		position: static;
+		input,
+		textarea {
+			color: #757575;
+		}
+	}
+
+	.crowdsignal-forms-feedback__button-wrapper {
+		margin-top: 24px !important;
+		margin-bottom: 0 !important;
 	}
 }
 
@@ -74,10 +84,6 @@
 	font-weight: 600;
 	padding-left: 16px !important;
 	padding-right: 16px !important;
-}
-
-.crowdsignal-forms-feedback__toolbar-position-toggle svg {
-	margin-right: 0 !important;
 }
 
 .crowdsignal-forms-feedback__toolbar-popover-wrapper .components-popover__content {
@@ -88,17 +94,44 @@
 	display: grid;
 	grid-template-columns: min-content min-content;
 	grid-template-rows: auto auto;
-	padding: 2px;
-	width: fit-content;
 }
 
 .crowdsignal-forms-feedback__position-button {
-	width: fit-content;
+	align-items: center;
+	box-shadow: none !important;
+	display: flex;
+	height: 30px;
+	justify-content: center;
+	outline: 0;
+	transition: all 120ms linear 0s;
+	width: 30px;
+
+	&::before {
+		background-color: #b5bcc2;
+		display: block;
+		content: "";
+		height: 6px;
+		width: 6px;
+	}
+
+	&:hover::before {
+		background-color: #007cba;
+	}
+
+	&.is-active::before {
+		background-color: #000;
+		box-shadow: #000 0 0 0 2px;
+	}
+}
+
+.crowdsignal-forms-feedback__feedback-button {
+	cursor: text;
 }
 
 .crowdsignal-forms-feedback__trigger-settings {
 	align-items: center;
 	display: flex;
+	margin-bottom: 24px;
 }
 
 .crowdsignal-forms-feedback__trigger-settings-trigger {
