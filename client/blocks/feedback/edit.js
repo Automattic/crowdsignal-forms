@@ -165,6 +165,8 @@ const EditFeedbackBlock = ( props ) => {
 		get( accountInfo, [ 'signalCount', 'count' ] ) >=
 			get( accountInfo, [ 'signalCount', 'userLimit' ] );
 
+	const email = get( accountInfo, [ 'account', 'email' ] );
+
 	const classes = classnames(
 		'crowdsignal-forms-feedback',
 		`align-${ attributes.x }`,
@@ -189,6 +191,7 @@ const EditFeedbackBlock = ( props ) => {
 			<Sidebar
 				shouldPromote={ shouldPromote }
 				signalWarning={ signalWarning }
+				email={ email }
 				{ ...props }
 			/>
 
