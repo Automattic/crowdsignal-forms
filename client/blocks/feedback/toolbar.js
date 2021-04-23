@@ -69,9 +69,7 @@ const FeedbackToolbar = ( {
 						} }
 						renderToggle={ ( { onToggle } ) => (
 							<ToolbarButton
-								className={
-									`crowdsignal-forms-feedback__toolbar-position-toggle ${ attributes.y }-${ attributes.x }`
-								}
+								className={ `crowdsignal-forms-feedback__toolbar-position-toggle ${ attributes.y }-${ attributes.x }` }
 								onClick={ onToggle }
 								icon={ PlacementIcon }
 							/>
