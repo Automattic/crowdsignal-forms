@@ -20,7 +20,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { TopLeftPlacementIcon } from 'components/icon/placement';
+import PlacementIcon from 'components/icon/placement';
 import { views } from './constants';
 
 const blockPositions = [
@@ -39,8 +39,6 @@ const FeedbackToolbar = ( {
 	const handleViewChange = ( view ) => () => onViewChange( view );
 
 	const handleSetPosition = ( x, y ) => setAttributes( { x, y } );
-
-	// const { x, y } = attributes;
 
 	return (
 		<BlockControls>
@@ -71,9 +69,11 @@ const FeedbackToolbar = ( {
 						} }
 						renderToggle={ ( { onToggle } ) => (
 							<ToolbarButton
-								className="crowdsignal-forms-feedback__toolbar-position-toggle"
+								className={
+									`crowdsignal-forms-feedback__toolbar-position-toggle ${ attributes.y }-${ attributes.x }`
+								}
 								onClick={ onToggle }
-								icon={ TopLeftPlacementIcon }
+								icon={ PlacementIcon }
 							/>
 						) }
 						renderContent={ ( { onClose } ) => (
