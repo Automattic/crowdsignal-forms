@@ -96,6 +96,21 @@
 	grid-template-rows: auto auto;
 }
 
+.crowdsignal-forms-feedback__toolbar-position-toggle {
+
+	&.top-right svg {
+		transform: rotate(90deg);
+	}
+
+	&.bottom-right svg {
+		transform: rotate(180deg);
+	}
+
+	&.bottom-left svg {
+		transform: rotate(270deg);
+	}
+}
+
 .crowdsignal-forms-feedback__position-button {
 	align-items: center;
 	box-shadow: none !important;
