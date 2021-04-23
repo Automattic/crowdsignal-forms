@@ -51,11 +51,10 @@
 
 		&.vertical-align-bottom {
 			justify-content: flex-end;
-			flex-direction: column-reverse;
 
-			.crowdsignal-forms-feedback__popover {
-				margin-bottom: 15px;
-				margin-top: 0 1;
+			.crowdsignal-forms-feedback__trigger {
+				order: 99;
+				margin-top: 15px;
 			}
 		}
 
