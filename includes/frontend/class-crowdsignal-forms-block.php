@@ -68,8 +68,8 @@ abstract class Crowdsignal_Forms_Block {
 	 * @return bool
 	 */
 	protected function should_hide_branding() {
-		$env = apply_filters( 'crowdsignal_forms_get_env', 'self-hosted' );
-		if ( 'wpcom' !== $env ) {
+		$enable_branding = apply_filters( 'crowdsignal_forms_branding_enabled', false );
+		if ( ! $enable_branding ) {
 			return true;
 		}
 
