@@ -55,7 +55,7 @@
 
 			.crowdsignal-forms-feedback__popover {
 				margin-bottom: 15px;
-				margin-top: 0;
+				margin-top: 0 1;
 			}
 		}
 
@@ -72,6 +72,11 @@
 		textarea {
 			color: #757575;
 		}
+	}
+
+	.crowdsignal-forms-feedback__button-wrapper {
+		margin-top: 24px !important;
+		margin-bottom: 0 !important;
 	}
 }
 
