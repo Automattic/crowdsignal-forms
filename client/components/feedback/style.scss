@@ -28,7 +28,7 @@
 	}
 
 	&.is-active {
-		background: var(--crowdsignal-forms-button-color);
+		background: var(--crowdsignal-forms-button-color) !important;
 
 		> svg {
 			fill: var(--crowdsignal-forms-button-text-color);
