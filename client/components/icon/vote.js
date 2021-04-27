@@ -23,7 +23,7 @@ export default () => (
 			/>
 		</mask>
 		<g mask="url(#maskVote)">
-			<rect x="1.00024" y="1.25" width="22" height="22" fill="" />
+			<rect x="1.00024" y="1.25" width="22" height="22" />
 		</g>
 	</svg>
 );
