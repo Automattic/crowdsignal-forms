@@ -68,6 +68,11 @@ abstract class Crowdsignal_Forms_Block {
 	 * @return bool
 	 */
 	protected function should_hide_branding() {
+		$enable_branding = apply_filters( 'crowdsignal_forms_branding_enabled', false );
+		if ( ! $enable_branding ) {
+			return true;
+		}
+
 		if ( get_transient( self::TRANSIENT_HIDE_BRANDING ) ) {
 			return self::HIDE_BRANDING_YES === get_transient( self::TRANSIENT_HIDE_BRANDING );
 		}
