@@ -7,13 +7,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { Icon } from '@wordpress/components';
-
-/**
- * Internal dependencies
- */
-import SignalIcon from 'components/icon/signal';
-import { getTriggerStyles } from 'blocks/feedback/util';
+import { Button } from '@wordpress/components';
 
 const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 	const classes = classnames(
@@ -25,19 +19,9 @@ const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 	);
 
 	return (
-		<button
-			ref={ ref }
-			className={ classes }
-			onClick={ onClick }
-			style={ getTriggerStyles( attributes ) }
-		>
-			{ ( ! attributes.triggerBackgroundImage || isOpen ) && (
-				<Icon
-					icon={ isOpen ? 'no-alt' : SignalIcon }
-					size={ isOpen ? 36 : 75 }
-				/>
-			) }
-		</button>
+		<Button ref={ ref } className={ classes } onClick={ onClick } isPrimary>
+			{ attributes.triggerLabel }
+		</Button>
 	);
 };
 
