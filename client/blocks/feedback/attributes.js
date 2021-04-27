@@ -74,6 +74,10 @@ export default {
 		type: 'boolean',
 		default: true,
 	},
+	triggerLabel: {
+		type: 'string',
+		default: __( 'Feedback', 'crowdsignal-forms' ),
+	},
 	title: {
 		type: 'string',
 		default: '',
