@@ -7,10 +7,17 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { Button } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal dependencies
+ */
+import { RichText } from '@wordpress/block-editor';
 
 const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 	const classes = classnames(
+		'wp-block-button__link',
+		'crowdsignal-forms-feedback__feedback-button',
 		'crowdsignal-forms-feedback__trigger',
 		className,
 		{
@@ -19,9 +26,17 @@ const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 	);
 
 	return (
-		<Button ref={ ref } className={ classes } onClick={ onClick } isPrimary>
-			{ attributes.triggerLabel }
-		</Button>
+		<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
+			<button ref={ ref } className={ classes } onClick={ onClick }>
+				<RichText.Content
+					value={
+						isOpen
+							? 'X ' + __( 'Close', 'crowdsignal-forms' )
+							: attributes.triggerLabel
+					}
+				/>
+			</button>
+		</div>
 	);
 };
 

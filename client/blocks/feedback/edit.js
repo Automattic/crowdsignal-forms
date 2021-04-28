@@ -9,7 +9,7 @@ import { get } from 'lodash';
  * WordPress depenencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { Button, TextControl, TextareaControl } from '@wordpress/components';
+import { TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withSelect, dispatch } from '@wordpress/data';
 
@@ -168,10 +168,13 @@ const EditFeedbackBlock = ( props ) => {
 
 	const classes = classnames(
 		'crowdsignal-forms-feedback',
+		'wp-block-button',
+		'crowdsignal-forms-feedback__button-wrapper',
 		`align-${ attributes.x }`,
 		`vertical-align-${ attributes.y }`,
 		{
 			'no-shadow': attributes.hideTriggerShadow,
+			'is-active': isSelected,
 		}
 	);
 
@@ -197,19 +200,15 @@ const EditFeedbackBlock = ( props ) => {
 				className={ classes }
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
-				<Button
+				<RichText
 					ref={ triggerButton }
-					isPrimary
-					className="crowdsignal-forms-feedback__trigger"
-				>
-					<RichText
-						onChange={ handleChangeAttribute( 'triggerLabel' ) }
-						value={ triggerLabel }
-						allowedFormats={ [] }
-						multiline={ false }
-						disableLineBreaks={ true }
-					/>
-				</Button>
+					className="wp-block-button__link crowdsignal-forms-feedback__feedback-button crowdsignal-forms-feedback__trigger"
+					onChange={ handleChangeAttribute( 'triggerLabel' ) }
+					value={ triggerLabel }
+					allowedFormats={ [] }
+					multiline={ false }
+					disableLineBreaks={ true }
+				/>
 
 				{ isSelected && (
 					<>

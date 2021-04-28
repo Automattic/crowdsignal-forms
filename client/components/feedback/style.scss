@@ -9,6 +9,8 @@
 .crowdsignal-forms-feedback__trigger {
 	box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
 	cursor: pointer;
+	background-color: var(--crowdsignal-forms-button-color) !important;
+	color: var(--crowdsignal-forms-button-text-color) !important;
 
 	&.is-active {
 		background: var(--crowdsignal-forms-button-color) !important;

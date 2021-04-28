@@ -139,7 +139,9 @@
 }
 
 .crowdsignal-forms-feedback__feedback-button {
-	cursor: text;
+	.is-active & {
+		cursor: text !important;
+	}
 }
 
 .crowdsignal-forms-feedback__trigger-settings {
