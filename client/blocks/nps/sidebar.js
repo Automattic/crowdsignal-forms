@@ -59,13 +59,7 @@ const Sidebar = ( {
 								'Save the block to track results on ',
 								'crowdsignal-forms'
 						  ) }
-					<ExternalLink
-						href={
-							attributes.surveyId
-								? resultsUrl
-								: 'https://www.crowdsignal.com'
-						}
-					>
+					<ExternalLink href="https://www.crowdsignal.com">
 						crowdsignal.com
 					</ExternalLink>
 				</p>
