@@ -13,9 +13,13 @@
 	color: var(--crowdsignal-forms-button-text-color) !important;
 	display: flex;
 	align-items: center;
+	font-size: 16px !important;
+	line-height: 150% !important;
+	padding: 12px 16px !important;
 
 	&.is-active {
 		background: var(--crowdsignal-forms-button-color) !important;
+		padding-left: 12px !important;
 
 		> svg {
 			fill: var(--crowdsignal-forms-button-text-color);
