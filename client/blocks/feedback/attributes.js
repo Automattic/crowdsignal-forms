@@ -76,7 +76,7 @@ export default {
 	},
 	title: {
 		type: 'string',
-		default: '',
+		default: null,
 	},
 	x: {
 		type: 'string',

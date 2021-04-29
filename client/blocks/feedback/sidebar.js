@@ -105,7 +105,7 @@ const Sidebar = ( {
 					label={ __( 'Title (optional)', 'crowdsignal-forms' ) }
 					onChange={ handleChangeTitle }
 					value={ decodeEntities(
-						attributes.title || attributes.header
+						attributes.title ?? attributes.header
 					) }
 				/>
 				<ToggleControl

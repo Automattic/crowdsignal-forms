@@ -69,7 +69,7 @@ export default {
 	},
 	title: {
 		type: 'string',
-		default: '',
+		default: null,
 	},
 	viewThreshold: {
 		type: 'string',
