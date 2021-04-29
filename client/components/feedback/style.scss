@@ -11,6 +11,8 @@
 	cursor: pointer;
 	background-color: var(--crowdsignal-forms-button-color) !important;
 	color: var(--crowdsignal-forms-button-text-color) !important;
+	display: flex;
+	align-items: center;
 
 	&.is-active {
 		background: var(--crowdsignal-forms-button-color) !important;
