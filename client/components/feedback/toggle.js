@@ -7,16 +7,25 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { Icon } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+import { RichText } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
  */
-import SignalIcon from 'components/icon/signal';
-import { getTriggerStyles } from 'blocks/feedback/util';
+import CloseIcon from 'components/icon/close-small';
+
+const CloseButton = () => (
+	<>
+		<CloseIcon />
+		{ __( 'Close', 'crowdsignal-forms' ) }
+	</>
+);
 
 const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 	const classes = classnames(
+		'wp-block-button__link',
+		'crowdsignal-forms-feedback__feedback-button',
 		'crowdsignal-forms-feedback__trigger',
 		className,
 		{
@@ -25,19 +34,15 @@ const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 	);
 
 	return (
-		<button
-			ref={ ref }
-			className={ classes }
-			onClick={ onClick }
-			style={ getTriggerStyles( attributes ) }
-		>
-			{ ( ! attributes.triggerBackgroundImage || isOpen ) && (
-				<Icon
-					icon={ isOpen ? 'no-alt' : SignalIcon }
-					size={ isOpen ? 36 : 75 }
-				/>
-			) }
-		</button>
+		<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
+			<button ref={ ref } className={ classes } onClick={ onClick }>
+				{ isOpen ? (
+					<CloseButton />
+				) : (
+					<RichText.Content value={ attributes.triggerLabel } />
+				) }
+			</button>
+		</div>
 	);
 };
 

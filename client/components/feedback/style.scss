@@ -7,28 +7,19 @@
 }
 
 .crowdsignal-forms-feedback__trigger {
-	align-items: center;
-	background: transparent;
-	background-size: cover;
-	border: 0;
-	border-radius: 50%;
 	box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
 	cursor: pointer;
+	background-color: var(--crowdsignal-forms-button-color) !important;
+	color: var(--crowdsignal-forms-button-text-color) !important;
 	display: flex;
-	height: 75px;
-	justify-content: center;
-	outline: 0;
-	padding: 0;
-	width: 75px;
-
-	&:hover,
-	&:focus {
-		background: transparent;
-		background-size: cover;
-	}
+	align-items: center;
+	font-size: 16px !important;
+	line-height: 150 !important;
+	padding: 12px 16px !important;
 
 	&.is-active {
 		background: var(--crowdsignal-forms-button-color) !important;
+		padding-left: 12px !important;
 
 		> svg {
 			fill: var(--crowdsignal-forms-button-text-color);

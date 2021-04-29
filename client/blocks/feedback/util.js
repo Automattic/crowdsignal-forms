@@ -15,9 +15,3 @@ export const getStyleVars = ( attributes, fallbackStyles ) =>
 		},
 		( _, key ) => `--crowdsignal-forms-${ kebabCase( key ) }`
 	);
-
-export const getTriggerStyles = ( { triggerBackgroundImage } ) => ( {
-	backgroundImage: triggerBackgroundImage
-		? `url("${ triggerBackgroundImage }")`
-		: 'none',
-} );

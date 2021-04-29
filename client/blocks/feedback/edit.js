@@ -9,7 +9,7 @@ import { get } from 'lodash';
  * WordPress depenencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { Icon, TextControl, TextareaControl } from '@wordpress/components';
+import { TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withSelect, dispatch } from '@wordpress/data';
 
@@ -17,13 +17,12 @@ import { withSelect, dispatch } from '@wordpress/data';
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
-import SignalIcon from 'components/icon/signal';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { getFeedbackButtonPosition } from 'components/feedback/util';
 import { useAccountInfo } from 'data/hooks';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
-import { getStyleVars, getTriggerStyles } from './util';
+import { getStyleVars } from './util';
 import { useAutosave } from 'components/use-autosave';
 import { updateFeedback } from 'data/feedback/edit';
 import SignalWarning from 'components/signal-warning';
@@ -52,9 +51,9 @@ const EditFeedbackBlock = ( props ) => {
 		emailPlaceholder,
 		surveyId,
 		title,
-		triggerBackgroundImage,
 		header,
 		emailResponses,
+		triggerLabel,
 	} = attributes;
 
 	const triggerButton = useRef( null );
@@ -169,14 +168,16 @@ const EditFeedbackBlock = ( props ) => {
 
 	const classes = classnames(
 		'crowdsignal-forms-feedback',
+		'wp-block-button',
+		'crowdsignal-forms-feedback__button-wrapper',
 		`align-${ attributes.x }`,
 		`vertical-align-${ attributes.y }`,
 		{
 			'no-shadow': attributes.hideTriggerShadow,
+			'is-active': isSelected,
 		}
 	);
 
-	const triggerStyles = getTriggerStyles( attributes );
 	const popoverStyles = {
 		height,
 	};
@@ -199,15 +200,15 @@ const EditFeedbackBlock = ( props ) => {
 				className={ classes }
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
-				<button
+				<RichText
 					ref={ triggerButton }
-					className="crowdsignal-forms-feedback__trigger"
-					style={ triggerStyles }
-				>
-					{ ! triggerBackgroundImage && (
-						<Icon icon={ SignalIcon } size={ 75 } />
-					) }
-				</button>
+					className="wp-block-button__link crowdsignal-forms-feedback__feedback-button crowdsignal-forms-feedback__trigger"
+					onChange={ handleChangeAttribute( 'triggerLabel' ) }
+					value={ triggerLabel }
+					allowedFormats={ [] }
+					multiline={ false }
+					disableLineBreaks={ true }
+				/>
 
 				{ isSelected && (
 					<>

@@ -10,27 +10,19 @@ import {
 	Button,
 	DateTimePicker,
 	ExternalLink,
-	Icon,
 	PanelBody,
 	SelectControl,
 	TextControl,
 	ToggleControl,
 } from '@wordpress/components';
-import {
-	InspectorControls,
-	MediaUpload,
-	MediaUploadCheck,
-	PanelColorSettings,
-} from '@wordpress/block-editor';
+import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
-import SignalIcon from 'components/icon/signal';
 import SidebarPromote from 'components/sidebar-promote';
-import { getTriggerStyles } from './util';
 import { FeedbackStatus } from './constants';
 
 const Sidebar = ( {
@@ -40,8 +32,6 @@ const Sidebar = ( {
 	signalWarning,
 	email,
 } ) => {
-	const { triggerBackgroundImage, triggerBackgroundImageId } = attributes;
-
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
 	const resultsUrl = `https://app.crowdsignal.com/surveys/${ attributes.surveyId }/report/overview`;
@@ -50,21 +40,6 @@ const Sidebar = ( {
 		setAttributes( {
 			[ attribute ]: value,
 		} );
-
-	const handleSelectTriggerImage = ( media ) => {
-		setAttributes( {
-			triggerBackgroundImageId: media.id,
-			triggerBackgroundImage: media.url,
-		} );
-	};
-
-	const clearTriggerImage = () =>
-		setAttributes( {
-			triggerBackgroundImageId: 0,
-			triggerBackgroundImage: '',
-		} );
-
-	const triggerStyles = getTriggerStyles( attributes );
 
 	const handleChangeStatus = ( status ) => setAttributes( { status } );
 
@@ -136,37 +111,6 @@ const Sidebar = ( {
 				title={ __( 'Feedback Button', 'crowdsignal-forms' ) }
 				initialOpen={ true }
 			>
-				<MediaUploadCheck>
-					<MediaUpload
-						allowedTypes={ [ 'image' ] }
-						onSelect={ handleSelectTriggerImage }
-						value={ triggerBackgroundImageId }
-						render={ ( { open } ) => (
-							<div className="crowdsignal-forms-feedback__trigger-settings">
-								<Button
-									className="crowdsignal-forms-feedback__trigger-settings-trigger"
-									onClick={ open }
-									style={ triggerStyles }
-								>
-									{ ! triggerBackgroundImage && (
-										<Icon icon={ SignalIcon } size={ 70 } />
-									) }
-								</Button>
-
-								<Button isSecondary onClick={ open }>
-									{ __(
-										'Upload Image',
-										'crowdsignal-forms'
-									) }
-								</Button>
-
-								<Button onClick={ clearTriggerImage }>
-									{ __( 'Clear', 'crowdsignal-forms' ) }
-								</Button>
-							</div>
-						) }
-					/>
-				</MediaUploadCheck>
 				<ToggleControl
 					label={ __( 'Hide Shadow', 'crowdsignal-forms' ) }
 					checked={ attributes.hideTriggerShadow }
