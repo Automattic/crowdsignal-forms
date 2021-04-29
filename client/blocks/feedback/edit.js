@@ -144,7 +144,11 @@ const EditFeedbackBlock = ( props ) => {
 		}
 
 		setHeight( popover.current.offsetHeight );
-	}, [ attributes.header, popover.current ] );
+	}, [
+		attributes.header,
+		popover.current,
+		isSelected,
+	] );
 
 	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
