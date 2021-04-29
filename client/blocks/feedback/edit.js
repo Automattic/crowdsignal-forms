@@ -12,6 +12,7 @@ import { RichText } from '@wordpress/block-editor';
 import { TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withSelect, dispatch } from '@wordpress/data';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -26,7 +27,7 @@ import { getStyleVars } from './util';
 import { useAutosave } from 'components/use-autosave';
 import { updateFeedback } from 'data/feedback/edit';
 import SignalWarning from 'components/signal-warning';
-import { views } from './constants';
+import { views, FeedbackStatus } from './constants';
 import RetryNotice from 'components/retry-notice';
 
 const EditFeedbackBlock = ( props ) => {
@@ -200,6 +201,12 @@ const EditFeedbackBlock = ( props ) => {
 		height,
 	};
 
+	const isCurrentlyClosed =
+		FeedbackStatus.CLOSED === attributes.status ||
+		( FeedbackStatus.CLOSED_AFTER === attributes.status &&
+			null !== attributes.closedAfterDateTime &&
+			new Date().toISOString() > attributes.closedAfterDateTime );
+
 	return (
 		<ConnectToCrowdsignal>
 			<Toolbar
@@ -305,6 +312,14 @@ const EditFeedbackBlock = ( props ) => {
 									value={ attributes.submitText }
 									allowedFormats={ [] }
 								/>
+							</div>
+						) }
+						{ isCurrentlyClosed && (
+							<div className="crowdsignal-forms-feedback__closed-notice">
+								{ __(
+									'This Feedback is set to "Closed"',
+									'crowdsignal-forms'
+								) }
 							</div>
 						) }
 					</>
