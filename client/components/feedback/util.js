@@ -3,24 +3,20 @@
  */
 import { isObject } from 'lodash';
 
-const addFrameOffsets = ( offset, frame ) => {
-	const body = document.body;
-
-	return {
-		left: offset.left + frame.x + window.scrollX,
-		right:
-			offset.right +
-			( window.innerWidth > frame.left + frame.width
-				? body.offsetWidth - frame.left - frame.width
-				: 0 ),
-		top: offset.top + frame.y + window.scrollY,
-		bottom:
-			offset.bottom +
-			( window.innerHeight > frame.top + frame.height
-				? body.offsetHeight - frame.top - frame.height
-				: 0 ),
-	};
-};
+const addFrameOffsets = ( offset, frame ) => ( {
+	left: offset.left + frame.x + window.scrollX,
+	right:
+		offset.right +
+		( window.innerWidth > frame.left + frame.width
+			? window.innerWidth - frame.left - frame.width
+			: 0 ),
+	top: offset.top + frame.y + window.scrollY,
+	bottom:
+		offset.bottom +
+		( window.innerHeight > frame.top + frame.height
+			? window.innerHeight - frame.top - frame.height
+			: 0 ),
+} );
 
 const getFeedbackButtonHorizontalPosition = ( align, width, offset ) => {
 	return {

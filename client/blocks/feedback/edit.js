@@ -33,6 +33,7 @@ import RetryNotice from 'components/retry-notice';
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
 	const [ height, setHeight ] = useState( null );
+	const [ overlayPosition, setOverlayPosition ] = useState( {} );
 
 	const {
 		attributes,
@@ -147,6 +148,20 @@ const EditFeedbackBlock = ( props ) => {
 		setHeight( popover.current.offsetHeight );
 	}, [ attributes.header, popover.current ] );
 
+	useLayoutEffect( () => {
+		const contentWrapper = document.getElementsByClassName(
+			'interface-interface-skeleton__content'
+		)[ 0 ];
+		const contentBox = contentWrapper.getBoundingClientRect();
+
+		setOverlayPosition( {
+			bottom: window.innerHeight - ( contentBox.top + contentBox.height ),
+			left: contentBox.left,
+			right: window.innerWidth - ( contentBox.left + contentBox.width ),
+			top: contentBox.top,
+		} );
+	}, [ activeSidebar, editorFeatures.fullscreenMode, isSelected ] );
+
 	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
 		triggerButton.current.parentElement.parentElement.parentElement.blur();
@@ -217,6 +232,7 @@ const EditFeedbackBlock = ( props ) => {
 							role="dialog"
 							className="crowdsignal-forms-feedback__popover-overlay"
 							onClick={ toggleBlock }
+							style={ overlayPosition }
 						/>
 
 						{ ! isExample && signalWarning && <SignalWarning /> }
