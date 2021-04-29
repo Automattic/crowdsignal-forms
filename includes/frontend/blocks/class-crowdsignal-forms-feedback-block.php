@@ -127,83 +127,81 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 */
 	private function attributes() {
 		return array(
-			'backgroundColor'          => array(
+			'backgroundColor'        => array(
 				'type' => 'string',
 			),
-			'buttonColor'              => array(
+			'buttonColor'            => array(
 				'type' => 'string',
 			),
-			'buttonTextColor'          => array(
+			'buttonTextColor'        => array(
 				'type' => 'string',
 			),
-			'emailPlaceholder'         => array(
+			'emailPlaceholder'       => array(
 				'type'    => 'string',
 				'default' => __( 'Your Email (optional)', 'crowdsignal-forms' ),
 			),
-			'feedbackPlaceholder'      => array(
+			'feedbackPlaceholder'    => array(
 				'type'    => 'string',
 				'default' => __( 'Please let us know how we can do better…', 'crowdsignal-forms' ),
 			),
-			'header'                   => array(
+			'header'                 => array(
 				'type'    => 'string',
 				'default' => __( '👋 Hey there!', 'crowdsignal-forms' ),
 			),
-			'hideBranding'             => array(
+			'hideBranding'           => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'hideTriggerShadow'        => array(
+			'hideTriggerShadow'      => array(
 				'type'    => 'boolean',
 				'default' => false,
 			),
-			'submitButtonLabel'        => array(
+			'submitButtonLabel'      => array(
 				'type'    => 'string',
 				'default' => __( 'Submit', 'crowdsignal-forms' ),
 			),
-			'submitText'               => array(
+			'submitText'             => array(
 				'type'    => 'string',
 				'default' => __( 'Thanks for letting us know!', 'crowdsignal-forms' ),
 			),
-			'surveyId'                 => array(
+			'surveyId'               => array(
 				'type'    => 'number',
 				'default' => null,
 			),
-			'textColor'                => array(
+			'textColor'              => array(
 				'type' => 'string',
 			),
-			'triggerBackgroundImageId' => array(
-				'type'    => 'number',
-				'default' => 0,
-			),
-			'triggerBackgroundImage'   => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'triggerLabel'             => array(
+			'triggerLabel'           => array(
 				'type'    => 'string',
 				'default' => __( 'Feedback', 'crowdsignal-forms' ),
 			),
-			'title'                    => array(
+			'triggerBackgroundColor' => array(
+				'type' => 'string',
+			),
+			'triggerTextColor'       => array(
+				'type' => 'string',
+			),
+			'title'                  => array(
 				'type'    => 'string',
 				'default' => '',
 			),
-			'x'                        => array(
+			'x'                      => array(
 				'type'    => 'string',
 				'default' => 'right',
 			),
-			'y'                        => array(
+			'y'                      => array(
 				'type'    => 'string',
 				'default' => 'bottom',
 			),
-			'status'                   => array(
+			'status'                 => array(
 				'type'    => 'string',
 				'default' => 'open', // See: client/blocks/feedback/constants.js.
 			),
-			'closedAfterDateTime'      => array(
+			'closedAfterDateTime'    => array(
 				'type'    => 'string',
 				'default' => null,
 			),
-			'emailResponses'           => array(
+			'emailResponses'         => array(
 				'type'    => 'boolean',
 				'default' => true,
 			),

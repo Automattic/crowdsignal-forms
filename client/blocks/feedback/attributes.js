@@ -62,13 +62,15 @@ export default {
 	textColor: {
 		type: 'string',
 	},
-	triggerShadow: {
-		type: 'boolean',
-		default: true,
-	},
 	triggerLabel: {
 		type: 'string',
 		default: __( 'Feedback', 'crowdsignal-forms' ),
+	},
+	triggerBackgroundColor: {
+		type: 'string',
+	},
+	triggerTextColor: {
+		type: 'string',
 	},
 	title: {
 		type: 'string',
