@@ -24,9 +24,8 @@ const CloseButton = () => (
 
 const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 	const classes = classnames(
-		'wp-block-button__link',
-		'crowdsignal-forms-feedback__feedback-button',
 		'crowdsignal-forms-feedback__trigger',
+		'wp-block-button__link',
 		className,
 		{
 			'is-active': isOpen,
