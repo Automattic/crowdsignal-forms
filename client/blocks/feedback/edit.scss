@@ -87,6 +87,11 @@
 	font-weight: 600;
 	padding-left: 16px !important;
 	padding-right: 16px !important;
+
+	&.is-pressed::before {
+		left: 8px !important;
+		right: 8px !important;
+	}
 }
 
 .crowdsignal-forms-feedback__toolbar-popover-wrapper .components-popover__content {
