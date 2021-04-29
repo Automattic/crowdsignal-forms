@@ -9,21 +9,22 @@
 .crowdsignal-forms-feedback__trigger {
 	box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
 	cursor: pointer;
-	background-color: var(--crowdsignal-forms-button-color) !important;
-	color: var(--crowdsignal-forms-button-text-color) !important;
-	display: flex;
+	background-color: var(--crowdsignal-forms-trigger-background-color) !important;
+	color: var(--crowdsignal-forms-trigger-text-color) !important;
+	display: flex !important;
 	align-items: center;
 	font-size: 16px !important;
-	line-height: 150 !important;
+	line-height: 1.5 !important;
 	padding: 12px 16px !important;
 
+	> svg {
+		fill: currentColor;
+	}
+
 	&.is-active {
-		background: var(--crowdsignal-forms-button-color) !important;
+		background: var(--crowdsignal-forms-trigger-background-color) !important;
 		padding-left: 12px !important;
 
-		> svg {
-			fill: var(--crowdsignal-forms-button-text-color);
-		}
 	}
 
 	.crowdsignal-forms-feedback.no-shadow & {
