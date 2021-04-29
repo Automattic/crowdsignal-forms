@@ -74,6 +74,7 @@
 
 	input,
 	textarea {
+		box-sizing: border-box;
 		font-size: var(--crowdsignal-forms-text-size) !important;
 		padding: 16px !important;
 	}
