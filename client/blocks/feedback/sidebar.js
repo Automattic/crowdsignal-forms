@@ -107,16 +107,31 @@ const Sidebar = ( {
 					<SidebarPromote signalWarning={ signalWarning } />
 				) }
 			</PanelBody>
-			<PanelBody
+
+			<PanelColorSettings
 				title={ __( 'Feedback Button', 'crowdsignal-forms' ) }
-				initialOpen={ true }
+				initialOpen={ false }
+				colorSettings={ [
+					{
+						label: __( 'Background color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute(
+							'triggerBackgroundColor'
+						),
+						value: attributes.triggerBackgroundColor,
+					},
+					{
+						label: __( 'Text color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute( 'triggerTextColor' ),
+						value: attributes.triggerTextColor,
+					},
+				] }
 			>
 				<ToggleControl
 					label={ __( 'Hide Shadow', 'crowdsignal-forms' ) }
 					checked={ attributes.hideTriggerShadow }
 					onChange={ handleChangeAttribute( 'hideTriggerShadow' ) }
 				/>
-			</PanelBody>
+			</PanelColorSettings>
 			<PanelColorSettings
 				title={ __( 'Block styling', 'crowdsignal-forms' ) }
 				initialOpen={ false }
