@@ -26,10 +26,6 @@
 		z-index: -1;
 	}
 
-	.crowdsignal-forms-feedback__popover {
-		margin-top: 15px;
-	}
-
 	.crowdsignal-forms-feedback {
 		display: flex;
 		flex-direction: column;
@@ -50,15 +46,22 @@
 		}
 
 		&.vertical-align-top {
+
+			.crowdsignal-forms-feedback__trigger-wrapper {
+				margin-bottom: 15px !important;
+				margin-top: 0 !important;
+			}
+
 			justify-content: flex-start;
 		}
 
 		&.vertical-align-bottom {
 			justify-content: flex-end;
 
-			.crowdsignal-forms-feedback__trigger {
+			.crowdsignal-forms-feedback__trigger-wrapper {
 				order: 99;
-				margin-top: 15px;
+				margin-bottom: 0 !important;
+				margin-top: 15px !important;
 			}
 		}
 

@@ -186,8 +186,6 @@ const EditFeedbackBlock = ( props ) => {
 
 	const classes = classnames(
 		'crowdsignal-forms-feedback',
-		'wp-block-button',
-		'crowdsignal-forms-feedback__button-wrapper',
 		`align-${ attributes.x }`,
 		`vertical-align-${ attributes.y }`,
 		{
@@ -218,15 +216,17 @@ const EditFeedbackBlock = ( props ) => {
 				className={ classes }
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
-				<RichText
-					ref={ triggerButton }
-					className="wp-block-button__link crowdsignal-forms-feedback__trigger"
-					onChange={ handleChangeAttribute( 'triggerLabel' ) }
-					value={ triggerLabel }
-					allowedFormats={ [] }
-					multiline={ false }
-					disableLineBreaks={ true }
-				/>
+				<div className="wp-block-button crowdsignal-forms-feedback__trigger-wrapper">
+					<RichText
+						ref={ triggerButton }
+						className="wp-block-button__link crowdsignal-forms-feedback__trigger"
+						onChange={ handleChangeAttribute( 'triggerLabel' ) }
+						value={ triggerLabel }
+						allowedFormats={ [] }
+						multiline={ false }
+						disableLineBreaks={ true }
+					/>
+				</div>
 
 				{ ( isExample || isSelected ) && (
 					<>

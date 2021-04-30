@@ -33,7 +33,7 @@ const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 	);
 
 	return (
-		<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
+		<div className="wp-block-button crowdsignal-forms-feedback__trigger-wrapper">
 			<button ref={ ref } className={ classes } onClick={ onClick }>
 				{ isOpen ? (
 					<CloseButton />
