@@ -96,4 +96,8 @@ export default {
 		type: 'boolean',
 		default: true,
 	},
+	isExample: {
+		type: 'boolean',
+		default: false,
+	},
 };

@@ -13,7 +13,7 @@ import EditFeedbackBlock from './edit';
 export default {
 	title: __( 'Feedback Button', 'crowdsignal-forms' ),
 	description: __(
-		'Allow your audience to share some feedback with you',
+		'Add an always visible button that allows your audience to share feedback anytime.',
 		'crowdsignal-forms'
 	),
 	category: 'crowdsignal-forms',
@@ -38,4 +38,9 @@ export default {
 		reusable: false,
 	},
 	attributes,
+	example: {
+		attributes: {
+			isExample: true,
+		},
+	},
 };
