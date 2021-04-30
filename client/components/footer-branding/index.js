@@ -21,11 +21,16 @@ const promoteLink = (
 	</span>
 );
 
-const FooterBranding = ( { showLogo, editing, message } ) => (
+const FooterBranding = ( {
+	showLogo,
+	editing,
+	message,
+	trackRef = 'cs-forms-poll',
+} ) => (
 	<div className="crowdsignal-forms__footer-branding">
 		<a
 			className="crowdsignal-forms__footer-cs-link"
-			href="https://crowdsignal.com?ref=cs-forms-poll"
+			href={ 'https://crowdsignal.com?ref=' + trackRef }
 			target="_blank"
 			rel="noopener noreferrer"
 		>

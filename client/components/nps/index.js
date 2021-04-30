@@ -91,6 +91,7 @@ const Nps = ( {
 							'Collect your own feedback with Crowdsignal',
 							'crowdsignal-forms'
 						) }
+						trackRef="cs-forms-nps"
 					/>
 				) }
 			</div>
