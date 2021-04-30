@@ -1,6 +1,6 @@
 # Crowdsignal Forms
 
-Contributors: automattic
+Contributors: [Automattic](https://automattic.com)
 
 Tags: polls, forms, surveys, gutenberg, block
 
