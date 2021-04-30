@@ -148,7 +148,7 @@ const EditFeedbackBlock = ( props ) => {
 		}
 
 		setHeight( popover.current.offsetHeight );
-	}, [ attributes.header, popover.current ] );
+	}, [ attributes.header, popover.current, isSelected ] );
 
 	useLayoutEffect( () => {
 		const contentWrapper = document.getElementsByClassName(

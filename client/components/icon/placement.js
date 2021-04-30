@@ -11,10 +11,10 @@ const PlacementIcon = () => (
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
 	>
-		<rect x="3.75" y="3.75" width="3" height="3" fill="black" />
-		<rect x="18" y="4.5" width="1.5" height="1.5" fill="black" />
-		<rect x="18" y="18" width="1.5" height="1.5" fill="black" />
-		<rect x="4.5" y="18" width="1.5" height="1.5" fill="black" />
+		<rect x="2.25" y="2.25" width="6" height="6" fill="black" />
+		<rect x="17.75" y="4.25" width="2" height="2" fill="black" />
+		<rect x="17.75" y="17.75" width="2" height="2" fill="black" />
+		<rect x="4.25" y="17.75" width="2" height="2" fill="black" />
 	</svg>
 );
 

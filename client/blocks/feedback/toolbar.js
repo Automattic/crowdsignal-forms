@@ -14,6 +14,7 @@ import {
 	Dropdown,
 	ToolbarButton,
 	ToolbarGroup,
+	Tooltip,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -68,11 +69,18 @@ const FeedbackToolbar = ( {
 								'crowdsignal-forms-feedback__toolbar-popover-wrapper',
 						} }
 						renderToggle={ ( { onToggle } ) => (
-							<ToolbarButton
-								className={ `crowdsignal-forms-feedback__toolbar-position-toggle ${ attributes.y }-${ attributes.x }` }
-								onClick={ onToggle }
-								icon={ PlacementIcon }
-							/>
+							<Tooltip
+								text={ __(
+									'Change button position',
+									'crowdsignal-forms'
+								) }
+							>
+								<ToolbarButton
+									className={ `crowdsignal-forms-feedback__toolbar-position-toggle ${ attributes.y }-${ attributes.x }` }
+									onClick={ onToggle }
+									icon={ PlacementIcon }
+								/>
+							</Tooltip>
 						) }
 						renderContent={ ( { onClose } ) => (
 							<div className="crowdsignal-forms-feedback__toolbar-popover">
