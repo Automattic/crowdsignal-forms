@@ -160,7 +160,7 @@ const EditFeedbackBlock = ( props ) => {
 			right: window.innerWidth - ( contentBox.left + contentBox.width ),
 			top: contentBox.top,
 		} );
-	}, [ activeSidebar, editorFeatures.fullscreenMode, isSelected ] );
+	}, [ activeSidebar, editorFeatures.fullscreenMode, isSelected ] );
 
 	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
