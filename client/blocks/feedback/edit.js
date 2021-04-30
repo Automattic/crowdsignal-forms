@@ -201,7 +201,7 @@ const EditFeedbackBlock = ( props ) => {
 		height,
 	};
 
-	const isCurrentlyClosed =
+	const isClosed =
 		FeedbackStatus.CLOSED === attributes.status ||
 		( FeedbackStatus.CLOSED_AFTER === attributes.status &&
 			null !== attributes.closedAfterDateTime &&
@@ -314,7 +314,7 @@ const EditFeedbackBlock = ( props ) => {
 								/>
 							</div>
 						) }
-						{ isCurrentlyClosed && (
+						{ isClosed && (
 							<div className="crowdsignal-forms-feedback__closed-notice">
 								{ __(
 									'This Feedback Form is Closed',
