@@ -202,7 +202,7 @@ const EditFeedbackBlock = ( props ) => {
 			>
 				<RichText
 					ref={ triggerButton }
-					className="wp-block-button__link crowdsignal-forms-feedback__feedback-button crowdsignal-forms-feedback__trigger"
+					className="wp-block-button__link crowdsignal-forms-feedback__trigger"
 					onChange={ handleChangeAttribute( 'triggerLabel' ) }
 					value={ triggerLabel }
 					allowedFormats={ [] }
