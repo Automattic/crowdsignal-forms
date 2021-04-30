@@ -29,6 +29,7 @@ import { updateFeedback } from 'data/feedback/edit';
 import SignalWarning from 'components/signal-warning';
 import { views, FeedbackStatus } from './constants';
 import RetryNotice from 'components/retry-notice';
+import FooterBranding from 'components/footer-branding';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -205,6 +206,10 @@ const EditFeedbackBlock = ( props ) => {
 			null !== attributes.closedAfterDateTime &&
 			new Date().toISOString() > attributes.closedAfterDateTime );
 
+	const hideBranding = get( accountInfo, 'capabilities' ).includes(
+		'hide-branding'
+	);
+
 	return (
 		<ConnectToCrowdsignal>
 			<Toolbar
@@ -295,6 +300,16 @@ const EditFeedbackBlock = ( props ) => {
 										disableLineBreaks={ true }
 									/>
 								</div>
+								{ ! hideBranding && (
+									<FooterBranding
+										editing={ true }
+										trackRef="cs-forms-feedback"
+										message={ __(
+											'Collect your own feedback with Crowdsignal',
+											'crowdsignal-forms'
+										) }
+									/>
+								) }
 							</div>
 						) }
 
@@ -312,6 +327,16 @@ const EditFeedbackBlock = ( props ) => {
 									value={ attributes.submitText }
 									allowedFormats={ [] }
 								/>
+								{ ! hideBranding && (
+									<FooterBranding
+										editing={ true }
+										trackRef="cs-forms-feedback"
+										message={ __(
+											'Collect your own feedback with Crowdsignal',
+											'crowdsignal-forms'
+										) }
+									/>
+								) }
 							</div>
 						) }
 						{ isClosed && (
