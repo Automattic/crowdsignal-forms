@@ -77,9 +77,7 @@ const Sidebar = ( {
 				<TextControl
 					label={ __( 'Title (optional)', 'crowdsignal-forms' ) }
 					onChange={ handleChangeTitle }
-					value={ decodeEntities(
-						attributes.title ?? attributes.ratingQuestion
-					) }
+					value={ decodeEntities( attributes.title ) }
 				/>
 				{ shouldPromote && (
 					<SidebarPromote signalWarning={ signalWarning } />
