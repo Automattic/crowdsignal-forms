@@ -70,18 +70,23 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 ## Screenshots
 
 Poll block:
+
 ![image](https://user-images.githubusercontent.com/157240/116736784-b7f77a00-a9c6-11eb-8b05-606084cfdb91.png)
 
 Vote block:
+
 ![image](https://user-images.githubusercontent.com/157240/116736949-f9882500-a9c6-11eb-99e5-9e4b5fe12706.png)
 
 Customizable NPS block:
+
 ![image](https://user-images.githubusercontent.com/157240/116736474-533c1f80-a9c6-11eb-8671-ef981cdd35e2.png)
 
 Applause block and custom colors:
+
 ![image](https://user-images.githubusercontent.com/157240/116736193-f04a8880-a9c5-11eb-9854-3cacf9d5ec5b.png)
 
 Feedback Button block:
+
 ![image](https://user-images.githubusercontent.com/157240/116735866-7c0fe500-a9c5-11eb-8358-a3fd01a1cfd2.png)
 
 
