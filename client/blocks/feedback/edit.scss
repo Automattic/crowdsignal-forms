@@ -160,8 +160,8 @@
 }
 
 .crowdsignal-forms-feedback__closed-notice {
-	background-color: #b00;
-	color: #fff;
+	background-color: var(--crowdsignal-forms-button-color);
+	color: var(--crowdsignal-forms-button-text-color);
 	text-align: center;
 	width: 100%;
 }

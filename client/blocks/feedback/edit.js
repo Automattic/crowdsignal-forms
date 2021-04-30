@@ -317,7 +317,7 @@ const EditFeedbackBlock = ( props ) => {
 						{ isCurrentlyClosed && (
 							<div className="crowdsignal-forms-feedback__closed-notice">
 								{ __(
-									'This Feedback is set to "Closed"',
+									'This Feedback Form is Closed',
 									'crowdsignal-forms'
 								) }
 							</div>
