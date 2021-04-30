@@ -79,9 +79,7 @@ const Sidebar = ( {
 				<TextControl
 					label={ __( 'Title (optional)', 'crowdsignal-forms' ) }
 					onChange={ handleChangeTitle }
-					value={ decodeEntities(
-						attributes.title || attributes.header
-					) }
+					value={ decodeEntities( attributes.title ) }
 				/>
 				<ToggleControl
 					label={ __(
