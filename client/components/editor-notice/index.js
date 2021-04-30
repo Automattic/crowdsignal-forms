@@ -3,9 +3,12 @@
  */
 import { Notice, Icon } from '@wordpress/components';
 
-const EditorNotice = ( { icon, children, ...props } ) => {
-	const [ text, ...actions ] = children;
-
+const EditorNotice = ( {
+	icon,
+	children,
+	componentActions = [],
+	...props
+} ) => {
 	return (
 		<Notice className="crowdsignal-forms__editor-notice" { ...props }>
 			{ icon && (
@@ -14,10 +17,9 @@ const EditorNotice = ( { icon, children, ...props } ) => {
 				</div>
 			) }
 			<div className="crowdsignal-forms__editor-notice-text">
-				{ text }
+				{ children }
 			</div>
-
-			{ actions }
+			{ componentActions.map( ( component ) => component ) }
 		</Notice>
 	);
 };

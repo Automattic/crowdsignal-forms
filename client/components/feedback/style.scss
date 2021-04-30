@@ -1,0 +1,97 @@
+/** Public styles */
+
+.crowdsignal-forms-feedback {
+	display: flex;
+	position: fixed;
+	z-index: 100;
+
+	> div:last-child:not(.crowdsignal-forms-feedback__trigger) {
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+}
+
+.crowdsignal-forms-feedback__trigger-wrapper {
+	margin: 0 !important;
+}
+
+.crowdsignal-forms-feedback__trigger {
+	box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+	background-color: var(--crowdsignal-forms-trigger-background-color) !important;
+	color: var(--crowdsignal-forms-trigger-text-color) !important;
+	display: flex !important;
+	align-items: center;
+	font-size: 16px !important;
+	line-height: 1.5 !important;
+	padding: 10px 16px !important;
+
+	> svg {
+		fill: currentColor;
+	}
+
+	&.is-active {
+		background: var(--crowdsignal-forms-trigger-background-color) !important;
+		padding-left: 12px !important;
+
+	}
+
+	.crowdsignal-forms-feedback.no-shadow & {
+		box-shadow: none;
+	}
+}
+
+.crowdsignal-forms-feedback__popover-wrapper.components-popover .components-popover__content {
+	background-color: transparent;
+	border: 0;
+	box-shadow: none;
+	outline: 0;
+	overflow: visible;
+}
+
+.crowdsignal-forms-feedback__popover {
+	background-color: var(--crowdsignal-forms-background-color);
+	border-top: 10px solid var(--crowdsignal-forms-button-color);
+	box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
+	color: var(--crowdsignal-forms-text-color);
+	outline: 0;
+	padding: 24px;
+	width: 380px;
+	text-align: left;
+	z-index: 100;
+}
+
+.crowdsignal-forms-feedback__header {
+	color: var(--crowdsignal-forms-text-color);
+	margin-top: 0 !important;
+	margin-bottom: 32px !important;
+}
+
+.crowdsignal-forms-feedback__input {
+	margin-top: 16px;
+	width: 100%;
+
+	input,
+	textarea {
+		box-sizing: border-box;
+		font-size: var(--crowdsignal-forms-text-size) !important;
+		padding: 16px !important;
+	}
+}
+
+.crowdsignal-forms-feedback__button-wrapper {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 24px;
+	margin-bottom: 0;
+	width: 100%;
+
+	&:hover {
+		color: var(--crowdsignal-forms-button-color);
+	}
+}
+
+.crowdsignal-forms-feedback__feedback-button {
+	background-color: var(--crowdsignal-forms-button-color) !important;
+	color: var(--crowdsignal-forms-button-text-color) !important;
+}

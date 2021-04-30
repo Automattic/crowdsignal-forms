@@ -30,6 +30,7 @@ import { useAccountInfo } from 'data/hooks';
 import EditorNotice from 'components/editor-notice';
 import FooterBranding from 'components/footer-branding';
 import SignalWarning from 'components/signal-warning';
+import RetryNotice from 'components/retry-notice';
 
 const EditNpsBlock = ( props ) => {
 	const [ view, setView ] = useState( views.RATING );
@@ -140,27 +141,26 @@ const EditNpsBlock = ( props ) => {
 			/>
 			{ ! isExample && signalWarning && <SignalWarning /> }
 			{ ! isExample && saveError && (
-				<EditorNotice
-					status="error"
-					icon="warning"
-					isDismissible={ false }
-					actions={ [
-						{
-							className: 'is-destructive',
-							label: __( 'Retry', 'crowdsignal-forms' ),
-							onClick: saveBlock,
-						},
-					] }
-				>
-					{ __(
-						`Unfortunately, the block couldn't be saved to Crowdsignal.com.`,
-						'crowdsignal-forms'
-					) }
-				</EditorNotice>
+				<RetryNotice retryHandler={ saveBlock } />
 			) }
 
 			{ ! isExample && (
-				<EditorNotice isDismissible={ false } icon="visibility">
+				<EditorNotice
+					isDismissible={ false }
+					icon="visibility"
+					componentActions={ [
+						<PostPreviewButton
+							key={ 1 }
+							className={ [
+								'is-secondary',
+								'components-notice__action',
+								'crowdsignal-forms-nps__preview-button',
+								attributes.surveyId ? '' : 'is-disabled',
+							] }
+							textContent={ __( 'Preview', 'crowdsignal-forms' ) }
+						/>,
+					] }
+				>
 					{ sprintf(
 						// translators: %d: number of pageviews
 						_n(
@@ -171,16 +171,6 @@ const EditNpsBlock = ( props ) => {
 						),
 						viewThreshold
 					) }
-
-					<PostPreviewButton
-						className={ [
-							'is-secondary',
-							'components-notice__action',
-							'crowdsignal-forms-nps__preview-button',
-							attributes.surveyId ? '' : 'is-disabled',
-						] }
-						textContent={ __( 'Preview', 'crowdsignal-forms' ) }
-					/>
 				</EditorNotice>
 			) }
 

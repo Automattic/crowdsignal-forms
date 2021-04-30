@@ -8,27 +8,29 @@ import React from 'react';
  */
 import {
 	Button,
+	DateTimePicker,
 	ExternalLink,
 	PanelBody,
 	SelectControl,
 	TextControl,
-	DateTimePicker,
+	ToggleControl,
 } from '@wordpress/components';
 import { InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
 import { decodeEntities } from '@wordpress/html-entities';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import SidebarPromote from 'components/sidebar-promote';
-import { NpsStatus } from './constants';
+import { FeedbackStatus } from './constants';
 
 const Sidebar = ( {
 	attributes,
 	setAttributes,
 	shouldPromote,
 	signalWarning,
+	email,
 } ) => {
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
@@ -79,10 +81,55 @@ const Sidebar = ( {
 					onChange={ handleChangeTitle }
 					value={ decodeEntities( attributes.title ) }
 				/>
+				<ToggleControl
+					label={ __(
+						'Send me responses via email',
+						'crowdsignal-forms'
+					) }
+					checked={ attributes.emailResponses }
+					onChange={ handleChangeAttribute( 'emailResponses' ) }
+					help={
+						attributes.emailResponses &&
+						email &&
+						sprintf(
+							// translators: %s: email address
+							__(
+								'Responses will be sent to %s',
+								'crowdsignal-forms'
+							),
+							email
+						)
+					}
+				/>
 				{ shouldPromote && (
 					<SidebarPromote signalWarning={ signalWarning } />
 				) }
 			</PanelBody>
+
+			<PanelColorSettings
+				title={ __( 'Feedback Button', 'crowdsignal-forms' ) }
+				initialOpen={ false }
+				colorSettings={ [
+					{
+						label: __( 'Background color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute(
+							'triggerBackgroundColor'
+						),
+						value: attributes.triggerBackgroundColor,
+					},
+					{
+						label: __( 'Text color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute( 'triggerTextColor' ),
+						value: attributes.triggerTextColor,
+					},
+				] }
+			>
+				<ToggleControl
+					label={ __( 'Hide Shadow', 'crowdsignal-forms' ) }
+					checked={ attributes.hideTriggerShadow }
+					onChange={ handleChangeAttribute( 'hideTriggerShadow' ) }
+				/>
+			</PanelColorSettings>
 			<PanelColorSettings
 				title={ __( 'Block styling', 'crowdsignal-forms' ) }
 				initialOpen={ false }
@@ -115,24 +162,24 @@ const Sidebar = ( {
 			>
 				<SelectControl
 					value={ attributes.status }
-					label={ __( 'Survey Status', 'crowdsignal-forms' ) }
+					label={ __( 'Status', 'crowdsignal-forms' ) }
 					options={ [
 						{
 							label: __( 'Open', 'crowdsignal-forms' ),
-							value: NpsStatus.OPEN,
+							value: FeedbackStatus.OPEN,
 						},
 						{
 							label: __( 'Closed after', 'crowdsignal-forms' ),
-							value: NpsStatus.CLOSED_AFTER,
+							value: FeedbackStatus.CLOSED_AFTER,
 						},
 						{
 							label: __( 'Closed', 'crowdsignal-forms' ),
-							value: NpsStatus.CLOSED,
+							value: FeedbackStatus.CLOSED,
 						},
 					] }
 					onChange={ handleChangeStatus }
 					help={
-						NpsStatus.CLOSED_AFTER === attributes.status &&
+						FeedbackStatus.CLOSED_AFTER === attributes.status &&
 						null !== attributes.closedAfterDateTime &&
 						new Date().toISOString() >
 							attributes.closedAfterDateTime
@@ -141,7 +188,7 @@ const Sidebar = ( {
 					}
 				/>
 
-				{ NpsStatus.CLOSED_AFTER === attributes.status && (
+				{ FeedbackStatus.CLOSED_AFTER === attributes.status && (
 					<DateTimePicker
 						currentDate={
 							( attributes.closedAfterDateTime &&

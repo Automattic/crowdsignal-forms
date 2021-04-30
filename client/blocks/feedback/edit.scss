@@ -1,0 +1,178 @@
+/** Editor styles */
+
+.editor-styles-wrapper {
+
+	.wp-block[data-type="crowdsignal-forms/feedback"] {
+		width: auto;
+		// This number is was carefully chosen so the block and its overlay
+		// don't block any editor UI elements but appear in front of regular
+		// content
+		z-index: 10;
+
+		&::after {
+			display: none;
+		}
+	}
+
+	.crowdsignal-forms-feedback__popover-overlay {
+		background-color: rgba(0, 0, 0, 0.3);
+		content: "";
+		display: block;
+		position: fixed;
+		bottom: 25px;
+		left: 0;
+		right: 0;
+		top: 0;
+		z-index: -1;
+	}
+
+	.crowdsignal-forms-feedback {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin: 0 !important;
+		position: relative;
+
+		&.is-active .crowdsignal-forms-feedback__trigger {
+			cursor: text !important;
+		}
+
+		&.align-left {
+			align-items: flex-start;
+		}
+
+		&.align-right {
+			align-items: flex-end;
+		}
+
+		&.vertical-align-top {
+
+			.crowdsignal-forms-feedback__trigger-wrapper {
+				margin-bottom: 15px !important;
+				margin-top: 0 !important;
+			}
+
+			justify-content: flex-start;
+		}
+
+		&.vertical-align-bottom {
+			justify-content: flex-end;
+
+			.crowdsignal-forms-feedback__trigger-wrapper {
+				order: 99;
+				margin-bottom: 0 !important;
+				margin-top: 15px !important;
+			}
+		}
+
+		.crowdsignal-forms__editor-notice {
+			// this width must match the width of
+			// .crowdsignal-forms-feedback__popover on components/feedback/style.scss
+			width: 380px;
+		}
+	}
+
+	.crowdsignal-forms-feedback__input {
+
+		input,
+		textarea {
+			color: #757575;
+		}
+	}
+
+	.crowdsignal-forms-feedback__button-wrapper {
+		margin-top: 24px !important;
+		margin-bottom: 0 !important;
+	}
+}
+
+.crowdsignal-forms-feedback__toolbar-toggle {
+	font-weight: 600;
+	padding-left: 16px !important;
+	padding-right: 16px !important;
+
+	&.is-pressed::before {
+		left: 8px !important;
+		right: 8px !important;
+	}
+}
+
+.crowdsignal-forms-feedback__toolbar-popover-wrapper .components-popover__content {
+	min-width: auto !important;
+}
+
+.crowdsignal-forms-feedback__toolbar-popover {
+	display: grid;
+	grid-template-columns: min-content min-content;
+	grid-template-rows: auto auto;
+}
+
+.crowdsignal-forms-feedback__toolbar-position-toggle {
+
+	&.top-right svg {
+		transform: rotate(90deg);
+	}
+
+	&.bottom-right svg {
+		transform: rotate(180deg);
+	}
+
+	&.bottom-left svg {
+		transform: rotate(270deg);
+	}
+}
+
+.crowdsignal-forms-feedback__position-button {
+	align-items: center;
+	box-shadow: none !important;
+	display: flex;
+	height: 30px;
+	justify-content: center;
+	outline: 0;
+	transition: all 120ms linear 0s;
+	width: 30px;
+
+	&::before {
+		background-color: #b5bcc2;
+		display: block;
+		content: "";
+		height: 6px;
+		width: 6px;
+	}
+
+	&:hover::before {
+		background-color: #007cba;
+	}
+
+	&.is-active::before {
+		background-color: #000;
+		box-shadow: #000 0 0 0 2px;
+	}
+}
+
+.crowdsignal-forms-feedback__trigger-settings {
+	align-items: center;
+	display: flex;
+	margin-bottom: 24px;
+}
+
+.crowdsignal-forms-feedback__trigger-settings-trigger {
+	background-size: cover;
+	border: 1px solid #c4c4c4;
+	border-radius: 50%;
+	height: 70px;
+	margin-right: 12px;
+	overflow: hidden;
+	padding: 0;
+	width: 70px;
+}
+
+.crowdsignal-forms-feedback__closed-notice {
+	background-color: #1e1e1e;
+	color: #fff;
+	text-align: center;
+	width: 100%;
+	font-size: 14px;
+	line-height: 1.5;
+	padding: 6px;
+}

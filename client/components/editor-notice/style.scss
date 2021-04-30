@@ -11,10 +11,15 @@
 .crowdsignal-forms__editor-notice-icon {
 	line-height: 0;
 	padding: 8px 16px 8px 8px;
+
+	.is-warn & {
+		color: var(--wp-admin-theme-color);
+	}
 }
 
 .crowdsignal-forms__editor-notice-text {
 	flex-grow: 1;
+	color: var(--crowdsignal-forms-text-color);
 
 	a {
 		text-decoration: underline;

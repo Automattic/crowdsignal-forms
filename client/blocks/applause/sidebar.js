@@ -79,13 +79,7 @@ const SideBar = ( {
 								'Publish this post to enable results on ',
 								'crowdsignal-forms'
 						  ) }
-					<ExternalLink
-						href={
-							resultsLinkEnabled
-								? viewResultsUrl
-								: 'https://www.crowdsignal.com'
-						}
-					>
+					<ExternalLink href="https://www.crowdsignal.com">
 						crowdsignal.com
 					</ExternalLink>
 				</p>
