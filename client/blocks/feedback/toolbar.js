@@ -71,7 +71,7 @@ const FeedbackToolbar = ( {
 						renderToggle={ ( { onToggle } ) => (
 							<Tooltip
 								text={ __(
-									'Change toggle button position',
+									'Change button position',
 									'crowdsignal-forms'
 								) }
 							>
