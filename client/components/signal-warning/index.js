@@ -24,9 +24,12 @@ const SignalWarning = () => {
 				},
 			] }
 		>
-			{ __( 'Your free Crowdsignal account has ', 'crowdsignal-forms' ) }
+			{ __(
+				'Your free Crowdsignal account has exceeded ',
+				'crowdsignal-forms'
+			) }
 			<ExternalLink href="https://crowdsignal.com/support/what-is-a-signal/">
-				{ __( 'exceeded 2500 signals.', 'crowdsignal-forms' ) }
+				{ __( 'the limit of 2500 signals.', 'crowdsignal-forms' ) }
 			</ExternalLink>
 		</EditorNotice>
 	);

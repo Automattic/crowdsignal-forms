@@ -21,16 +21,11 @@ const promoteLink = (
 	</span>
 );
 
-const FooterBranding = ( {
-	showLogo,
-	editing,
-	message,
-	trackRef = 'cs-forms-poll',
-} ) => (
+const FooterBranding = ( { showLogo, editing, message } ) => (
 	<div className="crowdsignal-forms__footer-branding">
 		<a
 			className="crowdsignal-forms__footer-cs-link"
-			href={ 'https://crowdsignal.com?ref=' + trackRef }
+			href="https://crowdsignal.com?ref=cs-forms-poll"
 			target="_blank"
 			rel="noopener noreferrer"
 		>
@@ -55,17 +50,11 @@ const FooterBranding = ( {
 		) }
 
 		{ showLogo && (
-			<a
-				href={ 'https://crowdsignal.com?ref=' + trackRef }
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<img
-					className="crowdsignal-forms__footer-branding-logo"
-					src="https://app.crowdsignal.com/images/svg/cs-logo-dots.svg"
-					alt="Crowdsignal sticker"
-				/>
-			</a>
+			<img
+				className="crowdsignal-forms__footer-branding-logo"
+				src="https://app.crowdsignal.com/images/svg/cs-logo-dots.svg"
+				alt="Crowdsignal sticker"
+			/>
 		) }
 	</div>
 );
