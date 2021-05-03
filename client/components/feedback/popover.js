@@ -4,11 +4,17 @@
 import React, { useRef, useState } from 'react';
 
 /**
+ * WordPress dependencies
+ */
+import { __ } from '@wordpress/i18n';
+
+/**
  * Internal dependencies
  */
 import { views } from 'blocks/feedback/constants';
 import FeedbackForm from './form';
 import FeedbackSubmit from './submit';
+import FooterBranding from 'components/footer-branding';
 
 const FeedbackPopover = ( { attributes } ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -39,6 +45,16 @@ const FeedbackPopover = ( { attributes } ) => {
 			) }
 			{ view === views.SUBMIT && (
 				<FeedbackSubmit attributes={ attributes } />
+			) }
+			{ ! attributes.hideBranding && (
+				<FooterBranding
+					trackRef="cs-forms-feedback"
+					showLogo={ true }
+					message={ __(
+						'Collect your own feedback with Crowdsignal',
+						'crowdsignal-forms'
+					) }
+				/>
 			) }
 		</div>
 	);
