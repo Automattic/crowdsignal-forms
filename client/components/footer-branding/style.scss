@@ -1,5 +1,5 @@
 .crowdsignal-forms__footer-branding {
-	align-items: flex-end;
+	align-items: center;
 	display: flex;
 	margin-top: 16px;
 	width: 100%;
@@ -34,8 +34,8 @@
 .crowdsignal-forms__footer-cs-link {
 	display: inline-flex;
 	font-family: $font-sans-serif;
-	font-size: 16px;
-	line-height: 18px;
+	font-size: inherit;
+	line-height: inherit;
 	text-decoration: none;
 	text-transform: uppercase;
 	vertical-align: middle;
