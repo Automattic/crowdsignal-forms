@@ -2,7 +2,7 @@
 # Crowdsignal Forms
 
 Note: this file is intended for developers, the plugin readme
-is [README.txt](README.txt)/[README.md](README.md)
+is [README.txt](../README.txt)/[README.md](../README.md)
 
 ## Using docker for local dev
 
@@ -10,7 +10,7 @@ You will need the following installed locally:
 * npm >= 6.9.0 - NPM can be installed from https://www.npmjs.com/get-npm
 * Docker. Get Docker at https://www.docker.com/
 
-More info [here](docker/README.md). After you finish with that setup, you 
+More info [here](../docker/README.md). After you finish with that setup, you 
 can run the docker instance like this:
 
 ```
@@ -32,7 +32,7 @@ make docker_sh
 
 ## Running the PHP linter and tests
 
-Assuming you are using the [docker setup](docker/README.md):
+Assuming you are using the [docker setup](../docker/README.md):
 
 * Set up the local test env by running `./tests/bin/install.sh crowdsignal_forms_tests` (see install.sh for more info on arguments)
 * If on debian, install `php-xml` and `php-mbstring`
