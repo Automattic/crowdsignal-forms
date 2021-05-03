@@ -26,7 +26,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	/**
 	 * The nonce identifier string for Feedback submission.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 * @var string
 	 */
 	const NONCE = 'crowdsignal-forms-feedback__submit';
@@ -212,7 +212,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 * Verifies a nonce based on the NONCE.
 	 * The nonce creation is first attempted through crowdsignal_forms_feedback_nonce filter.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 * @param string $nonce
 	 * @return bool
 	 */
@@ -229,7 +229,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 * Returns a nonce based on the NONCE.
 	 * The nonce creation is first attempted through crowdsignal_forms_feedback_nonce filter.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 * @return string
 	 */
 	private function create_nonce() {
