@@ -236,7 +236,6 @@ const EditNpsBlock = ( props ) => {
 
 						{ ! hideBranding && (
 							<FooterBranding
-								trackRef="cs-forms-nps"
 								editing={ true }
 								message={ __(
 									'Collect your own feedback with Crowdsignal',
@@ -292,7 +291,6 @@ const EditNpsBlock = ( props ) => {
 
 						{ ! hideBranding && (
 							<FooterBranding
-								trackRef="cs-forms-nps"
 								editing={ true }
 								message={ __(
 									'Collect your own feedback with Crowdsignal',
