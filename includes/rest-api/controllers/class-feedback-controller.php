@@ -2,7 +2,7 @@
 /**
  * Contains the Feedback Controller Class
  *
- * @since [next-version-number]
+ * @since 1.5.0
  * @package Crowdsignal_Forms\Rest_Api
  */
 
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Feedback Controller Class
  *
- * @since [next-version-number]
+ * @since 1.5.0
  */
 class Feedback_Controller {
 	/**
@@ -39,7 +39,7 @@ class Feedback_Controller {
 	/**
 	 * Register the routes for manipulating Feedback blocks
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.0
 	 */
 	public function register_routes() {
 		register_rest_route(
@@ -82,7 +82,7 @@ class Feedback_Controller {
 	/**
 	 * Updates an Feedback Survey. Creates one if no ID is given.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.0
 	 *
 	 * @param  \WP_REST_Request $request The API Request.
 	 * @return \WP_REST_Response|WP_Error
@@ -103,7 +103,7 @@ class Feedback_Controller {
 	 * This route acts as a proxy for Crowdsignal's Feedback response endpoint,
 	 * which allows recording and updating responses.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.0
 	 *
 	 * @todo The nonce helps but it's still possible for someone to generate their own nonce and
 	 *       submit someone else's response id.
@@ -137,7 +137,7 @@ class Feedback_Controller {
 	/**
 	 * The permission check for creating a new poll.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.0
 	 *
 	 * @return bool
 	 */
@@ -148,7 +148,7 @@ class Feedback_Controller {
 	/**
 	 * The permission check for creating/updating feedback responses.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.0
 	 *
 	 * @return bool
 	 */
@@ -159,7 +159,7 @@ class Feedback_Controller {
 	/**
 	 * Returns a validator array for the NPS endpoints params.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.0
 	 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
 	 *
 	 * @return array
