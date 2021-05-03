@@ -49,6 +49,7 @@ const FeedbackPopover = ( { attributes } ) => {
 			{ ! attributes.hideBranding && (
 				<FooterBranding
 					trackRef="cs-forms-feedback"
+					showLogo={ true }
 					message={ __(
 						'Collect your own feedback with Crowdsignal',
 						'crowdsignal-forms'
