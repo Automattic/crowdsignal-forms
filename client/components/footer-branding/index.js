@@ -55,11 +55,17 @@ const FooterBranding = ( {
 		) }
 
 		{ showLogo && (
-			<img
-				className="crowdsignal-forms__footer-branding-logo"
-				src="https://app.crowdsignal.com/images/svg/cs-logo-dots.svg"
-				alt="Crowdsignal sticker"
-			/>
+			<a
+				href={ 'https://crowdsignal.com?ref=' + trackRef }
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<img
+					className="crowdsignal-forms__footer-branding-logo"
+					src="https://app.crowdsignal.com/images/svg/cs-logo-dots.svg"
+					alt="Crowdsignal sticker"
+				/>
+			</a>
 		) }
 	</div>
 );
