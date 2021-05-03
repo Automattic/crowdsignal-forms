@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.4.5
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,15 +67,23 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+= 1.5.0 =
+* New Feedback block added (#110)
+* Use 'crowdsignal_forms_translations_path' filter to load translations (#61)
+* Action: Use make command to build all blocks (#74)
+* Get rid of docker step for pot file (#65)
+* Add Github action for nightly builds
+* Fix double entry (no uses and run on same step) (#70)
+* Back to basic syntax
+* More action debugging
+* Simpler syntax, no inputs (#67)
+* move syntax, debugging error on L1 (#66)
+
 = 1.4.5 =
-* Merge pull request #62 from Automattic/fix/preview-button
 * Fix preview button causing the NPS block to break when creating a new block
-* Merge pull request #60 from Automattic/update/nps-preview-button
-* Fix linter errors
 * Update the NPS preview button to behave identically to the editor's one
 * Change translations pipeline (#57)
 * Add UA and X-Forwarded-For headers for proper response results tracking (#53)
-* Merge pull request #58 from Automattic/update/nps-submission-flow
 * Use RichText.Content component on frontend (#55)
 * Use optimistic requests for submitting NPS block results
 * Change copy edits (#56)
@@ -85,24 +93,10 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Add NPS block
 * Fixed redirect logic for the poll block
 
-= 1.3.5 =
-* Show branding on editor and a message when free signals are exhausted (#11)
-* Remove redirect URL feature (#12)
-
-= 1.3.4 =
-* Escape the redirect address to avoid XSS. (#7)
-* Bump tested version to 5.6 (#8)
-* Unset margins on applause count container (#6)
-
-= 1.3.3 =
-* Unwrap all i18n calls (#1)
-* Use default theme font for Applause count (#3)
-* Fix applause branding styles (#4)
-
 == Upgrade Notice ==
 
-= 1.4.3 =
-Introduce new NPS block
+= 1.5.0 =
+Introduce new Feedback block
 
 = 0.9 =
 Initial release
