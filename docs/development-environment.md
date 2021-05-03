@@ -1,5 +1,5 @@
 
-# Crowdsignal Forms
+# Development Environment
 
 Note: this file is intended for developers, the plugin readme
 is [README.txt](../README.txt)/[README.md](../README.md)
