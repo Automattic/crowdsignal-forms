@@ -78,7 +78,7 @@ export default {
 	},
 	x: {
 		type: 'string',
-		default: 'right',
+		default: 'left',
 	},
 	y: {
 		type: 'string',
