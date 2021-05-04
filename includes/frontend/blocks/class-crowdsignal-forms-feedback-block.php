@@ -187,7 +187,7 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 			),
 			'x'                      => array(
 				'type'    => 'string',
-				'default' => 'right',
+				'default' => 'left',
 			),
 			'y'                      => array(
 				'type'    => 'string',
