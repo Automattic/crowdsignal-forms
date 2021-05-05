@@ -3,7 +3,7 @@
  * File containing the model \Crowdsignal_Forms\Models\Feedback_Survey.
  *
  * @package crowdsignal-forms/Models
- * @since [next-version-number]
+ * @since 1.5.1
  */
 
 namespace Crowdsignal_Forms\Models;
@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Feedback_Survey
  *
- * @since [next-version-number]
+ * @since 1.5.1
  */
 class Feedback_Survey {
 
 	/**
 	 * Survey Id.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 * @var int
 	 */
 	private $id = 0;
@@ -30,7 +30,7 @@ class Feedback_Survey {
 	/**
 	 * Title.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 * @var string
 	 */
 	private $title = '';
@@ -38,7 +38,7 @@ class Feedback_Survey {
 	/**
 	 * Feedback question.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 * @var string
 	 */
 	private $feedback_placeholder = '';
@@ -46,7 +46,7 @@ class Feedback_Survey {
 	/**
 	 * Email question.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 * @var string
 	 */
 	private $email_placeholder = '';
@@ -54,7 +54,7 @@ class Feedback_Survey {
 	/**
 	 * Permalink URL where the Feedback is published.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 * @var string
 	 */
 	private $source_link = '';
@@ -62,7 +62,7 @@ class Feedback_Survey {
 	/**
 	 * Whether or not responses should be sent by email.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 * @var boolean
 	 */
 	private $email_responses = true;
@@ -105,7 +105,7 @@ class Feedback_Survey {
 	/**
 	 * NPS Survey constructor.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 *
 	 * @param int    $id                     Survey ID.
 	 * @param string $title                  Survey title.
@@ -126,7 +126,7 @@ class Feedback_Survey {
 	/**
 	 * Returns the survey ID.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 *
 	 * @return int
 	 */
@@ -137,7 +137,7 @@ class Feedback_Survey {
 	/**
 	 * Transform the Feedback survey to an array for the API.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 *
 	 * @return array
 	 */
@@ -160,7 +160,7 @@ class Feedback_Survey {
 	/**
 	 * Transforms the NPS Survey to an array matching NPS block attributes.
 	 *
-	 * @since [next-version-number]
+	 * @since 1.5.1
 	 *
 	 * @return array
 	 */
