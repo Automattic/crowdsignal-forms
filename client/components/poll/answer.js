@@ -87,10 +87,10 @@ const PollAnswer = ( {
 	);
 
 	return (
-		<>
+		<div className={ classes }>
 			{ AnswerStyle.RADIO === answerStyle && renderRadioAnswers() }
 			{ AnswerStyle.BUTTON === answerStyle && renderButtonAnswers() }
-		</>
+		</div>
 	);
 };
 
