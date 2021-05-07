@@ -27,7 +27,7 @@
 	}
 
 	h3.crowdsignal-forms-poll__question {
-		margin: 0 0 28px;
+		margin: 0 0 44px;
 
 		&:first-child {
 			margin-top: 0;
@@ -160,7 +160,7 @@
 	}
 
 	&:not(.is-button) {
-		margin-block-end: 16px;
+		margin-block-end: 12px;
 	}
 
 	&:hover,
@@ -276,6 +276,8 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 .crowdsignal-forms-poll__actions {
 	display: flex;
 	justify-content: flex-end;
+	margin-top: 32px;
+	margin-bottom: 16px;
 }
 
 .editor-styles-wrapper .crowdsignal-forms-poll .crowdsignal-forms-poll__actions,
