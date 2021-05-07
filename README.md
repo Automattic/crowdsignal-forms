@@ -1,88 +1,95 @@
 # Crowdsignal Forms
 
-Note: this file is intended for developers, the plugin readme
-is README.txt
+Contributors: [Automattic](https://automattic.com)
 
-## Using docker for local dev
+Tags: polls, forms, surveys, gutenberg, block
 
-You will need the following installed locally:
-* npm >= 6.9.0 - NPM can be installed from https://www.npmjs.com/get-npm
-* Docker. Get Docker at https://www.docker.com/
+Requires at least: 5.0
 
-More info [here](docker/README.md). After you finish with that setup, you 
-can run the docker instance like this:
+Requires PHP: 5.6.20
 
-```
-make docker_up
-```
+Tested up to: 5.6
 
-Access the site through http://localhost:8000
+Stable tag: 1.4.5
 
-Login to the Docker container using this command:
-```
-make docker_sh
-```
+License: GPLv2 or later
 
-### Setting up for JS and CSS
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-* `make install` will install any required Node modules.
-* `make client` will build the CSS and JavaScript files required by the plugin.
-* `make clean` will delete the generated CSS and JavaScript files.
 
-## Running the PHP linter and tests
+The Crowdsignal Forms plugin allows you to create and manage polls right from within the block editor.
 
-Assuming you are using the [docker setup](docker/README.md):
+## Description
 
-* Set up the local test env by running `./tests/bin/install.sh crowdsignal_forms_tests` (see install.sh for more info on arguments)
-* If on debian, install `php-xml` and `php-mbstring`
-* `composer install`
-* `./vendor/bin/phpunit`
-* `./vendor/bin/phpcs`
-* `make composer`
-* `make phpunit`
-* `make phpcs`
+The Crowdsignal Forms plugin allows you to create and manage polls right from within the block editor.
+Creating polls is as simple and as fast as writing a bullet point list. No embed blocks and no copy pasting needed anymore.
 
-## How to set a test usercode for the API
+Customize the look and feel of your polls to match your brand, and pick your favorite color. The poll block supports the styling of your theme by default, and from there you can customize the styling of your polls the way you want.
 
-Filter the `crowdsignal_user_code` user meta call to return a test usercode. Add this snippet to the main `crowdsignal-forms.php` file and return your custom usercode string: 
+With Crowdsignal’s results page you can view all responses as they come in. See the geo-locations of your voters and analyze IP addresses for any suspicious voting behavior. See advanced stats and analytics for understanding your audience.
 
-```
-function crowdsignal_get_test_user_code( $check, $object_id, $meta_key, $single ) {
-    if ( 'crowdsignal_user_code' === $meta_key ) {
-        return 'your-custom-user-code-here';
-    }
+Analyze your results and then export them in a number of different formats.
 
-    return null;
-}
-add_filter( 'get_user_metadata', 'crowdsignal_get_test_user_code', 10, 4 );
-```
+Set close dates for polls, create polls with single or multiple choice answers, choose whether to show your readers the poll results or keep them private.
 
-## Translations
+You can create an unlimited number of polls with a free [Crowdsignal](https://crowdsignal.com/) account and your first 2,500 signals are free. A signal is a response you get to a poll. If you are on a free plan, you still have full access to the first 2,500 signals. Any further responses you collect will still be recorded but if you [upgrade](https://crowdsignal.com/pricing/) you will get access to our unlocked reports to see them. You’ll also get access to a [range of features](https://crowdsignal.com/features/) not available to free users.
 
-We use translate.wordpress.com for translating Crowdsignal Forms. Prior to shipping a release candidate, or release, we need to
-ensure an updated potfile is uploaded to our translate.wordpress.com project.
+## Installation
 
-To do that, run `make pot` to update the potfile. Additionally, this will run any time you do `make release`.
+The easiest way to install this plugin is through the "Add New Plugins" page on your site.
+1. Go to the Plugins page and click "Add New".
+2. Type "Crowdsignal Forms" in the search box and press return.
+3. Click the "Install Now" button.
 
-Remember to commit the updated .pot file.
+Once installed you must connect your site to Crowdsignal.com
+1. Activate the plugin and you will be brought to the Getting Started page.
+2. Click "Let's get started" to open a popup that will allow you to login or create a new Crowdsignal account.
+3. You'll be presented with an API key to use so press Connect and you'll be brought back to your own site.
+4. The popup will disappear and the message, "You’re ready to start using Crowdsignal!" will be shown.
+5. Happy polling! Create a post and add a new "poll" block!
 
-## Compile for Release
 
-Run `make release`. This will compile all production files necessary for the plugin, add them to a zip archive, and copy it to the `release` folder.
+## Frequently Asked Questions
 
-## PHP Class Conventions
+### Why Crowdsignal Forms?
 
-We use our own autoloader for loading classes. When adding new classes follow these conventions:
+We’re starting with just the Crowdsignal poll block but more blocks are coming soon.
 
-* all classes live within the `includes` folder or it's subdirs. This folder is implicitly namespaced as `Crowdsignal_Forms`
-* all class file names must be prefixed with `class-`
-* any `-` in a folder name or file name needs to be a `_` in the class or namespace name.
-* if you nest in folders, that folder name should be added to the class namespace with the first letter capitalized.
+### Who is Crowdsignal?
 
-examples:
+Crowdsignal is built by Automattic, the company behind WordPress.com, WooCommerce, Tumblr and more. We’re here to stay!
 
-```
-Crowdsignal_Forms\Foo -> includes/class-foo.php
-Crowdsignal_Forms\Foo\Bar\Baz\Foobar -> includes/foo/bar/baz/class-foobar.php
-Crowdsignal_Forms\Rest_API\Bar -> includes/rest-api/class-bar.php
-```
+### Where can I find help with this plugin?
+
+Automattic is a distributed team working from all around the world, so it’s always business hours for our more than 250 Happiness Engineers. Check out our [support documentation](https://crowdsignal.com/support/), the [support forum](https://wordpress.org/support/plugin/crowdsignal-forms/) or [reach out to us](https://crowdsignal.com/contact/) anytime and we'll be happy to help.
+
+### What plans do you offer?
+Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or take a [product tour](https://crowdsignal.com/features/) to learn more.
+
+
+## Screenshots
+
+Poll block:
+
+![image](https://user-images.githubusercontent.com/157240/116736784-b7f77a00-a9c6-11eb-8b05-606084cfdb91.png)
+
+Vote block:
+
+![image](https://user-images.githubusercontent.com/157240/116736949-f9882500-a9c6-11eb-99e5-9e4b5fe12706.png)
+
+Customizable NPS block:
+
+![image](https://user-images.githubusercontent.com/157240/116736474-533c1f80-a9c6-11eb-8671-ef981cdd35e2.png)
+
+Applause block and custom colors:
+
+![image](https://user-images.githubusercontent.com/157240/116736193-f04a8880-a9c5-11eb-9854-3cacf9d5ec5b.png)
+
+Feedback Button block:
+
+![image](https://user-images.githubusercontent.com/157240/116735866-7c0fe500-a9c5-11eb-8358-a3fd01a1cfd2.png)
+
+
+## Changelog
+
+See the [changelog](changelog.txt) for full history
