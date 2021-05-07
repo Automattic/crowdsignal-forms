@@ -258,12 +258,12 @@ const SideBar = ( {
 				) }
 			</PanelBody>
 			<PanelBody
-				title={ __( 'Poll status', 'crowdsignal-forms' ) }
+				title={ __( 'Settings', 'crowdsignal-forms' ) }
 				initialOpen={ false }
 			>
 				<SelectControl
 					value={ attributes.pollStatus }
-					label={ __( 'Currently', 'crowdsignal-forms' ) }
+					label={ __( 'Status', 'crowdsignal-forms' ) }
 					options={ [
 						{
 							label: __( 'Open', 'crowdsignal-forms' ),

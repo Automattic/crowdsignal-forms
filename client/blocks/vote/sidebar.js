@@ -97,10 +97,10 @@ const SideBar = ( {
 					<SidebarPromote signalWarning={ signalWarning } />
 				) }
 			</PanelBody>
-			<PanelBody title={ __( 'Status', 'crowdsignal-forms' ) }>
+			<PanelBody title={ __( 'Settings', 'crowdsignal-forms' ) }>
 				<SelectControl
 					value={ attributes.pollStatus }
-					label={ __( 'Currently', 'crowdsignal-forms' ) }
+					label={ __( 'Status', 'crowdsignal-forms' ) }
 					options={ [
 						{
 							label: __( 'Open', 'crowdsignal-forms' ),
