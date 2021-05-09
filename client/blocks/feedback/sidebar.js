@@ -23,7 +23,7 @@ import { __, sprintf } from '@wordpress/i18n';
  * Internal dependencies
  */
 import SidebarPromote from 'components/sidebar-promote';
-import { FeedbackStatus } from './constants';
+import { FeedbackStatus, FeedbackToggleMode } from './constants';
 
 const Sidebar = ( {
 	attributes,
@@ -128,6 +128,26 @@ const Sidebar = ( {
 					label={ __( 'Hide Shadow', 'crowdsignal-forms' ) }
 					checked={ attributes.hideTriggerShadow }
 					onChange={ handleChangeAttribute( 'hideTriggerShadow' ) }
+				/>
+
+				<SelectControl
+					value={ attributes.toggleOn }
+					label={ __( 'Toggle on', 'crowdsignal-forms' ) }
+					options={ [
+						{
+							label: __( 'Click', 'crowdsignal-forms' ),
+							value: FeedbackToggleMode.CLICK,
+						},
+						{
+							label: __( 'Hover', 'crowdsignal-forms' ),
+							value: FeedbackToggleMode.HOVER,
+						},
+						{
+							label: __( 'Page load', 'crowdsignal-forms' ),
+							value: FeedbackToggleMode.PAGE_LOAD,
+						},
+					] }
+					onChange={ handleChangeAttribute( 'toggleOn' ) }
 				/>
 			</PanelColorSettings>
 			<PanelColorSettings

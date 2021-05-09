@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { FeedbackStatus } from './constants';
+import { FeedbackStatus, FeedbackToggleMode } from './constants';
 
 /**
  * Note: Any changes made to the attributes definition need to be duplicated in
@@ -65,6 +65,10 @@ export default {
 	},
 	textColor: {
 		type: 'string',
+	},
+	toggleOn: {
+		type: 'string',
+		default: FeedbackToggleMode.CLICK,
 	},
 	triggerLabel: {
 		type: 'string',
