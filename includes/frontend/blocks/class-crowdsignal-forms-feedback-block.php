@@ -140,6 +140,10 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'string',
 				'default' => __( 'Your Email (optional)', 'crowdsignal-forms' ),
 			),
+			'emailRequired'          => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
 			'feedbackPlaceholder'    => array(
 				'type'    => 'string',
 				'default' => __( 'Please let us know how we can do better…', 'crowdsignal-forms' ),

@@ -28,6 +28,10 @@ export default {
 		type: 'string',
 		default: __( 'Your Email (optional)', 'crowdsignal-forms' ),
 	},
+	emailRequired: {
+		type: 'boolean',
+		default: false,
+	},
 	feedbackPlaceholder: {
 		type: 'string',
 		default: __(
