@@ -132,10 +132,11 @@ export const useAccountInfo = () => {
 	const getAccountInfo = async () => {
 		const info = await requestAccountInfo();
 		setAccountInfo( info );
+		return info;
 	};
 
 	useEffect( () => {
 		getAccountInfo();
 	}, [] );
-	return accountInfo;
+	return { data: accountInfo, reloadAccountInfo: getAccountInfo };
 };
