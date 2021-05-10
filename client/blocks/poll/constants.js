@@ -99,12 +99,6 @@ export const ClosedPollState = Object.freeze( {
 	HIDDEN: 'hidden',
 } );
 
-export const ConnectedAccountState = Object.freeze( {
-	CONNECTED: 'connected',
-	NOT_CONNECTED: 'not-connected',
-	NOT_VERIFIED: 'not-verified',
-} );
-
 export const AnswerStyle = Object.freeze( {
 	RADIO: 'radio',
 	BUTTON: 'button',

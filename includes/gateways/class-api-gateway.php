@@ -532,7 +532,6 @@ class Api_Gateway implements Api_Gateway_Interface {
 		$transient_key          = 'cs-forms-account-info-' . get_current_user_id();
 		$transient_account_info = get_transient( $transient_key );
 		if ( $transient_account_info ) {
-			error_log( 'from cached transient' );
 			return $transient_account_info;
 		}
 
