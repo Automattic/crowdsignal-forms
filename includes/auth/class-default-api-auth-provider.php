@@ -71,6 +71,9 @@ class Default_Api_Auth_Provider implements Api_Auth_Provider_Interface {
 				'headers' => array( 'Content-Type' => 'application/json' ),
 			)
 		);
+		if ( is_wp_error( $data ) ) {
+			return array();
+		}
 		return json_decode( $data['body'] );
 	}
 }
