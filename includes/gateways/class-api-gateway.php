@@ -547,22 +547,43 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 *
 	 * @since 1.3.5
 	 *
-	 * @return bool|\WP_Error
+	 * @return Array
+	 * @throws \Exception   The exception is handled inside the try/catch.
 	 */
 	public function get_account_info() {
-		$response = $this->perform_request( 'GET', '/account/info' );
-		if ( is_wp_error( $response ) ) {
-			return $response;
+		$transient_key          = 'cs-forms-account-info-' . get_current_user_id();
+		$transient_account_info = get_transient( $transient_key );
+		if ( $transient_account_info ) {
+			error_log( 'from cached transient' );
+			return $transient_account_info;
 		}
 
-		$body          = wp_remote_retrieve_body( $response );
-		$response_data = json_decode( $body, true );
+		try {
+			$response = $this->perform_request( 'GET', '/account/info' );
 
-		if ( ! is_array( $response_data ) || isset( $response_data['error'] ) ) {
-			if ( isset( $response_data['error'] ) ) {
-				return new \WP_Error( $response_data['error'], $response_data );
+			// let it be handled by the catch.
+			if ( is_wp_error( $response ) ) {
+				throw new \Exception( 'Internal error retrieving account info' );
 			}
-			return new \WP_Error( 'decode-failed' );
+
+			$body          = wp_remote_retrieve_body( $response );
+			$response_data = json_decode( $body, true );
+
+			// also let it be handled by the catch.
+			if ( ! is_array( $response_data ) || isset( $response_data['error'] ) ) {
+				throw new \Exception( 'Could not get account info' );
+			}
+
+			// cache for 1 minute.
+			set_transient(
+				$transient_key,
+				$response_data,
+				MINUTE_IN_SECONDS
+			);
+
+		} catch ( \Exception $ex ) {
+			// ignore error, we'll get the updated value next time.
+			$response_data = array( 'id' => 0 );
 		}
 
 		return $response_data;
