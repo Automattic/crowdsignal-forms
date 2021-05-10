@@ -416,22 +416,11 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @return array|\WP_Error
 	 */
 	public function get_capabilities() {
-		$response = $this->perform_request( 'GET', '/account/capabilities' );
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
+		$response_data = $this->get_account_info();
 
-		$body          = wp_remote_retrieve_body( $response );
-		$response_data = json_decode( $body, true );
-
-		if ( null === $response_data || ! is_array( $response_data ) ) {
-			if ( isset( $response_data['error'] ) ) {
-				return new \WP_Error( $response_data['error'], $response_data );
-			}
-			return new \WP_Error( 'decode-failed' );
-		}
-
-		return $response_data;
+		return isset( $response_data['capabilities'] )
+			? (bool) $response_data['capabilities']
+			: array();
 	}
 
 	/**
@@ -524,22 +513,11 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @return bool|\WP_Error
 	 */
 	public function get_is_user_verified() {
-		$response = $this->perform_request( 'GET', '/account/verified' );
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
+		$response_data = $this->get_account_info();
 
-		$body          = wp_remote_retrieve_body( $response );
-		$response_data = json_decode( $body, true );
-
-		if ( null === $response_data || ! is_array( $response_data ) ) {
-			if ( isset( $response_data['error'] ) ) {
-				return new \WP_Error( $response_data['error'], $response_data );
-			}
-			return new \WP_Error( 'decode-failed' );
-		}
-
-		return $response_data['is_verified'];
+		return isset( $response_data['is_verified'] )
+			? (bool) $response_data['is_verified']
+			: false;
 	}
 
 	/**
