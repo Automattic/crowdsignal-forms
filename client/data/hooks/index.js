@@ -86,35 +86,6 @@ export const usePollVote = (
 	};
 };
 
-export const useIsCsConnected = () => {
-	/* assume connection is enabled, so placeholder doesn't flash while we add a block and wait for the request */
-	const [ isConnected, setIsConnected ] = useState( true );
-	const [ isAccountVerified, setIsAccountVerified ] = useState( true );
-
-	const checkIsConnected = async () => {
-		const connectedState = await requestIsCsConnected();
-
-		const isNowConnected =
-			ConnectedAccountState.CONNECTED === connectedState ||
-			ConnectedAccountState.NOT_VERIFIED === connectedState;
-		const isNowVerified =
-			ConnectedAccountState.CONNECTED === connectedState;
-
-		setIsConnected( isNowConnected );
-		setIsAccountVerified( isNowVerified );
-
-		return {
-			isNowConnected,
-			isNowVerified,
-		};
-	};
-
-	useEffect( () => {
-		checkIsConnected();
-	}, [] );
-	return { isConnected, isAccountVerified, checkIsConnected };
-};
-
 const defaultAccountInfo = {
 	is_verified: true,
 	capabilities: [ 'hide-branding' ],
