@@ -74,6 +74,9 @@ abstract class Crowdsignal_Forms_Block {
 			return true;
 		}
 
+		// TODO code review note:
+		// now that the gateway is caching get_account_info, hence, get_capabilities,
+		// should we remove this block?
 		if ( get_transient( self::TRANSIENT_HIDE_BRANDING ) ) {
 			return self::HIDE_BRANDING_YES === get_transient( self::TRANSIENT_HIDE_BRANDING );
 		}
