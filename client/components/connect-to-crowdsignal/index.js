@@ -7,19 +7,21 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { useIsCsConnected } from 'data/hooks';
+import { useAccountInfo } from 'data/hooks';
 
 const ConnectToCrowdsignal = ( props ) => {
 	const { blockIcon, blockName, children } = props;
-	const {
-		isConnected,
-		isAccountVerified,
-		checkIsConnected,
-	} = useIsCsConnected();
+
+	const accountInfo = useAccountInfo();
+	const isConnected = accountInfo.data && accountInfo.data.id !== 0;
+	const isAccountVerified = !! accountInfo.data.is_verified;
 
 	const handleConnectClick = async () => {
 		const initialConnectedState = isConnected;
-		const { isNowConnected, isNowVerified } = await checkIsConnected();
+		const newAccountInfo = await accountInfo.reloadAccountInfo();
+
+		const isNowConnected = newAccountInfo.id !== 0;
+		const isNowVerified = !! newAccountInfo.is_verified;
 
 		if ( ! isNowConnected ) {
 			window.open( '/wp-admin/admin.php?page=crowdsignal-forms-setup' );
