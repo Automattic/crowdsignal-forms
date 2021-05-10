@@ -134,7 +134,6 @@
 }
 
 .crowdsignal-forms-poll__answer {
-	cursor: pointer;
 	display: flex;
 	font-size: inherit;
 	font-weight: 600;
@@ -160,7 +159,9 @@
 	}
 
 	&:not(.is-button) {
+		cursor: pointer;
 		margin-block-end: 12px;
+		width: 100%;
 	}
 
 	& > .crowdsignal-forms-poll__answer {
