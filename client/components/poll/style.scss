@@ -27,7 +27,7 @@
 	}
 
 	h3.crowdsignal-forms-poll__question {
-		margin: 0 0 28px;
+		margin: 0 0 44px;
 
 		&:first-child {
 			margin-top: 0;
@@ -44,6 +44,7 @@
 
 		.crowdsignal-forms-poll__question {
 			font-family: var(--crowdsignal-forms-question-font-family);
+			line-height: 1.4;
 		}
 
 		.crowdsignal-forms-poll__answer-label,
@@ -133,7 +134,6 @@
 }
 
 .crowdsignal-forms-poll__answer {
-	cursor: pointer;
 	display: flex;
 	font-size: inherit;
 	font-weight: 600;
@@ -159,7 +159,13 @@
 	}
 
 	&:not(.is-button) {
-		margin-block-end: 16px;
+		cursor: pointer;
+		margin-block-end: 12px;
+		width: 100%;
+	}
+
+	> .crowdsignal-forms-poll__answer {
+		margin-block-end: 0;
 	}
 
 	&:hover,
@@ -275,6 +281,8 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 .crowdsignal-forms-poll__actions {
 	display: flex;
 	justify-content: flex-end;
+	margin-top: 32px;
+	margin-bottom: 16px;
 }
 
 .editor-styles-wrapper .crowdsignal-forms-poll .crowdsignal-forms-poll__actions,
@@ -282,6 +290,7 @@ div.crowdsignal-forms-poll__answer-label-wrapper {
 
 	.wp-block-button.crowdsignal-forms-poll__block-button {
 		margin: 0;
+		line-height: 0;
 	}
 }
 
