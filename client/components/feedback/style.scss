@@ -18,7 +18,9 @@
 }
 
 .crowdsignal-forms-feedback__trigger-wrapper {
+	height: 0;
 	margin: 0 !important;
+	padding: 50% 0;
 }
 
 .crowdsignal-forms-feedback__trigger {
@@ -44,6 +46,17 @@
 
 	.crowdsignal-forms-feedback.no-shadow & {
 		box-shadow: none;
+	}
+
+	.crowdsignal-forms-feedback.is-vertical & {
+		margin-top: -50%;
+		transform-origin: top left;
+		transform: rotateZ(270deg) translateX(-100%);
+	}
+
+	.crowdsignal-forms-feedback.is-vertical.is-right-aligned & {
+		transform-origin: top right;
+		transform: rotateZ(270deg) translateY(-100%);
 	}
 }
 

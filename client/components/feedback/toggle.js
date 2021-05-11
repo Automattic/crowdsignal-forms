@@ -15,13 +15,6 @@ import { RichText } from '@wordpress/block-editor';
  */
 import CloseIcon from 'components/icon/close-small';
 
-const CloseButton = () => (
-	<>
-		<CloseIcon />
-		{ __( 'Close', 'crowdsignal-forms' ) }
-	</>
-);
-
 const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 	const classes = classnames(
 		'crowdsignal-forms-feedback__trigger',
@@ -34,13 +27,20 @@ const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
 
 	return (
 		<div className="wp-block-button crowdsignal-forms-feedback__trigger-wrapper">
-			<button ref={ ref } className={ classes } onClick={ onClick }>
-				{ isOpen ? (
-					<CloseButton />
-				) : (
-					<RichText.Content value={ attributes.triggerLabel } />
-				) }
-			</button>
+			{ ! isOpen && (
+				<button ref={ ref } className={ classes } onClick={ onClick }>
+					<RichText.Content
+						className="crowdsignal-forms-feedback__trigger-text"
+						value={ attributes.triggerLabel }
+					/>
+				</button>
+			) }
+			{ isOpen && (
+				<button ref={ ref } className={ classes } onClick={ onClick }>
+					<CloseIcon />
+					{ __( 'Close', 'crowdsignal-forms' ) }
+				</button>
+			) }
 		</div>
 	);
 };
