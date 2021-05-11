@@ -63,10 +63,6 @@ export const getFeedbackButtonPosition = (
 
 	return {
 		...getFeedbackButtonHorizontalPosition( align, width, offset ),
-		...getFeedbackButtonVerticalPosition(
-			verticalAlign,
-			verticalAlign === 'center' ? width : height,
-			offset
-		),
+		...getFeedbackButtonVerticalPosition( verticalAlign, height, offset ),
 	};
 };

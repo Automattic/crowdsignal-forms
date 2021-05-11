@@ -50,7 +50,9 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 					attributes.x,
 					attributes.y,
 					toggle.current.offsetWidth,
-					toggle.current.offsetHeight,
+					attributes.y === 'center'
+						? toggle.current.offsetWidth
+						: toggle.current.offsetHeight,
 					20,
 					document.body
 				),

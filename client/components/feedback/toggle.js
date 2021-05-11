@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef, useLayoutEffect } from 'react';
 import classnames from 'classnames';
 
 /**
@@ -19,7 +19,7 @@ const FeedbackToggle = (
 	{ attributes, className, isOpen, onClick, onToggle },
 	ref
 ) => {
-	useEffect( onToggle, [ isOpen ] );
+	useLayoutEffect( onToggle, [ isOpen ] );
 
 	const classes = classnames(
 		'crowdsignal-forms-feedback__trigger',
