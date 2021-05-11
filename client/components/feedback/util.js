@@ -62,11 +62,7 @@ export const getFeedbackButtonPosition = (
 	}
 
 	return {
-		...getFeedbackButtonHorizontalPosition(
-			align,
-			verticalAlign === 'center' ? height : width,
-			offset
-		),
+		...getFeedbackButtonHorizontalPosition( align, width, offset ),
 		...getFeedbackButtonVerticalPosition(
 			verticalAlign,
 			verticalAlign === 'center' ? width : height,

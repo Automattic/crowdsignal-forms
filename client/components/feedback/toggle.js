@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import classnames from 'classnames';
 
 /**
@@ -15,7 +15,12 @@ import { RichText } from '@wordpress/block-editor';
  */
 import CloseIcon from 'components/icon/close-small';
 
-const FeedbackToggle = ( { attributes, className, isOpen, onClick }, ref ) => {
+const FeedbackToggle = (
+	{ attributes, className, isOpen, onClick, onToggle },
+	ref
+) => {
+	useEffect( onToggle, [ isOpen ] );
+
 	const classes = classnames(
 		'crowdsignal-forms-feedback__trigger',
 		'wp-block-button__link',
