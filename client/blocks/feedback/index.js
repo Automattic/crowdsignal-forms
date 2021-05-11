@@ -11,6 +11,8 @@ import FeedbackIcon from 'components/icon/feedback';
 import attributes from './attributes';
 import EditFeedbackBlock from './edit';
 
+export const name = 'crowdsignal-forms/feedback';
+
 export default {
 	title: __( 'Feedback Button', 'crowdsignal-forms' ),
 	description: __(
@@ -48,15 +50,30 @@ export default {
 		to: [
 			{
 				type: 'block',
-				blocks: [ '*' ],
-				transform: ( blockAttributes ) => {
-					return createBlock(
-						'crowdsignal-forms/feedback',
-						blockAttributes
-					);
+				blocks: [ 'premium-content/container' ],
+				__experimentalConvert( blocks ) {
+					if ( ! Array.isArray( blocks ) ) {
+						blocks = [ blocks ];
+					}
+					const innerBlocksSubscribe = blocks.map( ( block ) => {
+						return createBlock(
+							block.name,
+							block.attributes,
+							block.innerBlocks
+						);
+					} );
+					return createBlock( 'premium-content/container', {}, [
+						createBlock(
+							'premium-content/subscriber-view',
+							{},
+							innerBlocksSubscribe
+						),
+						createBlock( 'premium-content/logged-out-view' ),
+					] );
 				},
-				isMatch: () => false,
-				priority: 9,
+				priority: 1,
+				// transform: ( attrs ) => createBlock( 'crowdsignal-forms/feedback', attrs, [] ),
+				// isMatch: () => false,
 			},
 		],
 	},
