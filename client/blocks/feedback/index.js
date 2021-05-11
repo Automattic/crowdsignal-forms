@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { createBlock } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -42,5 +43,21 @@ export default {
 		attributes: {
 			isExample: true,
 		},
+	},
+	transforms: {
+		to: [
+			{
+				type: 'block',
+				blocks: [ '*' ],
+				transform: ( blockAttributes ) => {
+					return createBlock(
+						'crowdsignal-forms/feedback',
+						blockAttributes
+					);
+				},
+				isMatch: () => false,
+				priority: 9,
+			},
+		],
 	},
 };
