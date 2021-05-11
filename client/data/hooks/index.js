@@ -11,11 +11,9 @@ import {
 	requestResults,
 	requestVoteNonce,
 	requestVote,
-	requestIsCsConnected,
 	requestAccountInfo,
 } from 'data/poll';
 import { useFetch } from './util';
-import { ConnectedAccountState } from 'blocks/poll/constants';
 
 export const usePollResults = ( pollId, doFetch = true ) => {
 	const { data, error, loading } = useFetch(
