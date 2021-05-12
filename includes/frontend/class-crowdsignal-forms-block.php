@@ -68,7 +68,8 @@ abstract class Crowdsignal_Forms_Block {
 	 * @return bool
 	 */
 	protected function should_hide_branding() {
-		$enable_branding = apply_filters( 'crowdsignal_forms_branding_enabled', false );
+		$enable_branding = defined( 'IS_ATOMIC' ) && IS_ATOMIC;
+		$enable_branding = apply_filters( 'crowdsignal_forms_branding_enabled', $enable_branding );
 		if ( ! $enable_branding ) {
 			return true;
 		}
