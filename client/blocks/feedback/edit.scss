@@ -1,16 +1,47 @@
 /** Editor styles */
 
 .crowdsignal-forms-feedback__trigger-preview {
+	display: flex;
+
+	.crowdsignal-forms-feedback.align-right & {
+		justify-content: flex-end;
+	}
+
+	.crowdsignal-forms-feedback.vertical-align-top & {
+		margin-bottom: 15px !important;
+		margin-top: 0 !important;
+	}
+
+	.crowdsignal-forms-feedback.vertical-align-bottom & {
+		order: 99;
+		margin-bottom: 0 !important;
+		margin-top: 15px !important;
+	}
 
 	.crowdsignal-forms-feedback.is-vertical & {
 		align-items: center;
-		display: flex;
 		margin-right: 20px;
 	}
 
 	.crowdsignal-forms-feedback.is-vertical.align-right & {
 		margin-left: 20px;
 		margin-right: 0;
+	}
+}
+
+.crowdsignal-forms-feedback__popover-preview {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 !important;
+	position: relative;
+
+	.crowdsignal-forms-feedback.align-left & {
+		align-items: flex-start;
+	}
+
+	.crowdsignal-forms-feedback.align-right {
+		align-items: flex-end;
 	}
 }
 
@@ -73,42 +104,6 @@
 			// this width must match the width of
 			// .crowdsignal-forms-feedback__popover on components/feedback/style.scss
 			width: 380px;
-		}
-	}
-
-	.crowdsignal-forms-feedback__popover-preview {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		margin: 0 !important;
-		position: relative;
-
-		&.align-left {
-			align-items: flex-start;
-		}
-
-		&.align-right {
-			align-items: flex-end;
-		}
-
-		&.vertical-align-top {
-
-			.crowdsignal-forms-feedback__trigger-preview {
-				margin-bottom: 15px !important;
-				margin-top: 0 !important;
-			}
-
-			justify-content: flex-start;
-		}
-
-		&.vertical-align-bottom {
-			justify-content: flex-end;
-
-			.crowdsignal-forms-feedback__trigger-preview {
-				order: 99;
-				margin-bottom: 0 !important;
-				margin-top: 15px !important;
-			}
 		}
 	}
 
