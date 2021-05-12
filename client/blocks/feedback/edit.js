@@ -30,6 +30,7 @@ import SignalWarning from 'components/signal-warning';
 import { views, FeedbackStatus } from './constants';
 import RetryNotice from 'components/retry-notice';
 import FooterBranding from 'components/footer-branding';
+import { adjustFrameOffset } from 'components/feedback';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -59,6 +60,7 @@ const EditFeedbackBlock = ( props ) => {
 		triggerLabel,
 	} = attributes;
 
+	const blockRef = useRef( null );
 	const triggerButton = useRef( null );
 	const popover = useRef( null );
 
@@ -117,21 +119,27 @@ const EditFeedbackBlock = ( props ) => {
 		if ( isExample ) {
 			return;
 		}
+
 		setPosition(
-			getFeedbackButtonPosition(
-				attributes.x,
+			adjustFrameOffset(
+				getFeedbackButtonPosition(
+					attributes.x,
+					attributes.y,
+					blockRef.current.offsetWidth,
+					blockRef.current.offsetHeight,
+					{
+						left: 20,
+						right: 20,
+						top: isSelected ? 80 : 20,
+						bottom: 20,
+					},
+					document.getElementsByClassName(
+						'interface-interface-skeleton__content'
+					)[ 0 ]
+				),
 				attributes.y,
 				triggerButton.current.offsetWidth,
-				triggerButton.current.offsetHeight,
-				{
-					left: 20,
-					right: 20,
-					top: isSelected ? 80 : 20,
-					bottom: 20,
-				},
-				document.getElementsByClassName(
-					'interface-interface-skeleton__content'
-				)[ 0 ]
+				triggerButton.current.offsetHeight
 			)
 		);
 	}, [
@@ -142,6 +150,7 @@ const EditFeedbackBlock = ( props ) => {
 		attributes.x,
 		attributes.y,
 		triggerButton.current,
+		blockRef.current,
 	] );
 
 	useLayoutEffect( () => {
@@ -193,6 +202,7 @@ const EditFeedbackBlock = ( props ) => {
 		{
 			'no-shadow': attributes.hideTriggerShadow,
 			'is-active': isSelected,
+			'is-vertical': attributes.y === 'center',
 		}
 	);
 
@@ -225,130 +235,139 @@ const EditFeedbackBlock = ( props ) => {
 			/>
 
 			<div
+				ref={ blockRef }
 				className={ classes }
 				style={ getStyleVars( attributes, fallbackStyles ) }
 			>
-				<div className="wp-block-button crowdsignal-forms-feedback__trigger-wrapper">
-					<RichText
-						ref={ triggerButton }
-						className="wp-block-button__link crowdsignal-forms-feedback__trigger"
-						onChange={ handleChangeAttribute( 'triggerLabel' ) }
-						value={ triggerLabel }
-						allowedFormats={ [] }
-						multiline={ false }
-						disableLineBreaks={ true }
-					/>
+				<div className="crowdsignal-forms-feedback__trigger-preview">
+					<div className="wp-block-button crowdsignal-forms-feedback__trigger-wrapper">
+						<RichText
+							ref={ triggerButton }
+							className="wp-block-button__link crowdsignal-forms-feedback__trigger"
+							onChange={ handleChangeAttribute( 'triggerLabel' ) }
+							value={ triggerLabel }
+							allowedFormats={ [] }
+							multiline={ false }
+							disableLineBreaks={ true }
+						/>
+					</div>
 				</div>
 
-				{ ( isExample || isSelected ) && (
-					<>
-						{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */ }
-						<div
-							aria-modal="true"
-							role="dialog"
-							className="crowdsignal-forms-feedback__popover-overlay"
-							onClick={ toggleBlock }
-							style={ overlayPosition }
-						/>
-
-						{ ! isExample && signalWarning && <SignalWarning /> }
-						{ ! isExample && saveError && (
-							<RetryNotice retryHandler={ saveBlock } />
-						) }
-
-						{ view === views.QUESTION && (
+				<div className="crowdsignal-forms-feedback__popover-preview">
+					{ ( isExample || isSelected ) && (
+						<>
+							{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */ }
 							<div
-								ref={ popover }
-								className="crowdsignal-forms-feedback__popover"
-							>
-								<RichText
-									tagName="h3"
-									className="crowdsignal-forms-feedback__header"
-									onChange={ handleChangeAttribute(
-										'header'
-									) }
-									value={ attributes.header }
-									allowedFormats={ [] }
-								/>
+								aria-modal="true"
+								role="dialog"
+								className="crowdsignal-forms-feedback__popover-overlay"
+								onClick={ toggleBlock }
+								style={ overlayPosition }
+							/>
 
-								<TextareaControl
-									className="crowdsignal-forms-feedback__input"
-									rows={ 6 }
-									onChange={ handleChangeAttribute(
-										'feedbackPlaceholder'
-									) }
-									value={ attributes.feedbackPlaceholder }
-								/>
+							{ ! isExample && signalWarning && (
+								<SignalWarning />
+							) }
+							{ ! isExample && saveError && (
+								<RetryNotice retryHandler={ saveBlock } />
+							) }
 
-								<TextControl
-									className="crowdsignal-forms-feedback__input"
-									onChange={ handleChangeAttribute(
-										'emailPlaceholder'
-									) }
-									value={ attributes.emailPlaceholder }
-								/>
-
-								<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
+							{ view === views.QUESTION && (
+								<div
+									ref={ popover }
+									className="crowdsignal-forms-feedback__popover"
+								>
 									<RichText
-										className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
+										tagName="h3"
+										className="crowdsignal-forms-feedback__header"
 										onChange={ handleChangeAttribute(
-											'submitButtonLabel'
+											'header'
 										) }
-										value={ attributes.submitButtonLabel }
+										value={ attributes.header }
 										allowedFormats={ [] }
-										multiline={ false }
-										disableLineBreaks={ true }
 									/>
-								</div>
-								{ ! hideBranding && (
-									<FooterBranding
-										editing={ true }
-										trackRef="cs-forms-feedback"
-										message={ __(
-											'Collect your own feedback with Crowdsignal',
-											'crowdsignal-forms'
-										) }
-									/>
-								) }
-							</div>
-						) }
 
-						{ view === views.SUBMIT && (
-							<div
-								className="crowdsignal-forms-feedback__popover"
-								style={ popoverStyles }
-							>
-								<RichText
-									tagName="h3"
-									className="crowdsignal-forms-feedback__header"
-									onChange={ handleChangeAttribute(
-										'submitText'
-									) }
-									value={ attributes.submitText }
-									allowedFormats={ [] }
-								/>
-								{ ! hideBranding && (
-									<FooterBranding
-										editing={ true }
-										trackRef="cs-forms-feedback"
-										message={ __(
-											'Collect your own feedback with Crowdsignal',
-											'crowdsignal-forms'
+									<TextareaControl
+										className="crowdsignal-forms-feedback__input"
+										rows={ 6 }
+										onChange={ handleChangeAttribute(
+											'feedbackPlaceholder'
 										) }
+										value={ attributes.feedbackPlaceholder }
 									/>
-								) }
-							</div>
-						) }
-						{ isClosed && (
-							<div className="crowdsignal-forms-feedback__closed-notice">
-								{ __(
-									'This Feedback Form is Closed',
-									'crowdsignal-forms'
-								) }
-							</div>
-						) }
-					</>
-				) }
+
+									<TextControl
+										className="crowdsignal-forms-feedback__input"
+										onChange={ handleChangeAttribute(
+											'emailPlaceholder'
+										) }
+										value={ attributes.emailPlaceholder }
+									/>
+
+									<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
+										<RichText
+											className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
+											onChange={ handleChangeAttribute(
+												'submitButtonLabel'
+											) }
+											value={
+												attributes.submitButtonLabel
+											}
+											allowedFormats={ [] }
+											multiline={ false }
+											disableLineBreaks={ true }
+										/>
+									</div>
+									{ ! hideBranding && (
+										<FooterBranding
+											editing={ true }
+											trackRef="cs-forms-feedback"
+											message={ __(
+												'Collect your own feedback with Crowdsignal',
+												'crowdsignal-forms'
+											) }
+										/>
+									) }
+								</div>
+							) }
+
+							{ view === views.SUBMIT && (
+								<div
+									className="crowdsignal-forms-feedback__popover"
+									style={ popoverStyles }
+								>
+									<RichText
+										tagName="h3"
+										className="crowdsignal-forms-feedback__header"
+										onChange={ handleChangeAttribute(
+											'submitText'
+										) }
+										value={ attributes.submitText }
+										allowedFormats={ [] }
+									/>
+									{ ! hideBranding && (
+										<FooterBranding
+											editing={ true }
+											trackRef="cs-forms-feedback"
+											message={ __(
+												'Collect your own feedback with Crowdsignal',
+												'crowdsignal-forms'
+											) }
+										/>
+									) }
+								</div>
+							) }
+							{ isClosed && (
+								<div className="crowdsignal-forms-feedback__closed-notice">
+									{ __(
+										'This Feedback Form is Closed',
+										'crowdsignal-forms'
+									) }
+								</div>
+							) }
+						</>
+					) }
+				</div>
 			</div>
 
 			{ props.renderStyleProbe() }
