@@ -16,6 +16,8 @@ export const getStyleVars = ( attributes, fallbackStyles ) =>
 				attributes.triggerBackgroundColor || fallbackStyles.accentColor,
 			triggerTextColor:
 				attributes.triggerTextColor || fallbackStyles.textColorInverted,
+			triggerLineHeight: fallbackStyles.triggerLineHeight,
+			triggerPaddingTop: fallbackStyles.triggerPaddingTop,
 		},
 		( _, key ) => `--crowdsignal-forms-${ kebabCase( key ) }`
 	);
