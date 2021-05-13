@@ -128,8 +128,8 @@ const EditFeedbackBlock = ( props ) => {
 					blockRef.current.offsetWidth,
 					blockRef.current.offsetHeight,
 					{
-						left: 20,
-						right: 20,
+						left: attributes.y === 'center' ? 0 : 20,
+						right: attributes.y === 'center' ? 0 : 20,
 						top: isSelected ? 80 : 20,
 						bottom: 20,
 					},

@@ -33,8 +33,8 @@ export const adjustFrameOffset = ( position, verticalAlign, width, height ) => {
 
 	return {
 		...position,
-		left: position.left ? position.left - width + height : null,
-		right: position.right ? position.right - width + height : null,
+		left: position.left !== null ? position.left - width + height : null,
+		right: position.right !== null ? position.right - width + height : null,
 	};
 };
 
@@ -53,7 +53,12 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 					attributes.y === 'center'
 						? toggle.current.offsetWidth
 						: toggle.current.offsetHeight,
-					20,
+					{
+						top: 20,
+						bottom: 20,
+						left: attributes.y === 'center' ? 0 : 20,
+						right: attributes.y === 'center' ? 0 : 20,
+					},
 					document.body
 				),
 				attributes.y,
