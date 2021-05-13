@@ -18,7 +18,14 @@ const StyleProbe = () => (
 		<p />
 		<h3>Text</h3>
 		<div className="wp-block-button">
-			<div className="wp-block-button__link" />
+			<div className="wp-block-button__link standard-wp-button-class">
+				Text
+			</div>
+		</div>
+		<div className="wp-block-button">
+			<div className="wp-block-button__link crowdsignal-forms-feedback__trigger">
+				Text
+			</div>
 		</div>
 		<div className="entry-content">
 			<div className="alignwide" />
@@ -31,10 +38,15 @@ const getStyles = ( node ) => {
 		return {};
 	}
 
-	const buttonNode = node.querySelector( '.wp-block-button__link' );
+	const buttonNode = node.querySelector(
+		'.wp-block-button__link.standard-wp-button-class'
+	);
 	const textNode = node.querySelector( 'p' );
 	const h3Node = node.querySelector( 'h3' );
 	const wideContentNode = node.querySelector( '.alignwide' );
+	const triggerNode = node.querySelector(
+		'.wp-block-button__link.crowdsignal-forms-feedback__trigger'
+	);
 
 	let accentColor = getBackgroundColor( buttonNode );
 	const backgroundColor = getBackgroundColor( textNode );
@@ -56,6 +68,8 @@ const getStyles = ( node ) => {
 		textSize: window.getComputedStyle( textNode ).fontSize,
 		headingFont: window.getComputedStyle( h3Node ).fontFamily,
 		contentWideWidth: window.getComputedStyle( wideContentNode ).maxWidth,
+		triggerLineHeight: window.getComputedStyle( triggerNode ).lineHeight,
+		triggerPaddingTop: window.getComputedStyle( triggerNode ).paddingTop,
 	};
 };
 
