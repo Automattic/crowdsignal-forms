@@ -75,7 +75,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		margin: 0 !important;
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
 		position: relative;
 
 		&.is-active .crowdsignal-forms-feedback__trigger {

@@ -26,7 +26,7 @@ const getPopoverPosition = ( x, y ) => {
 	return x === 'left' ? 'middle right' : 'middle left';
 };
 
-export const adjustFrameOffset = ( position, verticalAlign, width, height ) => {
+const adjustFrameOffset = ( position, verticalAlign, width, height ) => {
 	if ( verticalAlign !== 'center' ) {
 		return position;
 	}

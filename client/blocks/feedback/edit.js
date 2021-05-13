@@ -30,7 +30,6 @@ import SignalWarning from 'components/signal-warning';
 import { views, FeedbackStatus } from './constants';
 import RetryNotice from 'components/retry-notice';
 import FooterBranding from 'components/footer-branding';
-import { adjustFrameOffset } from 'components/feedback';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -60,7 +59,9 @@ const EditFeedbackBlock = ( props ) => {
 		triggerLabel,
 	} = attributes;
 
-	const blockRef = useRef( null );
+	const [ margin, setMargin ] = useState( {} );
+
+	const blockElement = useRef( null );
 	const triggerButton = useRef( null );
 	const popover = useRef( null );
 
@@ -121,27 +122,39 @@ const EditFeedbackBlock = ( props ) => {
 		}
 
 		setPosition(
-			adjustFrameOffset(
-				getFeedbackButtonPosition(
-					attributes.x,
-					attributes.y,
-					blockRef.current.offsetWidth,
-					blockRef.current.offsetHeight,
-					{
-						left: attributes.y === 'center' ? 0 : 20,
-						right: attributes.y === 'center' ? 0 : 20,
-						top: isSelected ? 80 : 20,
-						bottom: 20,
-					},
-					document.getElementsByClassName(
-						'interface-interface-skeleton__content'
-					)[ 0 ]
-				),
+			getFeedbackButtonPosition(
+				attributes.x,
 				attributes.y,
-				triggerButton.current.offsetWidth,
-				triggerButton.current.offsetHeight
-			)
+				blockElement.current.offsetWidth,
+				blockElement.current.offsetHeight,
+				{
+					left: attributes.y === 'center' ? 10 : 20,
+					right: attributes.y === 'center' ? 10 : 20,
+					top: isSelected ? 80 : 20,
+					bottom: 20,
+				},
+				document.getElementsByClassName(
+					'interface-interface-skeleton__content'
+				)[ 0 ]
+			),
+			triggerButton.current.offsetWidth,
+			triggerButton.current.offsetHeight
 		);
+
+		setMargin( {
+			marginLeft:
+				attributes.y === 'center' && attributes.x === 'left'
+					? triggerButton.current.offsetHeight -
+					  triggerButton.current.offsetWidth -
+					  10
+					: 0,
+			marginRight:
+				attributes.y === 'center' && attributes.x === 'right'
+					? triggerButton.current.offsetHeight -
+					  triggerButton.current.offsetWidth -
+					  10
+					: 0,
+		} );
 	}, [
 		activeSidebar,
 		editorFeatures.fullscreenMode,
@@ -150,7 +163,7 @@ const EditFeedbackBlock = ( props ) => {
 		attributes.x,
 		attributes.y,
 		triggerButton.current,
-		blockRef.current,
+		blockElement.current,
 	] );
 
 	useLayoutEffect( () => {
@@ -206,6 +219,11 @@ const EditFeedbackBlock = ( props ) => {
 		}
 	);
 
+	const styles = {
+		...getStyleVars( attributes, fallbackStyles ),
+		...margin,
+	};
+
 	const popoverStyles = {
 		height,
 	};
@@ -234,11 +252,7 @@ const EditFeedbackBlock = ( props ) => {
 				{ ...props }
 			/>
 
-			<div
-				ref={ blockRef }
-				className={ classes }
-				style={ getStyleVars( attributes, fallbackStyles ) }
-			>
+			<div ref={ blockElement } className={ classes } style={ styles }>
 				<div className="crowdsignal-forms-feedback__trigger-preview">
 					<div className="wp-block-button crowdsignal-forms-feedback__trigger-wrapper">
 						<RichText
