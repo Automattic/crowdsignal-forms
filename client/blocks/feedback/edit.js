@@ -3,7 +3,7 @@
  */
 import React, { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
-import { get } from 'lodash';
+import { get, max } from 'lodash';
 
 /**
  * WordPress depenencies
@@ -141,7 +141,20 @@ const EditFeedbackBlock = ( props ) => {
 			triggerButton.current.offsetHeight
 		);
 
+		const verticalTogglePadding =
+			( max( [
+				triggerButton.current.offsetWidth,
+				blockElement.current.offsetHeight,
+			] ) -
+				triggerButton.current.offsetWidth ) /
+			2;
+
 		setMargin( {
+			'--crowdsignal-forms-feedback__toggle-padding': `${ verticalTogglePadding }px`,
+			minHeight:
+				attributes.y === 'center'
+					? triggerButton.current.offsetWidth
+					: 0,
 			marginLeft:
 				attributes.y === 'center' && attributes.x === 'left'
 					? triggerButton.current.offsetHeight -
@@ -164,6 +177,7 @@ const EditFeedbackBlock = ( props ) => {
 		attributes.y,
 		triggerButton.current,
 		blockElement.current,
+		triggerLabel,
 	] );
 
 	useLayoutEffect( () => {
