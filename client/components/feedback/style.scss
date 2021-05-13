@@ -26,7 +26,7 @@
 		transform: rotateZ(270deg) translateY(-100%);
 	}
 
-	.crowdsignal-forms-feedback.is-vertical.is-right-aligned & {
+	.crowdsignal-forms-feedback.is-vertical.align-right & {
 		transform-origin: top left;
 		transform: rotateZ(270deg) translateX(-100%);
 	}
@@ -42,6 +42,7 @@
 	font-size: 16px !important;
 	line-height: 1.5 !important;
 	padding: 10px 16px !important;
+	white-space: nowrap !important;
 
 	> svg {
 		fill: currentColor;
@@ -55,6 +56,16 @@
 
 	.crowdsignal-forms-feedback.no-shadow & {
 		box-shadow: none;
+	}
+
+	.crowdsignal-forms-feedback.is-vertical.align-left & {
+		border-top-left-radius: 0 !important;
+		border-top-right-radius: 0 !important;
+	}
+
+	.crowdsignal-forms-feedback.is-vertical.align-right & {
+		border-bottom-left-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
 	}
 }
 

@@ -72,11 +72,14 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		updatePosition();
 	}, [ attributes.x, attributes.y, updatePosition ] );
 
-	const classes = classnames( 'crowdsignal-forms-feedback', {
-		'no-shadow': attributes.hideTriggerShadow,
-		'is-vertical': attributes.y === 'center',
-		'is-right-aligned': attributes.x === 'right',
-	} );
+	const classes = classnames(
+		'crowdsignal-forms-feedback',
+		`align-${ attributes.x }`,
+		{
+			'no-shadow': attributes.hideTriggerShadow,
+			'is-vertical': attributes.y === 'center',
+		}
+	);
 
 	const styles = {
 		...position,
