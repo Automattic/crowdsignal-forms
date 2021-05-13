@@ -21,15 +21,14 @@
 	margin: 0 !important;
 
 	.crowdsignal-forms-feedback.is-vertical & {
-		margin-top: -50%;
-		transform-origin: top right;
-		transform: rotateZ(270deg) translateY(-100%);
+		transform-origin: top;
+		transform: rotate(-90deg) translateY( calc( calc( var(--crowdsignal-forms-trigger-line-height) - var(--crowdsignal-forms-trigger-padding-top) ) * -1 ) );
 	}
 
-	.crowdsignal-forms-feedback.is-vertical.is-right-aligned & {
-		transform-origin: top left;
-		transform: rotateZ(270deg) translateX(-100%);
-	}
+	// .crowdsignal-forms-feedback.is-vertical.is-right-aligned & {
+	// 	transform-origin: center left;
+	// 	transform: translateX(50%) rotateZ(-90deg) translateX(-50%);
+	// }
 }
 
 .crowdsignal-forms-feedback__trigger {
