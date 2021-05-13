@@ -86,8 +86,8 @@
 			flex-direction: row;
 
 			.crowdsignal-forms-feedback__trigger-wrapper {
-				transform-origin: top right;
-				transform: rotateZ(270deg) translateY(-100%);
+				transform-origin: center left;
+				transform: rotateZ(270deg) translateY(150%) translateX(-50%);
 			}
 		}
 
@@ -95,8 +95,8 @@
 			flex-direction: row-reverse;
 
 			.crowdsignal-forms-feedback__trigger-wrapper {
-				transform-origin: top left;
-				transform: rotateZ(270deg) translateX(-100%);
+				transform-origin: center left;
+				transform: rotateZ(270deg) translateY(100%) translateX(-50%);
 			}
 		}
 
