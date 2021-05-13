@@ -35,3 +35,13 @@ addFilter(
 	'crowdsignal-forms/with-fixed-position-control',
 	withFixedPositionControl
 );
+addFilter(
+	'blocks.registerBlockType',
+	'crowdsignal-forms/feedback',
+	( settings ) => {
+		return {
+			...settings,
+			transforms: null,
+		};
+	}
+);
