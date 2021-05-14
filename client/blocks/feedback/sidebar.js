@@ -200,6 +200,12 @@ const Sidebar = ( {
 						is12Hour={ true }
 					/>
 				) }
+
+				<ToggleControl
+					label={ __( 'Require email address', 'crowdsignal-forms' ) }
+					checked={ attributes.emailRequired }
+					onChange={ handleChangeAttribute( 'emailRequired' ) }
+				/>
 			</PanelBody>
 		</InspectorControls>
 	);

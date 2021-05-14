@@ -3,6 +3,7 @@
  */
 import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
+import classnames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -18,9 +19,20 @@ import { updateFeedbackResponse } from 'data/feedback';
 const FeedbackForm = ( { attributes, onSubmit } ) => {
 	const [ feedback, setFeedback ] = useState( '' );
 	const [ email, setEmail ] = useState( '' );
+	const [ errors, setErrors ] = useState( {} );
 
-	const handleSubmit = async () => {
-		if ( isEmpty( feedback ) ) {
+	const handleSubmit = async ( event ) => {
+		event.preventDefault();
+
+		const validation = {
+			feedback: isEmpty( feedback ),
+			email:
+				attributes.emailRequired &&
+				( isEmpty( email ) || email.match( /^\s+@\s+$/ ) ),
+		};
+		setErrors( validation );
+
+		if ( validation.feedback || validation.email ) {
 			return;
 		}
 
@@ -33,8 +45,16 @@ const FeedbackForm = ( { attributes, onSubmit } ) => {
 		onSubmit();
 	};
 
+	const feedbackClasses = classnames( 'crowdsignal-forms-feedback__input', {
+		'is-error': errors.feedback,
+	} );
+
+	const emailClasses = classnames( 'crowdsignal-forms-feedback__input', {
+		'is-error': errors.email,
+	} );
+
 	return (
-		<>
+		<form onSubmit={ handleSubmit }>
 			<RichText.Content
 				tagName="h3"
 				className="crowdsignal-forms-feedback__header"
@@ -42,7 +62,7 @@ const FeedbackForm = ( { attributes, onSubmit } ) => {
 			/>
 
 			<TextareaControl
-				className="crowdsignal-forms-feedback__input"
+				className={ feedbackClasses }
 				rows={ 6 }
 				placeholder={ attributes.feedbackPlaceholder }
 				value={ feedback }
@@ -50,7 +70,7 @@ const FeedbackForm = ( { attributes, onSubmit } ) => {
 			/>
 
 			<TextControl
-				className="crowdsignal-forms-feedback__input"
+				className={ emailClasses }
 				placeholder={ attributes.emailPlaceholder }
 				value={ email }
 				onChange={ setEmail }
@@ -59,13 +79,12 @@ const FeedbackForm = ( { attributes, onSubmit } ) => {
 			<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">
 				<button
 					className="wp-block-button__link crowdsignal-forms-feedback__feedback-button"
-					type="button"
-					onClick={ handleSubmit }
+					type="submit"
 				>
 					{ attributes.submitButtonLabel }
 				</button>
 			</div>
-		</>
+		</form>
 	);
 };
 
