@@ -116,7 +116,7 @@ const EditFeedbackBlock = ( props ) => {
 	}, [ isSelected ] );
 
 	useLayoutEffect( () => {
-		if ( isExample ) {
+		if ( isExample || ! triggerButton.current ) {
 			return;
 		}
 
