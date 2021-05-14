@@ -47,13 +47,13 @@ export default {
 };
 
 // Prevent transforming this block to anything
-addFilter(
-	'blocks.registerBlockType',
-	'crowdsignal-forms/feedback',
-	( settings ) => {
-		return {
-			...settings,
-			transforms: null,
-		};
-	}
-);
+// addFilter(
+// 	'blocks.registerBlockType',
+// 	'crowdsignal-forms/feedback',
+// 	( settings ) => {
+// 		return {
+// 			...settings,
+// 			transforms: null,
+// 		};
+// 	}
+// );
