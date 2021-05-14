@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.5.1
+Stable tag: 1.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,18 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+= 1.5.5 =
+* Fix feedback form rendering issues on mobile screens (#143)
+* Add filter to control transform behavior (#142)
+* Add different toggle settings for the feedback button block (#139)
+* Implement a toggle for making feedback email mandatory (#138)
+* Add a vertical middle position for the feedback block (#140)
+* Make branding enabled by default on atomic sites (#134)
+* Fix poll styling issues (#135)
+* Hide CS logo on the popup form (#136)
+* Consistently name panel section "Settings" and subsection "Status" (#133)
+* Refresh readme (#112)
+
 = 1.5.1 =
 * Finetune footer branding (#115)
 * New Feedback block added (#110)
@@ -111,8 +123,8 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Upgrade Notice ==
 
-= 1.4.3 =
-Introduce new NPS block
+= 1.5.5 =
+Add new position options for the Feedback Button block. Better styling on Poll blocks.
 
 = 0.9 =
 Initial release
