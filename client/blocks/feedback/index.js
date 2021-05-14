@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import { includes } from 'lodash';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
@@ -47,13 +52,16 @@ export default {
 };
 
 // Prevent transforming this block to anything
-// addFilter(
-// 	'blocks.registerBlockType',
-// 	'crowdsignal-forms/feedback',
-// 	( settings ) => {
-// 		return {
-// 			...settings,
-// 			transforms: null,
-// 		};
-// 	}
-// );
+addFilter(
+	'blocks.registerBlockType',
+	'crowdsignal-forms/feedback',
+	( settings ) => {
+		if ( includes( [ 'crowdsignal-forms/feedback' ], settings.name ) ) {
+			return {
+				...settings,
+				transforms: null,
+			};
+		}
+		return settings;
+	}
+);
