@@ -3,7 +3,7 @@
 .crowdsignal-forms-feedback {
 	display: flex;
 	position: fixed;
-	z-index: 1000;
+	z-index: 9999999;
 
 	> div:last-child:not(.crowdsignal-forms-feedback__trigger) {
 		border-bottom-left-radius: 10px;
@@ -82,13 +82,25 @@
 	border-top: 10px solid var(--crowdsignal-forms-button-color);
 	box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.3);
 	color: var(--crowdsignal-forms-text-color);
+	max-height: 480px;
 	outline: 0;
+	overflow-y: scroll;
 	padding: 24px;
-	width: 380px;
+	width: 240px;
 	text-align: left;
 	z-index: 100;
 	display: flex;
 	flex-direction: column;
+
+	@media screen and (min-width: 360px) {
+		max-height: 640px;
+		width: 300px;
+	}
+
+	@media screen and (min-width: 480px) {
+		max-height: auto;
+		width: 380px;
+	}
 }
 
 .crowdsignal-forms-feedback__header {
