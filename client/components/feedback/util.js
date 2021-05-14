@@ -26,6 +26,13 @@ const getFeedbackButtonHorizontalPosition = ( align, width, offset ) => {
 };
 
 const getFeedbackButtonVerticalPosition = ( verticalAlign, height, offset ) => {
+	if ( verticalAlign === 'center' ) {
+		return {
+			top: ( window.innerHeight - height ) / 2,
+			bottom: null,
+		};
+	}
+
 	return {
 		top: verticalAlign === 'top' ? offset.top : null,
 		bottom: verticalAlign === 'bottom' ? offset.bottom : null,

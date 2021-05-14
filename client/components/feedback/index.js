@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useLayoutEffect, useState, useRef } from 'react';
+import React, { useCallback, useLayoutEffect, useState, useRef } from 'react';
 import classnames from 'classnames';
 
 /**
@@ -18,27 +18,68 @@ import FeedbackToggle from './toggle';
 import FeedbackPopover from './popover';
 import { getFeedbackButtonPosition } from './util';
 
+const getPopoverPosition = ( x, y ) => {
+	if ( y !== 'center' ) {
+		return '';
+	}
+
+	return x === 'left' ? 'middle right' : 'middle left';
+};
+
+const adjustFrameOffset = ( position, verticalAlign, width, height ) => {
+	if ( verticalAlign !== 'center' ) {
+		return position;
+	}
+
+	return {
+		...position,
+		left: position.left !== null ? position.left - width + height : null,
+		right: position.right !== null ? position.right - width + height : null,
+	};
+};
+
 const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	const [ position, setPosition ] = useState( {} );
 
 	const toggle = useRef( null );
 
-	useLayoutEffect( () => {
+	const updatePosition = useCallback( () => {
 		setPosition(
-			getFeedbackButtonPosition(
-				attributes.x,
+			adjustFrameOffset(
+				getFeedbackButtonPosition(
+					attributes.x,
+					attributes.y,
+					toggle.current.offsetWidth,
+					attributes.y === 'center'
+						? toggle.current.offsetWidth
+						: toggle.current.offsetHeight,
+					{
+						top: 20,
+						bottom: 20,
+						left: attributes.y === 'center' ? 0 : 20,
+						right: attributes.y === 'center' ? 0 : 20,
+					},
+					document.body
+				),
 				attributes.y,
 				toggle.current.offsetWidth,
-				toggle.current.offsetHeight,
-				20,
-				document.body
+				toggle.current.offsetHeight
 			)
 		);
 	}, [ attributes.x, attributes.y, toggle.current ] );
 
-	const classes = classnames( 'crowdsignal-forms-feedback', {
-		'no-shadow': attributes.hideTriggerShadow,
-	} );
+	useLayoutEffect( () => {
+		updatePosition();
+	}, [ attributes.x, attributes.y, updatePosition ] );
+
+	const classes = classnames(
+		'crowdsignal-forms-feedback',
+		`align-${ attributes.x }`,
+		{
+			'no-shadow': attributes.hideTriggerShadow,
+			'is-vertical': attributes.y === 'center',
+		}
+	);
 
 	const styles = {
 		...position,
@@ -52,12 +93,17 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 					popoverProps={ {
 						className:
 							'crowdsignal-forms-feedback__popover-wrapper',
+						position: getPopoverPosition(
+							attributes.x,
+							attributes.y
+						),
 					} }
 					renderToggle={ ( { isOpen, onToggle } ) => (
 						<FeedbackToggle
 							ref={ toggle }
 							isOpen={ isOpen }
 							onClick={ onToggle }
+							onToggle={ updatePosition }
 							attributes={ attributes }
 						/>
 					) }
