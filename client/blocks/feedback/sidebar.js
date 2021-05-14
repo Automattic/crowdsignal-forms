@@ -202,10 +202,7 @@ const Sidebar = ( {
 				) }
 
 				<ToggleControl
-					label={ __(
-						'Require email address',
-						'crowdsignal-forms'
-					) }
+					label={ __( 'Require email address', 'crowdsignal-forms' ) }
 					checked={ attributes.emailRequired }
 					onChange={ handleChangeAttribute( 'emailRequired' ) }
 				/>

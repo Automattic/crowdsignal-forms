@@ -26,7 +26,8 @@ const FeedbackForm = ( { attributes, onSubmit } ) => {
 
 		const validation = {
 			feedback: isEmpty( feedback ),
-			email: attributes.emailRequired &&
+			email:
+				attributes.emailRequired &&
 				( isEmpty( email ) || email.match( /^\s+@\s+$/ ) ),
 		};
 		setErrors( validation );
