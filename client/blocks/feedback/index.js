@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { addFilter } from '@wordpress/hooks';
 
 /**
  * Internal dependencies
@@ -44,3 +45,15 @@ export default {
 		},
 	},
 };
+
+// Prevent transforming this block to anything
+addFilter(
+	'blocks.registerBlockType',
+	'crowdsignal-forms/feedback',
+	( settings ) => {
+		return {
+			...settings,
+			transforms: null,
+		};
+	}
+);
