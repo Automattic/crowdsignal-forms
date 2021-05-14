@@ -175,6 +175,10 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 			'textColor'              => array(
 				'type' => 'string',
 			),
+			'toggleOn'               => array(
+				'type'    => 'string',
+				'default' => 'click',
+			),
 			'triggerLabel'           => array(
 				'type'    => 'string',
 				'default' => __( 'Feedback', 'crowdsignal-forms' ),

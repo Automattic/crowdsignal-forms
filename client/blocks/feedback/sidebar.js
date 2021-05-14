@@ -23,7 +23,7 @@ import { __, sprintf } from '@wordpress/i18n';
  * Internal dependencies
  */
 import SidebarPromote from 'components/sidebar-promote';
-import { FeedbackStatus } from './constants';
+import { FeedbackStatus, FeedbackToggleMode } from './constants';
 
 const Sidebar = ( {
 	attributes,
@@ -200,6 +200,29 @@ const Sidebar = ( {
 						is12Hour={ true }
 					/>
 				) }
+
+				<SelectControl
+					value={ attributes.toggleOn }
+					label={ __(
+						'Show feedback form on:',
+						'crowdsignal-forms'
+					) }
+					options={ [
+						{
+							label: __( 'Click', 'crowdsignal-forms' ),
+							value: FeedbackToggleMode.CLICK,
+						},
+						{
+							label: __( 'Hover', 'crowdsignal-forms' ),
+							value: FeedbackToggleMode.HOVER,
+						},
+						{
+							label: __( 'Page load', 'crowdsignal-forms' ),
+							value: FeedbackToggleMode.PAGE_LOAD,
+						},
+					] }
+					onChange={ handleChangeAttribute( 'toggleOn' ) }
+				/>
 
 				<ToggleControl
 					label={ __( 'Require email address', 'crowdsignal-forms' ) }
