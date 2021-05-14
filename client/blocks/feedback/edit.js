@@ -30,6 +30,7 @@ import SignalWarning from 'components/signal-warning';
 import { views, FeedbackStatus } from './constants';
 import RetryNotice from 'components/retry-notice';
 import FooterBranding from 'components/footer-branding';
+import FeedbackIcon from 'components/icon/feedback';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -253,7 +254,10 @@ const EditFeedbackBlock = ( props ) => {
 	);
 
 	return (
-		<ConnectToCrowdsignal>
+		<ConnectToCrowdsignal
+			blockName={ __( 'Feedback Button', 'crowdsignal-forms' ) }
+			blockIcon=<FeedbackIcon />
+		>
 			<Toolbar
 				currentView={ view }
 				onViewChange={ setView }
