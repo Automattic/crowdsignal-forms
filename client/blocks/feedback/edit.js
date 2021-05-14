@@ -208,7 +208,7 @@ const EditFeedbackBlock = ( props ) => {
 	const handleChangeAttribute = ( key ) => ( value ) =>
 		setAttributes( { [ key ]: value } );
 
-	const accountInfo = get( useAccountInfo(), 'data', {} );
+	const { accountInfo } = useAccountInfo();
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',

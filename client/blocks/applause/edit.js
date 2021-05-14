@@ -36,7 +36,7 @@ const EditApplauseBlock = ( props ) => {
 		setAttributes
 	);
 
-	const accountInfo = get( useAccountInfo(), 'data', {} );
+	const { accountInfo } = useAccountInfo();
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',

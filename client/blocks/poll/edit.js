@@ -124,7 +124,7 @@ const PollBlock = ( props ) => {
 	const isHidden =
 		isClosed && ClosedPollState.HIDDEN === attributes.closedPollState;
 
-	const accountInfo = get( useAccountInfo(), 'data', {} );
+	const { accountInfo } = useAccountInfo();
 
 	const hideBranding = get( accountInfo, 'capabilities', [] ).includes(
 		'hide-branding'
