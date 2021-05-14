@@ -419,7 +419,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 		$response_data = $this->get_account_info();
 
 		return isset( $response_data['capabilities'] )
-			? (bool) $response_data['capabilities']
+			? $response_data['capabilities']
 			: array();
 	}
 
