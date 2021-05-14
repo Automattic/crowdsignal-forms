@@ -26,7 +26,7 @@ export default {
 	},
 	emailPlaceholder: {
 		type: 'string',
-		default: __( 'Your Email (optional)', 'crowdsignal-forms' ),
+		default: __( 'Your Email', 'crowdsignal-forms' ),
 	},
 	emailRequired: {
 		type: 'boolean',
