@@ -1,0 +1,74 @@
+.crowdsignal-forms__block-alignment-control-popover {
+
+	.components-popover__content {
+		min-width: auto !important;
+	}
+}
+
+.crowdsignal-forms__block-alignment-control-grid {
+	display: flex;
+	flex-direction: column;
+}
+
+.crowdsignal-forms__block-alignment-control-row {
+	display: flex;
+}
+
+.crowdsignal-forms__block-alignment-control-button {
+	align-items: center;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	display: flex;
+	height: 30px;
+	justify-content: center;
+	width: 30px;
+
+	&::before {
+		background-color: #b5bcc2;
+		display: block;
+		content: "";
+		height: 6px;
+		width: 6px;
+	}
+
+	&:hover::before {
+		background-color: #007cba;
+	}
+
+	&.is-active::before {
+		background-color: #000;
+		box-shadow: #000 0 0 0 2px;
+	}
+}
+
+.crowdsignal-forms__block-alignment-control-icon {
+	display: flex;
+	flex-direction: column;
+	height: 24px;
+	justify-content: space-between;
+	width: 24px;
+}
+
+.crowdsignal-forms__block-alignment-control-icon-row {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.crowdsignal-forms__block-alignment-control-icon-dot {
+	display: flex;
+	padding: 2px;
+
+	&::before {
+		background-color: #000;
+		content: "";
+		display: block;
+		height: 2px;
+		width: 2px;
+	}
+
+	&.is-active::before {
+		box-shadow: #000 0 0 0 2px;
+	}
+}

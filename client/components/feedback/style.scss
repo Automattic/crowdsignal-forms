@@ -3,7 +3,7 @@
 .crowdsignal-forms-feedback {
 	display: flex;
 	position: fixed;
-	z-index: 100;
+	z-index: 1000;
 
 	> div:last-child:not(.crowdsignal-forms-feedback__trigger) {
 		border-bottom-left-radius: 10px;
@@ -19,6 +19,17 @@
 
 .crowdsignal-forms-feedback__trigger-wrapper {
 	margin: 0 !important;
+
+	.crowdsignal-forms-feedback.is-vertical & {
+		margin-top: -50%;
+		transform-origin: top right;
+		transform: rotateZ(270deg) translateY(-100%);
+	}
+
+	.crowdsignal-forms-feedback.is-vertical.align-right & {
+		transform-origin: top left;
+		transform: rotateZ(270deg) translateX(-100%);
+	}
 }
 
 .crowdsignal-forms-feedback__trigger {
@@ -31,6 +42,7 @@
 	font-size: 16px !important;
 	line-height: 1.5 !important;
 	padding: 10px 16px !important;
+	white-space: nowrap !important;
 
 	> svg {
 		fill: currentColor;
@@ -44,6 +56,16 @@
 
 	.crowdsignal-forms-feedback.no-shadow & {
 		box-shadow: none;
+	}
+
+	.crowdsignal-forms-feedback.is-vertical.align-left & {
+		border-top-left-radius: 0 !important;
+		border-top-right-radius: 0 !important;
+	}
+
+	.crowdsignal-forms-feedback.is-vertical.align-right & {
+		border-bottom-left-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
 	}
 }
 
