@@ -560,7 +560,11 @@ class Api_Gateway implements Api_Gateway_Interface {
 
 		} catch ( \Exception $ex ) {
 			// ignore error, we'll get the updated value next time.
-			$response_data = array( 'id' => 0 );
+			// Provide dummy response with safe defaults.
+			$response_data = array(
+				'id'           => 0,
+				'capabilities' => array( 'hide-branding' ),
+			);
 		}
 
 		return $response_data;
