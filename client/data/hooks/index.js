@@ -107,5 +107,5 @@ export const useAccountInfo = () => {
 	useEffect( () => {
 		getAccountInfo();
 	}, [] );
-	return { data: accountInfo, reloadAccountInfo: getAccountInfo };
+	return { accountInfo, reloadAccountInfo: getAccountInfo };
 };

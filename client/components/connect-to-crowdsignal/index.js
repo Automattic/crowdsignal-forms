@@ -12,13 +12,13 @@ import { useAccountInfo } from 'data/hooks';
 const ConnectToCrowdsignal = ( props ) => {
 	const { blockIcon, blockName, children } = props;
 
-	const accountInfo = useAccountInfo();
-	const isConnected = accountInfo.data && accountInfo.data.id !== 0;
-	const isAccountVerified = !! accountInfo.data.is_verified;
+	const { accountInfo, reloadAccountInfo } = useAccountInfo();
+	const isConnected = accountInfo && accountInfo.id !== 0;
+	const isAccountVerified = !! accountInfo.is_verified;
 
 	const handleConnectClick = async () => {
 		const initialConnectedState = isConnected;
-		const newAccountInfo = await accountInfo.reloadAccountInfo();
+		const newAccountInfo = await reloadAccountInfo();
 
 		const isNowConnected = newAccountInfo.id !== 0;
 		const isNowVerified = !! newAccountInfo.is_verified;
