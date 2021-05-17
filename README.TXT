@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.5.1
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,19 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+= 1.5.3 =
+* Remove the filter as it either turns problematic or doesn't solve the issue at all (#146)
+* Fix feedback form rendering issues on mobile screens (#143)
+* Add filter to control transform behavior (#142)
+* Add different toggle settings for the feedback button block (#139)
+* Implement a toggle for making feedback email mandatory (#138)
+* Add a vertical middle position for the feedback block (#140)
+* Make branding enabled by default on atomic sites (#134)
+* Fix poll styling issues (#135)
+* Hide CS logo on the popup form (#136)
+* Consistently name panel section "Settings" and subsection "Status" (#133)
+* Refresh readme (#112)
+
 = 1.5.1 =
 * Finetune footer branding (#115)
 * New Feedback block added (#110)
@@ -95,24 +108,10 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Add NPS block
 * Fixed redirect logic for the poll block
 
-= 1.3.5 =
-* Show branding on editor and a message when free signals are exhausted (#11)
-* Remove redirect URL feature (#12)
-
-= 1.3.4 =
-* Escape the redirect address to avoid XSS. (#7)
-* Bump tested version to 5.6 (#8)
-* Unset margins on applause count container (#6)
-
-= 1.3.3 =
-* Unwrap all i18n calls (#1)
-* Use default theme font for Applause count (#3)
-* Fix applause branding styles (#4)
-
 == Upgrade Notice ==
 
-= 1.4.3 =
-Introduce new NPS block
+= 1.5.3 =
+Fixes for Feedback Button block. Poll block styles improvements.
 
 = 0.9 =
 Initial release
