@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Crowdsignal Forms 1.5.1\n"
+"Project-Id-Version: Crowdsignal Forms 1.5.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/crowdsignal-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-03T21:00:23+00:00\n"
+"POT-Creation-Date: 2021-05-17T19:32:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: crowdsignal-forms\n"
@@ -49,6 +49,7 @@ msgstr ""
 
 #: includes/admin/class-crowdsignal-forms-admin.php:71
 #: includes/admin/class-crowdsignal-forms-admin.php:86
+#: build/editor.js:13
 msgid "Settings"
 msgstr ""
 
@@ -185,45 +186,55 @@ msgstr ""
 msgid "Your Email (optional)"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:145
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:149
+#: build/editor.js:13
 msgid "Please let us know how we can do better…"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:149
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:153
+#: build/editor.js:13
 msgid "👋 Hey there!"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:161
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:165
 #: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:154
 #: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:155
+#: build/editor.js:13
 msgid "Submit"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:165
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:169
+#: build/editor.js:13
 msgid "Thanks for letting us know!"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:176
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:184
+#: build/editor.js:13
 msgid "Feedback"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:121
+#: build/editor.js:13
 msgid "Please help us understand your rating"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:128
+#: build/editor.js:13
 msgid "Thanks so much for your response! How could we do better?"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:139
+#: build/editor.js:13
 msgid "Extremely likely"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:143
+#: build/editor.js:13
 msgid "Not likely at all"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:147
+#: build/editor.js:13
 msgid "How likely is it that you would recommend this project to a friend or colleague?"
 msgstr ""
 
@@ -248,4 +259,810 @@ msgstr ""
 
 #: includes/rest-api/controllers/class-polls-controller.php:435
 msgid "Resource not found"
+msgstr ""
+
+#: build/applause.js:13
+#: build/editor.js:13
+#: build/poll.js:13
+#: build/vote.js:13
+msgid "Server error. Please try again."
+msgstr ""
+
+#: build/applause.js:13
+#: build/editor.js:13
+#: build/vote.js:13
+msgid "Powered by Crowdsignal"
+msgstr ""
+
+#: build/editor.js:13
+#: build/poll.js:13
+msgid "This Poll is Hidden"
+msgstr ""
+
+#: build/editor.js:13
+#: build/poll.js:13
+msgid "This Poll is Closed"
+msgstr ""
+
+#: build/editor.js:13
+#: build/poll.js:13
+msgid "Thanks For Voting!"
+msgstr ""
+
+#: build/editor.js:13
+#: build/poll.js:13
+msgid "%s vote"
+msgid_plural "%s votes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/editor.js:13
+#: build/feedback.js:6
+#: build/nps.js:6
+#: build/poll.js:13
+msgid "Create your own poll with Crowdsignal"
+msgstr ""
+
+#: build/editor.js:13
+#: build/feedback.js:6
+#: build/nps.js:6
+#: build/poll.js:13
+msgid "Hide"
+msgstr ""
+
+#: build/editor.js:13
+#: build/poll.js:13
+msgid "Unfortunately, we're having some trouble retrieving the results for this poll at this time."
+msgstr ""
+
+#: build/editor.js:13
+#: build/poll.js:13
+msgid "%s total vote"
+msgid_plural "%s total votes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/editor.js:13
+msgid "Enter an answer"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Buttons"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Upgrade"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Your free Crowdsignal account has "
+msgstr ""
+
+#: build/editor.js:13
+msgid "reached the signals limit."
+msgstr ""
+
+#: build/editor.js:13
+msgid "Hide Crowdsignal branding and get "
+msgstr ""
+
+#: build/editor.js:13
+msgid "unlimited signals"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Results"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Manage results on "
+msgstr ""
+
+#: build/editor.js:13
+msgid "Publish this post to enable results on "
+msgstr ""
+
+#: build/editor.js:13
+msgid "View results"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Title of the poll block"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Confirmation message"
+msgstr ""
+
+#: build/editor.js:13
+msgid "On submission"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Show results"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Show \"Thank You\" message"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Show a custom text message"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Message text"
+msgstr ""
+
+#: build/editor.js:13
+#: build/poll.js:13
+msgid "Thanks for voting!"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Redirect address"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Status"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Open"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Closed after"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Closed"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Close poll on"
+msgstr ""
+
+#: build/editor.js:13
+msgid "When poll is closed"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Show poll with \"Closed\" banner"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Hide poll"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Block styling"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Text color"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Background color"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Border color"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Choose font"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Default theme font"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Width (%)"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Reset"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Border thickness"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Corner radius"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Drop shadow"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Button styling"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Alignment"
+msgstr ""
+
+#: build/editor.js:13
+msgid "List"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Inline"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Answer settings"
+msgstr ""
+
+#: build/editor.js:13
+msgid "One response per computer"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Randomize answer order"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Choose one answer"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Choose multiple answers"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Warning! This poll is published. Deleting or reordering answers may cause the loss of existing responses."
+msgstr ""
+
+#: build/editor.js:13
+msgid "Edit"
+msgstr ""
+
+#: build/editor.js:13
+msgid "You need to connect to a Crowdsignal account to collect and manage your results."
+msgstr ""
+
+#: build/editor.js:13
+msgid "Please verify your WordPress.com email address in order to publish your poll."
+msgstr ""
+
+#: build/editor.js:13
+msgid "Connect to Crowdsignal"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Verify or Change your Email Address"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Please upgrade"
+msgstr ""
+
+#: build/editor.js:13
+msgid "exceeded 2500 signals."
+msgstr ""
+
+#: build/editor.js:13
+msgid "Crowdsignal Poll"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Enter your question"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Add a note (optional)"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Poll"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Create polls and get your audience’s opinion — powered by Crowdsignal."
+msgstr ""
+
+#: build/editor.js:13
+msgid "ask"
+msgstr ""
+
+#: build/editor.js:13
+msgid "feedback"
+msgstr ""
+
+#: build/editor.js:13
+msgid "form"
+msgstr ""
+
+#: build/editor.js:13
+msgid "opinion"
+msgstr ""
+
+#: build/editor.js:13
+msgid "poll"
+msgstr ""
+
+#: build/editor.js:13
+msgid "pop"
+msgstr ""
+
+#: build/editor.js:13
+msgid "question"
+msgstr ""
+
+#: build/editor.js:13
+msgid "quiz"
+msgstr ""
+
+#: build/editor.js:13
+msgid "research"
+msgstr ""
+
+#: build/editor.js:13
+msgid "survey"
+msgstr ""
+
+#: build/editor.js:13
+msgid "vote"
+msgstr ""
+
+#: build/editor.js:13
+msgid "How did you hear about us?"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Search"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Friend"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Email"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Default"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Small"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Medium"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Large"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Title of the vote block"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Close vote block on"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Show vote counters"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Hide vote counters"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Change block size"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Untitled Vote"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Crowdsignal Vote"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Vote"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Allow your audience to rate your work or express their opinion — powered by Crowdsignal."
+msgstr ""
+
+#: build/editor.js:13
+msgid "ballot"
+msgstr ""
+
+#: build/editor.js:13
+msgid "button"
+msgstr ""
+
+#: build/editor.js:13
+msgid "count"
+msgstr ""
+
+#: build/editor.js:13
+msgid "deciding"
+msgstr ""
+
+#: build/editor.js:13
+msgid "decision"
+msgstr ""
+
+#: build/editor.js:13
+msgid "elect"
+msgstr ""
+
+#: build/editor.js:13
+msgid "election"
+msgstr ""
+
+#: build/editor.js:13
+msgid "like"
+msgstr ""
+
+#: build/editor.js:13
+msgid "nero"
+msgstr ""
+
+#: build/editor.js:13
+msgid "polling"
+msgstr ""
+
+#: build/editor.js:13
+msgid "rate"
+msgstr ""
+
+#: build/editor.js:13
+msgid "rating"
+msgstr ""
+
+#: build/editor.js:13
+msgid "thumb down"
+msgstr ""
+
+#: build/editor.js:13
+msgid "thumb up"
+msgstr ""
+
+#: build/editor.js:13
+msgid "thumbs"
+msgstr ""
+
+#: build/editor.js:13
+msgid "voting"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Styling"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Vote Item"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Title of the applause block"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Close applause block on"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Untitled Applause"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Crowdsignal Applause"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Applause"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Let your audience cheer with a big round of applause — powered by Crowdsignal."
+msgstr ""
+
+#: build/editor.js:13
+msgid "applause"
+msgstr ""
+
+#: build/editor.js:13
+msgid "cheer"
+msgstr ""
+
+#: build/editor.js:13
+msgid "cheering"
+msgstr ""
+
+#: build/editor.js:13
+msgid "clap"
+msgstr ""
+
+#: build/editor.js:13
+msgid "kudos"
+msgstr ""
+
+#: build/editor.js:13
+msgid "praise"
+msgstr ""
+
+#: build/editor.js:13
+msgid "upvote"
+msgstr ""
+
+#: build/editor.js:13
+msgid "upvoting"
+msgstr ""
+
+#: build/editor.js:13
+msgid "votes"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Save the block to track results on "
+msgstr ""
+
+#: build/editor.js:13
+msgid "Title (optional)"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Button color"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Button text color"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Close on"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Current view"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Rating"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Set view threshold"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Show this block after __ visits:"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Retry"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Unfortunately, the block couldn't be saved to Crowdsignal.com."
+msgstr ""
+
+#: build/editor.js:13
+msgid "Crowdsignal NPS"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Preview"
+msgstr ""
+
+#: build/editor.js:13
+msgid "This block will appear as a popup window to people who have visited this page at least %d time."
+msgid_plural "This block will appear as a popup window to people who have visited this page at least %d times."
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/editor.js:13
+msgid "Enter your rating question"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Not likely"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Very likely"
+msgstr ""
+
+#: build/editor.js:13
+#: build/feedback.js:6
+#: build/nps.js:6
+msgid "Collect your own feedback with Crowdsignal"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Enter your feedback question"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Measure NPS"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Calculate your Net Promoter Score! Collect feedback and track customer satisfaction over time. — powered by Crowdsignal."
+msgstr ""
+
+#: build/editor.js:13
+msgid "CSAT"
+msgstr ""
+
+#: build/editor.js:13
+msgid "customer experience"
+msgstr ""
+
+#: build/editor.js:13
+msgid "customer satisfaction"
+msgstr ""
+
+#: build/editor.js:13
+msgid "loyalty"
+msgstr ""
+
+#: build/editor.js:13
+msgid "net promoter score"
+msgstr ""
+
+#: build/editor.js:13
+msgid "nps"
+msgstr ""
+
+#: build/editor.js:13
+msgid "promoter"
+msgstr ""
+
+#: build/editor.js:13
+msgid "review"
+msgstr ""
+
+#: build/editor.js:13
+msgid "score"
+msgstr ""
+
+#: build/editor.js:13
+msgid "How satisfied are you with the content of the site?"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Any advise on how we could improve your experience?"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Not satisfied"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Very satisfied"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Your Email"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Send me responses via email"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Responses will be sent to %s"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Feedback Button"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Hide Shadow"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Show feedback form on:"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Click"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Hover"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Page load"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Require email address"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Top"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Bottom"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Left"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Right"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Center"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Change block position"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Question"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Change button position"
+msgstr ""
+
+#: build/editor.js:13
+msgid "This Feedback Form is Closed"
+msgstr ""
+
+#: build/editor.js:13
+msgid "Add an always visible button that allows your audience to share feedback anytime."
+msgstr ""
+
+#: build/editor.js:13
+msgid "floating"
+msgstr ""
+
+#: build/editor.js:13
+msgid "contact"
+msgstr ""
+
+#: build/editor.js:13
+msgid "call to action"
+msgstr ""
+
+#: build/editor.js:13
+msgid "cta"
+msgstr ""
+
+#: build/editor.js:13
+msgid "subscribe"
+msgstr ""
+
+#: build/editor.js:13
+msgid "email"
+msgstr ""
+
+#: build/editor.js:13
+msgid "message"
+msgstr ""
+
+#: build/feedback.js:6
+msgid "Close"
+msgstr ""
+
+#: build/nps.js:6
+msgid "Thanks so much for your feedback!"
 msgstr ""

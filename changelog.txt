@@ -1,3 +1,16 @@
+= 1.5.6 =
+* Remove the filter as it either turns problematic or doesn't solve the issue at all (#146)
+* Fix feedback form rendering issues on mobile screens (#143)
+* Add filter to control transform behavior (#142)
+* Add different toggle settings for the feedback button block (#139)
+* Implement a toggle for making feedback email mandatory (#138)
+* Add a vertical middle position for the feedback block (#140)
+* Make branding enabled by default on atomic sites (#134)
+* Fix poll styling issues (#135)
+* Hide CS logo on the popup form (#136)
+* Consistently name panel section "Settings" and subsection "Status" (#133)
+* Refresh readme (#112)
+
 = 1.5.1 =
 * Finetune footer branding (#115)
 * New Feedback block added (#110)
