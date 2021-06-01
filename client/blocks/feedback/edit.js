@@ -256,7 +256,7 @@ const EditFeedbackBlock = ( props ) => {
 	return (
 		<ConnectToCrowdsignal
 			blockName={ __( 'Feedback Button', 'crowdsignal-forms' ) }
-			blockIcon=<FeedbackIcon />
+			blockIcon={ <FeedbackIcon /> }
 		>
 			<Toolbar
 				currentView={ view }
