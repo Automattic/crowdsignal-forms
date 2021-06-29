@@ -109,9 +109,9 @@ const EditNpsBlock = ( props ) => {
 		'is-inactive': ! isExample && ! isSelected,
 	} );
 
-	const accountInfo = useAccountInfo();
+	const { accountInfo } = useAccountInfo();
 
-	const hideBranding = get( accountInfo, 'capabilities' ).includes(
+	const hideBranding = get( accountInfo, 'capabilities', [] ).includes(
 		'hide-branding'
 	);
 

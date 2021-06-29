@@ -56,7 +56,7 @@ const EditVoteBlock = ( props ) => {
 
 	const voteItemStyleVars = getVoteStyleVars( attributes );
 
-	const accountInfo = useAccountInfo();
+	const { accountInfo } = useAccountInfo();
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',

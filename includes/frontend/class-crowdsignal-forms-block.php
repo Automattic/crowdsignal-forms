@@ -21,10 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since   0.9.0
  */
 abstract class Crowdsignal_Forms_Block {
-	const TRANSIENT_HIDE_BRANDING = 'cs-hide-branding';
-	const HIDE_BRANDING_YES       = 'YES';
-	const HIDE_BRANDING_NO        = 'NO';
-
 	const STATUS_TYPE_OPEN      = 'open';
 	const STATUS_TYPE_CLOSED    = 'closed';
 	const STATUS_TYPE_SCHEDULED = 'closed-after';
@@ -74,25 +70,15 @@ abstract class Crowdsignal_Forms_Block {
 			return true;
 		}
 
-		if ( get_transient( self::TRANSIENT_HIDE_BRANDING ) ) {
-			return self::HIDE_BRANDING_YES === get_transient( self::TRANSIENT_HIDE_BRANDING );
-		}
-
 		try {
 			$capabilities  = Crowdsignal_Forms::instance()->get_api_gateway()->get_capabilities();
-			$hide_branding = false !== array_search( 'hide-branding', $capabilities, true )
-				? self::HIDE_BRANDING_YES
-				: self::HIDE_BRANDING_NO;
+			$hide_branding = in_array( 'hide-branding', $capabilities, true );
 		} catch ( \Exception $ex ) {
 			// ignore error, we'll get the updated value next time.
-			$hide_branding = self::HIDE_BRANDING_YES;
+			$hide_branding = true;
 		}
-		set_transient(
-			self::TRANSIENT_HIDE_BRANDING,
-			$hide_branding,
-			MINUTE_IN_SECONDS
-		);
-		return self::HIDE_BRANDING_YES === $hide_branding;
+
+		return $hide_branding;
 	}
 
 	/**

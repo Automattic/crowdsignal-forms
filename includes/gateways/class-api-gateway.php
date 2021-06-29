@@ -416,22 +416,11 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @return array|\WP_Error
 	 */
 	public function get_capabilities() {
-		$response = $this->perform_request( 'GET', '/account/capabilities' );
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
+		$response_data = $this->get_account_info();
 
-		$body          = wp_remote_retrieve_body( $response );
-		$response_data = json_decode( $body, true );
-
-		if ( null === $response_data || ! is_array( $response_data ) ) {
-			if ( isset( $response_data['error'] ) ) {
-				return new \WP_Error( $response_data['error'], $response_data );
-			}
-			return new \WP_Error( 'decode-failed' );
-		}
-
-		return $response_data;
+		return isset( $response_data['capabilities'] )
+			? $response_data['capabilities']
+			: array();
 	}
 
 	/**
@@ -524,22 +513,11 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @return bool|\WP_Error
 	 */
 	public function get_is_user_verified() {
-		$response = $this->perform_request( 'GET', '/account/verified' );
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
+		$response_data = $this->get_account_info();
 
-		$body          = wp_remote_retrieve_body( $response );
-		$response_data = json_decode( $body, true );
-
-		if ( null === $response_data || ! is_array( $response_data ) ) {
-			if ( isset( $response_data['error'] ) ) {
-				return new \WP_Error( $response_data['error'], $response_data );
-			}
-			return new \WP_Error( 'decode-failed' );
-		}
-
-		return $response_data['is_verified'];
+		return isset( $response_data['is_verified'] )
+			? (bool) $response_data['is_verified']
+			: false;
 	}
 
 	/**
@@ -547,22 +525,46 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 *
 	 * @since 1.3.5
 	 *
-	 * @return bool|\WP_Error
+	 * @return Array
+	 * @throws \Exception   The exception is handled inside the try/catch.
 	 */
 	public function get_account_info() {
-		$response = $this->perform_request( 'GET', '/account/info' );
-		if ( is_wp_error( $response ) ) {
-			return $response;
+		$transient_key          = 'cs-forms-account-info-' . get_current_user_id();
+		$transient_account_info = get_transient( $transient_key );
+		if ( $transient_account_info ) {
+			return $transient_account_info;
 		}
 
-		$body          = wp_remote_retrieve_body( $response );
-		$response_data = json_decode( $body, true );
+		try {
+			$response = $this->perform_request( 'GET', '/account/info' );
 
-		if ( ! is_array( $response_data ) || isset( $response_data['error'] ) ) {
-			if ( isset( $response_data['error'] ) ) {
-				return new \WP_Error( $response_data['error'], $response_data );
+			// let it be handled by the catch.
+			if ( is_wp_error( $response ) ) {
+				throw new \Exception( 'Internal error retrieving account info' );
 			}
-			return new \WP_Error( 'decode-failed' );
+
+			$body          = wp_remote_retrieve_body( $response );
+			$response_data = json_decode( $body, true );
+
+			// also let it be handled by the catch.
+			if ( ! is_array( $response_data ) || isset( $response_data['error'] ) ) {
+				throw new \Exception( 'Could not get account info' );
+			}
+
+			// cache for 1 minute.
+			set_transient(
+				$transient_key,
+				$response_data,
+				MINUTE_IN_SECONDS
+			);
+
+		} catch ( \Exception $ex ) {
+			// ignore error, we'll get the updated value next time.
+			// Provide dummy response with safe defaults.
+			$response_data = array(
+				'id'           => 0,
+				'capabilities' => array( 'hide-branding' ),
+			);
 		}
 
 		return $response_data;

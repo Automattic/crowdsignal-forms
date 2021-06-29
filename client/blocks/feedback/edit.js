@@ -30,6 +30,7 @@ import SignalWarning from 'components/signal-warning';
 import { views, FeedbackStatus } from './constants';
 import RetryNotice from 'components/retry-notice';
 import FooterBranding from 'components/footer-branding';
+import FeedbackIcon from 'components/icon/feedback';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -64,8 +65,6 @@ const EditFeedbackBlock = ( props ) => {
 	const blockElement = useRef( null );
 	const triggerButton = useRef( null );
 	const popover = useRef( null );
-
-	const accountInfo = useAccountInfo();
 
 	const { error: saveError, save: saveBlock } = useAutosave(
 		async ( data ) => {
@@ -117,7 +116,7 @@ const EditFeedbackBlock = ( props ) => {
 	}, [ isSelected ] );
 
 	useLayoutEffect( () => {
-		if ( isExample ) {
+		if ( isExample || ! triggerButton.current ) {
 			return;
 		}
 
@@ -210,6 +209,8 @@ const EditFeedbackBlock = ( props ) => {
 	const handleChangeAttribute = ( key ) => ( value ) =>
 		setAttributes( { [ key ]: value } );
 
+	const { accountInfo } = useAccountInfo();
+
 	const shouldPromote = get( accountInfo, [
 		'signalCount',
 		'shouldDisplay',
@@ -248,12 +249,15 @@ const EditFeedbackBlock = ( props ) => {
 			null !== attributes.closedAfterDateTime &&
 			new Date().toISOString() > attributes.closedAfterDateTime );
 
-	const hideBranding = get( accountInfo, 'capabilities' ).includes(
+	const hideBranding = get( accountInfo, 'capabilities', [] ).includes(
 		'hide-branding'
 	);
 
 	return (
-		<ConnectToCrowdsignal>
+		<ConnectToCrowdsignal
+			blockName={ __( 'Feedback Button', 'crowdsignal-forms' ) }
+			blockIcon={ <FeedbackIcon /> }
+		>
 			<Toolbar
 				currentView={ view }
 				onViewChange={ setView }

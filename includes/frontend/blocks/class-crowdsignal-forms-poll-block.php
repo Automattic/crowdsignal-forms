@@ -100,7 +100,7 @@ class Crowdsignal_Forms_Poll_Block extends Crowdsignal_Forms_Block {
 			return true;
 		}
 
-		return ! parent::is_cs_connected();
+		return ! $this->is_cs_connected();
 	}
 
 	/**
