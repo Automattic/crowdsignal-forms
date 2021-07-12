@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useLayoutEffect, useEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useEffect, useMemo, useRef, useState } from 'react';
 import classnames from 'classnames';
 import { get, max } from 'lodash';
 
@@ -18,12 +18,13 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
+import EditorNotice from 'components/editor-notice';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { getFeedbackButtonPosition } from 'components/feedback/util';
 import { useAccountInfo } from 'data/hooks';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
-import { getStyleVars } from './util';
+import { getStyleVars, isWidgetEditor } from './util';
 import { useAutosave } from 'components/use-autosave';
 import { updateFeedback } from 'data/feedback/edit';
 import SignalWarning from 'components/signal-warning';
@@ -61,6 +62,8 @@ const EditFeedbackBlock = ( props ) => {
 	} = attributes;
 
 	const [ margin, setMargin ] = useState( {} );
+
+	const widgetEditor = useMemo( isWidgetEditor, [] );
 
 	const blockElement = useRef( null );
 	const triggerButton = useRef( null );
@@ -116,7 +119,7 @@ const EditFeedbackBlock = ( props ) => {
 	}, [ isSelected ] );
 
 	useLayoutEffect( () => {
-		if ( isExample || ! triggerButton.current ) {
+		if ( isExample || ! triggerButton.current || widgetEditor ) {
 			return;
 		}
 
@@ -177,6 +180,7 @@ const EditFeedbackBlock = ( props ) => {
 		triggerButton.current,
 		blockElement.current,
 		triggerLabel,
+		widgetEditor,
 	] );
 
 	useLayoutEffect( () => {
@@ -231,12 +235,21 @@ const EditFeedbackBlock = ( props ) => {
 			'no-shadow': attributes.hideTriggerShadow,
 			'is-active': isSelected,
 			'is-vertical': attributes.y === 'center',
+			'is-widget': widgetEditor,
 		}
 	);
+
+	// Widget editor uses CSS `display: none;` to hide sections making it impossible to measure any elements
+	// until they're show. As such, we cannot detect when they actually become visible either.
+	// Hence the need to just repeat this on every render until we get a value.
+	const buttonHeight = ( widgetEditor && triggerButton.current && triggerButton.current.offsetHeight )
+		? `${ triggerButton.current && triggerButton.current.offsetHeight }px`
+		: null;
 
 	const styles = {
 		...getStyleVars( attributes, fallbackStyles ),
 		...margin,
+		'--crowdsignal-forms-trigger-height': buttonHeight,
 	};
 
 	const popoverStyles = {
@@ -270,6 +283,27 @@ const EditFeedbackBlock = ( props ) => {
 				{ ...props }
 			/>
 
+			{ widgetEditor && (
+				<>
+					{ ! isExample && ! widgetEditor && signalWarning && (
+						<SignalWarning />
+					) }
+					{ ! isExample && ! widgetEditor && saveError && (
+						<RetryNotice retryHandler={ saveBlock } />
+					) }
+					<EditorNotice
+						icon="warning"
+						status="warn"
+						isDismissible={ false }
+					>
+						{ __(
+							'This widget will appear in a fixed position as selected, in a corner or at an edge.',
+							'crowdsignal-forms'
+						) }
+					</EditorNotice>
+				</>
+			) }
+
 			<div ref={ blockElement } className={ classes } style={ styles }>
 				<div className="crowdsignal-forms-feedback__trigger-preview">
 					<div className="wp-block-button crowdsignal-forms-feedback__trigger-wrapper">
@@ -286,21 +320,25 @@ const EditFeedbackBlock = ( props ) => {
 				</div>
 
 				<div className="crowdsignal-forms-feedback__popover-preview">
-					{ ( isExample || isSelected ) && (
+					{ ( isExample || isSelected || widgetEditor ) && (
 						<>
-							{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */ }
-							<div
-								aria-modal="true"
-								role="dialog"
-								className="crowdsignal-forms-feedback__popover-overlay"
-								onClick={ toggleBlock }
-								style={ overlayPosition }
-							/>
+							{ ! isWidgetEditor && (
+								<>
+									{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */ }
+									<div
+										aria-modal="true"
+										role="dialog"
+										className="crowdsignal-forms-feedback__popover-overlay"
+										onClick={ toggleBlock }
+										style={ overlayPosition }
+									/>
+								</>
+							) }
 
-							{ ! isExample && signalWarning && (
+							{ ! isExample && ! widgetEditor && signalWarning && (
 								<SignalWarning />
 							) }
-							{ ! isExample && saveError && (
+							{ ! isExample && ! widgetEditor && saveError && (
 								<RetryNotice retryHandler={ saveBlock } />
 							) }
 
