@@ -87,6 +87,7 @@
 
 		&.is-active .crowdsignal-forms-feedback__trigger {
 			cursor: text !important;
+			white-space: pre-wrap !important;
 		}
 
 		&.is-vertical {
