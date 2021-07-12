@@ -1,7 +1,13 @@
 /**
  * External dependencies
  */
-import React, { useLayoutEffect, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+	useLayoutEffect,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 import classnames from 'classnames';
 import { get, max } from 'lodash';
 
@@ -242,9 +248,14 @@ const EditFeedbackBlock = ( props ) => {
 	// Widget editor uses CSS `display: none;` to hide sections making it impossible to measure any elements
 	// until they're show. As such, we cannot detect when they actually become visible either.
 	// Hence the need to just repeat this on every render until we get a value.
-	const buttonHeight = ( widgetEditor && triggerButton.current && triggerButton.current.offsetHeight )
-		? `${ triggerButton.current && triggerButton.current.offsetHeight }px`
-		: null;
+	const buttonHeight =
+		widgetEditor &&
+		triggerButton.current &&
+		triggerButton.current.offsetHeight
+			? `${
+					triggerButton.current && triggerButton.current.offsetHeight
+			  }px`
+			: null;
 
 	const styles = {
 		...getStyleVars( attributes, fallbackStyles ),
@@ -335,9 +346,9 @@ const EditFeedbackBlock = ( props ) => {
 								</>
 							) }
 
-							{ ! isExample && ! widgetEditor && signalWarning && (
-								<SignalWarning />
-							) }
+							{ ! isExample &&
+								! widgetEditor &&
+								signalWarning && <SignalWarning /> }
 							{ ! isExample && ! widgetEditor && saveError && (
 								<RetryNotice retryHandler={ saveBlock } />
 							) }
