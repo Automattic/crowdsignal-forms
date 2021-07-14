@@ -108,12 +108,16 @@ const EditFeedbackBlock = ( props ) => {
 	);
 
 	// Force a save to Crowdsignal.com as soon as a new block is created
+	// Also make sure isWidget flag is set correctly
 	useEffect( () => {
 		if ( isExample || attributes.surveyId ) {
 			return;
 		}
 
 		saveBlock();
+		setAttributes( {
+			isWidget: widgetEditor,
+		} );
 	}, [] );
 
 	useEffect( () => {
