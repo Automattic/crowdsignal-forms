@@ -310,8 +310,14 @@ const EditNpsBlock = ( props ) => {
 };
 
 export default compose( [
-	withSelect( ( select ) => ( {
-		sourceLink: select( 'core/editor' ).getPermalink(),
-	} ) ),
+	withSelect( ( select ) => {
+		let url = select( 'core/editor' ).getPermalink();
+		if ( ! url ) {
+			url = select( 'core' ).getSite() && select( 'core' ).getSite().url;
+		}
+		return {
+			sourceLink: url,
+		};
+	} ),
 	withFallbackStyles,
 ] )( EditNpsBlock );
