@@ -134,6 +134,8 @@ class Poll {
 			// $source_link = trim( admin_url( 'post.php?post=' . $data['post_id'] . '&action=edit' ) );
 			// $poll->set_source_link( $source_link );.
 			$poll->set_source_link( \get_permalink( $data['post_id'] ) );
+		} else {
+			$poll->set_source_link( \get_site_url() );
 		}
 
 		return $poll;
