@@ -94,8 +94,13 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 * @return bool
 	 */
 	private function should_hide_block( $attributes = array() ) {
-		if ( ! $this->is_cs_connected() || ! is_singular() ) {
-			return true;
+		if (
+			! $attributes['isWidget'] && (
+				! $this->is_cs_connected() ||
+				! is_singular()
+			)
+		) {
+				return true;
 		}
 
 		if ( isset( $attributes['status'] ) ) {

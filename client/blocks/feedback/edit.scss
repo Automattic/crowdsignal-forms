@@ -28,6 +28,11 @@
 		margin-left: 20px;
 		margin-right: 0;
 	}
+
+	.crowdsignal-forms-feedback.is-vertical.is-widget & {
+		position: relative;
+		width: var(--crowdsignal-forms-trigger-height);
+	}
 }
 
 .crowdsignal-forms-feedback__popover-preview {
@@ -82,6 +87,7 @@
 
 		&.is-active .crowdsignal-forms-feedback__trigger {
 			cursor: text !important;
+			white-space: pre-wrap !important;
 		}
 
 		&.is-vertical {
@@ -90,6 +96,10 @@
 			.crowdsignal-forms-feedback__trigger-wrapper {
 				transform-origin: top right;
 				transform: rotateZ(270deg) translateY(-100%);
+			}
+
+			.crowdsignal-forms-feedback__trigger {
+				margin: 0;
 			}
 		}
 
@@ -103,9 +113,33 @@
 		}
 
 		.crowdsignal-forms__editor-notice {
-			// this width must match the width of
-			// .crowdsignal-forms-feedback__popover on components/feedback/style.scss
 			width: 380px;
+		}
+
+		&.is-widget {
+			border: 1px solid #e0e0e0;
+			padding: 10px;
+			margin-bottom: 15px !important;
+
+			&.is-vertical {
+				padding-left: 0;
+				padding-right: 0;
+				justify-content: flex-start;
+				overflow: hidden;
+				position: relative;
+
+				.crowdsignal-forms-feedback__trigger-wrapper {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform-origin: top left;
+					transform: rotateZ(270deg) translateX(-50%) translateY(-50%);
+				}
+			}
+
+			.crowdsignal-forms-feedback__trigger {
+				margin: 0;
+			}
 		}
 	}
 

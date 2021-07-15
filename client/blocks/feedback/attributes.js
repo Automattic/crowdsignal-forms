@@ -108,4 +108,8 @@ export default {
 		type: 'boolean',
 		default: false,
 	},
+	isWidget: {
+		type: 'boolean',
+		default: false,
+	},
 };

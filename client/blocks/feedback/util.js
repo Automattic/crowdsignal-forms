@@ -19,3 +19,6 @@ export const getStyleVars = ( attributes, fallbackStyles ) =>
 		},
 		( _, key ) => `--crowdsignal-forms-${ kebabCase( key ) }`
 	);
+
+export const isWidgetEditor = () =>
+	!! document.getElementById( 'widgets-editor' );
