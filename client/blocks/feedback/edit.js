@@ -461,10 +461,20 @@ const EditFeedbackBlock = ( props ) => {
 };
 
 export default compose( [
-	withSelect( ( select ) => ( {
-		activeSidebar: select( 'core/edit-post' ).getActiveGeneralSidebarName(),
-		editorFeatures: select( 'core/edit-post' ).getPreference( 'features' ),
-		sourceLink: select( 'core/editor' ).getPermalink(),
-	} ) ),
+	withSelect( ( select ) => {
+		let url = select( 'core/editor' ).getPermalink();
+		if ( ! url ) {
+			url = select( 'core' ).getSite() && select( 'core' ).getSite().url;
+		}
+		return {
+			activeSidebar: select(
+				'core/edit-post'
+			).getActiveGeneralSidebarName(),
+			editorFeatures: select( 'core/edit-post' ).getPreference(
+				'features'
+			),
+			sourceLink: url,
+		};
+	} ),
 	withFallbackStyles,
 ] )( EditFeedbackBlock );
