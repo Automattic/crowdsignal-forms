@@ -202,6 +202,20 @@ const EditFeedbackBlock = ( props ) => {
 	}, [ attributes.header, popover.current, isSelected ] );
 
 	useLayoutEffect( () => {
+		if (
+			triggerButton.current &&
+			triggerButton.current.ownerDocument !== document
+		) {
+			setOverlayPosition( {
+				bottom: 0,
+				left: 0,
+				right: 0,
+				top: 0,
+			} );
+
+			return;
+		}
+
 		const contentWrapper = document.getElementsByClassName(
 			'interface-interface-skeleton__content'
 		)[ 0 ];
@@ -213,7 +227,12 @@ const EditFeedbackBlock = ( props ) => {
 			right: window.innerWidth - ( contentBox.left + contentBox.width ),
 			top: contentBox.top,
 		} );
-	}, [ activeSidebar, editorFeatures.fullscreenMode, isSelected ] );
+	}, [
+		activeSidebar,
+		editorFeatures.fullscreenMode,
+		isSelected,
+		triggerButton.current,
+	] );
 
 	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
@@ -337,7 +356,7 @@ const EditFeedbackBlock = ( props ) => {
 				<div className="crowdsignal-forms-feedback__popover-preview">
 					{ ( isExample || isSelected || widgetEditor ) && (
 						<>
-							{ ! isWidgetEditor && (
+							{ ! widgetEditor && (
 								<>
 									{ /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */ }
 									<div
