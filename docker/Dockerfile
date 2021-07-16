@@ -1,9 +1,10 @@
-FROM ubuntu:xenial
+FROM ubuntu:groovy
 
 VOLUME ["/var/www/html"]
 
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install required Ubuntu packages for having Apache PHP as a module
 # as well a bunch of other packages
