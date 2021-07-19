@@ -10,6 +10,6 @@
 		"wp-coding-standards/wpcs": "2.2.1",
 		"wp-cli/wp-cli-bundle": "^2.4",
 		"psy/psysh": "^0.10.7",
-		"wp-cli/i18n-command": "^2.2"
+		"wp-cli/i18n-command": "2.2.6"
 	}
 }
