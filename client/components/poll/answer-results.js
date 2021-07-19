@@ -35,7 +35,7 @@ const PollAnswerResults = ( { error, loading, text, totalVotes, votes } ) => {
 				<span className="crowdsignal-forms-poll__answer-results-votes">
 					{ showResults &&
 						sprintf(
-							// translators: %s: Number of votes.
+							/* translators: %s: Number of votes. */
 							_n(
 								'%s vote',
 								'%s votes',

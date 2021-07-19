@@ -162,7 +162,7 @@ const EditNpsBlock = ( props ) => {
 					] }
 				>
 					{ sprintf(
-						// translators: %d: number of pageviews
+						/* translators: %d: number of pageviews */
 						_n(
 							'This block will appear as a popup window to people who have visited this page at least %d time.',
 							'This block will appear as a popup window to people who have visited this page at least %d times.',
