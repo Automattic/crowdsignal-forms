@@ -42,12 +42,13 @@ jobs:
       - name: Fork
         run: git checkout -b nightly_build
 
-      - name: Install
+      - name: NPM install
+        run: npm install
+
+      - name: Composer install
         run: |
-          npm install
           composer update
           composer install
-
 
       - name: Build
         run: make client
