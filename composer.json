@@ -8,8 +8,7 @@
 		"phpcompatibility/phpcompatibility-wp": "2.1.0",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
 		"wp-coding-standards/wpcs": "2.2.1",
-		"wp-cli/wp-cli-bundle": "^2.4",
-		"psy/psysh": "^0.10.7",
-		"wp-cli/i18n-command": "2.2.6"
+		"wp-cli/wp-cli-bundle": "2.4.0",
+		"psy/psysh": "^0.10.7"
 	}
 }
