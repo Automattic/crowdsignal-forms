@@ -46,9 +46,7 @@ jobs:
         run: npm install
 
       - name: Composer install
-        run: |
-          composer update
-          composer install
+        run: composer install
 
       - name: Build
         run: make client
