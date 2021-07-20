@@ -1,3 +1,8 @@
+= 1.5.4 =
+* Default to site URL on source_link prop when no permalink is returned (#155)
+* Add a widget-editor compatible interface for the feedback block (#154)
+* Fix verify info request logic (#137)
+
 = 1.5.3 =
 * Remove the filter as it either turns problematic or doesn't solve the issue at all (#146)
 * Fix feedback form rendering issues on mobile screens (#143)

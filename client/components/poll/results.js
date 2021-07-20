@@ -68,7 +68,7 @@ const PollResults = ( {
 			<div className="crowdsignal-forms-poll__results-footer">
 				<span className="crowdsignal-forms-poll__results-total">
 					{ sprintf(
-						// translators: %s: Number of votes
+						/* translators: %s: Number of votes */
 						_n(
 							'%s total vote',
 							'%s total votes',
