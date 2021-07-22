@@ -55,10 +55,7 @@
 
 	.wp-block[data-type="crowdsignal-forms/feedback"] {
 		width: auto;
-		// This number is was carefully chosen so the block and its overlay
-		// don't block any editor UI elements but appear in front of regular
-		// content
-		z-index: 10;
+		z-index: 100;
 
 		&::after {
 			display: none;
