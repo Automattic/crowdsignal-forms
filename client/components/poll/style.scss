@@ -201,9 +201,9 @@ input[type="radio"].crowdsignal-forms-poll__input {
 		box-sizing: border-box;
 		content: "";
 		display: block;
-		height: 100%;
+		height: 1em;
 		transition: background-color 0.3s, border-color 0.3s;
-		width: 100%;
+		width: 1em;
 	}
 
 	.crowdsignal-forms-poll__answer.is-multiple-choice &::before {
