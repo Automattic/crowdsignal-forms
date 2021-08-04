@@ -153,8 +153,9 @@
 
 		.crowdsignal-forms-poll__submit-button {
 			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
+			white-space: break-spaces !important;
+			word-break: break-word;
+			word-wrap: break-word;
 		}
 	}
 
