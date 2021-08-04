@@ -62,7 +62,6 @@ const EditAnswer = ( {
 						value={ answer.text }
 						allowedFormats={ [] }
 						withoutInteractiveFormatting
-						keepplaceholderonfocus="true"
 					/>
 				) : (
 					<div className="crowdsignal-forms-poll__answer-label">
@@ -90,7 +89,6 @@ const EditAnswer = ( {
 					value={ answer.text }
 					allowedFormats={ [] }
 					withoutInteractiveFormatting
-					keepplaceholderonfocus="true"
 				/>
 			) : (
 				<div className="wp-block-button__link crowdsignal-forms-poll__submit-button">
