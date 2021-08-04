@@ -49,7 +49,6 @@ const EditAnswer = ( {
 				{ ! disabled ? (
 					<RichText
 						className="crowdsignal-forms-poll__answer-label"
-						tagName="span"
 						placeholder={ __(
 							'Enter an answer',
 							'crowdsignal-forms'
