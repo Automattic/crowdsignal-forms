@@ -1,3 +1,7 @@
+= 1.5.5 =
+* Fix answer inputs (#160)
+* Fix feedback block editor overlay on the full site editor (#157)
+
 = 1.5.4 =
 * Default to site URL on source_link prop when no permalink is returned (#155)
 * Add a widget-editor compatible interface for the feedback block (#154)
