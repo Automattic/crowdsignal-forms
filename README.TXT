@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,10 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+= 1.5.5 =
+* Fix answer inputs (#160)
+* Fix feedback block editor overlay on the full site editor (#157)
+
 = 1.5.4 =
 * Default to site URL on source_link prop when no permalink is returned (#155)
 * Add a widget-editor compatible interface for the feedback block (#154)
@@ -115,8 +119,8 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Upgrade Notice ==
 
-= 1.5.4 =
-Connection improvements. Fix source links not getting a default URL for FSE. Widget editor compatibility updates.
+= 1.5.5 =
+Bugfixes and improved backdrop styles
 
 = 0.9 =
 Initial release
