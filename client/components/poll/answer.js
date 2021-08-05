@@ -64,12 +64,12 @@ const PollAnswer = ( {
 				onFocus={ handleFocus }
 			/>
 
-			<span className="crowdsignal-forms-poll__check" />
+			<div className="crowdsignal-forms-poll__check" />
 
 			<div className="crowdsignal-forms-poll__answer-label-wrapper">
-				<span className="crowdsignal-forms-poll__answer-label">
+				<div className="crowdsignal-forms-poll__answer-label">
 					{ decodeEntities( text ) }
-				</span>
+				</div>
 			</div>
 		</label>
 	);

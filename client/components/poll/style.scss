@@ -153,8 +153,9 @@
 
 		.crowdsignal-forms-poll__submit-button {
 			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
+			white-space: break-spaces !important;
+			word-break: break-word;
+			word-wrap: break-word;
 		}
 	}
 
@@ -187,11 +188,8 @@ input[type="radio"].crowdsignal-forms-poll__input {
 }
 
 .crowdsignal-forms-poll__check {
-	display: inline-block;
-	height: 1em;
-	margin: 0 10px 0 0;
+	margin: 6px 10px 0 0;
 	position: relative;
-	width: 1em;
 
 	&::before {
 		background-color: transparent;
@@ -200,9 +198,9 @@ input[type="radio"].crowdsignal-forms-poll__input {
 		box-sizing: border-box;
 		content: "";
 		display: block;
-		height: 100%;
+		height: 1em;
 		transition: background-color 0.3s, border-color 0.3s;
-		width: 100%;
+		width: 1em;
 	}
 
 	.crowdsignal-forms-poll__answer.is-multiple-choice &::before {
@@ -225,11 +223,11 @@ input[type="radio"].crowdsignal-forms-poll__input {
 		box-sizing: border-box;
 		content: "";
 		display: block;
-		height: 100%;
+		height: 1em;
 		position: absolute;
 		left: 0;
 		top: 0;
-		width: 100%;
+		width: 1em;
 	}
 
 	.crowdsignal-forms-poll__answer.is-selected.is-multiple-choice &::after {
@@ -250,19 +248,9 @@ input[type="radio"].crowdsignal-forms-poll__input {
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-div.crowdsignal-forms-poll__answer-label-wrapper {
+.crowdsignal-forms-poll__answer-label-wrapper {
 	flex: 1;
 	word-break: break-word;
-
-	span.crowdsignal-forms-poll__answer-label {
-		line-height: 1;
-		vertical-align: top;
-
-		/* the placeholder text */
-		span::after {
-			vertical-align: top;
-		}
-	}
 }
 
 .crowdsignal-forms-poll__button {

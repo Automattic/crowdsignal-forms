@@ -43,13 +43,12 @@ const EditAnswer = ( {
 
 	const renderRadioAnswers = () => (
 		<>
-			<span className="crowdsignal-forms-poll__check" />
+			<div className="crowdsignal-forms-poll__check" />
 
 			<div className="crowdsignal-forms-poll__answer-label-wrapper">
 				{ ! disabled ? (
 					<RichText
 						className="crowdsignal-forms-poll__answer-label"
-						tagName="span"
 						placeholder={ __(
 							'Enter an answer',
 							'crowdsignal-forms'
@@ -65,11 +64,11 @@ const EditAnswer = ( {
 						withoutInteractiveFormatting
 					/>
 				) : (
-					<span className="crowdsignal-forms-poll__answer-label">
+					<div className="crowdsignal-forms-poll__answer-label">
 						{ answer.text
 							? decodeEntities( answer.text )
 							: __( 'Enter an answer', 'crowdsignal-forms' ) }
-					</span>
+					</div>
 				) }
 			</div>
 		</>
@@ -90,7 +89,6 @@ const EditAnswer = ( {
 					value={ answer.text }
 					allowedFormats={ [] }
 					withoutInteractiveFormatting
-					keepPlaceholderOnFocus={ true }
 				/>
 			) : (
 				<div className="wp-block-button__link crowdsignal-forms-poll__submit-button">
