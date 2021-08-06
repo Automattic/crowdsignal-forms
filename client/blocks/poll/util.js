@@ -197,12 +197,23 @@ export const getAnswerStyle = ( attributes, className ) => {
  * @param {boolean} enable True if button style should be available, false if not.
  */
 export const toggleButtonStyleAvailability = ( enable ) => {
+	unregisterBlockStyle( 'crowdsignal-forms/poll', 'default' );
+	unregisterBlockStyle( 'crowdsignal-forms/poll', 'buttons' );
 	if ( enable ) {
+		registerBlockStyle( 'crowdsignal-forms/poll', {
+			name: 'default',
+			label: __( 'Default', 'crowdsignal-forms' ),
+		} );
 		registerBlockStyle( 'crowdsignal-forms/poll', {
 			name: 'buttons',
 			label: __( 'Buttons', 'crowdsignal-forms' ),
+			isDefault: true,
 		} );
 	} else {
-		unregisterBlockStyle( 'crowdsignal-forms/poll', 'buttons' );
+		registerBlockStyle( 'crowdsignal-forms/poll', {
+			name: 'default',
+			label: __( 'Default', 'crowdsignal-forms' ),
+			isDefault: true,
+		} );
 	}
 };
