@@ -46,7 +46,7 @@ export const requestVoteNonce = async ( pollId ) => {
 	const hash = '5430eeac3911395001d731d9702fc38b'; // hash not used when format=json is passed
 	const timestamp = new Date().getTime();
 	const respNonce = await window.fetch(
-		`https://polldaddy.com/n/${ hash }/${ pollId }?${ timestamp }&format=json`
+		`https://poll.fm/n/${ hash }/${ pollId }?${ timestamp }&format=json`
 	);
 	if ( ! respNonce.ok ) {
 		throw new CrowdsignalFormsServerError();
