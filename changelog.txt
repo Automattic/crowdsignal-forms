@@ -1,3 +1,6 @@
+= 1.5.6 =
+* use poll.fm for the nonce check (#164)
+
 = 1.5.5 =
 * Fix answer inputs (#160)
 * Fix feedback block editor overlay on the full site editor (#157)
