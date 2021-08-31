@@ -47,7 +47,7 @@ const EditFeedbackBlock = ( props ) => {
 	const {
 		attributes,
 		activeSidebar,
-		editorFeatures,
+		isFullscreen,
 		fallbackStyles,
 		isSelected,
 		setAttributes,
@@ -182,7 +182,7 @@ const EditFeedbackBlock = ( props ) => {
 		} );
 	}, [
 		activeSidebar,
-		editorFeatures.fullscreenMode,
+		isFullscreen,
 		isSelected,
 		setPosition,
 		attributes.x,
@@ -227,12 +227,7 @@ const EditFeedbackBlock = ( props ) => {
 			right: window.innerWidth - ( contentBox.left + contentBox.width ),
 			top: contentBox.top,
 		} );
-	}, [
-		activeSidebar,
-		editorFeatures.fullscreenMode,
-		isSelected,
-		triggerButton.current,
-	] );
+	}, [ activeSidebar, isFullscreen, isSelected, triggerButton.current ] );
 
 	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
@@ -485,13 +480,16 @@ export default compose( [
 		if ( ! url ) {
 			url = select( 'core' ).getSite() && select( 'core' ).getSite().url;
 		}
+		const editPost = select( 'core/edit-post' );
+		const isFullscreen =
+			'isFeatureActive' in editPost
+				? editPost.isFeatureActive( 'fullscreenMode' )
+				: editPost.getPreference( 'fullscreenMode' );
 		return {
 			activeSidebar: select(
 				'core/edit-post'
 			).getActiveGeneralSidebarName(),
-			editorFeatures: select( 'core/edit-post' ).getPreference(
-				'features'
-			),
+			isFullscreen,
 			sourceLink: url,
 		};
 	} ),
