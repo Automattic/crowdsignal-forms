@@ -219,6 +219,18 @@ const EditFeedbackBlock = ( props ) => {
 		const contentWrapper = document.getElementsByClassName(
 			'interface-interface-skeleton__content'
 		)[ 0 ];
+
+		if ( isSelected ) {
+			// hack: make the toolbar play nice with our overlay
+			const toolbarContainer = contentWrapper.querySelector(
+				'.components-popover.block-editor-block-list__block-popover'
+			);
+
+			if ( toolbarContainer ) {
+				toolbarContainer.style.zIndex = 101;
+			}
+		}
+
 		const contentBox = contentWrapper.getBoundingClientRect();
 
 		setOverlayPosition( {
