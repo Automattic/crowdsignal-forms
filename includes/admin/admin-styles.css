@@ -199,6 +199,11 @@
 	background-color: #e2e2e2;
 }
 
+.crowdsignal-setup__video iframe {
+	width: 100%;
+	height: 100%;
+}
+
 
 .wrap div.crowdsignal-message {
 	margin: 24px auto 8px auto;
