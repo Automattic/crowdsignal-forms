@@ -194,6 +194,27 @@ const EditFeedbackBlock = ( props ) => {
 	] );
 
 	useLayoutEffect( () => {
+		// hack: this effect changes the zIndex of the block's toolbar.
+		// As soon as the block is rendered the Toolbar "waits" for mouse movement
+		// to actually render. So, the first time this will fail (toolbarContainer = null)
+		// yet selecting the block again will make the effect go through.
+		// TODO: find a better way to do this!
+		const contentWrapper = document.getElementsByClassName(
+			'interface-interface-skeleton__content'
+		)[ 0 ];
+
+		if ( contentWrapper ) {
+			const toolbarContainer = contentWrapper.querySelector(
+				'.components-popover.block-editor-block-list__block-popover'
+			);
+
+			if ( toolbarContainer ) {
+				toolbarContainer.style.zIndex = 101;
+			}
+		}
+	}, [ isSelected ] );
+
+	useLayoutEffect( () => {
 		if ( ! popover.current ) {
 			return;
 		}
@@ -219,17 +240,6 @@ const EditFeedbackBlock = ( props ) => {
 		const contentWrapper = document.getElementsByClassName(
 			'interface-interface-skeleton__content'
 		)[ 0 ];
-
-		if ( isSelected ) {
-			// hack: make the toolbar play nice with our overlay
-			const toolbarContainer = contentWrapper.querySelector(
-				'.components-popover.block-editor-block-list__block-popover'
-			);
-
-			if ( toolbarContainer ) {
-				toolbarContainer.style.zIndex = 101;
-			}
-		}
 
 		const contentBox = contentWrapper.getBoundingClientRect();
 
