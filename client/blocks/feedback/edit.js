@@ -54,6 +54,7 @@ const EditFeedbackBlock = ( props ) => {
 		clientId,
 		sourceLink,
 		setPosition,
+		isFixedToolbar,
 	} = props;
 
 	const {
@@ -194,6 +195,29 @@ const EditFeedbackBlock = ( props ) => {
 	] );
 
 	useLayoutEffect( () => {
+		// hack: this effect changes the zIndex of the block's toolbar.
+		// As soon as the block is rendered the Toolbar "waits" for mouse movement
+		// to actually render. So, the first time this will fail (toolbarContainer = null)
+		// yet selecting the block again will make the effect go through.
+		// TODO: find a better way to do this!
+		const contentWrapper = document.getElementsByClassName(
+			'interface-interface-skeleton__content'
+		)[ 0 ];
+
+		if ( contentWrapper ) {
+			const toolbarContainer = contentWrapper.querySelector(
+				isFixedToolbar
+					? '.components-accessible-toolbar.block-editor-block-contextual-toolbar.is-fixed'
+					: '.components-popover.block-editor-block-list__block-popover'
+			);
+
+			if ( toolbarContainer ) {
+				toolbarContainer.style.zIndex = 101;
+			}
+		}
+	}, [ isSelected, isFixedToolbar ] );
+
+	useLayoutEffect( () => {
 		if ( ! popover.current ) {
 			return;
 		}
@@ -219,6 +243,7 @@ const EditFeedbackBlock = ( props ) => {
 		const contentWrapper = document.getElementsByClassName(
 			'interface-interface-skeleton__content'
 		)[ 0 ];
+
 		const contentBox = contentWrapper.getBoundingClientRect();
 
 		setOverlayPosition( {
@@ -485,12 +510,17 @@ export default compose( [
 			'isFeatureActive' in editPost
 				? editPost.isFeatureActive( 'fullscreenMode' )
 				: editPost.getPreference( 'fullscreenMode' );
+		const isFixedToolbar =
+			'isFeatureActive' in editPost
+				? editPost.isFeatureActive( 'fixedToolbar' )
+				: editPost.getPreference( 'fixedToolbar' );
 		return {
 			activeSidebar: select(
 				'core/edit-post'
 			).getActiveGeneralSidebarName(),
 			isFullscreen,
 			sourceLink: url,
+			isFixedToolbar,
 		};
 	} ),
 	withFallbackStyles,
