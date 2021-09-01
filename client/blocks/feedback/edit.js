@@ -54,6 +54,7 @@ const EditFeedbackBlock = ( props ) => {
 		clientId,
 		sourceLink,
 		setPosition,
+		isFixedToolbar,
 	} = props;
 
 	const {
@@ -205,14 +206,16 @@ const EditFeedbackBlock = ( props ) => {
 
 		if ( contentWrapper ) {
 			const toolbarContainer = contentWrapper.querySelector(
-				'.components-popover.block-editor-block-list__block-popover'
+				isFixedToolbar
+					? '.components-accessible-toolbar.block-editor-block-contextual-toolbar.is-fixed'
+					: '.components-popover.block-editor-block-list__block-popover'
 			);
 
 			if ( toolbarContainer ) {
 				toolbarContainer.style.zIndex = 101;
 			}
 		}
-	}, [ isSelected ] );
+	}, [ isSelected, isFixedToolbar ] );
 
 	useLayoutEffect( () => {
 		if ( ! popover.current ) {
@@ -507,12 +510,17 @@ export default compose( [
 			'isFeatureActive' in editPost
 				? editPost.isFeatureActive( 'fullscreenMode' )
 				: editPost.getPreference( 'fullscreenMode' );
+		const isFixedToolbar =
+			'isFeatureActive' in editPost
+				? editPost.isFeatureActive( 'fixedToolbar' )
+				: editPost.getPreference( 'fixedToolbar' );
 		return {
 			activeSidebar: select(
 				'core/edit-post'
 			).getActiveGeneralSidebarName(),
 			isFullscreen,
 			sourceLink: url,
+			isFixedToolbar,
 		};
 	} ),
 	withFallbackStyles,
