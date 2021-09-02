@@ -1,3 +1,10 @@
+= 1.5.7 =
+* Fix toolbar remaining behind the feedback overlay (#170)
+* Make video iframe dimension-less, add CSS rules for it (#169)
+* Fix new interface package compatibility (#168)
+* Update dockerfile (#156)
+* Fix little typo on the welcome screen (#167)
+
 = 1.5.6 =
 * use poll.fm for the nonce check (#164)
 

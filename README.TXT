@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,13 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+= 1.5.7 =
+* Fix toolbar remaining behind the feedback overlay (#170)
+* Make video iframe dimension-less, add CSS rules for it (#169)
+* Fix new interface package compatibility (#168)
+* Update dockerfile (#156)
+* Fix little typo on the welcome screen (#167)
+
 = 1.5.6 =
 * Use poll.fm for the nonce check (#164)
 
@@ -122,8 +129,8 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Upgrade Notice ==
 
-= 1.5.5 =
-Bugfixes and improved backdrop styles
+= 1.5.7 =
+Bugfixes and typos. v1.5.7 addresses an issue with newer version of Gutenberg preventing Feedback Button to render properly on the editor.
 
 = 0.9 =
 Initial release
