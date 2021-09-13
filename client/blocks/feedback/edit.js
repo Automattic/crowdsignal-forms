@@ -46,8 +46,8 @@ const EditFeedbackBlock = ( props ) => {
 
 	const {
 		attributes,
-		activeSidebar,
 		isFullscreen,
+		isSidebarActive,
 		fallbackStyles,
 		isSelected,
 		setAttributes,
@@ -68,6 +68,7 @@ const EditFeedbackBlock = ( props ) => {
 	} = attributes;
 
 	const [ margin, setMargin ] = useState( {} );
+	const [ sidebarChanged, setSidebarChanged ] = useState( false );
 
 	const widgetEditor = useMemo( isWidgetEditor, [] );
 
@@ -128,6 +129,15 @@ const EditFeedbackBlock = ( props ) => {
 		setView( views.QUESTION );
 	}, [ isSelected ] );
 
+	useEffect( () => {
+		// The sidebar itself is rendered off the same setting
+		// hence the need to wait until it's re-rendered
+		// so we can measure it properly.
+		window.requestAnimationFrame( () =>
+			setSidebarChanged( isSidebarActive )
+		);
+	}, [ isSidebarActive ] );
+
 	useLayoutEffect( () => {
 		if ( isExample || ! triggerButton.current || widgetEditor ) {
 			return;
@@ -181,7 +191,7 @@ const EditFeedbackBlock = ( props ) => {
 					: 0,
 		} );
 	}, [
-		activeSidebar,
+		sidebarChanged,
 		isFullscreen,
 		isSelected,
 		setPosition,
@@ -227,7 +237,7 @@ const EditFeedbackBlock = ( props ) => {
 			right: window.innerWidth - ( contentBox.left + contentBox.width ),
 			top: contentBox.top,
 		} );
-	}, [ activeSidebar, isFullscreen, isSelected, triggerButton.current ] );
+	}, [ sidebarChanged, isFullscreen, isSelected, triggerButton.current ] );
 
 	const toggleBlock = () => {
 		dispatch( 'core/block-editor' ).clearSelectedBlock();
@@ -486,10 +496,8 @@ export default compose( [
 				? editPost.isFeatureActive( 'fullscreenMode' )
 				: editPost.getPreference( 'fullscreenMode' );
 		return {
-			activeSidebar: select(
-				'core/edit-post'
-			).getActiveGeneralSidebarName(),
 			isFullscreen,
+			isSidebarActive: editPost.isEditorSidebarOpened(),
 			sourceLink: url,
 		};
 	} ),
