@@ -55,7 +55,7 @@
 
 	.wp-block[data-type="crowdsignal-forms/feedback"] {
 		width: auto;
-		z-index: 100;
+		z-index: 1;
 
 		&::after {
 			display: none;
