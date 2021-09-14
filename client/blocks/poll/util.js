@@ -183,12 +183,12 @@ export const getAnswerStyle = ( attributes, className ) => {
 
 	if (
 		! isEmpty( className ) &&
-		className.indexOf( 'is-style-buttons' ) > -1
+		className.indexOf( 'is-style-default' ) > -1
 	) {
-		return AnswerStyle.BUTTON;
+		return AnswerStyle.RADIO;
 	}
 
-	return AnswerStyle.RADIO;
+	return AnswerStyle.BUTTON;
 };
 
 /**

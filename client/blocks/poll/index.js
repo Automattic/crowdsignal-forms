@@ -59,8 +59,8 @@ export default {
 	},
 	styles: [
 		{
-			name: 'default',
-			label: __( 'Default', 'crowdsignal-forms' ),
+			name: 'buttons',
+			label: __( 'Buttons', 'crowdsignal-forms' ),
 			isDefault: true,
 		},
 	],
