@@ -47,6 +47,8 @@ const EditFeedbackBlock = ( props ) => {
 	const {
 		attributes,
 		isFullscreen,
+		isInserterActive,
+		isListViewActive,
 		isSidebarActive,
 		fallbackStyles,
 		isSelected,
@@ -134,9 +136,9 @@ const EditFeedbackBlock = ( props ) => {
 		// hence the need to wait until it's re-rendered
 		// so we can measure it properly.
 		window.requestAnimationFrame( () =>
-			setSidebarChanged( isSidebarActive )
+			setSidebarChanged( ! sidebarChanged )
 		);
-	}, [ isSidebarActive ] );
+	}, [ isInserterActive, isListViewActive, isSidebarActive ] );
 
 	useLayoutEffect( () => {
 		if ( isExample || ! triggerButton.current || widgetEditor ) {
@@ -495,8 +497,11 @@ export default compose( [
 			'isFeatureActive' in editPost
 				? editPost.isFeatureActive( 'fullscreenMode' )
 				: editPost.getPreference( 'fullscreenMode' );
+
 		return {
 			isFullscreen,
+			isInserterActive: editPost.isInserterOpened(),
+			isListViewActive: editPost.isListViewOpened(),
 			isSidebarActive: editPost.isEditorSidebarOpened(),
 			sourceLink: url,
 		};
