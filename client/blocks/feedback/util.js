@@ -21,4 +21,4 @@ export const getStyleVars = ( attributes, fallbackStyles ) =>
 	);
 
 export const isWidgetEditor = () =>
-	!! document.getElementById( 'widgets-editor' );
+	!! window.wp.widgets;
