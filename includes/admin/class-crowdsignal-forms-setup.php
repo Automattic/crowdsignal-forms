@@ -23,6 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Crowdsignal_Forms_Setup {
 
+	private $step = false;
+
 	/**
 	 * Constructor.
 	 */
@@ -77,17 +79,17 @@ class Crowdsignal_Forms_Setup {
 		$api_auth_provider = Crowdsignal_Forms::instance()->get_api_authenticator();
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- got_api_key check later
-		$step = ! empty( $_GET['step'] ) ? absint( $_GET['step'] ) : 1;
+		$this->step = ! empty( $_GET['step'] ) ? absint( $_GET['step'] ) : 1;
 		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
-			if ( 2 === $step && isset( $_POST['got_api_key'] ) && isset( $_POST['api_key'] ) && get_option( 'crowdsignal_api_key_secret' ) === $_POST['got_api_key'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
+			if ( 2 === $this->step && isset( $_POST['got_api_key'] ) && isset( $_POST['api_key'] ) && get_option( 'crowdsignal_api_key_secret' ) === $_POST['got_api_key'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
 				$api_key = sanitize_key( wp_unslash( $_POST['api_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
 				$api_auth_provider->set_api_key( $api_key );
 				$api_auth_provider->get_user_code_for_key( $api_key );
 				delete_option( 'crowdsignal_api_key_secret' );
 			} else {
-				$step = 1; // repeat the setup.
+				$this->step = 1; // repeat the setup.
 			}
-		} elseif ( 1 === $step ) {
+		} elseif ( 1 === $this->step ) {
 			update_option( 'crowdsignal_api_key_secret', md5( time() . wp_rand() ) );
 
 			$existing_api_key = $api_auth_provider->get_api_key();
@@ -104,7 +106,7 @@ class Crowdsignal_Forms_Setup {
 						$api_auth_provider->set_user_code( $existing_user_code );
 					}
 					delete_option( 'crowdsignal_api_key_secret' );
-					$step = 3;
+					$this->step = 3;
 				} else {
 					/**
 					 * Cached API key may have been deleted on the server.
@@ -115,12 +117,11 @@ class Crowdsignal_Forms_Setup {
 			}
 		}
 
+
 		// we're all done, remove the notice.
-		if ( 1 !== $step ) {
+		if ( 1 !== $this->step ) {
 			Crowdsignal_Forms_Admin_Notices::remove_notice( Crowdsignal_Forms_Admin_Notices::NOTICE_CORE_SETUP );
 		}
-
-		$this->output( $step );
 	}
 
 	/**
@@ -141,16 +142,18 @@ class Crowdsignal_Forms_Setup {
 
 	/**
 	 * Displays setup page.
-	 *
-	 * @param int $step the step shown to the user.
 	 */
-	public function output( $step ) {
+	public function output() {
+
+		if ( false === $this->step ) {
+			$this->setup_page();
+		}
 		include dirname( __FILE__ ) . '/views/html-admin-setup-header.php';
-		if ( 1 === $step ) {
+		if ( 1 === $this->step ) {
 			include dirname( __FILE__ ) . '/views/html-admin-setup-step-1.php';
-		} elseif ( 2 === $step ) {
+		} elseif ( 2 === $this->step ) {
 			include dirname( __FILE__ ) . '/views/html-admin-setup-step-2.php';
-		} elseif ( 3 === $step ) {
+		} elseif ( 3 === $this->step ) {
 			include dirname( __FILE__ ) . '/views/html-admin-setup-step-3.php';
 		}
 		include dirname( __FILE__ ) . '/views/html-admin-setup-footer.php';
