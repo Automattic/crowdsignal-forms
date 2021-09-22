@@ -12,10 +12,15 @@ import apiFetch from '@wordpress/api-fetch';
 
 import { map, filter } from 'lodash';
 
-const isPollBlock = ( block ) =>
-	block.name === 'crowdsignal-forms/poll' ||
-	block.name === 'crowdsignal-forms/applause' ||
-	block.name === 'crowdsignal-forms/vote';
+const isPollBlock = ( block ) => {
+	if ( ! block ) {
+		return false;
+	}
+
+	return block.name === 'crowdsignal-forms/poll' ||
+		block.name === 'crowdsignal-forms/applause' ||
+		block.name === 'crowdsignal-forms/vote';
+};
 
 let subsStarted = false;
 let pollingStarted = false;
