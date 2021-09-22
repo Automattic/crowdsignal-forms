@@ -214,6 +214,10 @@ const EditFeedbackBlock = ( props ) => {
 	}, [ attributes.header, popover.current, isSelected ] );
 
 	useLayoutEffect( () => {
+		if ( isWidgetEditor ) {
+			return;
+		}
+
 		if (
 			triggerButton.current &&
 			triggerButton.current.ownerDocument !== document
