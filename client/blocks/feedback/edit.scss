@@ -51,7 +51,8 @@
 	}
 }
 
-.editor-styles-wrapper {
+.editor-styles-wrapper,
+.wp-customizer {
 
 	.wp-block[data-type="crowdsignal-forms/feedback"] {
 		width: auto;
@@ -117,6 +118,10 @@
 			border: 1px solid #e0e0e0;
 			padding: 10px;
 			margin-bottom: 15px !important;
+
+			.crowdsignal-forms-feedback__popover {
+				width: 100%;
+			}
 
 			&.is-vertical {
 				padding-left: 0;
