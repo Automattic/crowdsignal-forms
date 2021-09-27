@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 	</p>
 	<p class="submit">
-		<a href="<?php echo esc_url( admin_url( 'admin.php?page=crowdsignal-forms-setup' ) ); ?>" class="button-primary"><?php esc_html_e( "Let's Get Started", 'crowdsignal-forms' ); ?></a>
+		<a href="<?php echo esc_url( admin_url( 'options-general.php?page=crowdsignal-forms-settings#setup' ) ); ?>" class="button-primary"><?php esc_html_e( "Let's Get Started", 'crowdsignal-forms' ); ?></a>
 		<a class="button-secondary skip" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'crowdsignal_forms_hide_notice', Crowdsignal_Forms_Admin_Notices::NOTICE_CORE_SETUP ), 'crowdsignal_forms_hide_notices_nonce', '_crowdsignal_forms_notice_nonce' ) ); ?>"><?php esc_html_e( 'Skip Setup', 'crowdsignal-forms' ); ?></a>
 	</p>
 </div>
