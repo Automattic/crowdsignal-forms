@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.6
-Stable tag: 1.5.7
+Stable tag: 1.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,11 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.5.8 =
+* Fix Feedback Button block on Block Widget editor. (#173)
+* Fix isPollBlock to prevent crashes when getBlocks() returns null (#175)
+* Fix toolbar/feedback overlay interactions (#172)
 
 = 1.5.7 =
 * Fix toolbar remaining behind the feedback overlay (#170)
