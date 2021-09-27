@@ -70,7 +70,6 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 = 1.5.8 =
 * Fix Feedback Button block on Block Widget editor. (#173)
 * Fix isPollBlock to prevent crashes when getBlocks() returns null (#175)
-* Move menu items into Settings menu. (#174)
 * Fix toolbar/feedback overlay interactions (#172)
 
 = 1.5.7 =
