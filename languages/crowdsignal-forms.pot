@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-09-23T19:58:51+00:00\n"
+"POT-Creation-Date: 2021-09-27T14:24:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: crowdsignal-forms\n"
@@ -42,13 +42,20 @@ msgstr ""
 msgid "You don&#8217;t have permission to do this."
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-admin.php:87
-msgid "Getting Started"
+#: includes/admin/class-crowdsignal-forms-admin.php:70
+#: includes/class-crowdsignal-forms.php:439
+msgid "Crowdsignal"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-admin.php:88
+#: includes/admin/class-crowdsignal-forms-admin.php:71
+#: includes/admin/class-crowdsignal-forms-admin.php:86
 #: build/editor.js:13
 msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-crowdsignal-forms-admin.php:72
+#: includes/admin/class-crowdsignal-forms-admin.php:85
+msgid "Getting Started"
 msgstr ""
 
 #: includes/admin/class-crowdsignal-forms-settings.php:71
@@ -173,10 +180,6 @@ msgstr ""
 #. translators: Argument is a link to Crowdsignal's support page.
 #: includes/admin/views/html-admin-setup-step-3.php:52
 msgid "<a href=\"%1s\" target=\"_blank\">Read more about us here.</a>"
-msgstr ""
-
-#: includes/class-crowdsignal-forms.php:439
-msgid "Crowdsignal"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:146
