@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="wrap crowdsignal-settings-wrap">
 			<form id="cs-connect-form" class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/" target="CSCONNECT">
 			<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
-			<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'admin.php?page=crowdsignal-forms-setup' ) ); ?>" />
+			<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'options-general.php?page=crowdsignal-forms-setup' ) ); ?>" />
 			<input type="submit" value="<?php esc_html_e( 'Let’s get started', 'crowdsignal-forms' ); ?>" class="crowdsignal-setup__button" />
 			</form>
 		</div>
