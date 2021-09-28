@@ -28,7 +28,8 @@ registerBlockType( 'crowdsignal-forms/feedback', feedbackBlock );
 addFilter(
 	'editor.BlockListBlock',
 	'crowdsignal-forms/with-fixed-position',
-	withFixedPosition
+	withFixedPosition,
+	1
 );
 addFilter(
 	'editor.BlockEdit',
