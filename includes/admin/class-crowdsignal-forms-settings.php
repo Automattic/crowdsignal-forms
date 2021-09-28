@@ -60,8 +60,7 @@ class Crowdsignal_Forms_Settings {
 		wp_enqueue_style( 'jetpack-styles2', 'https://c0.wp.com/c/5.8.1/wp-admin/css/common.min.css', array(), '1.5.7' );
 		wp_enqueue_style( 'jetpack-styles3', 'https://c0.wp.com/p/jetpack/10.0/_inc/build/admin.css', array(), '1.5.7' );
 		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.5.7' );
-		wp_enqueue_script( 'videopress', 'https://videopress.com/videopress-iframe.js', array(), '1.0', false );
-		//wp_enqueue_script( 'jetpack-styles', 'https://c0.wp.com/p/jetpack/10.0/_inc/build/style.min.css', array(), '1.0', false );
+		wp_enqueue_script( 'videopress', 'https://videopress.com/videopress-iframe.js', array(), '1.0', false );		
 	}
 
 	/**
