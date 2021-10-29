@@ -3,7 +3,6 @@
  */
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useCallback } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 
 /**
@@ -18,14 +17,9 @@ const ConnectToCrowdsignal = ( props ) => {
 	const { accountInfo, reloadAccountInfo } = useAccountInfo();
 	const isConnected = accountInfo && accountInfo.id !== 0;
 	const isAccountVerified = !! accountInfo.is_verified;
-	const { authorId, site } = useSelect( ( select ) => {
-		return {
-			authorId: select( 'core/editor' ).getEditedPostAttribute(
-				'author'
-			),
-			site: select( 'core' ).getSite(),
-		};
-	} );
+	const authorId = useSelect( ( select ) =>
+		select( 'core/editor' ).getEditedPostAttribute( 'author' )
+	);
 
 	const handleConnectClick = async () => {
 		const initialConnectedState = isConnected;
@@ -52,7 +46,7 @@ const ConnectToCrowdsignal = ( props ) => {
 	const showConnectionMessage = ! isConnected;
 	const showVerificationMessage = isConnected && ! isAccountVerified;
 
-	trackFailedConnection( authorId, site, blockName );
+	trackFailedConnection( authorId, blockName );
 
 	return (
 		<div className="crowdsignal-forms__connect-to-crowdsignal">
