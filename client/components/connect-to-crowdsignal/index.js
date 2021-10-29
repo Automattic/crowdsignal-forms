@@ -19,10 +19,6 @@ const ConnectToCrowdsignal = ( props ) => {
 	const isConnected = accountInfo && accountInfo.id !== 0;
 	const isAccountVerified = !! accountInfo.is_verified;
 	const { authorId, site } = useSelect( ( select ) => {
-		console.log( select( 'core' ) );
-		console.log( select( 'core/editor' ) );
-		window.cc = select( 'core' );
-		window.ce = select( 'core/editor' );
 		return {
 			authorId: select( 'core/editor' ).getEditedPostAttribute(
 				'author'
