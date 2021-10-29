@@ -3,11 +3,13 @@
  */
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
 import { useAccountInfo } from 'data/hooks';
+import { trackFailedConnection } from 'lib/tracks';
 
 const ConnectToCrowdsignal = ( props ) => {
 	const { blockIcon, blockName, children } = props;
@@ -15,6 +17,9 @@ const ConnectToCrowdsignal = ( props ) => {
 	const { accountInfo, reloadAccountInfo } = useAccountInfo();
 	const isConnected = accountInfo && accountInfo.id !== 0;
 	const isAccountVerified = !! accountInfo.is_verified;
+	const authorId = useSelect( ( select ) =>
+		select( 'core/editor' ).getEditedPostAttribute( 'author' )
+	);
 
 	const handleConnectClick = async () => {
 		const initialConnectedState = isConnected;
@@ -40,6 +45,8 @@ const ConnectToCrowdsignal = ( props ) => {
 
 	const showConnectionMessage = ! isConnected;
 	const showVerificationMessage = isConnected && ! isAccountVerified;
+
+	trackFailedConnection( authorId, blockName );
 
 	return (
 		<div className="crowdsignal-forms__connect-to-crowdsignal">
