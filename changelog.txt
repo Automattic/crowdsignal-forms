@@ -1,3 +1,7 @@
+= 1.5.10 =
+* Attempt to track failed connections (#187)
+* Fix warnings and skips (#186)
+
 = 1.5.9 =
 * Bugfix: Set the priority of withFixedPosition hook on BlockListBlock to 1 (#180)
 
