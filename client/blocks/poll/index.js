@@ -63,5 +63,18 @@ export default {
 			label: __( 'Default', 'crowdsignal-forms' ),
 			isDefault: true,
 		},
+		{
+			name: 'buttons',
+			label: __( 'Buttons', 'crowdsignal-forms' ),
+		},
+	],
+	variations: [
+		{
+			isDefault: true,
+			attributes: {
+				// Force the correct className onto the block by default
+				className: 'is-style-buttons',
+			},
+		},
 	],
 };
