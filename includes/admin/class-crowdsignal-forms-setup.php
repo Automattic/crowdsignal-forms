@@ -65,7 +65,7 @@ class Crowdsignal_Forms_Setup {
 	 * Enqueues scripts for setup page.
 	 */
 	public function admin_enqueue_scripts() {
-		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.5.10' );
+		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.5.11' );
 		wp_enqueue_script( 'videopress', 'https://videopress.com/videopress-iframe.js', array(), '1.0', false );
 	}
 
