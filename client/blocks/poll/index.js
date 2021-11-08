@@ -60,7 +60,7 @@ export default {
 	styles: [
 		{
 			name: 'default',
-			label: __( 'Default', 'crowdsignal-forms' ),
+			label: __( 'List', 'crowdsignal-forms' ),
 			isDefault: true,
 		},
 		{
