@@ -1,3 +1,6 @@
+= 1.5.11 =
+* Default polls to "Button" style (#189)
+
 = 1.5.10 =
 * Attempt to track failed connections (#187)
 * Fix warnings and skips (#186)
