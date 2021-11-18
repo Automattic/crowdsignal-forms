@@ -565,6 +565,20 @@ class Api_Gateway implements Api_Gateway_Interface {
 				'id'           => 0,
 				'capabilities' => array( 'hide-branding' ),
 			);
+
+			$result = count_users();
+			if ( 1 === $result['total_users'] ) {
+				delete_option( Crowdsignal_Forms_Api_Authenticator::USER_CODE_NAME );
+				do_action(
+					'crowdsignal_debug_log', // phpcs:ignore
+					"get_account_info: User failed to connect. Only one user on site so local usercode deleted.\nUser: " . apply_filters( 'crowdsignal_forms_userid_error_message', get_current_user_id() ) . "\nBlog: " . apply_filters( 'crowdsignal_forms_blogid_error_message', get_current_blog_id() )
+				);
+			} else {
+				do_action(
+					'crowdsignal_debug_log', // phpcs:ignore
+					"get_account_info: User failed to connect. More than one user on site so local usercode was not deleted.\nUser: " . apply_filters( 'crowdsignal_forms_userid_error_message', get_current_user_id() ) . "\nBlog: " . apply_filters( 'crowdsignal_forms_blogid_error_message', get_current_blog_id() )
+				);
+			}
 		}
 
 		return $response_data;
