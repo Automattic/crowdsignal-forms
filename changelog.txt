@@ -1,3 +1,8 @@
+= 1.5.12 =
+* Improve broken connection handling (#193)
+* Fix multiple choice poll check position (#192)
+* Rework backend code (#191)
+
 = 1.5.11 =
 * Default polls to "Button" style (#189)
 
