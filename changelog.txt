@@ -1,3 +1,13 @@
+= 1.5.11 =
+* Default polls to "Button" style (#189)
+
+= 1.5.10 =
+* Attempt to track failed connections (#187)
+* Fix warnings and skips (#186)
+
+= 1.5.9 =
+* Bugfix: Set the priority of withFixedPosition hook on BlockListBlock to 1 (#180)
+
 = 1.5.8 =
 * Fix Feedback Button block on Block Widget editor. (#173)
 * Fix isPollBlock to prevent crashes when getBlocks() returns null (#175)

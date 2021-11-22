@@ -92,7 +92,7 @@ abstract class Crowdsignal_Forms_Block {
 		}
 
 		$api_auth_provider     = Crowdsignal_Forms::instance()->get_api_authenticator();
-		self::$is_cs_connected = false !== $api_auth_provider->get_user_code();
+		self::$is_cs_connected = ! empty( $api_auth_provider->get_user_code() );
 
 		// purposely not doing the account is_verified check to avoid making a slow query on every page load.
 

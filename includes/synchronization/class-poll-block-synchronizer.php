@@ -148,6 +148,10 @@ class Poll_Block_Synchronizer {
 
 			foreach ( $blocks_to_process as $block ) {
 				if ( in_array( $block['blockName'], array( 'crowdsignal-forms/poll', 'crowdsignal-forms/vote', 'crowdsignal-forms/applause' ), true ) ) {
+					if ( empty( $block['attrs']['pollId'] ) ) {
+						// this means somehow a newly created poll still not saved, let it there to maybe sync next time.
+						continue;
+					}
 					$poll_blocks[] = $block;
 					continue;
 				}

@@ -45,8 +45,8 @@ class Crowdsignal_Forms_Setup {
 	 * @param bool $show to show the notice or not.
 	 */
 	public function show_setup_notice( $show ) {
-		$api_auth_provider = Crowdsignal_Forms::instance()->get_api_authenticator();
-		if ( $api_auth_provider->get_user_code() ) {
+		$api_authenticator = Crowdsignal_Forms::instance()->get_api_authenticator();
+		if ( $api_authenticator->get_user_code() ) {
 			return false;
 		} else {
 			return true;
@@ -67,7 +67,7 @@ class Crowdsignal_Forms_Setup {
 	 * Enqueues scripts for setup page.
 	 */
 	public function admin_enqueue_scripts() {
-		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.5.8' );
+		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.5.11' );
 		wp_enqueue_script( 'videopress', 'https://videopress.com/videopress-iframe.js', array(), '1.0', false );
 	}
 
@@ -76,15 +76,15 @@ class Crowdsignal_Forms_Setup {
 	 */
 	public function setup_page() {
 
-		$api_auth_provider = Crowdsignal_Forms::instance()->get_api_authenticator();
+		$api_authenticator = Crowdsignal_Forms::instance()->get_api_authenticator();
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- got_api_key check later
 		$this->step = ! empty( $_GET['step'] ) ? absint( $_GET['step'] ) : 1;
 		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 			if ( 2 === $this->step && isset( $_POST['got_api_key'] ) && isset( $_POST['api_key'] ) && get_option( 'crowdsignal_api_key_secret' ) === $_POST['got_api_key'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
 				$api_key = sanitize_key( wp_unslash( $_POST['api_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
-				$api_auth_provider->set_api_key( $api_key );
-				$api_auth_provider->get_user_code_for_key( $api_key );
+				$api_authenticator->set_api_key( $api_key );
+				$api_authenticator->get_user_code_for_key( $api_key );
 				delete_option( 'crowdsignal_api_key_secret' );
 			} else {
 				$this->step = 1; // repeat the setup.
@@ -92,18 +92,18 @@ class Crowdsignal_Forms_Setup {
 		} elseif ( 1 === $this->step ) {
 			update_option( 'crowdsignal_api_key_secret', md5( time() . wp_rand() ) );
 
-			$existing_api_key = $api_auth_provider->get_api_key();
+			$existing_api_key = $api_authenticator->get_api_key();
 			if ( ! $existing_api_key ) {
 				$existing_api_key = get_option( 'polldaddy_api_key' );
-				$api_auth_provider->set_api_key( $existing_api_key );
+				$api_authenticator->set_api_key( $existing_api_key );
 			}
 
 			if ( $existing_api_key ) {
-				$existing_user_code = $api_auth_provider->get_user_code_for_key( $existing_api_key );
+				$existing_user_code = $api_authenticator->get_user_code_for_key( $existing_api_key );
 
 				if ( $existing_user_code ) {
-					if ( $api_auth_provider->get_user_code() !== $existing_user_code ) {
-						$api_auth_provider->set_user_code( $existing_user_code );
+					if ( $api_authenticator->get_user_code() !== $existing_user_code ) {
+						$api_authenticator->set_user_code( $existing_user_code );
 					}
 					delete_option( 'crowdsignal_api_key_secret' );
 					$this->step = 3;
@@ -112,7 +112,7 @@ class Crowdsignal_Forms_Setup {
 					 * Cached API key may have been deleted on the server.
 					 * Force reconnection.
 					 */
-					$api_auth_provider->delete_api_key();
+					$api_authenticator->delete_api_key();
 				}
 			}
 		}

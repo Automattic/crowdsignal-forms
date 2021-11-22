@@ -135,6 +135,7 @@
 
 .crowdsignal-forms-poll__answer {
 	display: flex;
+	align-items: center;
 	font-size: inherit;
 	font-weight: 600;
 	margin: 0;
@@ -188,8 +189,11 @@ input[type="radio"].crowdsignal-forms-poll__input {
 }
 
 .crowdsignal-forms-poll__check {
-	margin: 6px 10px 0 0;
+	margin: 0 10px 0 0;
 	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	&::before {
 		background-color: transparent;
@@ -238,10 +242,8 @@ input[type="radio"].crowdsignal-forms-poll__input {
 		content: "";
 		display: block;
 		height: 25%;
-		margin: -0.1em 0 0 -0.2em;
+		margin: -0.1em 0 0 0;
 		position: absolute;
-		left: 50%;
-		top: 50%;
 		transform: rotateZ(-45deg);
 		width: 50%;
 	}

@@ -68,7 +68,7 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	 * @return bool
 	 */
 	public function can_be_saved() {
-		if ( wp_is_post_autosave( $this->post_id ) || wp_is_post_revision( $this->post_id ) || 'trash' === $this->post->post_status ) {
+		if ( wp_is_post_autosave( $this->post_id ) || wp_is_post_revision( $this->post_id ) || 'trash' === $this->post->post_status || 'auto-draft' === $this->post->post_status ) {
 			return false;
 		}
 		return true;
