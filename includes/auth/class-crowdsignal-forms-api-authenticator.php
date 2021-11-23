@@ -94,7 +94,7 @@ class Crowdsignal_Forms_Api_Authenticator {
 	 */
 	public function delete_user_code() {
 		delete_option( self::USER_CODE_NAME );
-		delete_option( self::DASHBOARD_USER_CODE_NAME );
+		delete_option( self::DASHBOARD_USER_CODE_NAME . get_current_user_id() );
 	}
 
 	/**
@@ -118,7 +118,7 @@ class Crowdsignal_Forms_Api_Authenticator {
 	 */
 	public function set_user_code( $user_code ) {
 		update_option( self::USER_CODE_NAME, $user_code );
-		update_option( self::DASHBOARD_USER_CODE_NAME, $user_code );
+		update_option( self::DASHBOARD_USER_CODE_NAME . get_current_user_id(), $user_code );
 	}
 
 	/**
