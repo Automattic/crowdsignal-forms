@@ -529,13 +529,16 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 * @throws \Exception   The exception is handled inside the try/catch.
 	 */
 	public function get_account_info() {
-		$transient_key          = 'cs-forms-account-info-' . get_current_user_id();
-		$transient_account_info = get_transient( $transient_key );
-		if ( $transient_account_info ) {
-			return $transient_account_info;
-		}
-
 		try {
+			if ( ! get_current_user_id() ) {
+				throw new \Exception( 'Invalid user ID: ' . get_current_user_id() );
+			}
+			$transient_key          = 'cs-forms-account-info-' . get_current_user_id();
+			$transient_account_info = get_current_user_id() ? get_transient( $transient_key ) : false;
+			if ( $transient_account_info ) {
+				return $transient_account_info;
+			}
+
 			$response = $this->perform_request( 'GET', '/account/info' );
 
 			// let it be handled by the catch.
