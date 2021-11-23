@@ -102,7 +102,7 @@ class Crowdsignal_Forms_Settings {
 	 * Disconnect from Crowdsignal if required.
 	 */
 	public function update_settings() {
-		if ( ! isset( $_GET['page'] ) || 'crowdsignal-forms-settings' !== $_GET['page'] ) {
+		if ( ! isset( $_GET['page'] ) || 'crowdsignal-settings' !== $_GET['page'] ) {
 			return;
 		}
 
@@ -121,20 +121,20 @@ class Crowdsignal_Forms_Settings {
 					$api_key = sanitize_key( wp_unslash( $_POST['crowdsignal_api_key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- got_api_key
 					if ( ! empty( $api_key ) && $api_auth_provider->get_user_code_for_key( $api_key ) ) {
 						$api_auth_provider->set_api_key( $api_key );
-						wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-settings&msg=api-key-added' ) );
+						wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings&msg=api-key-added' ) );
 					} else {
-						wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-settings&msg=api-key-not-added' ) );
+						wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings&msg=api-key-not-added' ) );
 					}
 				} else {
-					wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-settings&msg=bad-nonce' ) );
+					wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings&msg=bad-nonce' ) );
 				}
 			} elseif ( 'disconnect' === $_POST['action'] ) {
 				if ( ! wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'disconnect-api-key' ) ) {
-					wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-settings&msg=disconnect-failed' ) );
+					wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings&msg=disconnect-failed' ) );
 				} else {
 					$api_auth_provider->delete_api_key();
 					$api_auth_provider->delete_user_code();
-					wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-settings&msg=disconnected' ) );
+					wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings&msg=disconnected' ) );
 				}
 			}
 		}
@@ -173,7 +173,7 @@ class Crowdsignal_Forms_Settings {
 							<?php esc_html_e( 'You can do this by entering an API key below:', 'crowdsignal-forms' ); ?>
 						</div>
 
-						<form class="crowdsignal-options" method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=crowdsignal-forms-settings' ) ); ?>">
+						<form class="crowdsignal-options" method="post" action="<?php echo esc_url( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>">
 							<?php
 							// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for basic flow.
 							if ( ! empty( $_GET['settings-updated'] ) ) {
