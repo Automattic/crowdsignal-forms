@@ -566,7 +566,7 @@ class Api_Gateway implements Api_Gateway_Interface {
 				'capabilities' => array( 'hide-branding' ),
 			);
 
-			do_action( 'crowdsignal_forms_failed_connection' );
+			do_action( 'crowdsignal_forms_failed_connection', $ex->getMessage() ? $ex->getMessage() : 'Unknown error' );
 		}
 
 		return $response_data;
