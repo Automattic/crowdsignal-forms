@@ -17,8 +17,8 @@ const ConnectToCrowdsignal = ( props ) => {
 	const { accountInfo, reloadAccountInfo } = useAccountInfo();
 	const isConnected = accountInfo && accountInfo.id !== 0;
 	const isAccountVerified = !! accountInfo.is_verified;
-	const authorId = useSelect( ( select ) =>
-		select( 'core/editor' ).getEditedPostAttribute( 'author' )
+	const currentUser = useSelect( ( select ) =>
+		select( 'core' ).getCurrentUser()
 	);
 
 	const handleConnectClick = async () => {
@@ -46,7 +46,10 @@ const ConnectToCrowdsignal = ( props ) => {
 	const showConnectionMessage = ! isConnected;
 	const showVerificationMessage = isConnected && ! isAccountVerified;
 
-	trackFailedConnection( authorId, blockName );
+	trackFailedConnection(
+		currentUser && currentUser.id ? currentUser.id : 0,
+		blockName
+	);
 
 	return (
 		<div className="crowdsignal-forms__connect-to-crowdsignal">
