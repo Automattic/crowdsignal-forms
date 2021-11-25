@@ -117,7 +117,6 @@ class Crowdsignal_Forms_Setup {
 			}
 		}
 
-
 		// we're all done, remove the notice.
 		if ( 1 !== $this->step ) {
 			Crowdsignal_Forms_Admin_Notices::remove_notice( Crowdsignal_Forms_Admin_Notices::NOTICE_CORE_SETUP );
