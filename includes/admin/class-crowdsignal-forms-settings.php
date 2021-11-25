@@ -53,6 +53,16 @@ class Crowdsignal_Forms_Settings {
 	}
 
 	/**
+	 * Filter admin notice if the plugin has just finished step 3 successfully.
+	 *
+	 * @param bool $show to show the notice or not.
+	 */
+	public function show_setup_success( $show ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- readonly, boolean check
+		return isset( $_GET['msg'] ) && 'connect' === $_GET['msg'];
+	}
+
+	/**
 	 * Enqueues scripts for setup page.
 	 */
 	public function admin_enqueue_scripts() {
