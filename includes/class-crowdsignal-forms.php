@@ -193,7 +193,7 @@ final class Crowdsignal_Forms {
 				return;
 			}
 
-			wp_safe_redirect( admin_url( 'admin.php?page=crowdsignal-forms-setup' ) );
+			wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-forms-settings' ) );
 			exit();
 		}
 	}
@@ -240,7 +240,7 @@ final class Crowdsignal_Forms {
 		add_action( 'init', array( $this->blocks, 'register' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_api_routes' ) );
 
-		add_filter( 'block_categories_all', array( $this, 'add_block_category' ), 10, 2 );
+		add_filter( 'block_categories', array( $this, 'add_block_category' ), 10, 2 );
 		add_filter( 'crowdsignal_forms_api_request_headers', array( $this, 'add_auth_request_headers' ) );
 
 		$this->admin_hooks->hook();
