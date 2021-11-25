@@ -193,7 +193,7 @@ final class Crowdsignal_Forms {
 				return;
 			}
 
-			wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-forms-settings' ) );
+			wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings' ) );
 			exit();
 		}
 	}
