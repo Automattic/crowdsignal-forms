@@ -336,14 +336,29 @@ final class Crowdsignal_Forms {
 	 */
 	public function add_auth_request_headers( $headers ) {
 		$cs_authenticator = $this->get_api_authenticator();
-		$user_code        = $cs_authenticator->get_user_code();
+		$api_key          = $cs_authenticator->get_api_key();
 
-		if ( ! empty( $user_code ) ) {
-			$headers['x-api-partner-guid'] = $cs_authenticator->get_api_key();
-			$headers['x-api-user-code']    = $user_code;
+		if ( empty( $api_key ) ) {
+			return $headers;
 		}
 
-		return $headers;
+		// check if we have it already.
+		$transient_key     = $api_key . '-' . (int) get_current_user_id();
+		$transient_headers = get_transient( $transient_key );
+		if ( $transient_headers ) {
+			return array_merge( $headers, $transient_headers );
+		}
+
+		$auth_headers = array();
+		$user_code    = $cs_authenticator->get_user_code();
+
+		if ( ! empty( $user_code ) ) {
+			$auth_headers['x-api-partner-guid'] = $api_key;
+			$auth_headers['x-api-user-code']    = $user_code;
+			set_transient( $transient_key, $auth_headers, MINUTE_IN_SECONDS );
+		}
+
+		return array_merge( $headers, $auth_headers );
 	}
 
 	/**
