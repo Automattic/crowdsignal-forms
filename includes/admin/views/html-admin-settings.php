@@ -85,6 +85,7 @@
 			?>
 			</div>
 		</form></p>
+		</div>
 	</div>
 </div>
 

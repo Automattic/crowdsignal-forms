@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div>
 <div id="jp-plugin-container">
 	<div class='jp-lower'>
-	<h1><?php esc_html_e( 'Crowdsignal Settings', 'crowdsignal-forms' ); ?></h1>
+	<h1 id='crowdsignal__logo'><?php esc_html_e( 'Crowdsignal Settings', 'crowdsignal-forms' ); ?></h1>
 	<?php
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	if ( isset( $_GET['msg'] ) ) {
