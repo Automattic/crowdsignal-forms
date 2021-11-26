@@ -530,15 +530,6 @@ class Api_Gateway implements Api_Gateway_Interface {
 	 */
 	public function get_account_info() {
 		try {
-			if ( ! get_current_user_id() ) {
-				throw new \Exception( 'Invalid user ID: ' . get_current_user_id() );
-			}
-			$transient_key          = 'cs-forms-account-info-' . get_current_user_id();
-			$transient_account_info = get_current_user_id() ? get_transient( $transient_key ) : false;
-			if ( $transient_account_info ) {
-				return $transient_account_info;
-			}
-
 			$response = $this->perform_request( 'GET', '/account/info' );
 
 			// let it be handled by the catch.
@@ -553,14 +544,6 @@ class Api_Gateway implements Api_Gateway_Interface {
 			if ( ! is_array( $response_data ) || isset( $response_data['error'] ) ) {
 				throw new \Exception( 'Could not get account info' );
 			}
-
-			// cache for 1 minute.
-			set_transient(
-				$transient_key,
-				$response_data,
-				MINUTE_IN_SECONDS
-			);
-
 		} catch ( \Exception $ex ) {
 			// ignore error, we'll get the updated value next time.
 			// Provide dummy response with safe defaults.
