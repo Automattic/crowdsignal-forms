@@ -206,12 +206,6 @@
 	color: #838383;
 }
 
-.crowdsignal-setup__middle a {
-	color: #616161;
-	text-decoration: underline;
-
-}
-
 .crowdsignal-setup__video-container {
 	display: block;
 	overflow: hidden;
@@ -363,10 +357,6 @@ div.error.crowdsignal-message p {
 	font-style: italic;
 	font-size: .875rem;
 	font-weight: 400;
-}
-
-.jp-form-settings-group a {
-	color: #616161;
 }
 
 .jp-form-settings-group h2 {
