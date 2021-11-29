@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="crowdsignal-setup__video-container">
 				<div class="crowdsignal-setup__video">
-					<iframe src="https://videopress.com/v/jWTs90Dg" frameborder="0" allowfullscreen></iframe>
+					<iframe src="https://videopress.com/v/jWTs90Dg?autoplay=0&hd=1" frameborder="0" allowfullscreen></iframe>
 				</div>
 			</div>
 
