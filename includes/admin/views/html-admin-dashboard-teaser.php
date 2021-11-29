@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				?>
 				</p>
 
-				<img id='crowdsignal__teaser_img' src='<?php echo plugins_url( 'crowdsignal-forms/images/cs_dashboard_teaser.png' ); ?>'>
+				<a href="<?php echo admin_url( 'plugin-install.php?s=crowdsignal+polls+ratings&tab=search&type=term' ); ?>"><img id='crowdsignal__teaser_img' src='<?php echo plugins_url( 'crowdsignal-forms/images/cs_dashboard_teaser.png' ); ?>' /></a>
 				<p>
 					<?php
 						echo wp_kses_post(
