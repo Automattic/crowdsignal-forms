@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Crowdsignal Forms 1.5.12\n"
+"Project-Id-Version: Crowdsignal Forms 1.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/crowdsignal-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-11-22T17:51:43+00:00\n"
+"POT-Creation-Date: 2021-11-30T14:32:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: crowdsignal-forms\n"
@@ -42,54 +42,48 @@ msgstr ""
 msgid "You don&#8217;t have permission to do this."
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-admin.php:70
-#: includes/class-crowdsignal-forms.php:439
-msgid "Crowdsignal"
-msgstr ""
-
-#: includes/admin/class-crowdsignal-forms-admin.php:71
-#: includes/admin/class-crowdsignal-forms-admin.php:86
+#: includes/admin/class-crowdsignal-forms-admin.php:92
 #: build/editor.js:13
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-admin.php:72
-#: includes/admin/class-crowdsignal-forms-admin.php:85
-msgid "Getting Started"
-msgstr ""
-
-#: includes/admin/class-crowdsignal-forms-settings.php:71
+#: includes/admin/class-crowdsignal-forms-settings.php:134
 msgid "General"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:76
-#: includes/admin/class-crowdsignal-forms-settings.php:188
+#: includes/admin/class-crowdsignal-forms-settings.php:139
 msgid "Enter Crowdsignal API Key"
 msgstr ""
 
-#. translators: %s is a link to the Crowdsignal connection page.
-#: includes/admin/class-crowdsignal-forms-settings.php:167
-msgid "To collect responses and data with Crowdsignal Forms you need to <a href=\"%s\" target=\"_blank\">connect the plugin with a Crowdsignal account.</a>"
+#: includes/admin/views/html-admin-dashboard-teaser.php:16
+msgid "Manage your Crowdsignal projects inside WordPress"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:173
-msgid "You can do this by entering an API key below:"
+#: includes/admin/views/html-admin-dashboard-teaser.php:22
+msgid "The Crowdsignal Dashboard plugin"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:180
-msgid "Settings successfully saved"
+#. translators: Placeholder is the text "second plugin".
+#: includes/admin/views/html-admin-dashboard-teaser.php:28
+msgid "We have a %s for you that allows you to manage all your Crowdsignal projects right in WP-Admin. Get an overview of all your active projects and get easy access to your results pages."
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:208
-msgid "Disconnect"
+#: includes/admin/views/html-admin-dashboard-teaser.php:31
+msgid "second plugin"
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:214
-msgid "Connect"
+#. translators: Argument is a link to Crowdsignal's contact page.
+#: includes/admin/views/html-admin-dashboard-teaser.php:43
+msgid "Do you want to know more about Crowdsignal? <a href=\"%1s\" target=\"_blank\">Learn more</a>."
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-settings.php:225
-msgid "If you don't have an API key we can help you here: "
+#. translators: Placeholder is the text "website plugins page".
+#: includes/admin/views/html-admin-dashboard-teaser.php:56
+msgid "Install the Crowdsignal Dashboard plugin directly from your %s."
+msgstr ""
+
+#: includes/admin/views/html-admin-dashboard-teaser.php:59
+msgid "website plugins page"
 msgstr ""
 
 #: includes/admin/views/html-admin-notice-core-setup.php:17
@@ -104,55 +98,110 @@ msgstr ""
 msgid "Skip Setup"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-footer.php:24
+#: includes/admin/views/html-admin-settings.php:12
+msgid "Account Settings"
+msgstr ""
+
+#: includes/admin/views/html-admin-settings.php:18
+msgid "API Key"
+msgstr ""
+
+#. translators: Placeholder is the text "Crowdsignal".
+#: includes/admin/views/html-admin-settings.php:23
+msgid "Your website is connected to a %s account to collect responses and data from your visitors."
+msgstr ""
+
+#. translators: Placeholder is the text "Crowdsignal acount page".
+#: includes/admin/views/html-admin-settings.php:29
+msgid "Visit your %s to find out more about your settings."
+msgstr ""
+
+#: includes/admin/views/html-admin-settings.php:32
+msgid "Crowdsignal account page"
+msgstr ""
+
+#: includes/admin/views/html-admin-settings.php:38
+msgid "If you have a Crowdsignal account, click the \"Get API Key\" button to connect. This will open a new window."
+msgstr ""
+
+#: includes/admin/views/html-admin-settings.php:42
+msgid "Get API Key"
+msgstr ""
+
+#: includes/admin/views/html-admin-settings.php:49
+msgid "Settings successfully saved"
+msgstr ""
+
+#: includes/admin/views/html-admin-settings.php:56
+msgid "Your Crowdsignal API Key"
+msgstr ""
+
+#: includes/admin/views/html-admin-settings.php:76
+msgid "Disconnect"
+msgstr ""
+
+#: includes/admin/views/html-admin-settings.php:82
+msgid "Connect"
+msgstr ""
+
+#: includes/admin/views/html-admin-setup-footer.php:27
 msgid "Crowdsignal Support"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-footer.php:24
+#: includes/admin/views/html-admin-setup-footer.php:27
 msgid "Support"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-footer.php:25
+#: includes/admin/views/html-admin-setup-footer.php:28
 msgid "Terms of Service"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-footer.php:25
+#: includes/admin/views/html-admin-setup-footer.php:28
 msgid "Terms"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-footer.php:26
+#: includes/admin/views/html-admin-setup-footer.php:29
 msgid "Privacy Policy"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-footer.php:26
+#: includes/admin/views/html-admin-setup-footer.php:29
 msgid "Privacy"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-header.php:46
+#: includes/admin/views/html-admin-setup-header.php:15
+msgid "Crowdsignal Settings"
+msgstr ""
+
+#: includes/admin/views/html-admin-setup-header.php:25
 msgid "Could not disconnect. Please try again."
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-header.php:53
+#: includes/admin/views/html-admin-setup-header.php:32
 msgid "Successfully disconnected from Crowdsignal."
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-header.php:60
+#: includes/admin/views/html-admin-setup-header.php:39
 msgid "Success! Your Crowdsignal account is successfully connected! You are ready!"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-header.php:67
+#: includes/admin/views/html-admin-setup-header.php:46
 msgid "You have been connected to Crowdsignal."
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-header.php:74
+#: includes/admin/views/html-admin-setup-header.php:53
 msgid "Your API key has not been updated, please try again."
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-step-1.php:14
+#: includes/admin/views/html-admin-setup-step-1.php:16
+#: includes/admin/views/html-admin-setup-step-3.php:16
+msgid "Getting Started"
+msgstr ""
+
+#: includes/admin/views/html-admin-setup-step-1.php:25
 msgid "Welcome to Crowdsignal Forms"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-step-1.php:24
+#: includes/admin/views/html-admin-setup-step-1.php:33
 msgid "Let’s get started"
 msgstr ""
 
@@ -160,26 +209,21 @@ msgstr ""
 msgid "You're ready to start using Crowdsignal!"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-step-3.php:15
+#: includes/admin/views/html-admin-setup-step-3.php:22
 msgid "First time using Crowdsignal?"
 msgstr ""
 
-#: includes/admin/views/html-admin-setup-step-3.php:20
-msgid "You can search for our blocks, like the Poll block, in the library of the block editor."
-msgstr ""
-
-#: includes/admin/views/html-admin-setup-step-3.php:22
-msgid "Here is a short video to get you started:"
-msgstr ""
-
-#. translators: Argument is a link to Crowdsignal's contact page.
-#: includes/admin/views/html-admin-setup-step-3.php:37
-msgid "<a href=\"%1s\" target=\"_blank\">Any questions about Crowdsignal?</a>"
+#: includes/admin/views/html-admin-setup-step-3.php:25
+msgid "You can use Crowdsignal blocks right in your editor. Search for Crowdsignal in the blocks library and add the blocks to your page. Here is a short video to get you started:"
 msgstr ""
 
 #. translators: Argument is a link to Crowdsignal's support page.
-#: includes/admin/views/html-admin-setup-step-3.php:52
-msgid "<a href=\"%1s\" target=\"_blank\">Read more about us here.</a>"
+#: includes/admin/views/html-admin-setup-step-3.php:40
+msgid "Do you want to know more about Crowdsignal and our blocks? <a href=\"%1s\" target=\"_blank\">Learn more</a>."
+msgstr ""
+
+#: includes/class-crowdsignal-forms.php:454
+msgid "Crowdsignal"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:146

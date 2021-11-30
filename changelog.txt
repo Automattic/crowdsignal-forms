@@ -1,3 +1,12 @@
+= 1.6.0 =
+* Update the text and styling of the settings page. (#199)
+* Fix transient and empty user (#200)
+* Update links to settings page. (#198)
+* Let the dashboard plugin take care of menus. (#196)
+* WIP: Move the "Getting Started" process into the Settings page. (#179)
+* Some fixes along the way (#197)
+* Update and delete the dashboard login details too (#195)
+
 = 1.5.12 =
 * Improve broken connection handling (#193)
 * Fix multiple choice poll check position (#192)
