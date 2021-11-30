@@ -9,18 +9,28 @@
 <div class='jp-settings-container'>
 	<div class="dops-card dops-section-header is-compact">
 		<div class="dops-section-header__label">
-			<span class="dops-section-header__label-text"><?php esc_html_e( 'API Key', 'crowdsignal-forms' ); ?></span>
+			<span class="dops-section-header__label-text"><?php esc_html_e( 'Account Settings', 'crowdsignal-forms' ); ?></span>
 		</div>
 	</div>
 
 	<div class="dops-card dops-section-header is-compact">
 		<div class="jp-form-settings-group">
+			<h2><?php esc_html_e( 'API Key', 'crowdsignal-forms' ); ?></h2>
 			<p>
 			<?php
 			printf(
 				/* translators: Placeholder is the text "Crowdsignal". */
-				esc_html__( 'You need to connect this plugin with a %s account to collect responses and data.', 'crowdsignal-forms' ),
+				esc_html__( 'Your website is connected to a %s account to collect responses and data from your visitors.', 'crowdsignal-forms' ),
 				'<a href="https://crowdsignal.com/">Crowdsignal</a>'
+			);
+			?><br /><?php
+			printf(
+				/* translators: Placeholder is the text "Crowdsignal acount page". */
+				esc_html__( 'Visit your %s to find out more about your settings.', 'crowdsignal-forms' ),
+				sprintf(
+					'<a href="https://crowdsignal.com/account/">%s</a>',
+					esc_html__( 'Crowdsignal account page', 'crowdsignal-forms' )
+				)
 			);
 			?>
 			</p>
@@ -32,8 +42,6 @@
 				<input type="submit" value="<?php esc_html_e( 'Get API Key', 'crowdsignal-forms' ); ?>" class="dops-button is-primary" />
 				</form></p>
 			<?php } ?>
-			<p><?php esc_html_e( 'If you know your API key you can paste it in to the box below.', 'crowdsignal-forms' ); ?>
-
 			<form class="crowdsignal-options" method="post" action="<?php echo esc_url( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>">
 			<?php
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for basic flow.
@@ -45,7 +53,7 @@
 			<div id="settings-general" class="settings_panel">
 				<table class="form-table settings parent-settings">
 					<tr valign="top" class="">
-						<th scope="row"><label for="setting-crowdsignal_api_key"><?php esc_html_e( 'Enter Crowdsignal API Key', 'crowdsignal-forms' ); ?></a></th>
+						<th scope="row"><label for="setting-crowdsignal_api_key"><?php esc_html_e( 'Your Crowdsignal API Key', 'crowdsignal-forms' ); ?></a></th>
 						<td><input
 							<?php echo $api_key ? 'readonly' : ''; ?>
 							id="setting-crowdsignal_api_key"
@@ -77,6 +85,7 @@
 			?>
 			</div>
 		</form></p>
+		</div>
 	</div>
 </div>
 
