@@ -544,6 +544,8 @@ class Api_Gateway implements Api_Gateway_Interface {
 			if ( ! is_array( $response_data ) || isset( $response_data['error'] ) ) {
 				throw new \Exception( 'Could not get account info' );
 			}
+
+			do_action( 'crowdsignal_forms_get_account_info', $response_data );
 		} catch ( \Exception $ex ) {
 			// ignore error, we'll get the updated value next time.
 			// Provide dummy response with safe defaults.
