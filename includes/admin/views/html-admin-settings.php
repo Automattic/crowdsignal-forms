@@ -28,13 +28,13 @@
 				<p><?php esc_html_e( 'If you have a Crowdsignal account, click the "Get API Key" button to connect. This will open a new window.', 'crowdsignal-forms' ); ?>
 				<form id="cs-connect-form" class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/" target="CSCONNECT">
 				<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
-				<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>" />
+				<input type="hidden" name="ref" value="<?php echo esc_attr( admin_url( 'options-general.php?page=crowdsignal-forms-settings' ) ); ?>" />
 				<input type="submit" value="<?php esc_html_e( 'Get API Key', 'crowdsignal-forms' ); ?>" class="dops-button is-primary" />
 				</form></p>
 			<?php } ?>
 			<p><?php esc_html_e( 'If you know your API key you can paste it in to the box below.', 'crowdsignal-forms' ); ?>
 
-			<form class="crowdsignal-options" method="post" action="<?php echo esc_url( admin_url( 'options-general.php?page=crowdsignal-settings' ) ); ?>">
+			<form class="crowdsignal-options" method="post" action="<?php echo esc_url( admin_url( 'options-general.php?page=crowdsignal-forms-settings' ) ); ?>">
 			<?php
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Used for basic flow.
 			if ( ! empty( $_GET['settings-updated'] ) ) {
