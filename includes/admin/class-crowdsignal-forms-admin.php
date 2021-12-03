@@ -66,18 +66,9 @@ class Crowdsignal_Forms_Admin {
 	 * Adds pages to admin menu.
 	 */
 	public function admin_menu() {
-		if (
-			isset( $_GET['page'] )
-			&& ( 'crowdsignal-forms-settings' === $_GET['page'] || 'crowdsignal-forms-setup' === $_GET['page'] )
-		) {
-			wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings' ) );
-			die();
-		}
-
-		if ( ! is_plugin_active( 'polldaddy/polldaddy.php' ) ) {
-			// Add settings pages.
-			add_options_page( 'Crowdsignal', 'Crowdsignal', 'manage_options', 'crowdsignal-settings', array( $this->settings_page, 'output' ) );
-		}
+		$settings_page_title = 'Crowdsignal';
+		$hook = add_options_page( $settings_page_title, $settings_page_title, 'manage_options', 'crowdsignal-forms-settings', array( $this->settings_page, 'output' ) );
+		add_action( "load-$hook", array( $this->settings_page, 'update_settings' ) );
 	}
 
 	/**
@@ -89,7 +80,7 @@ class Crowdsignal_Forms_Admin {
 	public function plugin_action_links( $links ) {
 		return array_merge(
 			array(
-				sprintf( '<a href="%s">' . __( 'Settings', 'crowdsignal-forms' ) . '</a>', admin_url( 'options-general.php?page=crowdsignal-settings' ) ),
+				sprintf( '<a href="%s">' . __( 'Settings', 'crowdsignal-forms' ) . '</a>', admin_url( 'admin.php?page=crowdsignal-forms-settings' ) ),
 			),
 			$links
 		);
