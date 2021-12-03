@@ -9,13 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div>
-<div id="jp-plugin-container">
-	<div>
-	<div>
-	<div class="jp-masthead">
-		<div class="jp-masthead__inside-container">
-			<div class="jp-masthead__logo-container">
+<div class="wrap">
+	<div class="crowdsignal-setup__header">
+		<div class="crowdsignal-setup__header-container">
+			<div class="crowdsignal-setup__logo-container">
 				<div class="crowdsignal-setup__logo">
 					<svg width="199" height="48" viewBox="0 0 199 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path fill-rule="evenodd" clip-rule="evenodd" d="M23.9981 45.1199C35.6624 45.1199 45.1181 35.6641 45.1181 23.9999C45.1181 12.3356 35.6624 2.87988 23.9981 2.87988C12.3339 2.87988 2.87811 12.3356 2.87811 23.9999C2.87811 35.6641 12.3339 45.1199 23.9981 45.1199Z" fill="white" stroke="#384869" stroke-linecap="round" stroke-dasharray="0.1 2"/>
@@ -36,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</div>
-	<div class='jp-lower'>
+
 	<?php
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	if ( isset( $_GET['msg'] ) ) {

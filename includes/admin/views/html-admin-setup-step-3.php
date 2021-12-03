@@ -9,20 +9,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<br />
-<div class='jp-settings-container'>
-	<div class="dops-card dops-section-header is-compact">
-		<div class="dops-section-header__label">
-			<span class="dops-section-header__label-text"><?php esc_html_e( 'Getting Started', 'crowdsignal-forms' ); ?></span>
-		</div>
-	</div>
-
-	<div class="dops-card dops-section-header is-compact">
-		<div class="jp-form-settings-group" style='width: 100%'>
+<div class="crowdsignal-setup__main">
+	<div class="crowdsignal-setup__content">
+		<div class="crowdsignal-setup__top">
 			<h3><?php echo wp_kses_post( __( 'First time using Crowdsignal?', 'crowdsignal-forms' ) ); ?></h3>
+		</div>
+
 		<div class="crowdsignal-setup__middle">
 			<p>
-				<?php echo wp_kses_post( __( 'You can use Crowdsignal blocks right in your editor. Search for Crowdsignal in the blocks library and add the blocks to your page. Here is a short video to get you started:', 'crowdsignal-forms' ) ); ?>
+				<?php echo wp_kses_post( __( 'You can search for our blocks, like the Poll block, in the library of the block editor.', 'crowdsignal-forms' ) ); ?>
+				<br>
+				<?php echo wp_kses_post( __( 'Here is a short video to get you started:', 'crowdsignal-forms' ) ); ?>
 			</p>
 
 			<div class="crowdsignal-setup__video-container">

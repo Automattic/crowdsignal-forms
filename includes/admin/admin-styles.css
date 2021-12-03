@@ -15,39 +15,6 @@
 	font-weight: 700;
 }
 
-#wpcontent {
-	padding-left: 0 !important;
-}
-#wpbody-content {
-	background-color: #f6f6f6;
-}
-
-#jp-plugin-container .wrap {
-	margin: 0 auto;
-	max-width:45rem;
-	padding: 0 1.5rem;
-}
-#jp-plugin-container.is-wide .wrap {
-	max-width: 1040px;
-}
-#jp-plugin-container .wrap .jetpack-wrap-container {
-	margin-top: 1em;
-}
-.wp-admin #dolly {
-	float: none;
-	position: relative;
-	right: 0;
-	left: 0;
-	top: 0;
-	padding: .625rem;
-	text-align: right;
-	background: #fff;
-	font-size: .75rem;
-	font-style: italic;
-	color: #87a6bc;
-	border-bottom: 1px #e9eff3 solid;
-}
-
 .crowdsignal-setup__header {
 	background-color: #fff;
 	text-align: center;
@@ -145,14 +112,13 @@
 	margin: 0 auto;
 }
 
-.dops-card h3,
-.dops-card h4 {
+.crowdsignal-setup__content h3,
+.crowdsignal-setup__content h4 {
 	font-family: Recoleta, sans-serif;
 	font-weight: 700;
-	font-size: 20px;
+	font-size: 40px;
 	line-height: 150%;
 	margin: 0;
-	margin: 0 0 10px 0;
 }
 
 .crowdsignal-setup__content h4 {
@@ -239,23 +205,23 @@
 }
 
 
-div.crowdsignal-message {
+.wrap div.crowdsignal-message {
 	margin: 24px auto 8px auto;
 	border: 0;
 	padding: 16px;
 	padding-left: 24px;
-	max-width: 1040px;
+	max-width: 960px;
 	box-sizing: border-box;
 }
 
-div.updated.crowdsignal-message {
+.wrap div.updated.crowdsignal-message {
 	background-color: #eff9f1;
 }
-div.error.crowdsignal-message {
+.wrap div.error.crowdsignal-message {
 	background-color: #fbcfd2;
 }
-div.updated.crowdsignal-message p,
-div.error.crowdsignal-message p {
+.wrap div.updated.crowdsignal-message p,
+.wrap div.error.crowdsignal-message p {
 	padding: 0;
 	color: black;
 	font-size: 14px;

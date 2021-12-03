@@ -29,7 +29,7 @@ const ConnectToCrowdsignal = ( props ) => {
 		const isNowVerified = !! newAccountInfo.is_verified;
 
 		if ( ! isNowConnected ) {
-			window.open( '/wp-admin/options-general.php?page=crowdsignal-forms-settings' );
+			window.open( '/wp-admin/admin.php?page=crowdsignal-forms-setup' );
 		}
 
 		// Don't pop open the email window if the connection state just changed.
