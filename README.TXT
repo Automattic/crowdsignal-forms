@@ -3,8 +3,8 @@ Contributors: automattic
 Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
-Tested up to: 5.6
-Stable tag: 1.5.12
+Tested up to: 5.8.2
+Stable tag: 1.5.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,15 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.5.13 =
+* Update the text and styling of the settings page. (#199)
+* Fix transient and empty user (#200)
+* Update links to settings page. (#198)
+* Let the dashboard plugin take care of menus. (#196)
+* WIP: Move the "Getting Started" process into the Settings page. (#179)
+* Some fixes along the way (#197)
+* Update and delete the dashboard login details too (#195)
 
 = 1.5.12 =
 * Improve broken connection handling (#193)
