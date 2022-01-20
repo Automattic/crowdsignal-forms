@@ -1,3 +1,8 @@
+= 1.5.15 =
+* Fix CSS so it doesn't interfere with Jetpack (#208)
+* add trigger for crowdsignal_forms_get_account_info (#203)
+* fix typo on respones -> responses (#207)
+
 = 1.5.13 =
 * Update the text and styling of the settings page. (#199)
 * Fix transient and empty user (#200)
