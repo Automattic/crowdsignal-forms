@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div>
-<div id="jp-plugin-container">
-	<div class='jp-lower'>
+<div id="cs-plugin-container">
+	<div class='cs-lower'>
 	<h1 id='crowdsignal__logo'><?php esc_html_e( 'Crowdsignal Settings', 'crowdsignal-forms' ); ?></h1>
 	<?php
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended

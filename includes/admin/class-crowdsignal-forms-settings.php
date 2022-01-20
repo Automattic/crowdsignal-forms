@@ -66,9 +66,6 @@ class Crowdsignal_Forms_Settings {
 	 * Enqueues scripts for setup page.
 	 */
 	public function admin_enqueue_scripts() {
-		wp_enqueue_style( 'jetpack-styles1', 'https://c0.wp.com/p/jetpack/10.0/_inc/build/style.min.css', array(), '1.5.13' );
-		wp_enqueue_style( 'jetpack-styles2', 'https://c0.wp.com/c/5.8.1/wp-admin/css/common.min.css', array(), '1.5.13' );
-		wp_enqueue_style( 'jetpack-styles3', 'https://c0.wp.com/p/jetpack/10.0/_inc/build/admin.css', array(), '1.5.13' );
 		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.5.13' );
 		wp_enqueue_script( 'videopress', 'https://videopress.com/videopress-iframe.js', array(), '1.0', false );
 	}
