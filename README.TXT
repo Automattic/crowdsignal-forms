@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.8.2
-Stable tag: 1.5.13
+Stable tag: 1.5.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,14 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.5.15 =
+* Fix CSS so it doesn't interfere with Jetpack (#208)
+* add trigger for crowdsignal_forms_get_account_info (#203)
+* fix typo on respones -> responses (#207)
+
+= 1.5.14 =
+* Rollback to 1.5.12
 
 = 1.5.13 =
 * Update the text and styling of the settings page. (#199)
