@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				?>
 				</p>
 
-				<a href="<?php echo admin_url( 'plugin-install.php?s=crowdsignal+polls+ratings&tab=search&type=term' ); ?>"><img id='crowdsignal__teaser_img' src='<?php echo plugins_url( 'crowdsignal-forms/images/cs_dashboard_teaser.png' ); ?>' /></a>
+				<a href="<?php echo esc_url( admin_url( 'plugin-install.php?s=crowdsignal+polls+ratings&tab=search&type=term' ) ); ?>"><img id='crowdsignal__teaser_img' src='<?php echo esc_url( plugins_url( 'crowdsignal-forms/images/cs_dashboard_teaser.png' ) ); ?>' /></a>
 				<p>
 					<?php
 						echo wp_kses_post(
@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					/* translators: Placeholder is the text "website plugins page". */
 					esc_html__( 'Install the Crowdsignal Dashboard plugin directly from your %s.', 'crowdsignal-forms' ),
 					sprintf(
-						'<a href="' . admin_url( 'plugin-install.php?s=crowdsignal+polls+ratings&tab=search&type=term' ) . '">%s</a>',
+						'<a href="' . esc_url( admin_url( 'plugin-install.php?s=crowdsignal+polls+ratings&tab=search&type=term' ) ) . '">%s</a>',
 						esc_html__( 'website plugins page', 'crowdsignal-forms' )
 					)
 				);
