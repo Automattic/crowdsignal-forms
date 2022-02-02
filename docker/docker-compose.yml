@@ -40,8 +40,8 @@ services:
       - "${PORT_CS_WORDPRESS:-8000}:80"
     restart: always
     extra_hosts:
-      - "api.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.178}"
-      - "app.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.178}"
+      - "api.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.248}"
+      - "app.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.248}"
     env_file:
       - default.env
       - .env
