@@ -19,7 +19,9 @@ services:
     container_name: cs_forms_wordpress
     depends_on:
       - db
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: cs_forms_wordpress:localbuild
     volumes:
       - ..:/var/www/html/wp-content/plugins/crowdsignal-forms
@@ -37,8 +39,8 @@ services:
       - "${PORT_CS_WORDPRESS:-8000}:80"
     restart: always
     extra_hosts:
-      - "api.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.248}"
-      - "app.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.248}"
+      - "api.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.178}"
+      - "app.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.178}"
     env_file:
       - default.env
       - .env
