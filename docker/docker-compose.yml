@@ -6,6 +6,7 @@ volumes:
 
 services:
   db:
+    platform: linux/x86_64
     image: mysql:5.7
     container_name: cs_forms_mysql
     volumes:
@@ -19,7 +20,9 @@ services:
     container_name: cs_forms_wordpress
     depends_on:
       - db
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: cs_forms_wordpress:localbuild
     volumes:
       - ..:/var/www/html/wp-content/plugins/crowdsignal-forms
