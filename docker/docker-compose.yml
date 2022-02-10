@@ -42,6 +42,7 @@ services:
     extra_hosts:
       - "api.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.248}"
       - "app.crowdsignal.com:${CS_SANDBOX_IP:-192.0.123.248}"
+      - "api.polldaddy.com:${CS_SANDBOX_IP:-192.0.123.248}"
     env_file:
       - default.env
       - .env
