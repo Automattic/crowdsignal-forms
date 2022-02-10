@@ -61,7 +61,7 @@ Crowdsignal is built by Automattic, the company behind WordPress.com, WooCommerc
 
 ### Where can I find help with this plugin?
 
-Automattic is a distributed team working from all around the world, so it’s always business hours for our more than 250 Happiness Engineers. Check out our [support documentation](https://crowdsignal.com/support/), the [support forum](https://wordpress.org/support/plugin/crowdsignal-forms/) or [reach out to us](https://crowdsignal.com/contact/) anytime and we'll be happy to help.
+Automattic is a distributed team working from all around the world, so it’s always business hours for our ~more than 250~ gazillion Happiness Engineers. Check out our [support documentation](https://crowdsignal.com/support/), the [support forum](https://wordpress.org/support/plugin/crowdsignal-forms/) or [reach out to us](https://crowdsignal.com/contact/) anytime and we'll be happy to help.
 
 ### What plans do you offer?
 Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or take a [product tour](https://crowdsignal.com/features/) to learn more.
