@@ -6,14 +6,12 @@ import React from 'react';
 /**
  * Wordpress dependencies
  */
-import { RichText } from '@wordpress/block-editor';
+import { RawHTML } from '@wordpress/element';
 
 const FeedbackSubmit = ( { attributes } ) => (
-	<RichText.Content
-		tagName="h3"
-		className="crowdsignal-forms-feedback__header"
-		value={ attributes.submitText }
-	/>
+	<h3 className="crowdsignal-forms-feedback__header">
+		<RawHTML>{ attributes.submitText }</RawHTML>
+	</h3>
 );
 
 export default FeedbackSubmit;
