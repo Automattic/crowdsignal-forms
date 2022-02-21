@@ -88,7 +88,6 @@ const EditVoteBlock = ( props ) => {
 							[ 'crowdsignal-forms/vote-item', { type: 'down' } ],
 						] }
 						templateInsertUpdatesSelection={ false }
-						templateLock="insert"
 						allowedBlocks={ [ 'crowdsignal-forms/vote-item' ] }
 						orientation="horizontal"
 						__experimentalMoverDirection="horizontal" // required for pre WP 5.5, post 5.5 only requires `orientation` to be set
