@@ -1,3 +1,11 @@
+= 1.6.0 =
+* Remove editor dependencies (#213)
+* add api.polldaddy.com as extra host so we get legacy calls to the sandbox as well (#211)
+* Remove templateLock: insert also prevents removals (#212)
+* Update HE numbers
+* Update Dockerfile to pull latest stable Ubuntu. Small update to .yml file (#210)
+* Bump version to 1.5.15 (#209)
+
 = 1.5.15 =
 * Fix CSS so it doesn't interfere with Jetpack (#208)
 * add trigger for crowdsignal_forms_get_account_info (#203)
