@@ -23,7 +23,9 @@
 				esc_html__( 'Your website is connected to a %s account to collect responses and data from your visitors.', 'crowdsignal-forms' ),
 				'<a href="https://crowdsignal.com/">Crowdsignal</a>'
 			);
-			?><br /><?php
+			?>
+			<br />
+			<?php
 			printf(
 				/* translators: Placeholder is the text "Crowdsignal acount page". */
 				esc_html__( 'Visit your %s to find out more about your settings.', 'crowdsignal-forms' ),
@@ -34,7 +36,7 @@
 			);
 			?>
 			</p>
-			<?php if ( ! $api_key ) { ?>
+			<?php if ( ! $api_key ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable ?>
 				<p><?php esc_html_e( 'If you have a Crowdsignal account, click the "Get API Key" button to connect. This will open a new window.', 'crowdsignal-forms' ); ?>
 				<form id="cs-connect-form" class="crowdsignal-options" method="post" action="https://app.crowdsignal.com/get-api-key/" target="CSCONNECT">
 				<input type="hidden" name="get_api_key" value="<?php echo esc_attr( get_option( 'crowdsignal_api_key_secret' ) ); ?>" />
@@ -55,12 +57,12 @@
 					<tr valign="top" class="">
 						<th scope="row"><label for="setting-crowdsignal_api_key"><?php esc_html_e( 'Your Crowdsignal API Key', 'crowdsignal-forms' ); ?></a></th>
 						<td><input
-							<?php echo $api_key ? 'readonly' : ''; ?>
+							<?php echo $api_key ? 'readonly' : ''; // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable ?>
 							id="setting-crowdsignal_api_key"
 							class="regular-text"
 							type="text"
 							name="crowdsignal_api_key"
-							value="<?php echo esc_attr( $api_key ); ?>"
+							value="<?php echo esc_attr( $api_key ); // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable ?>"
 							/>
 						</td>
 					</tr>
@@ -69,7 +71,7 @@
 
 			<div class="crowdsignal-settings__submit">
 			<?php
-			if ( $api_key ) {
+			if ( $api_key ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
 				wp_nonce_field( 'disconnect-api-key' );
 				?>
 				<input type="hidden" name="action" value="disconnect" />
