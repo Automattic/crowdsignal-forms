@@ -13,7 +13,7 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { RichText } from '@wordpress/block-editor';
+import { RawHTML } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -61,10 +61,9 @@ const FeedbackToggle = (
 					onClick={ onClick }
 					onMouseEnter={ handleHover }
 				>
-					<RichText.Content
-						className="crowdsignal-forms-feedback__trigger-text"
-						value={ attributes.triggerLabel }
-					/>
+					<div className="crowdsignal-forms-feedback__trigger-text">
+						<RawHTML>{ attributes.triggerLabel }</RawHTML>
+					</div>
 				</button>
 			) }
 			{ isOpen && (

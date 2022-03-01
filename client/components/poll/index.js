@@ -11,7 +11,8 @@ import classNames from 'classnames';
  */
 import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
-import { RichText } from '@wordpress/block-editor';
+// import { RichText } from '@wordpress/block-editor';
+import { RawHTML } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -157,18 +158,14 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
 
 			<div className={ contentClasses }>
-				<RichText.Content
-					tagName="h3"
-					value={ decodeEntities( attributes.question ) }
-					className="crowdsignal-forms-poll__question"
-				/>
+				<h3 className="crowdsignal-forms-poll__question">
+					<RawHTML>{ decodeEntities( attributes.question ) }</RawHTML>
+				</h3>
 
 				{ attributes.note && (
-					<RichText.Content
-						className="crowdsignal-forms-poll__note"
-						tagName="div"
-						value={ decodeEntities( attributes.note ) }
-					/>
+					<div className="crowdsignal-forms-poll__note">
+						<RawHTML>{ decodeEntities( attributes.note ) }</RawHTML>
+					</div>
 				) }
 
 				{ ! showResults && (

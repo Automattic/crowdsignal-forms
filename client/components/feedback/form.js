@@ -8,7 +8,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { RichText } from '@wordpress/block-editor';
+import { RawHTML } from '@wordpress/element';
 import { TextControl, TextareaControl } from '@wordpress/components';
 
 /**
@@ -55,11 +55,9 @@ const FeedbackForm = ( { attributes, onSubmit } ) => {
 
 	return (
 		<form onSubmit={ handleSubmit }>
-			<RichText.Content
-				tagName="h3"
-				className="crowdsignal-forms-feedback__header"
-				value={ attributes.header }
-			/>
+			<h3 className="crowdsignal-forms-feedback__header">
+				<RawHTML>{ attributes.header }</RawHTML>
+			</h3>
 
 			<TextareaControl
 				className={ feedbackClasses }
