@@ -43,6 +43,7 @@
 	line-height: 1.5 !important;
 	padding: 10px 16px !important;
 	white-space: nowrap !important;
+	border: none;
 
 	> svg {
 		fill: currentColor;
@@ -142,4 +143,5 @@
 .crowdsignal-forms-feedback__feedback-button {
 	background-color: var(--crowdsignal-forms-button-color) !important;
 	color: var(--crowdsignal-forms-button-text-color) !important;
+	border: none;
 }

@@ -180,6 +180,11 @@
 	}
 }
 
+.crowdsignal-forms-poll__submit-button {
+	border: none;
+	line-height: normal;
+}
+
 input[type="checkbox"].crowdsignal-forms-poll__input,
 input[type="radio"].crowdsignal-forms-poll__input {
 	height: 0;
