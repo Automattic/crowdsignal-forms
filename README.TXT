@@ -70,7 +70,7 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 = 1.6.1 =
 * Fix TwentyTwentyTwo styling issues (#218)
 * Unset border-style on crowdsignal-forms-vote class (#216)
-* make wpcom linter happy (#215)
+* Adjust code syntax to comply with standards (#215)
 
 = 1.6.0 =
 * Remove editor dependencies (#213)
