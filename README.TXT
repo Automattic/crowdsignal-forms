@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.8.3
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,11 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.6.1 =
+* Fix TwentyTwentyTwo styling issues (#218)
+* Unset border-style on crowdsignal-forms-vote class (#216)
+* make wpcom linter happy (#215)
 
 = 1.6.0 =
 * Remove editor dependencies (#213)

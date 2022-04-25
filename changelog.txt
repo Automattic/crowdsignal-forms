@@ -1,3 +1,8 @@
+= 1.6.1 =
+* Fix TwentyTwentyTwo styling issues (#218)
+* Unset border-style on crowdsignal-forms-vote class (#216)
+* make wpcom linter happy (#215)
+
 = 1.6.0 =
 * Remove editor dependencies (#213)
 * add api.polldaddy.com as extra host so we get legacy calls to the sandbox as well (#211)
