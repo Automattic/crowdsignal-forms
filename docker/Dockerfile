@@ -96,4 +96,7 @@ RUN chmod +x /usr/local/bin/run
 # Set the working directory for the next commands
 WORKDIR /var/www/html
 
+# remove php 8.1 as it brings issues with WP install process
+RUN apt-get remove -y php8.1
+
 CMD ["/usr/local/bin/run"]
