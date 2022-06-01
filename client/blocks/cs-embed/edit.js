@@ -11,6 +11,7 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
+import { useState } from '@wordpress/element';
 import { View } from '@wordpress/primitives';
 /**
  * Internal dependencies
@@ -21,7 +22,8 @@ import EmbedPreview from './embed-preview';
 import EmbedLoading from './embed-loading';
 
 const EmbedForm = ( { attributes, isSelected, setAttributes } ) => {
-	const url = attributes.url;
+	const [ isEditingURL, setIsEditingURL ] = useState( true );
+	const [url, setUrl] = useState( attributes.url );
 	const {
 		preview,
 		fetching,
@@ -76,24 +78,32 @@ const EmbedForm = ( { attributes, isSelected, setAttributes } ) => {
 	return (
 		<View>
 			<Sidebar />
-			{ ! fetching && preview && ! isSelected ? (
+			<button onClick={ () => setIsEditingURL( true ) }> edit </button>
+			{ ! fetching && preview && ! isEditingURL ? (
 				<EmbedPreview html={ preview.html } />
 			) : (
 				<Placeholder
 					icon={ CSLogo }
 					label={ __( 'Survey Embed', 'crowdsignal-forms' ) }
 				>
-					<form>
-						<TextControl
+					<form
+						onSubmit={ ( event ) => {
+							event.preventDefault();
+							setIsEditingURL( false );
+							setAttributes( { url } );
+						} }
+					>
+						<input
 							label={ __(
 								'Paste a link to the survey you want to display on your site.',
 								'crowdsignal-forms'
 							) }
 							value={ url }
-							onChange={ ( value ) =>
-								setAttributes( { url: value } )
+							onChange={ ( event ) =>
+								setUrl( event.target.value )
 							}
 						/>
+
 						<Button
 							className="cs-embed__button"
 							variant="primary"
