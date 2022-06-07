@@ -1,3 +1,8 @@
+= 1.6.3 =
+* remove php8.1 when all is said and done to avoid compatiblity issues between WP, PHP and php-mysql libs (#221)
+* Update filter name due to deprecation (block_categories) (#220)
+* Remove styling for Hello Dolly (#223)
+
 = 1.6.1 =
 * Fix TwentyTwentyTwo styling issues (#218)
 * Unset border-style on crowdsignal-forms-vote class (#216)

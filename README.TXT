@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.8.3
-Stable tag: 1.6.1
+Stable tag: 1.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,11 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.6.3 =
+* remove php8.1 from docker, PHP and php-mysql libs (#221)
+* Update filter name due to deprecation (block_categories) (#220)
+* Remove styling for Hello Dolly (#223)
 
 = 1.6.1 =
 * Fix TwentyTwentyTwo styling issues (#218)
