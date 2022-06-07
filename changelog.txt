@@ -1,3 +1,6 @@
+= 1.6.2 =
+* Remove styling for Hello Dolly (#223)
+
 = 1.6.1 =
 * Fix TwentyTwentyTwo styling issues (#218)
 * Unset border-style on crowdsignal-forms-vote class (#216)
