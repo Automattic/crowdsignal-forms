@@ -25,6 +25,7 @@ client:
 	npm run build:feedback
 
 # Package for release
+release: export NODE_ENV=production
 release: clean-release install-node client pot
 	./scripts/package-for-release.sh
 
@@ -33,7 +34,6 @@ clean:
 	rm -rf build
 
 clean-release: clean
-	NODE_ENV=production
 	rm -rf release
 
 docker_build:
