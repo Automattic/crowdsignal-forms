@@ -1,12 +1,7 @@
 /**
  * WordPress dependencies
  */
-import {
-	TextControl,
-	Placeholder,
-	Button,
-	ExternalLink,
-} from '@wordpress/components';
+import { Placeholder, Button, ExternalLink } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useBlockProps } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
@@ -20,54 +15,49 @@ import CSLogo from '../../components/icon/cslogo';
 import Sidebar from './sidebar';
 import EmbedPreview from './embed-preview';
 import EmbedLoading from './embed-loading';
+import Domains from './cs-domains';
 
 const EmbedForm = ( { attributes, isSelected, setAttributes } ) => {
 	const [ isEditingURL, setIsEditingURL ] = useState( true );
 	const [ url, setUrl ] = useState( attributes.url );
-	const { preview, fetching, themeSupportsResponsive, cannotEmbed } =
-		useSelect(
-			( select ) => {
-				const {
-					getEmbedPreview,
-					isPreviewEmbedFallback,
-					isRequestingEmbedPreview,
-					getThemeSupports,
-				} = select( coreStore );
-				if ( ! url ) {
-					return { fetching: false, cannotEmbed: false };
+	const { preview, fetching, cannotEmbed } = useSelect(
+		( select ) => {
+			const {
+				getEmbedPreview,
+				isPreviewEmbedFallback,
+				isRequestingEmbedPreview,
+			} = select( coreStore );
+			if ( ! url ) {
+				return { fetching: false, cannotEmbed: false };
+			}
+
+			const embedPreview = getEmbedPreview( url );
+			const previewIsFallback = isPreviewEmbedFallback( url );
+
+			//Gets our domains from cs-domains.js <some> requires a pure array so we have to call the array (ourDomains) from the object
+			const isCrwodsignal = Domains.ourDomains.some( ( e ) => {
+				if ( url.includes( e ) ) {
+					return true;
 				}
+				return false;
+			} );
 
-				const embedPreview = getEmbedPreview( url );
-				const previewIsFallback = isPreviewEmbedFallback( url );
+			// The external oEmbed provider does not exist. We got no type info and no html.
+			const badEmbedProvider =
+				embedPreview?.html === false &&
+				embedPreview?.type === undefined;
 
-				// The external oEmbed provider does not exist. We got no type info and no html.
-				const badEmbedProvider =
-					embedPreview?.html === false &&
-					embedPreview?.type === undefined;
-				// Some WordPress URLs that can't be embedded will cause the API to return
-				// a valid JSON response with no HTML and `data.status` set to 404, rather
-				// than generating a fallback response as other embeds do.
-				const wordpressCantEmbed = embedPreview?.data?.status === 404;
-				const validPreview =
-					!! embedPreview &&
-					! badEmbedProvider &&
-					! wordpressCantEmbed;
-				return {
-					preview: validPreview ? embedPreview : undefined,
-					fetching: isRequestingEmbedPreview( url ),
-					themeSupportsResponsive:
-						getThemeSupports()[ 'responsive-embeds' ],
-					cannotEmbed: ! validPreview || previewIsFallback,
-				};
-			},
-			[ attributes.url ]
-		);
-	// console.log('html');
-	// if ( preview) {
-	// 	console.log( preview.html );
-	// } else {
-	// 	console.log( 'no data' );
-	// }
+			const validPreview =
+				!! embedPreview && ! badEmbedProvider && isCrwodsignal;
+			return {
+				preview: validPreview ? embedPreview : undefined,
+				fetching: isRequestingEmbedPreview( url ),
+				cannotEmbed: ! validPreview || previewIsFallback,
+			};
+		},
+		[ attributes.url ]
+	);
+
 	if ( fetching ) {
 		return (
 			<View>
@@ -89,7 +79,10 @@ const EmbedForm = ( { attributes, isSelected, setAttributes } ) => {
 				>
 					{ cannotEmbed && (
 						<span className="cs-embed__error">
-							Unable to embed, please check the URL and try again.
+							{ __(
+								'Unable to embed, please check the URL and try again.',
+								'crowdsignal-forms'
+							) }
 						</span>
 					) }
 					<form
