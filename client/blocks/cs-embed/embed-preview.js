@@ -10,12 +10,13 @@ export default function EmbedPreview( { html } ) {
 
 	return (
 		<div { ...useBlockProps() }>
+			<Toolbar setIsEditingURL={ setIsEditingURL } />
 			<SandBox html={ html } />
-			{/* Click preview to see this embed
+			{ /* Click preview to see this embed
 			<Button
 				variant="Primary"
 				text={ __( 'Edit Link', 'crowdsignal-forms' ) }
-			/> */}
+			/> */ }
 		</div>
 	);
 }
