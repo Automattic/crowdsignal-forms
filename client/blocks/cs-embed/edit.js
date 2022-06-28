@@ -3,7 +3,6 @@
  */
 import { Placeholder, Button, ExternalLink } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useBlockProps } from '@wordpress/block-editor';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
@@ -16,8 +15,9 @@ import Sidebar from './sidebar';
 import EmbedPreview from './embed-preview';
 import EmbedLoading from './embed-loading';
 import Domains from './cs-domains';
+import Toolbar from './toolbar';
 
-const EmbedForm = ( { attributes, isSelected, setAttributes } ) => {
+const EmbedForm = ( { attributes, setAttributes } ) => {
 	const [ isEditingURL, setIsEditingURL ] = useState( true );
 	const [ url, setUrl ] = useState( attributes.url );
 	const { preview, fetching, cannotEmbed } = useSelect(
@@ -35,7 +35,7 @@ const EmbedForm = ( { attributes, isSelected, setAttributes } ) => {
 			const previewIsFallback = isPreviewEmbedFallback( url );
 
 			//Gets our domains from cs-domains.js <some> requires a pure array so we have to call the array (ourDomains) from the object
-			const isCrwodsignal = Domains.ourDomains.some( ( e ) => {
+			const isCrowdsignal = Domains.ourDomains.some( ( e ) => {
 				if ( url.includes( e ) ) {
 					return true;
 				}
@@ -48,7 +48,7 @@ const EmbedForm = ( { attributes, isSelected, setAttributes } ) => {
 				embedPreview?.type === undefined;
 
 			const validPreview =
-				!! embedPreview && ! badEmbedProvider && isCrwodsignal;
+				!! embedPreview && ! badEmbedProvider && isCrowdsignal;
 			return {
 				preview: validPreview ? embedPreview : undefined,
 				fetching: isRequestingEmbedPreview( url ),
@@ -61,15 +61,19 @@ const EmbedForm = ( { attributes, isSelected, setAttributes } ) => {
 	if ( fetching ) {
 		return (
 			<View>
-				<EmbedLoading />
+				<Sidebar attributes={ attributes } />
+				<Toolbar setIsEditingURL={ setIsEditingURL } />
+				<Placeholder>
+					<EmbedLoading />
+				</Placeholder>
 			</View>
 		);
 	}
 
 	return (
 		<View>
-			<Sidebar />
-			<button onClick={ () => setIsEditingURL( true ) }> edit </button>
+			<Sidebar attributes={ attributes.url } />
+			<Toolbar setIsEditingURL={ setIsEditingURL } />
 			{ ! fetching && preview && ! isEditingURL ? (
 				<EmbedPreview html={ preview.html } />
 			) : (
@@ -113,8 +117,8 @@ const EmbedForm = ( { attributes, isSelected, setAttributes } ) => {
 						></Button>
 					</form>
 
-					<ExternalLink href={ attributes.createLink }>
-						{ attributes.createText }
+					<ExternalLink href="https://crowdsignal.com/support/?ref=CSEmbedBlockHelpLink">
+						Learn more about Crowdsignal Surveys
 					</ExternalLink>
 				</Placeholder>
 			) }
