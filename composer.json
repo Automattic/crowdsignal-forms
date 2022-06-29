@@ -10,5 +10,11 @@
 		"wp-coding-standards/wpcs": "2.2.1",
 		"wp-cli/wp-cli-bundle": "2.4.0",
 		"psy/psysh": "^0.10.7"
+	},
+	"config": {
+		"allow-plugins": {
+			"cweagans/composer-patches": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }
