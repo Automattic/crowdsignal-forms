@@ -15,26 +15,31 @@ import {
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
-const Sidebar = ( link ) => {
-	const refLink = link.attributes;
+const Sidebar = ( { attributes } ) => {
+	const { typeTextPlural, createText, dashboardLink } = attributes;
+
 	return (
 		<InspectorControls>
 			<PanelBody
 				title={ __( 'Crowdsignal Settings', 'crowdsignal-forms' ) }
 				initialOpen={ true }
 			>
-				<PanelRow>
-					Edit your surveys on{ ' ' }
-					<ExternalLink href={ refLink }>
+				<div>
+					Edit your { typeTextPlural } on{ ' ' }
+					<a
+						href={ dashboardLink }
+						target="_blank"
+						rel="external noreferrer noopener"
+					>
 						Crowdsignal.com
-					</ExternalLink>
-				</PanelRow>
+					</a>
+				</div>
 				<PanelRow>
 					<Button
 						variant="secondary"
-						href={ refLink }
+						href={ dashboardLink }
 						target="_blank"
-						text={ __( 'Create Survey', 'crowdsignal-forms' ) }
+						text={ createText }
 					/>
 				</PanelRow>
 			</PanelBody>
@@ -42,16 +47,20 @@ const Sidebar = ( link ) => {
 				title={ __( 'Results', 'crowdsignal-forms' ) }
 				initialOpen={ true }
 			>
-				<PanelRow>
-					Manage your results on{ ' ' }
-					<ExternalLink href={ refLink }>
+				<div>
+					{ __( 'Manage results on', 'crowdsignal-forms' ) }{ ' ' }
+					<a
+						href={ dashboardLink }
+						target="_blank"
+						rel="external noreferrer noopener"
+					>
 						Crowdsignal.com
-					</ExternalLink>
-				</PanelRow>
+					</a>
+				</div>
 				<PanelRow>
 					<Button
 						variant="secondary"
-						href={ refLink }
+						href={ dashboardLink }
 						target="_blank"
 						text={ __( 'View Results', 'crowdsignal-forms' ) }
 					/>

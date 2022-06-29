@@ -40,4 +40,16 @@ export default {
 		type: 'string',
 		default: __( 'Create a new Survey', 'crowdsignal-forms' ),
 	},
+	typeText: {
+		type: 'string',
+		default: __( 'survey', 'crowdsignal-forms' ),
+	},
+	typeTextPlural: {
+		type: 'string',
+		default: __( 'surveys', 'crowdsignal-forms' ),
+	},
+	dashboardLink: {
+		type: 'string',
+		default: 'https://app.crowdsignal.com/?ref=surveyembedblock',
+	},
 };

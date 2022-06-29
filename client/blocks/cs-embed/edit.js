@@ -72,7 +72,7 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 
 	return (
 		<View>
-			<Sidebar attributes={ attributes.url } />
+			<Sidebar attributes={ attributes } />
 			<Toolbar setIsEditingURL={ setIsEditingURL } />
 			{ ! fetching && preview && ! isEditingURL ? (
 				<EmbedPreview html={ preview.html } />
