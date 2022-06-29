@@ -34,7 +34,7 @@ export default {
 	},
 	createLink: {
 		type: 'string',
-		default: 'https://app.crowdsignal.com/?ref=surveyembedblock',
+		default: 'https://crowdsignal.com/support/create-a-survey/',
 	},
 	createText: {
 		type: 'string',
@@ -51,5 +51,12 @@ export default {
 	dashboardLink: {
 		type: 'string',
 		default: 'https://app.crowdsignal.com/?ref=surveyembedblock',
+	},
+	embedMessage: {
+		type: 'string',
+		default: __(
+			'Paste a link to the survey you want to display on your site',
+			'crowdsignal-forms'
+		),
 	},
 };

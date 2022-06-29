@@ -14,7 +14,7 @@ import attributes from './attributes';
 export default {
 	title: __( 'Survey', 'crowdsignal-forms' ),
 	description: __(
-		'Create and embad a survey — powered by Crowdsignal.',
+		'Create a multipage survey on crowdsignal.com and embed it.',
 		'crowdsignal-forms'
 	),
 	category: 'crowdsignal-forms',

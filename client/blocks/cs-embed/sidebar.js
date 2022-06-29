@@ -6,18 +6,18 @@ import React from 'react';
 /**
  * WordPress dependencies
  */
-import {
-	Button,
-	ExternalLink,
-	PanelBody,
-	PanelRow,
-} from '@wordpress/components';
+import { Button, PanelBody, PanelRow } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
-const Sidebar = ( { attributes } ) => {
-	const { typeTextPlural, createText, dashboardLink } = attributes;
+/**
+ * Internal dependencies
+ */
+import SidebarPromote from 'components/sidebar-promote';
 
+const Sidebar = ( { attributes, shouldPromote, signalWarning } ) => {
+	const { typeTextPlural, createText, dashboardLink } = attributes;
+	console.log( shouldPromote, signalWarning );
 	return (
 		<InspectorControls>
 			<PanelBody
@@ -58,12 +58,21 @@ const Sidebar = ( { attributes } ) => {
 					</a>
 				</div>
 				<PanelRow>
-					<Button
-						variant="secondary"
-						href={ dashboardLink }
-						target="_blank"
-						text={ __( 'View Results', 'crowdsignal-forms' ) }
-					/>
+					<div>
+						<Button
+							variant="secondary"
+							href={ dashboardLink }
+							target="_blank"
+							text={ __( 'View Results', 'crowdsignal-forms' ) }
+						/>
+					</div>
+				</PanelRow>
+			</PanelBody>
+			<PanelBody title="" initialOpen={ true }>
+				<PanelRow>
+					{ shouldPromote && (
+						<SidebarPromote signalWarning={ signalWarning } />
+					) }
 				</PanelRow>
 			</PanelBody>
 		</InspectorControls>

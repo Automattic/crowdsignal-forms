@@ -3,19 +3,29 @@
 #editor .editor-styles-wrapper {
 
 	.crowdsignal-logo {
-		height: 48px;
-		width: 48px;
+		height: 40px;
+		width: 40px;
 	}
 
 	.cs-embed__button {
-		margin-left: 4px;
+		margin-left: 8px;
 	}
 
 	.cs-embed__field {
-		width: 75%;
+		width: 85%;
 	}
 
 	.cs-embed__error {
 		color: red;
+	}
+
+	.cs-embed__instructions {
+		padding-bottom: 16px;
+		padding-left: 4px;
+	}
+
+	.cs-embed__create-link {
+		padding-top: 16px;
+		padding-left: 4px;
 	}
 }

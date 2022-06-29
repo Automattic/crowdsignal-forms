@@ -1,4 +1,10 @@
 /**
+ * External dependencies
+ */
+import React from 'react';
+import { get } from 'lodash';
+
+/**
  * WordPress dependencies
  */
 import { Placeholder, Button, ExternalLink } from '@wordpress/components';
@@ -16,10 +22,27 @@ import EmbedPreview from './embed-preview';
 import EmbedLoading from './embed-loading';
 import Domains from './cs-domains';
 import Toolbar from './toolbar';
+import { useAccountInfo } from 'data/hooks';
 
 const EmbedForm = ( { attributes, setAttributes } ) => {
 	const [ isEditingURL, setIsEditingURL ] = useState( true );
+
+	const { createText, createLink, embedMessage } = attributes;
+
 	const [ url, setUrl ] = useState( attributes.url );
+
+	const { accountInfo } = useAccountInfo();
+
+	const shouldPromote = get( accountInfo, [
+		'signalCount',
+		'shouldDisplay',
+	] );
+
+	const signalWarning =
+		shouldPromote &&
+		get( accountInfo, [ 'signalCount', 'count' ] ) >=
+			get( accountInfo, [ 'signalCount', 'userLimit' ] );
+
 	const { preview, fetching, cannotEmbed } = useSelect(
 		( select ) => {
 			const {
@@ -61,7 +84,11 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 	if ( fetching ) {
 		return (
 			<View>
-				<Sidebar attributes={ attributes } />
+				<Sidebar
+					attributes={ attributes }
+					shouldPromote={ shouldPromote }
+					signalWarning={ signalWarning }
+				/>
 				<Toolbar setIsEditingURL={ setIsEditingURL } />
 				<Placeholder>
 					<EmbedLoading />
@@ -72,7 +99,11 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 
 	return (
 		<View>
-			<Sidebar attributes={ attributes } />
+			<Sidebar
+				attributes={ attributes }
+				shouldPromote={ shouldPromote }
+				signalWarning={ signalWarning }
+			/>
 			<Toolbar setIsEditingURL={ setIsEditingURL } />
 			{ ! fetching && preview && ! isEditingURL ? (
 				<EmbedPreview html={ preview.html } />
@@ -96,6 +127,9 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 							setAttributes( { url } );
 						} }
 					>
+						<div className="cs-embed__instructions">
+							{ embedMessage }
+						</div>
 						<input
 							className="cs-embed__field"
 							label={ __(
@@ -117,8 +151,11 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 						></Button>
 					</form>
 
-					<ExternalLink href="https://crowdsignal.com/support/?ref=CSEmbedBlockHelpLink">
-						Learn more about Crowdsignal Surveys
+					<ExternalLink
+						href={ createLink }
+						className="cs-embed__create-link"
+					>
+						{ createText }
 					</ExternalLink>
 				</Placeholder>
 			) }
