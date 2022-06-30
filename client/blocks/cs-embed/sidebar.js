@@ -17,7 +17,6 @@ import SidebarPromote from 'components/sidebar-promote';
 
 const Sidebar = ( { attributes, shouldPromote, signalWarning } ) => {
 	const { typeTextPlural, createText, dashboardLink } = attributes;
-	console.log( shouldPromote, signalWarning );
 	return (
 		<InspectorControls>
 			<PanelBody
