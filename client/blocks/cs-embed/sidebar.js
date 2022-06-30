@@ -67,13 +67,14 @@ const Sidebar = ( { attributes, shouldPromote, signalWarning } ) => {
 					</div>
 				</PanelRow>
 			</PanelBody>
-			<PanelBody title="" initialOpen={ true }>
-				<PanelRow>
-					{ shouldPromote && (
+
+			{ shouldPromote && (
+				<PanelBody title="" initialOpen={ true }>
+					<PanelRow>
 						<SidebarPromote signalWarning={ signalWarning } />
-					) }
-				</PanelRow>
-			</PanelBody>
+					</PanelRow>
+				</PanelBody>
+			) }
 		</InspectorControls>
 	);
 };
