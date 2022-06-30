@@ -112,14 +112,6 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 					icon={ CSLogo }
 					label={ __( 'Survey Embed', 'crowdsignal-forms' ) }
 				>
-					{ cannotEmbed && (
-						<span className="cs-embed__error">
-							{ __(
-								'Unable to embed, please check the URL and try again.',
-								'crowdsignal-forms'
-							) }
-						</span>
-					) }
 					<form
 						onSubmit={ ( event ) => {
 							event.preventDefault();
@@ -130,6 +122,15 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 						<div className="cs-embed__instructions">
 							{ embedMessage }
 						</div>
+
+						{ cannotEmbed && (
+							<span className="cs-embed__error">
+								{ __(
+									'Unable to embed, please check the URL and try again.',
+									'crowdsignal-forms'
+								) }
+							</span>
+						) }
 						<input
 							className="cs-embed__field"
 							label={ __(
@@ -141,7 +142,6 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 								setUrl( event.target.value )
 							}
 						/>
-
 						<Button
 							className="cs-embed__button"
 							variant="primary"
@@ -150,7 +150,6 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 							text={ __( 'Embed', 'crowdsignal-forms' ) }
 						></Button>
 					</form>
-
 					<ExternalLink
 						href={ createLink }
 						className="cs-embed__create-link"
