@@ -1,0 +1,32 @@
+/* Editor styles */
+
+#editor .editor-styles-wrapper {
+
+	.crowdsignal-logo {
+		height: 40px;
+		width: 40px;
+	}
+
+	.cs-embed__button {
+		margin-left: 8px;
+	}
+
+	.cs-embed__field {
+		width: 85%;
+	}
+
+	.cs-embed__error {
+		color: red;
+		padding-left: 4px;
+	}
+
+	.cs-embed__instructions {
+		padding-bottom: 16px;
+		padding-left: 4px;
+	}
+
+	.cs-embed__create-link {
+		padding-top: 16px;
+		padding-left: 4px;
+	}
+}

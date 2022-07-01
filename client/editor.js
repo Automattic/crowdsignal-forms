@@ -13,6 +13,7 @@ import voteItemBlock from 'blocks/vote-item';
 import applauseBlock from 'blocks/applause';
 import npsBlock from 'blocks/nps';
 import feedbackBlock from 'blocks/feedback';
+import csEmbedBlock from 'blocks/cs-embed';
 import {
 	withFixedPosition,
 	withFixedPositionControl,
@@ -24,6 +25,7 @@ registerBlockType( 'crowdsignal-forms/vote-item', voteItemBlock );
 registerBlockType( 'crowdsignal-forms/applause', applauseBlock );
 registerBlockType( 'crowdsignal-forms/nps', npsBlock );
 registerBlockType( 'crowdsignal-forms/feedback', feedbackBlock );
+registerBlockType( 'crowdsignal-forms/cs-embed', csEmbedBlock );
 
 addFilter(
 	'editor.BlockListBlock',
