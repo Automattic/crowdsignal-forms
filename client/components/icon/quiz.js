@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Survey() {
+function Quiz() {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -27,4 +27,4 @@ function Survey() {
 	);
 }
 
-export default Survey;
+export default Quiz;

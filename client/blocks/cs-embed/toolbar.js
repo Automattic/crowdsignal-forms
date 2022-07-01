@@ -4,8 +4,6 @@
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { BlockControls } from '@wordpress/block-editor';
-// import { edit } from '@wordpress/icons';
-
 /**
  * Local dependencies
  */

@@ -57,13 +57,8 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 			const embedPreview = getEmbedPreview( url );
 			const previewIsFallback = isPreviewEmbedFallback( url );
 
-			//Gets our domains from cs-domains.js <some> requires a pure array so we have to call the array (ourDomains) from the object
-			const isCrowdsignal = Domains.ourDomains.some( ( e ) => {
-				if ( url.includes( e ) ) {
-					return true;
-				}
-				return false;
-			} );
+			//Gets our domains from cs-domains.js
+			const isCrowdsignal = Domains.some( ( e ) => url.includes( e ) );
 
 			// The external oEmbed provider does not exist. We got no type info and no html.
 			const badEmbedProvider =

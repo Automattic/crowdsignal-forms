@@ -9,6 +9,7 @@ import React from 'react';
 import { Button, PanelBody, PanelRow } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -16,23 +17,14 @@ import { __ } from '@wordpress/i18n';
 import SidebarPromote from 'components/sidebar-promote';
 
 const Sidebar = ( { attributes, shouldPromote, signalWarning } ) => {
-	const { typeTextPlural, createText, dashboardLink } = attributes;
+	const { editText, createText, dashboardLink } = attributes;
 	return (
 		<InspectorControls>
 			<PanelBody
 				title={ __( 'Crowdsignal Settings', 'crowdsignal-forms' ) }
 				initialOpen={ true }
 			>
-				<div>
-					Edit your { typeTextPlural } on{ ' ' }
-					<a
-						href={ dashboardLink }
-						target="_blank"
-						rel="external noreferrer noopener"
-					>
-						Crowdsignal.com
-					</a>
-				</div>
+				<div>{ editText }</div>
 				<PanelRow>
 					<Button
 						variant="secondary"
@@ -47,14 +39,22 @@ const Sidebar = ( { attributes, shouldPromote, signalWarning } ) => {
 				initialOpen={ true }
 			>
 				<div>
-					{ __( 'Manage results on', 'crowdsignal-forms' ) }{ ' ' }
-					<a
-						href={ dashboardLink }
-						target="_blank"
-						rel="external noreferrer noopener"
-					>
-						Crowdsignal.com
-					</a>
+					{ createInterpolateElement(
+						__(
+							'View results on <a>crowdsignal.com</a>',
+							'crowdsignal-forms'
+						),
+						{
+							a: (
+								// eslint-disable-next-line jsx-a11y/anchor-has-content
+								<a
+									href={ dashboardLink }
+									target="_blank"
+									rel="external noreferrer noopener"
+								/>
+							),
+						}
+					) }
 				</div>
 				<PanelRow>
 					<div>

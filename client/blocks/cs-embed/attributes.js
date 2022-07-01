@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 
 export default {
 	url: {
@@ -44,9 +45,24 @@ export default {
 		type: 'string',
 		default: __( 'survey', 'crowdsignal-forms' ),
 	},
-	typeTextPlural: {
+	editText: {
 		type: 'string',
-		default: __( 'surveys', 'crowdsignal-forms' ),
+		default: createInterpolateElement(
+			__(
+				'Edit your surveys on <a>crowdsignal.com</a>',
+				'crowdsignal-forms'
+			),
+			{
+				a: (
+					// eslint-disable-next-line jsx-a11y/anchor-has-content
+					<a
+						href="https://app.crowdsignal.com"
+						target="_blank"
+						rel="external noreferrer noopener"
+					/>
+				),
+			}
+		),
 	},
 	dashboardLink: {
 		type: 'string',
