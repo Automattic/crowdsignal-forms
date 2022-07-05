@@ -10,6 +10,7 @@ import Survey from '../../components/icon/survey';
 import EditEmbedBlock from './edit';
 import SaveEmbedBlock from './save';
 import attributes from './attributes';
+import variations from './variations';
 
 export default {
 	title: __( 'Survey', 'crowdsignal-forms' ),
@@ -22,6 +23,7 @@ export default {
 	icon: <Survey />,
 	edit: EditEmbedBlock,
 	save: SaveEmbedBlock,
+	variations,
 	attributes,
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
