@@ -57,7 +57,7 @@ export default {
 				a: (
 					// eslint-disable-next-line jsx-a11y/anchor-has-content
 					<a
-						href="https://app.crowdsignal.com"
+						href="https://app.crowdsignal.com?ref=surveymbedblock"
 						target="_blank"
 						rel="external noreferrer noopener"
 					/>
