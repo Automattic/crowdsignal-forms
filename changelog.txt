@@ -1,3 +1,9 @@
+= 1.6.4 =
+* Update/survey help landing page (#231)
+* add/quiz variation to CS Embed block (#230)
+* add/crowdsignal-embed block (#222)
+* Fix POT compilation on the local environment (#226)
+
 = 1.6.3 =
 * remove php8.1 when all is said and done to avoid compatiblity issues between WP, PHP and php-mysql libs (#221)
 * Update filter name due to deprecation (block_categories) (#220)
