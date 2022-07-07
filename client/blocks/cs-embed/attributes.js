@@ -75,4 +75,8 @@ export default {
 			'crowdsignal-forms'
 		),
 	},
+	placeholderTitle: {
+		type: 'string',
+		default: __( 'Survey Embed', 'crowdsignal-forms' ),
+	},
 };

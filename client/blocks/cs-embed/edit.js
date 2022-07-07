@@ -27,7 +27,7 @@ import { useAccountInfo } from 'data/hooks';
 const EmbedForm = ( { attributes, setAttributes } ) => {
 	const [ isEditingURL, setIsEditingURL ] = useState( true );
 
-	const { createText, createLink, embedMessage } = attributes;
+	const { createText, createLink, embedMessage, placeholderTitle } = attributes;
 
 	const [ url, setUrl ] = useState( attributes.url );
 
@@ -105,7 +105,7 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 			) : (
 				<Placeholder
 					icon={ CSLogo }
-					label={ __( 'Survey Embed', 'crowdsignal-forms' ) }
+					label={ placeholderTitle }
 				>
 					<form
 						onSubmit={ ( event ) => {
@@ -128,10 +128,7 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 						) }
 						<input
 							className="cs-embed__field"
-							label={ __(
-								'Paste a link to the survey you want to display on your site.',
-								'crowdsignal-forms'
-							) }
+							label={ embedMessage }
 							value={ url }
 							onChange={ ( event ) =>
 								setUrl( event.target.value )
