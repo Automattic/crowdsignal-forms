@@ -35,7 +35,8 @@ export default {
 	},
 	createLink: {
 		type: 'string',
-		default: 'https://crowdsignal.com/support/create-a-survey/',
+		default:
+			'https://crowdsignal.com/support/add-a-multipage-survey-to-any-wordpress-page-or-post/?ref=surveyembedblock',
 	},
 	createText: {
 		type: 'string',
