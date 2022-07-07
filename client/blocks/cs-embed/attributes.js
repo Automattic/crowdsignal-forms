@@ -35,7 +35,8 @@ export default {
 	},
 	createLink: {
 		type: 'string',
-		default: 'https://crowdsignal.com/support/create-a-survey/',
+		default:
+			'https://crowdsignal.com/support/add-a-multipage-survey-to-any-wordpress-page-or-post/?ref=surveyembedblock',
 	},
 	createText: {
 		type: 'string',
@@ -56,7 +57,7 @@ export default {
 				a: (
 					// eslint-disable-next-line jsx-a11y/anchor-has-content
 					<a
-						href="https://app.crowdsignal.com"
+						href="https://app.crowdsignal.com?ref=surveymbedblock"
 						target="_blank"
 						rel="external noreferrer noopener"
 					/>
