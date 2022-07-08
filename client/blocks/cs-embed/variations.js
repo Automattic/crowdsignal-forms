@@ -19,7 +19,7 @@ export default [
 		),
 		icon: <QuizIcon />,
 		attributes: {
-			createLink: 'https://crowdsignal.com/support/create-a-quiz/',
+			createLink: 'https://crowdsignal.com/support/create-a-quiz/?ref=quizembedblock',
 			createText: __( 'Create a new Quiz', 'crowdsignal-forms' ),
 			placeholderTitle: __( 'Quiz Embed', 'crowdsignal-forms' ),
 			typeText: __( 'quiz', 'crowdsignal-forms' ),
@@ -32,7 +32,7 @@ export default [
 					a: (
 						// eslint-disable-next-line jsx-a11y/anchor-has-content
 						<a
-							href="https://app.crowdsignal.com"
+							href="https://app.crowdsignal.com/?ref=quizmbedblock"
 							target="_blank"
 							rel="external noreferrer noopener"
 						/>
