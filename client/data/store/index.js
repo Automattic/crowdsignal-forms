@@ -35,7 +35,6 @@ const storeConfig = {
 			return !! state?.isFetching;
 		},
 		getAccountInfo(state) {
-			console.log(state);
 			return state.account.accountInfo;
 		}
 	},
