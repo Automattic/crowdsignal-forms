@@ -14,7 +14,8 @@ import { trackFailedConnection } from 'lib/tracks';
 const ConnectToCrowdsignal = ( props ) => {
 	const { blockIcon, blockName, children } = props;
 
-	const { accountInfo, reloadAccountInfo } = useAccountInfo();
+	const accountInfo = useSelect( (select) => select('crowdsignal-forms/polls').getAccountInfo() );
+	const { reloadAccountInfo } = useAccountInfo();
 	const isConnected = accountInfo && accountInfo.id !== 0;
 	const isAccountVerified = !! accountInfo.is_verified;
 	const currentUser = useSelect( ( select ) =>

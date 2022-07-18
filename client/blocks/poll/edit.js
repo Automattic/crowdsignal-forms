@@ -12,7 +12,7 @@ import { ResizableBox } from '@wordpress/components';
 import { decodeEntities } from '@wordpress/html-entities';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-
+import { useSelect } from '@wordpress/data';
 /**
  * Internal dependencies
  */
@@ -42,7 +42,7 @@ import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import PollIcon from 'components/icon/poll';
 import withPollBase from 'components/with-poll-base';
 import FooterBranding from 'components/footer-branding';
-import { useAccountInfo } from 'data/hooks';
+// import { useAccountInfo } from 'data/hooks';
 import SignalWarning from 'components/signal-warning';
 
 const withPollAndAnswerIds = ( Element ) => {
@@ -124,7 +124,7 @@ const PollBlock = ( props ) => {
 	const isHidden =
 		isClosed && ClosedPollState.HIDDEN === attributes.closedPollState;
 
-	const { accountInfo } = useAccountInfo();
+	const accountInfo = useSelect( (select) => select('crowdsignal-forms/polls').getAccountInfo() );
 
 	const hideBranding = get( accountInfo, 'capabilities', [] ).includes(
 		'hide-branding'

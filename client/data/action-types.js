@@ -1,0 +1,9 @@
+export const ACCOUNT_INFO_LOAD = 'ACCOUNT_INFO_LOAD';
+export const ACCOUNT_INFO_UPDATE = 'ACCOUNT_INFO_UPDATE';
+
+// legacy
+export const SET_TRY_FETCH = 'SET_TRY_FETCH';
+export const IS_FETCHING = 'IS_FETCHING';
+export const SET_POLL = 'SET_POLL';
+export const ADD_POLL_CLIENT_ID = 'ADD_POLL_CLIENT_ID';
+export const REMOVE_POLL_CLIENT_ID = 'REMOVE_POLL_CLIENT_ID';

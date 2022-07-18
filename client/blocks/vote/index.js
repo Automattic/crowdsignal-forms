@@ -8,7 +8,6 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import VoteIcon from 'components/icon/vote';
-// import './store';
 import EditVoteBlock from './edit';
 import attributes from './attributes';
 
