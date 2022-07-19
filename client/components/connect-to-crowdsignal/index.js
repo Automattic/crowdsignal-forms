@@ -15,8 +15,10 @@ import { requestAccountInfo } from '../../data/poll';
 const ConnectToCrowdsignal = ( props ) => {
 	const { blockIcon, blockName, children } = props;
 
-	const accountInfo = useSelect( (select) => select(STORE_NAME).getAccountInfo() );
-	const { updateAccountInfo } = useDispatch(STORE_NAME);
+	const accountInfo = useSelect( ( select ) =>
+		select( STORE_NAME ).getAccountInfo()
+	);
+	const { updateAccountInfo } = useDispatch( STORE_NAME );
 	const isConnected = accountInfo && accountInfo.id !== 0;
 	const isAccountVerified = !! accountInfo.is_verified;
 	const currentUser = useSelect( ( select ) =>
@@ -32,7 +34,9 @@ const ConnectToCrowdsignal = ( props ) => {
 		updateAccountInfo( newAccountInfo );
 
 		if ( ! isNowConnected ) {
-			window.open( '/wp-admin/options-general.php?page=crowdsignal-forms-settings' );
+			window.open(
+				'/wp-admin/options-general.php?page=crowdsignal-forms-settings'
+			);
 		}
 
 		// Don't pop open the email window if the connection state just changed.

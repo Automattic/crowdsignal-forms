@@ -57,7 +57,9 @@ const EditVoteBlock = ( props ) => {
 
 	const voteItemStyleVars = getVoteStyleVars( attributes );
 
-	const accountInfo = useSelect((select) => select(STORE_NAME).getAccountInfo());
+	const accountInfo = useSelect( ( select ) =>
+		select( STORE_NAME ).getAccountInfo()
+	);
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',
