@@ -9,7 +9,7 @@ import { get } from 'lodash';
  */
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -21,7 +21,6 @@ import Applause from 'components/applause';
 import withPollBase from 'components/with-poll-base';
 import Toolbar from './toolbar';
 import SideBar from './sidebar';
-// import { useAccountInfo } from 'data/hooks';
 import { STORE_NAME } from 'state';
 
 const EditApplauseBlock = ( props ) => {
@@ -38,8 +37,9 @@ const EditApplauseBlock = ( props ) => {
 		setAttributes
 	);
 
-	// const { accountInfo } = useAccountInfo();
-	const accountInfo = useSelect((select) => select(STORE_NAME).getAccountInfo());
+	const accountInfo = useSelect( ( select ) =>
+		select( STORE_NAME ).getAccountInfo()
+	);
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',

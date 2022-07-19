@@ -8,7 +8,6 @@ import { useSelect, useDispatch } from '@wordpress/data';
 /**
  * Internal dependencies
  */
-// import { useAccountInfo } from 'data/hooks';
 import { trackFailedConnection } from 'lib/tracks';
 import { STORE_NAME } from 'state';
 import { requestAccountInfo } from '../../data/poll';
