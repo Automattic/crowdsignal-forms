@@ -12,6 +12,8 @@ import apiFetch from '@wordpress/api-fetch';
 
 import { map, filter } from 'lodash';
 
+import { STORE_NAME } from 'state';
+
 const isPollBlock = ( block ) => {
 	if ( ! block ) {
 		return false;
@@ -43,7 +45,7 @@ export const startPolling = () => {
 			getPollDataByClientId,
 			shouldTryFetchingPollData,
 			isFetchingPollData,
-		} = select( 'crowdsignal-forms/polls' );
+		} = select( STORE_NAME );
 		const pollsWithNoApiData = filter(
 			getPollClientIds(),
 			( clientId ) => null === getPollDataByClientId( clientId )
@@ -57,7 +59,7 @@ export const startPolling = () => {
 			setTryFetchPollData,
 			setPollApiDataForClientId,
 			setIsFetchingPollData,
-		} = dispatch( 'crowdsignal-forms/polls' );
+		} = dispatch( STORE_NAME );
 
 		if ( ! shouldTryFetchingPollData() ) {
 			setTryFetchPollData( true );
@@ -103,12 +105,12 @@ export const startSubscriptions = () => {
 		setTryFetchPollData,
 		setPollApiDataForClientId,
 		setIsFetchingPollData,
-	} = dispatch( 'crowdsignal-forms/polls' );
+	} = dispatch( STORE_NAME );
 	const {
 		shouldTryFetchingPollData,
 		getPollDataByClientId,
 		isFetchingPollData,
-	} = select( 'crowdsignal-forms/polls' );
+	} = select( STORE_NAME );
 
 	subscribe( () => {
 		const pollBlocks = filter(
@@ -179,7 +181,7 @@ export const withPollDataSelect = () =>
 			getPollDataByClientId,
 			shouldTryFetchingPollData,
 			isFetchingPollData,
-		} = select( 'crowdsignal-forms/polls' );
+		} = select( STORE_NAME );
 		const { attributes } = ownProps;
 		const pollDataFromApi = attributes.pollId
 			? getPollDataByClientId( attributes.pollId )
@@ -201,7 +203,7 @@ export const withPollDataDispatch = () =>
 			setIsFetchingPollData,
 			addPollClientId,
 			removePollClientId,
-		} = dispatch( 'crowdsignal-forms/polls' );
+		} = dispatch( STORE_NAME );
 
 		return {
 			setTryFetchPollData,

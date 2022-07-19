@@ -4,14 +4,14 @@
 import { createReduxStore, register } from '@wordpress/data';
 
 import * as mainActions from './actions';
-import * as accountActions from '../account/actions';
+import * as accountActions from './account/actions';
 import reducer from './reducer';
-import { fetchAccountInfo } from '../poll';
+import { fetchAccountInfo } from '../data/poll';
 
 /**
  * Module Constants
  */
-const MODULE_KEY = 'crowdsignal-forms/polls';
+export const STORE_NAME = 'crowdsignal-forms/editor';
 
 const storeConfig = {
 	reducer,
@@ -53,5 +53,5 @@ const storeConfig = {
 	},
 };
 
-export const store = createReduxStore(MODULE_KEY, storeConfig);
+export const store = createReduxStore(STORE_NAME, storeConfig);
 register( store );

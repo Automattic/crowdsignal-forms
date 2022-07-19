@@ -22,6 +22,7 @@ import withPollBase from 'components/with-poll-base';
 import Toolbar from './toolbar';
 import SideBar from './sidebar';
 // import { useAccountInfo } from 'data/hooks';
+import { STORE_NAME } from 'state';
 
 const EditApplauseBlock = ( props ) => {
 	const { attributes, setAttributes, pollDataFromApi } = props;
@@ -38,7 +39,7 @@ const EditApplauseBlock = ( props ) => {
 	);
 
 	// const { accountInfo } = useAccountInfo();
-	const accountInfo = useSelect((select) => select('crowdsignal-forms/polls').getAccountInfo());
+	const accountInfo = useSelect((select) => select(STORE_NAME).getAccountInfo());
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',

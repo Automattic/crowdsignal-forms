@@ -8,14 +8,6 @@ import { combineReducers } from '@wordpress/data';
  */
 import { ACCOUNT_INFO_LOAD, ACCOUNT_INFO_UPDATE } from "../action-types";
 
-const isFetching = (state = false, action) => {
-	if (action.type === ACCOUNT_INFO_LOAD) {
-		return true;
-	}
-
-	return false;
-}
-
 const defaultAccountInfo = {
 	is_verified: true,
 	capabilities: [ 'hide-branding' ],
@@ -37,6 +29,5 @@ const accountInfo = (state = defaultAccountInfo, action) => {
 };
 
 export default combineReducers({
-	isFetching,
 	accountInfo,
 });

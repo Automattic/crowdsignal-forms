@@ -44,6 +44,7 @@ import withPollBase from 'components/with-poll-base';
 import FooterBranding from 'components/footer-branding';
 // import { useAccountInfo } from 'data/hooks';
 import SignalWarning from 'components/signal-warning';
+import { STORE_NAME } from 'state';
 
 const withPollAndAnswerIds = ( Element ) => {
 	return ( props ) => {
@@ -124,7 +125,7 @@ const PollBlock = ( props ) => {
 	const isHidden =
 		isClosed && ClosedPollState.HIDDEN === attributes.closedPollState;
 
-	const accountInfo = useSelect( (select) => select('crowdsignal-forms/polls').getAccountInfo() );
+	const accountInfo = useSelect( (select) => select(STORE_NAME).getAccountInfo() );
 
 	const hideBranding = get( accountInfo, 'capabilities', [] ).includes(
 		'hide-branding'

@@ -7,8 +7,8 @@ import { filter } from 'lodash';
 /**
  * Internal dependencies
  */
-import account from '../account/reducer';
-import { SET_TRY_FETCH, IS_FETCHING, SET_POLL, ADD_POLL_CLIENT_ID, REMOVE_POLL_CLIENT_ID } from '../action-types';
+import account from './account/reducer';
+import { SET_TRY_FETCH, IS_FETCHING, SET_POLL, ADD_POLL_CLIENT_ID, REMOVE_POLL_CLIENT_ID } from './action-types';
 
 const DEFAULT_STATE = {
 	tryFetch: false,

@@ -10,11 +10,12 @@ import { useSelect } from '@wordpress/data';
  */
 import { useAccountInfo } from 'data/hooks';
 import { trackFailedConnection } from 'lib/tracks';
+import { STORE_NAME } from 'state';
 
 const ConnectToCrowdsignal = ( props ) => {
 	const { blockIcon, blockName, children } = props;
 
-	const accountInfo = useSelect( (select) => select('crowdsignal-forms/polls').getAccountInfo() );
+	const accountInfo = useSelect( (select) => select(STORE_NAME).getAccountInfo() );
 	const { reloadAccountInfo } = useAccountInfo();
 	const isConnected = accountInfo && accountInfo.id !== 0;
 	const isAccountVerified = !! accountInfo.is_verified;

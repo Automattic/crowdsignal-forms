@@ -25,6 +25,7 @@ import { isPollClosed } from 'blocks/poll/util';
 import useNumberedTitle from 'components/use-numbered-title';
 import withPollBase from 'components/with-poll-base';
 // import { useAccountInfo } from 'data/hooks';
+import { STORE_NAME } from 'state';
 
 const EditVoteBlock = ( props ) => {
 	const { attributes, setAttributes, className, pollDataFromApi } = props;
@@ -58,7 +59,7 @@ const EditVoteBlock = ( props ) => {
 	const voteItemStyleVars = getVoteStyleVars( attributes );
 
 	// const { accountInfo } = useAccountInfo();
-	const accountInfo = useSelect((select) => select('crowdsignal-forms/polls').getAccountInfo());
+	const accountInfo = useSelect((select) => select(STORE_NAME).getAccountInfo());
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',

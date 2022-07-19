@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import PollIcon from 'components/icon/poll';
-import 'data/store';
+import 'state';
 import EditPollBlock from './edit';
 import attributes from './attributes';
 
