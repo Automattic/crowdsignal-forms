@@ -27,7 +27,12 @@ import { STORE_NAME } from 'state';
 const EmbedForm = ( { attributes, setAttributes } ) => {
 	const [ isEditingURL, setIsEditingURL ] = useState( true );
 
-	const { createText, createLink, embedMessage, placeholderTitle } = attributes;
+	const {
+		createText,
+		createLink,
+		embedMessage,
+		placeholderTitle,
+	} = attributes;
 
 	const [ url, setUrl ] = useState( attributes.url );
 
@@ -105,10 +110,7 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 			{ ! fetching && preview && ! isEditingURL ? (
 				<EmbedPreview html={ preview.html } />
 			) : (
-				<Placeholder
-					icon={ CSLogo }
-					label={ placeholderTitle }
-				>
+				<Placeholder icon={ CSLogo } label={ placeholderTitle }>
 					<form
 						onSubmit={ ( event ) => {
 							event.preventDefault();

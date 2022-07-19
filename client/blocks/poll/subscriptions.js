@@ -19,9 +19,11 @@ const isPollBlock = ( block ) => {
 		return false;
 	}
 
-	return block.name === 'crowdsignal-forms/poll' ||
+	return (
+		block.name === 'crowdsignal-forms/poll' ||
 		block.name === 'crowdsignal-forms/applause' ||
-		block.name === 'crowdsignal-forms/vote';
+		block.name === 'crowdsignal-forms/vote'
+	);
 };
 
 let subsStarted = false;
