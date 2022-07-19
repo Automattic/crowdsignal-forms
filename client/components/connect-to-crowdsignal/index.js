@@ -3,20 +3,21 @@
  */
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
-import { useAccountInfo } from 'data/hooks';
+// import { useAccountInfo } from 'data/hooks';
 import { trackFailedConnection } from 'lib/tracks';
 import { STORE_NAME } from 'state';
+import { requestAccountInfo } from '../../data/poll';
 
 const ConnectToCrowdsignal = ( props ) => {
 	const { blockIcon, blockName, children } = props;
 
 	const accountInfo = useSelect( (select) => select(STORE_NAME).getAccountInfo() );
-	const { reloadAccountInfo } = useAccountInfo();
+	const { updateAccountInfo } = useDispatch(STORE_NAME);
 	const isConnected = accountInfo && accountInfo.id !== 0;
 	const isAccountVerified = !! accountInfo.is_verified;
 	const currentUser = useSelect( ( select ) =>
@@ -25,10 +26,11 @@ const ConnectToCrowdsignal = ( props ) => {
 
 	const handleConnectClick = async () => {
 		const initialConnectedState = isConnected;
-		const newAccountInfo = await reloadAccountInfo();
+		const newAccountInfo = await requestAccountInfo();
 
 		const isNowConnected = newAccountInfo.id !== 0;
 		const isNowVerified = !! newAccountInfo.is_verified;
+		updateAccountInfo( newAccountInfo );
 
 		if ( ! isNowConnected ) {
 			window.open( '/wp-admin/options-general.php?page=crowdsignal-forms-settings' );
