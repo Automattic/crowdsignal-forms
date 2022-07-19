@@ -34,24 +34,24 @@ const storeConfig = {
 		isFetchingPollData( state ) {
 			return !! state?.isFetching;
 		},
-		getAccountInfo(state) {
+		getAccountInfo( state ) {
 			return state.account.accountInfo;
-		}
+		},
 	},
 
 	controls: {
 		ACCOUNT_INFO_LOAD() {
 			return fetchAccountInfo();
-		}
+		},
 	},
 
 	resolvers: {
 		*getAccountInfo() {
 			const res = yield accountActions.loadAccountInfo();
-			return accountActions.updateAccountInfo(res);
+			return accountActions.updateAccountInfo( res );
 		},
 	},
 };
 
-export const store = createReduxStore(STORE_NAME, storeConfig);
+export const store = createReduxStore( STORE_NAME, storeConfig );
 register( store );

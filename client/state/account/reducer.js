@@ -6,7 +6,7 @@ import { combineReducers } from '@wordpress/data';
 /**
  * Internal dependencies
  */
-import { ACCOUNT_INFO_UPDATE } from "../action-types";
+import { ACCOUNT_INFO_UPDATE } from '../action-types';
 
 const defaultAccountInfo = {
 	is_verified: true,
@@ -18,17 +18,17 @@ const defaultAccountInfo = {
 	},
 };
 
-const accountInfo = (state = defaultAccountInfo, action) => {
-	if (action.type === ACCOUNT_INFO_UPDATE) {
+const accountInfo = ( state = defaultAccountInfo, action ) => {
+	if ( action.type === ACCOUNT_INFO_UPDATE ) {
 		return {
 			...state,
 			...action.data,
-		}
+		};
 	}
 
 	return state;
 };
 
-export default combineReducers({
+export default combineReducers( {
 	accountInfo,
-});
+} );
