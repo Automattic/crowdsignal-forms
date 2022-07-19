@@ -8,7 +8,7 @@
 
 namespace Crowdsignal_Forms\Admin;
 
-use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Setup;
+use Crowdsignal_Forms\Admin\Crowdsignal_Forms_Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,18 +30,10 @@ class Crowdsignal_Forms_Admin {
 	private $settings_page = null;
 
 	/**
-	 * The setup page
-	 *
-	 * @var Crowdsignal_Admin
-	 */
-	private $setup_page = null;
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct() {
 
-		$this->setup_page    = new Crowdsignal_Forms_Setup();
 		$this->settings_page = new Crowdsignal_Forms_Settings();
 	}
 

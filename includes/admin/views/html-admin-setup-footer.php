@@ -28,5 +28,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<li class="cs-footer__link-item"><a href="https://crowdsignal.com/terms/" target="_blank" rel="noopener noreferrer" title="<?php esc_attr_e( 'Terms of Service', 'crowdsignal-forms' ); ?>" class="cs-footer__link"><?php esc_html_e( 'Terms', 'crowdsignal-forms' ); ?></a></li>
 		<li class="cs-footer__link-item"><a href="https://automattic.com/privacy/" target="_blank" rel="noopener noreferrer" title="<?php esc_attr_e( 'Privacy Policy', 'crowdsignal-forms' ); ?>" class="cs-footer__link"><?php esc_html_e( 'Privacy', 'crowdsignal-forms' ); ?></a></li>
 	</ul>
-​
 </div> <!--.wrap-->
