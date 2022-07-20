@@ -17,7 +17,7 @@ import { get, max } from 'lodash';
 import { RichText } from '@wordpress/block-editor';
 import { TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-import { withSelect, dispatch } from '@wordpress/data';
+import { withSelect, dispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -27,7 +27,6 @@ import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
 import EditorNotice from 'components/editor-notice';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 import { getFeedbackButtonPosition } from 'components/feedback/util';
-import { useAccountInfo } from 'data/hooks';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars, isWidgetEditor } from './util';
@@ -38,6 +37,7 @@ import { views, FeedbackStatus } from './constants';
 import RetryNotice from 'components/retry-notice';
 import FooterBranding from 'components/footer-branding';
 import FeedbackIcon from 'components/icon/feedback';
+import { STORE_NAME } from 'state';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -253,7 +253,9 @@ const EditFeedbackBlock = ( props ) => {
 	const handleChangeAttribute = ( key ) => ( value ) =>
 		setAttributes( { [ key ]: value } );
 
-	const { accountInfo } = useAccountInfo();
+	const accountInfo = useSelect( ( select ) =>
+		select( STORE_NAME ).getAccountInfo()
+	);
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',

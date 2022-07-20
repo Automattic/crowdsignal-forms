@@ -19,7 +19,8 @@ export default [
 		),
 		icon: <QuizIcon />,
 		attributes: {
-			createLink: 'https://crowdsignal.com/support/create-a-quiz/?ref=quizembedblock',
+			createLink:
+				'https://crowdsignal.com/support/create-a-quiz/?ref=quizembedblock',
 			createText: __( 'Create a new Quiz', 'crowdsignal-forms' ),
 			placeholderTitle: __( 'Quiz Embed', 'crowdsignal-forms' ),
 			typeText: __( 'quiz', 'crowdsignal-forms' ),

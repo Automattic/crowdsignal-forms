@@ -109,3 +109,10 @@ export const requestAccountInfo = async () => {
 		method: 'GET',
 	} );
 };
+
+// added: unwrapped call for wp.data store resolver compliance
+export const fetchAccountInfo = () =>
+	apiFetch( {
+		path: '/crowdsignal-forms/v1/account/info',
+		method: 'GET',
+	} );

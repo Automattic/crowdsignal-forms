@@ -83,29 +83,3 @@ export const usePollVote = (
 		storedCookieValue,
 	};
 };
-
-const defaultAccountInfo = {
-	is_verified: true,
-	capabilities: [ 'hide-branding' ],
-	signal_count: {
-		count: 0,
-		userLimit: 2500,
-		shouldDisplay: false,
-	},
-};
-
-export const useAccountInfo = () => {
-	// assume everything is fine with the user and
-	// hide branding until request comes back
-	const [ accountInfo, setAccountInfo ] = useState( defaultAccountInfo );
-	const getAccountInfo = async () => {
-		const info = await requestAccountInfo();
-		setAccountInfo( info );
-		return info;
-	};
-
-	useEffect( () => {
-		getAccountInfo();
-	}, [] );
-	return { accountInfo, reloadAccountInfo: getAccountInfo };
-};

@@ -11,7 +11,7 @@ import classnames from 'classnames';
 import { TextareaControl } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
 import { PostPreviewButton } from '@wordpress/editor';
-import { dispatch, withSelect } from '@wordpress/data';
+import { dispatch, withSelect, useSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { __, _n, sprintf } from '@wordpress/i18n';
 
@@ -26,11 +26,11 @@ import { views } from './constants';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars } from './util';
-import { useAccountInfo } from 'data/hooks';
 import EditorNotice from 'components/editor-notice';
 import FooterBranding from 'components/footer-branding';
 import SignalWarning from 'components/signal-warning';
 import RetryNotice from 'components/retry-notice';
+import { STORE_NAME } from 'state';
 
 const EditNpsBlock = ( props ) => {
 	const [ view, setView ] = useState( views.RATING );
@@ -109,7 +109,9 @@ const EditNpsBlock = ( props ) => {
 		'is-inactive': ! isExample && ! isSelected,
 	} );
 
-	const { accountInfo } = useAccountInfo();
+	const accountInfo = useSelect( ( select ) =>
+		select( STORE_NAME ).getAccountInfo()
+	);
 
 	const hideBranding = get( accountInfo, 'capabilities', [] ).includes(
 		'hide-branding'

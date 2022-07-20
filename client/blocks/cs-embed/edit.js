@@ -22,16 +22,23 @@ import EmbedPreview from './embed-preview';
 import EmbedLoading from './embed-loading';
 import Domains from './cs-domains';
 import Toolbar from './toolbar';
-import { useAccountInfo } from 'data/hooks';
+import { STORE_NAME } from 'state';
 
 const EmbedForm = ( { attributes, setAttributes } ) => {
 	const [ isEditingURL, setIsEditingURL ] = useState( true );
 
-	const { createText, createLink, embedMessage, placeholderTitle } = attributes;
+	const {
+		createText,
+		createLink,
+		embedMessage,
+		placeholderTitle,
+	} = attributes;
 
 	const [ url, setUrl ] = useState( attributes.url );
 
-	const { accountInfo } = useAccountInfo();
+	const accountInfo = useSelect( ( select ) =>
+		select( STORE_NAME ).getAccountInfo()
+	);
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',
@@ -103,10 +110,7 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 			{ ! fetching && preview && ! isEditingURL ? (
 				<EmbedPreview html={ preview.html } />
 			) : (
-				<Placeholder
-					icon={ CSLogo }
-					label={ placeholderTitle }
-				>
+				<Placeholder icon={ CSLogo } label={ placeholderTitle }>
 					<form
 						onSubmit={ ( event ) => {
 							event.preventDefault();
