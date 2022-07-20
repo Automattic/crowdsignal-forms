@@ -19,29 +19,28 @@ RUN \
 		wget \
 		less \
 		gettext \
-		libapache2-mod-php7.4 \
+		libapache2-mod-php8.1 \
 		libsodium23 \
 		mysql-client \
 		nano \
 		php-apcu \
 		php-xdebug \
-		php7.4 \
-		php7.4-bcmath \
-		php7.4-cli \
-		php7.4-curl \
-		php7.4-gd \
-		php7.4-imagick \
-		php7.4-json \
-		php7.4-ldap \
-		php7.4-mbstring \
-		php7.4-mysql \
-		php7.4-opcache \
-		php7.4-pgsql \
-		php7.4-soap \
-		php7.4-sqlite3 \
-		php7.4-xml \
-		php7.4-xsl \
-		php7.4-zip \
+		php8.1 \
+		php8.1-common \
+		php8.1-mysql \
+		php8.1-xml \
+		php8.1-xmlrpc \
+		php8.1-curl \
+		php8.1-gd \
+		php8.1-imagick \
+		php8.1-cli \
+		php8.1-dev \
+		php8.1-imap \
+		php8.1-mbstring \
+		php8.1-opcache \
+		php8.1-soap \
+		php8.1-zip \
+		php8.1-intl \
 		ssmtp \
 		subversion \
 		sudo \
@@ -60,7 +59,7 @@ RUN curl https://psysh.org/psysh -L -o /usr/local/bin/psysh \
 	&& chmod +x /usr/local/bin/psysh
 
 # Install PHPUnit
-RUN curl https://phar.phpunit.de/phpunit-7.phar -L -o phpunit.phar \
+RUN curl https://phar.phpunit.de/phpunit-9.5.phar -L -o phpunit.phar \
 	&& chmod +x phpunit.phar \
 	&& mv phpunit.phar /usr/local/bin/phpunit
 
@@ -68,8 +67,8 @@ RUN curl https://phar.phpunit.de/phpunit-7.phar -L -o phpunit.phar \
 COPY ./config/apache_default /etc/apache2/sites-available/000-default.conf
 
 # Copy a default set of settings for PHP (php.ini)
-COPY ./config/php.ini /etc/php/7.4/apache2/conf.d/20-jetpack-wordpress.ini
-COPY ./config/php.ini /etc/php/7.4/cli/conf.d/20-jetpack-wordpress.ini
+COPY ./config/php.ini /etc/php/8.1/apache2/conf.d/20-jetpack-wordpress.ini
+COPY ./config/php.ini /etc/php/8.1/cli/conf.d/20-jetpack-wordpress.ini
 
 # Copy single site htaccess to tmp. run.sh will move it to the site's base dir if there's none present.
 COPY ./config/htaccess /tmp/htaccess
@@ -95,8 +94,5 @@ RUN chmod +x /usr/local/bin/run
 
 # Set the working directory for the next commands
 WORKDIR /var/www/html
-
-# remove php 8.1 as it brings issues with WP install process
-RUN apt-get remove -y php8.1
 
 CMD ["/usr/local/bin/run"]
