@@ -11,7 +11,7 @@ on:
         required: true
         default: master
       releaseName:
-        description: Named release
+        description: Named release (no spaces/weird chars, will become the filename)
         required: true
         default: nightly_build
 
@@ -44,7 +44,7 @@ jobs:
           ref: ${{ github.event.inputs.buildBranch }}
 
       - name: Fork
-        run: git checkout -b nightly_build
+        run: git checkout -b ${{ github.event.inputs.releaseName }}
 
       - name: NPM install
         run: npm install
