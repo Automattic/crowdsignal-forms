@@ -10,6 +10,11 @@ on:
         description: Branch to build
         required: true
         default: master
+    inputs:
+      releaseName:
+        description: Named release
+        required: true
+        default: nightly_build
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -62,7 +67,7 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: nightly_build
+          automatic_release_tag: ${{ github.event.inputs.releaseName }}
           prerelease: true
           title: Development Build
-          files: release/crowdsignal-forms.nightly_build.zip
+          files: release/crowdsignal-forms.${{ github.event.inputs.releaseName }}.zip
