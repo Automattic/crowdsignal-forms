@@ -10,7 +10,6 @@ on:
         description: Branch to build
         required: true
         default: master
-    inputs:
       releaseName:
         description: Named release
         required: true
