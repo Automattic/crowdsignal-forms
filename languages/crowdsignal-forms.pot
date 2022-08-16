@@ -228,7 +228,7 @@ msgid "Crowdsignal"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:146
-msgid "Your Email (optional)"
+msgid "Your Email"
 msgstr ""
 
 #: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:154
