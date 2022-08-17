@@ -6,4 +6,4 @@
 
 set -e
 
-composer exec -v -- 'wp i18n make-pot . ./languages/crowdsignal-forms.pot --exclude="docker,tests,release,client" --include=./build'
+composer exec -v -- 'wp i18n make-pot . ./languages/crowdsignal-forms.pot --exclude="docker,tests,release,client"'
