@@ -7,7 +7,7 @@ install: install-node install-php
 
 # Install Node dependencies
 install-node:
-	npm ci
+	npm install
 
 # Install PHP dependencies
 install-php:
