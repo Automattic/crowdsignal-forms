@@ -7,7 +7,7 @@ install: install-node install-php
 
 # Install Node dependencies
 install-node:
-	npm ci
+	npm install
 
 # Install PHP dependencies
 install-php:
@@ -25,8 +25,7 @@ client:
 	npm run build:feedback
 
 # Package for release
-release: export NODE_ENV=production
-release: clean-release install-node client pot
+release: clean-release client pot
 	./scripts/package-for-release.sh
 
 # Clean the build directory
