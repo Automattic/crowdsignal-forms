@@ -15,7 +15,6 @@ install-php:
 
 # Build the frontend client
 client:
-	echo $$NODE_ENV
 	npm run build:styles
 	npm run build:apifetch
 	npm run build:editor
