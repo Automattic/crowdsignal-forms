@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 5.0
 Requires PHP: 5.6.20
 Tested up to: 5.8.3
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,19 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.6.5 =
+* Fix makefile and dependencies (#245)
+* Fix the (optional) text that shows up on the front end for email (#243)
+* GH build action for named releases (#242)
+* Back to PHP 7.4 for builds (#241)
+* Create store (#234)
+* Update docker to build with PHP 8.1 (#237)
+* update build action to use php 8.1 (#240)
+* Update development environment (#236)
+* Update feedback button block condition for triggering the widget mode (#235)
+* Build Tools: Add `allow-plugins` to `composer.json` for v2-compat (#227)
+* fix/add missing ref links to quiz variation (#233)
 
 = 1.6.4 =
 * Update/survey help landing page (#231)
