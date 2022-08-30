@@ -7,7 +7,7 @@
  */
 export const formatURL = ( options, next ) => {
 	if ( options.path.indexOf( '/crowdsignal-forms/v1' ) === 0 ) {
-		options.path = `/wp-json${ options.path }`;
+		options.path = _crowdsignalFormsURL + `/wp-json${ options.path }`;
 	}
 
 	return next( options );

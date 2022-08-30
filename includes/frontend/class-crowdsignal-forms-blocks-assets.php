@@ -105,6 +105,14 @@ class Crowdsignal_Forms_Blocks_Assets {
 				'before'
 			);
 		}
+
+		if ( self::APIFETCH === $id ) {
+			wp_add_inline_script(
+				self::APIFETCH,
+				sprintf( "_crowdsignalFormsURL='%s';", site_url() ),
+				'before'
+			);
+		}
 	}
 
 	/**
