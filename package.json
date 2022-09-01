@@ -1,6 +1,6 @@
 {
 	"name": "@automattic/crowdsignal-forms",
-	"version": "1.6.5",
+	"version": "1.6.6",
 	"description": "Crowdsignal powered forms for WordPress",
 	"main": "index.js",
 	"scripts": {
