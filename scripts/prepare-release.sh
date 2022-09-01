@@ -22,6 +22,16 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 SEPARATOR="******************************************************************";
 REMOTE_NAME='origin';
+EXPECT_NODE_VERSION=$(cat .nvmrc);
+CURRENT_NODE_VERSION=$(node -v);
+
+if [ ${EXPECT_NODE_VERSION:0:4} != ${CURRENT_NODE_VERSION:0:4} ]; then
+	echo
+	echo "${bold}Heads up!${normal} You current ${bold}Node version ${CURRENT_NODE_VERSION}${normal} does not match what .nvmrc expects.";
+	echo "Please try running this script with ${bold}Node ${EXPECT_NODE_VERSION}${normal}.";
+	echo
+	exit;
+fi
 
 if [[ -z "$@" ]]; then
 	SHOWUSAGE=true;
