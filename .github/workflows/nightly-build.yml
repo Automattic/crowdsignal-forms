@@ -33,8 +33,8 @@ jobs:
           php-version: '8.1'
 
       - name: Setup python2
-        uses: actions/checkout@v3
-        uses: actions/setup-python@v4
+        - uses: actions/checkout@v3
+        - uses: actions/setup-python@v4
           with:
             python-version: '2.7'
 
