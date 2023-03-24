@@ -27,10 +27,15 @@ jobs:
       - name: "Trigger"
         run: echo "Triggered by ${{ github.event_name }}"
 
-      - name: Setup PHP 7.4 with PECL extension
+      - name: Setup PHP 8.1 with PECL extension
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.1'
+
+      - name: Setup python2
+        uses: actions/setup-python@v4
+        with:
+          python-version: '2.7'
 
       - name: Setup Node version 14
         uses: actions/setup-node@v2
