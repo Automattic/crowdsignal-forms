@@ -11,8 +11,6 @@ import classNames from 'classnames';
  */
 import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
-// import { RichText } from '@wordpress/block-editor';
-import { RawHTML } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -159,12 +157,12 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 
 			<div className={ contentClasses }>
 				<h3 className="crowdsignal-forms-poll__question">
-					<RawHTML>{ decodeEntities( attributes.question ) }</RawHTML>
+					{ decodeEntities( attributes.question ) }
 				</h3>
 
 				{ attributes.note && (
 					<div className="crowdsignal-forms-poll__note">
-						<RawHTML>{ decodeEntities( attributes.note ) }</RawHTML>
+						{ decodeEntities( attributes.note ) }
 					</div>
 				) }
 

@@ -9,7 +9,6 @@ import { get, filter, isEmpty, map, round, some } from 'lodash';
  */
 import { RichText } from '@wordpress/block-editor';
 import { ResizableBox } from '@wordpress/components';
-import { decodeEntities } from '@wordpress/html-entities';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
@@ -215,17 +214,16 @@ const PollBlock = ( props ) => {
 								onChange={ handleChangeQuestion }
 								value={ attributes.question }
 								allowedFormats={ [] }
+								disableLineBreaks={ true }
 							/>
 						) : (
-							<RichText.Content
-								tagName="h3"
-								className="crowdsignal-forms-poll__question"
-								placeholder={ __(
-									'Enter your question',
-									'crowdsignal-forms'
-								) }
-								value={ decodeEntities( attributes.question ) }
-							/>
+							<h3 className="crowdsignal-forms-poll__question">
+								{ attributes.question ||
+									__(
+										'Enter your question',
+										'crowdsignal-forms'
+									) }
+							</h3>
 						) }
 
 						{ showNote &&
@@ -240,17 +238,16 @@ const PollBlock = ( props ) => {
 									onChange={ handleChangeNote }
 									value={ attributes.note }
 									allowedFormats={ [] }
+									disableLineBreaks={ true }
 								/>
 							) : (
-								<RichText.Content
-									tagName="div"
-									className="crowdsignal-forms-poll__note"
-									placeholder={ __(
-										'Add a note (optional)',
-										'crowdsignal-forms'
-									) }
-									value={ decodeEntities( attributes.note ) }
-								/>
+								<div className="crowdsignal-forms-poll__note">
+									{ attributes.note ||
+										__(
+											'Add a note (optional)',
+											'crowdsignal-forms'
+										) }
+								</div>
 							) ) }
 
 						{ ! showResults && (
