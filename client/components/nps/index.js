@@ -8,8 +8,8 @@ import { get } from 'lodash';
  * WordPress dependencies
  */
 import { Icon } from '@wordpress/components';
+import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
-import { RawHTML } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -56,7 +56,7 @@ const Nps = ( {
 		<>
 			<div className="crowdsignal-forms-nps" style={ style }>
 				<h3 className="crowdsignal-forms-nps__question">
-					<RawHTML>{ questionText }</RawHTML>
+					{ decodeEntities( questionText ) }
 				</h3>
 
 				<button
