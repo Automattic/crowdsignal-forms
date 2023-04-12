@@ -55,8 +55,8 @@ const Nps = ( {
 	return (
 		<>
 			<div className="crowdsignal-forms-nps" style={ style }>
-				<h3 className="crowdsignal-forms-nps__question">
-					{ decodeEntities( questionText ) }
+				<h3 className="crowdsignal-forms-nps__question" style={ { whiteSpace: 'pre-wrap' } }>
+					{ decodeEntities( questionText ).split( '<br>' ).join( '\n' ) }
 				</h3>
 
 				<button
