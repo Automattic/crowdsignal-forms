@@ -59,7 +59,7 @@ const FeedbackForm = ( { attributes, onSubmit } ) => {
 				className="crowdsignal-forms-feedback__header"
 				style={ { whiteSpace: 'pre-wrap' } }
 			>
-				{ decodeEntities( header ).split( '<br>' ).join( '\n' ) }
+				{ decodeEntities( attributes.header ).split( '<br>' ).join( '\n' ) }
 			</h3>
 
 			<TextareaControl
