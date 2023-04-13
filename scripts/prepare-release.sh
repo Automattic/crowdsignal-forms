@@ -22,7 +22,7 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 SEPARATOR="******************************************************************";
 REMOTE_NAME='origin';
-EXPECT_NODE_VERSION=$(cat .nvmrc);
+EXPECT_NODE_VERSION=$(head -n1 .nvmrc);
 CURRENT_NODE_VERSION=$(node -v);
 
 if [ ${EXPECT_NODE_VERSION:0:4} != ${CURRENT_NODE_VERSION:0:4} ]; then
