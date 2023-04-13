@@ -12,8 +12,8 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
+import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
-import { RawHTML } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -62,7 +62,7 @@ const FeedbackToggle = (
 					onMouseEnter={ handleHover }
 				>
 					<div className="crowdsignal-forms-feedback__trigger-text">
-						<RawHTML>{ attributes.triggerLabel }</RawHTML>
+						{ decodeEntities( attributes.triggerLabel ) }
 					</div>
 				</button>
 			) }

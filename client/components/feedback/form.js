@@ -8,7 +8,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { RawHTML } from '@wordpress/element';
+import { decodeEntities } from '@wordpress/html-entities';
 import { TextControl, TextareaControl } from '@wordpress/components';
 
 /**
@@ -55,8 +55,11 @@ const FeedbackForm = ( { attributes, onSubmit } ) => {
 
 	return (
 		<form onSubmit={ handleSubmit }>
-			<h3 className="crowdsignal-forms-feedback__header">
-				<RawHTML>{ attributes.header }</RawHTML>
+			<h3
+				className="crowdsignal-forms-feedback__header"
+				style={ { whiteSpace: 'pre-wrap' } }
+			>
+				{ decodeEntities( attributes.header ).split( '<br>' ).join( '\n' ) }
 			</h3>
 
 			<TextareaControl
