@@ -156,13 +156,23 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
 
 			<div className={ contentClasses }>
-				<h3 className="crowdsignal-forms-poll__question">
-					{ decodeEntities( attributes.question ) }
+				<h3
+					className="crowdsignal-forms-poll__question"
+					style={ { whiteSpace: 'pre-wrap' } }
+				>
+					{ decodeEntities( attributes.question )
+						.split( '<br>' )
+						.join( '\n' ) }
 				</h3>
 
 				{ attributes.note && (
-					<div className="crowdsignal-forms-poll__note">
-						{ decodeEntities( attributes.note ) }
+					<div
+						className="crowdsignal-forms-poll__note"
+						style={ { whiteSpace: 'pre-wrap' } }
+					>
+						{ decodeEntities( attributes.note )
+							.split( '<br>' )
+							.join( '\n' ) }
 					</div>
 				) }
 
