@@ -33,6 +33,7 @@
 
 		&.wp-block-button__link {
 			cursor: text;
+			display: block;
 
 			&:hover {
 				opacity: inherit;
@@ -44,6 +45,11 @@
 .crowdsignal-forms-poll__resize-wrapper {
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 3em;
+
+	&:not(:first-child) {
+		margin-top: 3em;
+	}
 }
 
 
