@@ -24,9 +24,8 @@ const Applause = ( props ) => {
 	const [ queuedVotes, setQueuedVotes ] = useState( 0 );
 	const [ timeoutHandle, setTimeoutHandle ] = useState( null );
 	const [ animationActiveState, setAnimationActiveState ] = useState( false );
-	const [ animationTimeoutHandle, setAnimationTimeoutHandle ] = useState(
-		null
-	);
+	const [ animationTimeoutHandle, setAnimationTimeoutHandle ] =
+		useState( null );
 	const { results } = usePollResults( apiPollId );
 
 	const isClosed = isPollClosed(
