@@ -32,20 +32,15 @@ jobs:
         with:
           php-version: '8.1'
 
-      - name: Setup python2
-        uses: actions/setup-python@v4
-        with:
-          python-version: '2.7'
-
       - name: Setup Node version 18
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18.13.0'
 
       - name: Install PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 7.27.1
+          version: '7.27.1'
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
