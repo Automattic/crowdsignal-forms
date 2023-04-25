@@ -37,10 +37,15 @@ jobs:
         with:
           python-version: '2.7'
 
-      - name: Setup Node version 14
+      - name: Setup Node version 18
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '18'
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.27.1
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
@@ -52,7 +57,7 @@ jobs:
         run: git checkout -b ${{ github.event.inputs.releaseName }}
 
       - name: NPM install
-        run: npm install
+        run: pnpm install
 
       - name: Composer install
         run: composer install
