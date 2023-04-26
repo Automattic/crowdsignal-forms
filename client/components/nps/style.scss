@@ -114,7 +114,9 @@
 .crowdsignal-forms-nps__feedback-text {
 	margin-top: 16px;
 	margin-bottom: 25px;
-	width: 100%;
+	font-family: inherit;
+	font-size: inherit;
+	padding: 8px;
 
 	textarea {
 		font-size: var(--crowdsignal-forms-text-size);

@@ -7,12 +7,7 @@ import Cookies from 'js-cookie';
 /**
  * Internal dependencies
  */
-import {
-	requestResults,
-	requestVoteNonce,
-	requestVote,
-	requestAccountInfo,
-} from 'data/poll';
+import { requestResults, requestVoteNonce, requestVote } from 'data/poll';
 import { useFetch } from './util';
 
 export const usePollResults = ( pollId, doFetch = true ) => {

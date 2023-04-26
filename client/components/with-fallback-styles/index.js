@@ -4,14 +4,13 @@
 import React from 'react';
 
 /**
- * WordPress dependencies
- */
-import { withFallbackStyles as withWordPressFallbackStyles } from '@wordpress/components';
-
-/**
  * Internal dependencies
  */
-import { getBackgroundColor, getBorderColor } from './util';
+import {
+	getBackgroundColor,
+	getBorderColor,
+	withWordPressFallbackStyles,
+} from './util';
 
 const StyleProbe = () => (
 	<div className="crowdsignal-forms__style-probe">

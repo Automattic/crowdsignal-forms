@@ -8,7 +8,7 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { TextareaControl } from '@wordpress/components';
+import { TextareaControl, Tooltip } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
 import { PostPreviewButton } from '@wordpress/editor';
 import { dispatch, withSelect, useSelect } from '@wordpress/data';
@@ -125,6 +125,23 @@ const EditNpsBlock = ( props ) => {
 		shouldPromote &&
 		get( accountInfo, [ 'signalCount', 'count' ] ) >=
 			get( accountInfo, [ 'signalCount', 'userLimit' ] );
+
+	const promoteLink = (
+		<span>
+			Hide Crowdsignal ads
+			<br />
+			and get unlimited
+			<br />
+			signals -{ ' ' }
+			<a
+				href="https://crowdsignal.com/pricing"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				Upgrade
+			</a>
+		</span>
+	);
 
 	return (
 		<ConnectToCrowdsignal
@@ -244,7 +261,21 @@ const EditNpsBlock = ( props ) => {
 									'Collect your own feedback with Crowdsignal',
 									'crowdsignal-forms'
 								) }
-							/>
+							>
+								<Tooltip
+									text={ promoteLink }
+									position="top center"
+								>
+									<a
+										href="https://crowdsignal.com/pricing"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="crowdsignal-forms__branding-promote"
+									>
+										{ __( 'Hide', 'crowdsignal-forms' ) }
+									</a>
+								</Tooltip>
+							</FooterBranding>
 						) }
 					</div>
 				</div>
@@ -300,7 +331,21 @@ const EditNpsBlock = ( props ) => {
 									'Collect your own feedback with Crowdsignal',
 									'crowdsignal-forms'
 								) }
-							/>
+							>
+								<Tooltip
+									text={ promoteLink }
+									position="top center"
+								>
+									<a
+										href="https://crowdsignal.com/pricing"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="crowdsignal-forms__branding-promote"
+									>
+										{ __( 'Hide', 'crowdsignal-forms' ) }
+									</a>
+								</Tooltip>
+							</FooterBranding>
 						) }
 					</div>
 				</div>

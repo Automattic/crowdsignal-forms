@@ -59,22 +59,25 @@ const FeedbackForm = ( { attributes, onSubmit } ) => {
 				className="crowdsignal-forms-feedback__header"
 				style={ { whiteSpace: 'pre-wrap' } }
 			>
-				{ decodeEntities( attributes.header ).split( '<br>' ).join( '\n' ) }
+				{ decodeEntities( attributes.header )
+					.split( '<br>' )
+					.join( '\n' ) }
 			</h3>
 
-			<TextareaControl
+			<textarea
 				className={ feedbackClasses }
 				rows={ 6 }
 				placeholder={ attributes.feedbackPlaceholder }
 				value={ feedback }
-				onChange={ setFeedback }
-			/>
+				onChange={ ( e ) => setFeedback( e.target.value ) }
+			></textarea>
 
-			<TextControl
+			<input
+				type="email"
 				className={ emailClasses }
 				placeholder={ attributes.emailPlaceholder }
 				value={ email }
-				onChange={ setEmail }
+				onChange={ ( e ) => setEmail( e.target.value ) }
 			/>
 
 			<div className="wp-block-button crowdsignal-forms-feedback__button-wrapper">

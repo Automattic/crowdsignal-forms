@@ -2,28 +2,10 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Tooltip } from '@wordpress/components';
-
-const promoteLink = (
-	<span>
-		Hide Crowdsignal ads
-		<br />
-		and get unlimited
-		<br />
-		signals -{ ' ' }
-		<a
-			href="https://crowdsignal.com/pricing"
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			Upgrade
-		</a>
-	</span>
-);
 
 const FooterBranding = ( {
 	showLogo,
-	editing,
+	children,
 	message,
 	trackRef = 'cs-forms-poll',
 } ) => (
@@ -41,18 +23,7 @@ const FooterBranding = ( {
 				) }
 		</a>
 
-		{ editing && (
-			<Tooltip text={ promoteLink } position="top center">
-				<a
-					href="https://crowdsignal.com/pricing"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="crowdsignal-forms__branding-promote"
-				>
-					{ __( 'Hide', 'crowdsignal-forms' ) }
-				</a>
-			</Tooltip>
-		) }
+		{ children }
 
 		{ showLogo && (
 			<a
