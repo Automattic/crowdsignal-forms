@@ -8,18 +8,14 @@ const CLIENT_DIR = path.resolve( __dirname, 'client' );
 const baseResolveModules = webpackConfig.resolve.modules || [];
 
 module.exports = function ( env, argv ) {
-	const { outputLibrary } = argv;
-	const librarySetup = outputLibrary
-		? {
-				library: [ 'crowdsignalForms', 'apiFetch' ],
-				libraryTarget: 'window',
-		  }
-		: {};
+	const { outputLibraryExport } = argv;
 	const config = {
 		...webpackConfig,
 		output: {
 			...webpackConfig.output,
-			...librarySetup,
+			...( outputLibraryExport
+				? { libraryExport: outputLibraryExport }
+				: {} ),
 		},
 		resolve: {
 			...webpackConfig.resolve,
