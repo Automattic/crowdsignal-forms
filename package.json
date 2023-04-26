@@ -4,7 +4,8 @@
 	"description": "Crowdsignal powered forms for WordPress",
 	"main": "index.js",
 	"scripts": {
-		"build:apifetch": "wp-scripts build --output-library=crowdsignalForms --output-library=apiFetch apifetch=./client/apifetch/index.js",
+		"build:apifetch": "wp-scripts build --output-library=crowdsignalForms --output-library=apiFetch --output-library-export=default apifetch=./client/apifetch/index.js",
+		"watch:apifetch": "wp-scripts start --output-library=crowdsignalForms --output-library=apiFetch apifetch=./client/apifetch/index.js",
 		"build:editor": "wp-scripts build ./client/editor.js",
 		"build:poll": "wp-scripts build ./client/poll.js",
 		"build:vote": "wp-scripts build ./client/vote.js",
@@ -28,7 +29,8 @@
 		"lint:styles": "wp-scripts lint-style ./assets/stylesheets ./client/**/*.scss",
 		"lint:all": "npm run lint:js && npm run lint:styles",
 		"test": "wp-scripts test-unit-js ./client",
-		"build": "wp-scripts build ./client/editor.js ./client/poll.js ./client/applause.js ./client/vote.js ./client/feedback.js ./client/nps.js && pnpm build:apifetch && npm run build:styles"
+		"build": "wp-scripts build ./client/editor.js ./client/poll.js ./client/applause.js ./client/vote.js ./client/feedback.js ./client/nps.js && pnpm build:apifetch && pnpm run build:styles",
+		"analyze": "wp-scripts build ./client/poll.js --webpack-bundle-analyzer"
 	},
 	"repository": {
 		"type": "git",
@@ -61,6 +63,7 @@
 	},
 	"dependencies": {
 		"classnames": "^2.3.2",
+		"fast-deep-equal": "^3.1.3",
 		"js-cookie": "^3.0.5",
 		"react-transition-group": "^4.4.5",
 		"reakit": "^1.3.11",
