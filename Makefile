@@ -3,11 +3,14 @@
 all: install client
 
 # Install all project dependencies
-install: install-node install-php
+install: install-pnpm install-node install-php
 
 # Install Node dependencies
 install-node:
-	npm install
+	pnpm install
+
+install-pnpm:
+	npm install -g pnpm@7.27.1
 
 # Install PHP dependencies
 install-php:
