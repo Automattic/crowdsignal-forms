@@ -15,7 +15,7 @@ import { get, max } from 'lodash';
  * WordPress depenencies
  */
 import { RichText } from '@wordpress/block-editor';
-import { TextControl, TextareaControl, Tooltip } from '@wordpress/components';
+import { TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withSelect, dispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
@@ -37,6 +37,7 @@ import { views, FeedbackStatus } from './constants';
 import RetryNotice from 'components/retry-notice';
 import FooterBranding from 'components/footer-branding';
 import FeedbackIcon from 'components/icon/feedback';
+import PromotionalTooltip from 'components/promotional-tooltip';
 import { STORE_NAME } from 'state';
 
 const EditFeedbackBlock = ( props ) => {
@@ -313,23 +314,6 @@ const EditFeedbackBlock = ( props ) => {
 		'hide-branding'
 	);
 
-	const promoteLink = (
-		<span>
-			Hide Crowdsignal ads
-			<br />
-			and get unlimited
-			<br />
-			signals -{ ' ' }
-			<a
-				href="https://crowdsignal.com/pricing"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				Upgrade
-			</a>
-		</span>
-	);
-
 	return (
 		<ConnectToCrowdsignal
 			blockName={ __( 'Feedback Button', 'crowdsignal-forms' ) }
@@ -454,29 +438,13 @@ const EditFeedbackBlock = ( props ) => {
 									</div>
 									{ ! hideBranding && (
 										<FooterBranding
-											editing={ true }
 											trackRef="cs-forms-feedback"
 											message={ __(
 												'Collect your own feedback with Crowdsignal',
 												'crowdsignal-forms'
 											) }
 										>
-											<Tooltip
-												text={ promoteLink }
-												position="top center"
-											>
-												<a
-													href="https://crowdsignal.com/pricing"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="crowdsignal-forms__branding-promote"
-												>
-													{ __(
-														'Hide',
-														'crowdsignal-forms'
-													) }
-												</a>
-											</Tooltip>
+											<PromotionalTooltip />
 										</FooterBranding>
 									) }
 								</div>
@@ -498,29 +466,13 @@ const EditFeedbackBlock = ( props ) => {
 									/>
 									{ ! hideBranding && (
 										<FooterBranding
-											editing={ true }
 											trackRef="cs-forms-feedback"
 											message={ __(
 												'Collect your own feedback with Crowdsignal',
 												'crowdsignal-forms'
 											) }
 										>
-											<Tooltip
-												text={ promoteLink }
-												position="top center"
-											>
-												<a
-													href="https://crowdsignal.com/pricing"
-													target="_blank"
-													rel="noopener noreferrer"
-													className="crowdsignal-forms__branding-promote"
-												>
-													{ __(
-														'Hide',
-														'crowdsignal-forms'
-													) }
-												</a>
-											</Tooltip>
+											<PromotionalTooltip />
 										</FooterBranding>
 									) }
 								</div>
