@@ -67,7 +67,7 @@ const Nps = ( {
 					className="crowdsignal-forms-nps__close-button"
 					onClick={ onClose }
 				>
-					X
+					✕
 				</button>
 
 				{ view === views.RATING && (
