@@ -1,31 +1,38 @@
 const path = require( 'path' );
-const getBaseWebpackConfig = require( '@automattic/calypso-build/webpack.config.js' );
+const webpackConfig = require( '@wordpress/scripts/config/webpack.config' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 
-const CLIENT_DIR = path.resolve( __dirname, './client' );
+const CLIENT_DIR = path.resolve( __dirname, 'client' );
 
-function getWebpackConfig( env, argv ) {
-	const webpackConfig = getBaseWebpackConfig( env, argv );
+const baseResolveModules = webpackConfig.resolve.modules || [];
 
+module.exports = function ( env, argv ) {
 	const { outputLibraryExport } = argv;
-
-	return {
+	const config = {
 		...webpackConfig,
 		output: {
 			...webpackConfig.output,
-			...( outputLibraryExport ? { libraryExport: outputLibraryExport } : {}),
+			...( outputLibraryExport
+				? { libraryExport: outputLibraryExport }
+				: {} ),
 		},
 		resolve: {
 			...webpackConfig.resolve,
-			modules: [
-				...webpackConfig.resolve.modules,
-				CLIENT_DIR,
-			],
+			modules: [ ...baseResolveModules, CLIENT_DIR, 'node_modules' ],
 		},
 		plugins: [
+			// this might be a little risky, but it's the only way to make the multiple builds not clear out each other's files
+			new CleanWebpackPlugin( {
+				cleanAfterEveryBuildPatterns: [],
+				cleanStaleWebpackAssets: false,
+				cleanOnceBeforeBuildPatterns: [],
+			} ),
 			...webpackConfig.plugins.filter(
 				( plugin ) =>
-					plugin.constructor.name !== 'DependencyExtractionWebpackPlugin'
+					plugin.constructor.name !==
+						'DependencyExtractionWebpackPlugin' &&
+					plugin.constructor.name !== 'CleanWebpackPlugin'
 			),
 			new DependencyExtractionWebpackPlugin( {
 				injectPolyfill: true,
@@ -40,9 +47,16 @@ function getWebpackConfig( env, argv ) {
 						return 'crowdsignal-forms-apifetch';
 					}
 				},
-			} )
-		]
+			} ),
+		],
+		externals: {
+			...webpackConfig.externals,
+			jquery: 'jQuery',
+			react: 'React',
+			'react-dom': 'ReactDOM',
+			lodash: 'lodash',
+		},
 	};
-}
 
-module.exports = getWebpackConfig;
+	return config;
+};
