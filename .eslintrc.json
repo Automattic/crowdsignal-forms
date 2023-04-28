@@ -7,5 +7,10 @@
 				"allowedTextDomain": "crowdsignal-forms"
 			}
 		]
+	},
+	"settings": {
+		"import/resolver": {
+			"webpack": {}
+		}
 	}
 }

@@ -7,8 +7,10 @@ is [README.txt](../README.txt)/[README.md](../README.md)
 ## Using docker for local dev
 
 You will need the following installed locally:
+* node 18.13.0 - updates might be possible
 * npm >= 6.9.0 - NPM can be installed from https://www.npmjs.com/get-npm
 * Docker. Get Docker at https://www.docker.com/
+* pnpm 7.27.1 installed globally (`npm install -g pnpm@7.27.1`)
 
 More info [here](../docker/README.md). After you finish with that setup, you 
 can run the docker instance like this:
@@ -29,6 +31,14 @@ make docker_sh
 * `make install` will install any required Node modules.
 * `make client` will build the CSS and JavaScript files required by the plugin.
 * `make clean` will delete the generated CSS and JavaScript files.
+
+Then either build with `pnpm build` or start _watching_ blocks separately to work on them:
+* `pnpm watch:editor`
+* `pnpm watch:poll`
+* `pnpm watch:applause`
+* `pnpm watch:vote`
+* `pnpm watch:nps`
+* `pnpm watch:feedback`
 
 ## Running the PHP linter and tests
 

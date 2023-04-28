@@ -7,7 +7,7 @@ install: install-node install-php
 
 # Install Node dependencies
 install-node:
-	npm install
+	pnpm install
 
 # Install PHP dependencies
 install-php:
@@ -15,14 +15,7 @@ install-php:
 
 # Build the frontend client
 client:
-	npm run build:styles
-	npm run build:apifetch
-	npm run build:editor
-	npm run build:poll
-	npm run build:vote
-	npm run build:applause
-	npm run build:nps
-	npm run build:feedback
+	pnpm build
 
 # Package for release
 release: clean-release client pot

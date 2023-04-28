@@ -4,13 +4,14 @@
 	"description": "Crowdsignal powered forms for WordPress",
 	"main": "index.js",
 	"scripts": {
-		"build:apifetch": "calypso-build --env.WP --output-path='./build' --output-library=crowdsignalForms --output-library=apiFetch --output-library-export=default apifetch=./client/apifetch/index.js",
-		"build:editor": "calypso-build --env.WP --output-path='./build' editor=./client/editor.js",
-		"build:poll": "calypso-build --env.WP --output-path='./build' poll=./client/poll.js",
-		"build:vote": "calypso-build --env.WP --output-path='./build' vote=./client/vote.js",
-		"build:applause": "calypso-build --env.WP --output-path='./build' applause=./client/applause.js",
-		"build:nps": "calypso-build --env.WP --output-path='./build' nps=./client/nps.js",
-		"build:feedback": "calypso-build --env.WP --output-path=./build feedback=./client/feedback.js",
+		"build:apifetch": "wp-scripts build --output-library=crowdsignalForms --output-library=apiFetch --output-library-export=default apifetch=./client/apifetch/index.js",
+		"watch:apifetch": "wp-scripts start --output-library=crowdsignalForms --output-library=apiFetch apifetch=./client/apifetch/index.js",
+		"build:editor": "wp-scripts build ./client/editor.js",
+		"build:poll": "wp-scripts build ./client/poll.js",
+		"build:vote": "wp-scripts build ./client/vote.js",
+		"build:applause": "wp-scripts build ./client/applause.js",
+		"build:nps": "wp-scripts build ./client/nps.js",
+		"build:feedback": "wp-scripts build ./client/feedback.js",
 		"build:styles:editor": "node-sass --include-path client --output-style compressed assets/stylesheets/editor.scss build/editor.css",
 		"build:styles:poll": "node-sass --include-path client --output-style compressed assets/stylesheets/poll.scss build/poll.css",
 		"build:styles:vote": "node-sass --include-path client --output-style compressed assets/stylesheets/vote.scss build/vote.css",
@@ -18,16 +19,18 @@
 		"build:styles:nps": "node-sass --include-path client --output-style compressed assets/stylesheets/nps.scss build/nps.css",
 		"build:styles:feedback": "node-sass --include-path client --output-style compressed assets/stylesheets/feedback.scss build/feedback.css",
 		"build:styles": "npm run build:styles:editor && npm run build:styles:poll && npm run build:styles:vote && npm run build:styles:applause && npm run build:styles:nps && npm run build:styles:feedback",
-		"watch:editor": "calypso-build --env.WP --output-path='./build' editor=./client/editor.js --watch",
-		"watch:poll": "calypso-build --env.WP --output-path='./build' poll=./client/poll.js --watch",
-		"watch:applause": "calypso-build --env.WP --output-path='./build' applause=./client/applause.js --watch",
-		"watch:nps": "calypso-build --env.WP --output-path='./build' nps=./client/nps.js --watch",
-		"watch:feedback": "calypso-build --env.WP --output-path=./build feedback=./client/feedback.js --watch",
+		"watch:editor": "wp-scripts start ./client/editor.js",
+		"watch:poll": "wp-scripts start ./client/poll.js",
+		"watch:applause": "wp-scripts start ./client/applause.js",
+		"watch:nps": "wp-scripts start ./client/nps.js",
+		"watch:feedback": "wp-scripts start ./client/feedback.js",
 		"format:js": "wp-scripts format-js ./client",
 		"lint:js": "wp-scripts lint-js ./client",
 		"lint:styles": "wp-scripts lint-style ./assets/stylesheets ./client/**/*.scss",
 		"lint:all": "npm run lint:js && npm run lint:styles",
-		"test": "wp-scripts test-unit-js ./client"
+		"test": "wp-scripts test-unit-js ./client",
+		"build": "wp-scripts build ./client/editor.js ./client/poll.js ./client/applause.js ./client/vote.js ./client/feedback.js ./client/nps.js && pnpm build:apifetch && pnpm run build:styles",
+		"analyze": "wp-scripts build ./client/poll.js --webpack-bundle-analyzer"
 	},
 	"repository": {
 		"type": "git",
@@ -40,18 +43,14 @@
 	},
 	"homepage": "https://github.com/automattic/crowdsignal-forms#readme",
 	"devDependencies": {
-		"@automattic/calypso-build": "^6.1.0",
-		"@wordpress/scripts": "^8.0.1",
-		"classnames": "^2.2.6",
-		"node-sass": "^4.14.1",
-		"prettier": "npm:wp-prettier@^2.0.5-alpha-2"
-	},
-	"dependencies": {
-		"js-cookie": "^2.2.1",
-		"react-transition-group": "^4.4.1",
-		"reakit": "^1.3.8",
-		"seedrandom": "^3.0.5",
-		"uuid": "^8.2.0"
+		"@babel/runtime": "^7.21.0",
+		"@wordpress/scripts": "^26.2.0",
+		"clean-webpack-plugin": "^4.0.0",
+		"eslint-import-resolver-webpack": "^0.13.2",
+		"extends": "link:@babel/runtime/helpers/extends",
+		"node-sass": "^7.0.3",
+		"prop-types": "^15.8.1",
+		"webpack": "^4.46.0"
 	},
 	"jest": {
 		"modulePaths": [
@@ -61,5 +60,18 @@
 			"@wordpress/blocks": "<rootDir>/tests-js/mocks/blocks.js",
 			"@wordpress/i18n": "<rootDir>/tests-js/mocks/i18n.js"
 		}
+	},
+	"dependencies": {
+		"classnames": "^2.3.2",
+		"fast-deep-equal": "^3.1.3",
+		"js-cookie": "^3.0.5",
+		"react-transition-group": "^4.4.5",
+		"reakit": "^1.3.11",
+		"seedrandom": "^3.0.5",
+		"uuid": "^9.0.0"
+	},
+	"engines": {
+		"node": "^18.13.0",
+		"yarn": "use pnpm instead - see docs/yarn-upgrade.md"
 	}
 }
