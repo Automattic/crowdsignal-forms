@@ -7,7 +7,6 @@ import { get } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { Icon } from '@wordpress/components';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
 
@@ -55,15 +54,20 @@ const Nps = ( {
 	return (
 		<>
 			<div className="crowdsignal-forms-nps" style={ style }>
-				<h3 className="crowdsignal-forms-nps__question" style={ { whiteSpace: 'pre-wrap' } }>
-					{ decodeEntities( questionText ).split( '<br>' ).join( '\n' ) }
+				<h3
+					className="crowdsignal-forms-nps__question"
+					style={ { whiteSpace: 'pre-wrap' } }
+				>
+					{ decodeEntities( questionText )
+						.split( '<br>' )
+						.join( '\n' ) }
 				</h3>
 
 				<button
 					className="crowdsignal-forms-nps__close-button"
 					onClick={ onClose }
 				>
-					<Icon icon="no-alt" />
+					✕
 				</button>
 
 				{ view === views.RATING && (

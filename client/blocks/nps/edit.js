@@ -30,6 +30,7 @@ import EditorNotice from 'components/editor-notice';
 import FooterBranding from 'components/footer-branding';
 import SignalWarning from 'components/signal-warning';
 import RetryNotice from 'components/retry-notice';
+import PromotionalTooltip from 'components/promotional-tooltip';
 import { STORE_NAME } from 'state';
 
 const EditNpsBlock = ( props ) => {
@@ -239,12 +240,13 @@ const EditNpsBlock = ( props ) => {
 						{ ! hideBranding && (
 							<FooterBranding
 								trackRef="cs-forms-nps"
-								editing={ true }
 								message={ __(
 									'Collect your own feedback with Crowdsignal',
 									'crowdsignal-forms'
 								) }
-							/>
+							>
+								<PromotionalTooltip />
+							</FooterBranding>
 						) }
 					</div>
 				</div>
@@ -295,12 +297,13 @@ const EditNpsBlock = ( props ) => {
 						{ ! hideBranding && (
 							<FooterBranding
 								trackRef="cs-forms-nps"
-								editing={ true }
 								message={ __(
 									'Collect your own feedback with Crowdsignal',
 									'crowdsignal-forms'
 								) }
-							/>
+							>
+								<PromotionalTooltip />
+							</FooterBranding>
 						) }
 					</div>
 				</div>

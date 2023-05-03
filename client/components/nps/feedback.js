@@ -5,11 +5,6 @@ import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
 
 /**
- * WordPress dependencies
- */
-import { TextareaControl } from '@wordpress/components';
-
-/**
  * Internal dependencies
  */
 import { updateNpsResponse } from 'data/nps';
@@ -31,13 +26,13 @@ const NpsFeedback = ( { attributes, onSubmit, responseMeta } ) => {
 
 	return (
 		<div className="crowdsignal-forms-nps__feedback">
-			<TextareaControl
+			<textarea
 				className="crowdsignal-forms-nps__feedback-text"
 				rows={ 6 }
 				placeholder={ attributes.feedbackPlaceholder }
-				onChange={ setFeedback }
+				onChange={ e => setFeedback( e.target.value ) }
 				value={ feedback }
-			/>
+			></textarea>
 
 			<div className="wp-block-button crowdsignal-forms-nps__feedback-button-wrapper">
 				<button

@@ -37,6 +37,7 @@ import { views, FeedbackStatus } from './constants';
 import RetryNotice from 'components/retry-notice';
 import FooterBranding from 'components/footer-branding';
 import FeedbackIcon from 'components/icon/feedback';
+import PromotionalTooltip from 'components/promotional-tooltip';
 import { STORE_NAME } from 'state';
 
 const EditFeedbackBlock = ( props ) => {
@@ -437,13 +438,14 @@ const EditFeedbackBlock = ( props ) => {
 									</div>
 									{ ! hideBranding && (
 										<FooterBranding
-											editing={ true }
 											trackRef="cs-forms-feedback"
 											message={ __(
 												'Collect your own feedback with Crowdsignal',
 												'crowdsignal-forms'
 											) }
-										/>
+										>
+											<PromotionalTooltip />
+										</FooterBranding>
 									) }
 								</div>
 							) }
@@ -464,13 +466,14 @@ const EditFeedbackBlock = ( props ) => {
 									/>
 									{ ! hideBranding && (
 										<FooterBranding
-											editing={ true }
 											trackRef="cs-forms-feedback"
 											message={ __(
 												'Collect your own feedback with Crowdsignal',
 												'crowdsignal-forms'
 											) }
-										/>
+										>
+											<PromotionalTooltip />
+										</FooterBranding>
 									) }
 								</div>
 							) }

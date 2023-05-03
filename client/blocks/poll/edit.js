@@ -275,7 +275,7 @@ const PollBlock = ( props ) => {
 							/>
 						) }
 						{ ! hideBranding && (
-							<FooterBranding editing={ true } />
+							<FooterBranding />
 						) }
 					</div>
 
