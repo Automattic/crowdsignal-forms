@@ -321,6 +321,27 @@ const SideBar = ( {
 					/>
 				) }
 			</PanelBody>
+			<PanelBody
+				title={ __( 'Answer settings', 'crowdsignal-forms' ) }
+				initialOpen={ true }
+			>
+				<CheckboxControl
+					checked={ attributes.hasOneResponsePerComputer }
+					label={ __(
+						'One response per computer',
+						'crowdsignal-forms'
+					) }
+					onChange={ handleChangeHasOneResponsePerComputer }
+				/>
+				<CheckboxControl
+					checked={ attributes.randomizeAnswers }
+					label={ __(
+						'Randomize answer order',
+						'crowdsignal-forms'
+					) }
+					onChange={ handleChangeRandomizeAnswers }
+				/>
+			</PanelBody>
 			<PanelColorSettings
 				title={ __( 'Block styling', 'crowdsignal-forms' ) }
 				initialOpen={ false }
@@ -547,27 +568,6 @@ const SideBar = ( {
 					/>
 				) }
 			</PanelColorSettings>
-			<PanelBody
-				title={ __( 'Answer settings', 'crowdsignal-forms' ) }
-				initialOpen={ true }
-			>
-				<CheckboxControl
-					checked={ attributes.hasOneResponsePerComputer }
-					label={ __(
-						'One response per computer',
-						'crowdsignal-forms'
-					) }
-					onChange={ handleChangeHasOneResponsePerComputer }
-				/>
-				<CheckboxControl
-					checked={ attributes.randomizeAnswers }
-					label={ __(
-						'Randomize answer order',
-						'crowdsignal-forms'
-					) }
-					onChange={ handleChangeRandomizeAnswers }
-				/>
-			</PanelBody>
 		</InspectorControls>
 	);
 };
