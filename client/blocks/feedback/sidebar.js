@@ -105,57 +105,6 @@ const Sidebar = ( {
 					<SidebarPromote signalWarning={ signalWarning } />
 				) }
 			</PanelBody>
-
-			<PanelColorSettings
-				title={ __( 'Feedback Button', 'crowdsignal-forms' ) }
-				initialOpen={ false }
-				colorSettings={ [
-					{
-						label: __( 'Background color', 'crowdsignal-forms' ),
-						onChange: handleChangeAttribute(
-							'triggerBackgroundColor'
-						),
-						value: attributes.triggerBackgroundColor,
-					},
-					{
-						label: __( 'Text color', 'crowdsignal-forms' ),
-						onChange: handleChangeAttribute( 'triggerTextColor' ),
-						value: attributes.triggerTextColor,
-					},
-				] }
-			>
-				<ToggleControl
-					label={ __( 'Hide Shadow', 'crowdsignal-forms' ) }
-					checked={ attributes.hideTriggerShadow }
-					onChange={ handleChangeAttribute( 'hideTriggerShadow' ) }
-				/>
-			</PanelColorSettings>
-			<PanelColorSettings
-				title={ __( 'Block styling', 'crowdsignal-forms' ) }
-				initialOpen={ false }
-				colorSettings={ [
-					{
-						label: __( 'Background color', 'crowdsignal-forms' ),
-						onChange: handleChangeAttribute( 'backgroundColor' ),
-						value: attributes.backgroundColor,
-					},
-					{
-						label: __( 'Text color', 'crowdsignal-forms' ),
-						onChange: handleChangeAttribute( 'textColor' ),
-						value: attributes.textColor,
-					},
-					{
-						label: __( 'Button color', 'crowdsignal-forms' ),
-						onChange: handleChangeAttribute( 'buttonColor' ),
-						value: attributes.buttonColor,
-					},
-					{
-						label: __( 'Button text color', 'crowdsignal-forms' ),
-						onChange: handleChangeAttribute( 'buttonTextColor' ),
-						value: attributes.buttonTextColor,
-					},
-				] }
-			/>
 			<PanelBody
 				title={ __( 'Settings', 'crowdsignal-forms' ) }
 				initialOpen={ false }
@@ -230,6 +179,56 @@ const Sidebar = ( {
 					onChange={ handleChangeAttribute( 'emailRequired' ) }
 				/>
 			</PanelBody>
+			<PanelColorSettings
+				title={ __( 'Feedback Button', 'crowdsignal-forms' ) }
+				initialOpen={ false }
+				colorSettings={ [
+					{
+						label: __( 'Background color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute(
+							'triggerBackgroundColor'
+						),
+						value: attributes.triggerBackgroundColor,
+					},
+					{
+						label: __( 'Text color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute( 'triggerTextColor' ),
+						value: attributes.triggerTextColor,
+					},
+				] }
+			>
+				<ToggleControl
+					label={ __( 'Hide Shadow', 'crowdsignal-forms' ) }
+					checked={ attributes.hideTriggerShadow }
+					onChange={ handleChangeAttribute( 'hideTriggerShadow' ) }
+				/>
+			</PanelColorSettings>
+			<PanelColorSettings
+				title={ __( 'Block styling', 'crowdsignal-forms' ) }
+				initialOpen={ false }
+				colorSettings={ [
+					{
+						label: __( 'Background color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute( 'backgroundColor' ),
+						value: attributes.backgroundColor,
+					},
+					{
+						label: __( 'Text color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute( 'textColor' ),
+						value: attributes.textColor,
+					},
+					{
+						label: __( 'Button color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute( 'buttonColor' ),
+						value: attributes.buttonColor,
+					},
+					{
+						label: __( 'Button text color', 'crowdsignal-forms' ),
+						onChange: handleChangeAttribute( 'buttonTextColor' ),
+						value: attributes.buttonTextColor,
+					},
+				] }
+			/>
 		</InspectorControls>
 	);
 };
