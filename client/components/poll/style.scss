@@ -289,10 +289,12 @@ input[type="radio"].crowdsignal-forms-poll__input {
 }
 
 .crowdsignal-forms-poll__closed-banner {
+	align-items: center;
 	background-color: var(--crowdsignal-forms-border-color);
 	box-sizing: border-box;
 	display: flex;
 	color: var(--crowdsignal-forms-submit-button-text-color);
+	flex-direction: column;
 	font-family: $font-sans-serif;
 	justify-content: center;
 	padding: calc(var(--crowdsignal-forms-border-width) + 0.2em) 0 0.2em;

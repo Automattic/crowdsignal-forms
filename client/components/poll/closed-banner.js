@@ -20,11 +20,16 @@ const ClosedBanner = ( {
 
 	return (
 		<div className={ classes }>
-			{ isPollHidden && __( 'This Poll is Hidden', 'crowdsignal-forms' ) }
+			{ isPollHidden && (
+				<span>{ __( 'This Poll is Hidden', 'crowdsignal-forms' ) }</span>
+			) }
 			{ isPollClosed &&
-				! isPollHidden &&
-				__( 'This Poll is Closed', 'crowdsignal-forms' ) }
-			{ hasVoted && __( 'Thanks For Voting!', 'crowdsignal-forms' ) }
+				!isPollHidden && (
+				<span>{ __( 'This Poll is Closed', 'crowdsignal-forms' ) }</span>
+			) }
+			{ hasVoted && (
+				<span>{ __( 'Thanks For Voting!', 'crowdsignal-forms' ) }</span>
+			) }
 		</div>
 	);
 };
