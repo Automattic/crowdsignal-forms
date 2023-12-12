@@ -21,9 +21,9 @@ const ClosedBanner = ( {
 	let message = '';
 	if ( isPollHidden ) {
 		message = __( 'This Poll is Hidden', 'crowdsignal-forms' );
-	} else if ( !isPollHidden && isPollClosed ) {
+	} else if ( isPollClosed ) {
 		message = __( 'This Poll is Closed', 'crowdsignal-forms' );
-	} else if ( !isPollHidden && hasVoted ) {
+	} else if ( hasVoted ) {
 		message = __( 'Thanks For Voting!', 'crowdsignal-forms' );
 	}
 
