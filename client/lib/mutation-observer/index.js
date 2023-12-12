@@ -9,7 +9,7 @@ const MutationObserver = ( dataAttributeName, blockBuilder ) => {
 		return blockObserver( dataAttributeName, blockBuilder );
 	}
 
-	window.addEventListener( 'load', () =>
+	document.addEventListener( 'DOMContentLoaded', () =>
 		blockObserver( dataAttributeName, blockBuilder )
 	);
 };
