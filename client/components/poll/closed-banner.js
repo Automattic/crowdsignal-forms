@@ -18,18 +18,18 @@ const ClosedBanner = ( {
 		'crowdsignal-forms-poll__closed-banner'
 	);
 
+	let message = '';
+	if ( isPollHidden ) {
+		message = __( 'This Poll is Hidden', 'crowdsignal-forms' );
+	} else if ( !isPollHidden && isPollClosed ) {
+		message = __( 'This Poll is Closed', 'crowdsignal-forms' );
+	} else if ( !isPollHidden && hasVoted ) {
+		message = __( 'Thanks For Voting!', 'crowdsignal-forms' );
+	}
+
 	return (
 		<div className={ classes }>
-			{ isPollHidden && (
-				<span>{ __( 'This Poll is Hidden', 'crowdsignal-forms' ) }</span>
-			) }
-			{ isPollClosed &&
-				!isPollHidden && (
-				<span>{ __( 'This Poll is Closed', 'crowdsignal-forms' ) }</span>
-			) }
-			{ hasVoted && (
-				<span>{ __( 'Thanks For Voting!', 'crowdsignal-forms' ) }</span>
-			) }
+			{ message }
 		</div>
 	);
 };
