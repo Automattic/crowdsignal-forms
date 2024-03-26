@@ -92,7 +92,7 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 	 * @return bool
 	 */
 	private function should_hide_block( $attributes ) {
-		$platform_poll_data = $this->get_platform_poll_data( $attributes['pollId'] );
+		$platform_poll_data = $this->get_platform_poll_data( $attributes['pollId'] ?? null );
 
 		if ( empty( $platform_poll_data ) ) {
 			return true;

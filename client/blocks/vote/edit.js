@@ -27,7 +27,20 @@ import withPollBase from 'components/with-poll-base';
 import { STORE_NAME } from 'state';
 
 const EditVoteBlock = ( props ) => {
-	const { attributes, setAttributes, className, pollDataFromApi } = props;
+	const { attributes, setAttributes, className, pollDataFromApi, context } = props;
+
+	const {
+		postId,
+		queryId,
+	} = context;
+
+	// Prevent block from loading in FSE or a query loop because save handlers don't support those contexts.
+	// - double == instead of triple === used because we need to test for both null and undefined
+	if ( null == postId ) {
+		return <ErrorBanner>{ __( 'Vote blocks cannot be used outside of a post or page. The Site Editor is not supported.', 'crowdsignal-forms' ) }</ErrorBanner>;
+	} else if ( null != queryId ) {
+		return <ErrorBanner>{ __( 'Vote blocks are not supported inside a query loop.', 'crowdsignal-forms' ) }</ErrorBanner>;
+	}
 
 	useNumberedTitle(
 		props.name,
