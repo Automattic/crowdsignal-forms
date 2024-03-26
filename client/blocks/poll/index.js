@@ -35,6 +35,7 @@ export default {
 	icon: <PollIcon />,
 	edit: EditPollBlock,
 	attributes,
+	usesContext: ['postId', 'queryId'],
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 	},
