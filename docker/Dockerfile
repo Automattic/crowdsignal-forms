@@ -27,7 +27,7 @@ RUN \
 		php-xdebug \
 		php8.1 \
 		php8.1-common \
-		php8.1-mysql \
+		php8.1-mysqli \
 		php8.1-xml \
 		php8.1-xmlrpc \
 		php8.1-curl \
@@ -46,6 +46,9 @@ RUN \
 		sudo \
 		vim \
 	&& rm -rf /var/lib/apt/lists/*
+
+# force php 8.1 since with new versions of ubuntu, new php will be enabled on cli.
+RUN sudo update-alternatives --set php /usr/bin/php8.1
 
 # Enable mod_rewrite in Apache
 RUN a2enmod rewrite
