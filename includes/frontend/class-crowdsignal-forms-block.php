@@ -33,6 +33,13 @@ abstract class Crowdsignal_Forms_Block {
 	private static $is_cs_connected = null;
 
 	/**
+	 * Cached poll data. Array is indexed by poll_id (guid).
+	 *
+	 * @var array
+	 */
+	private $poll_data = [];
+
+	/**
 	 * Registers the Gutenberg block.
 	 */
 	abstract public function register();
@@ -110,14 +117,25 @@ abstract class Crowdsignal_Forms_Block {
 			return null;
 		}
 
+		if ( $this->poll_data[ $poll_id ] ) {
+			return $this->poll_data[ $poll_id ];
+		}
+
 		$post = get_post();
 
 		if ( null === $post ) {
 			return null;
 		}
 
-		return Crowdsignal_Forms::instance()
+		$data = Crowdsignal_Forms::instance()
 			->get_post_poll_meta_gateway()
 			->get_poll_data_for_poll_client_id( $post->ID, $poll_id );
+
+		if ( empty( $data ) ) {
+			return null;
+		}
+
+		$this->poll_data[ $poll_id ] = $data;
+		return $data;
 	}
 }
