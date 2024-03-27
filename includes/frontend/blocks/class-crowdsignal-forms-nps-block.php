@@ -91,6 +91,7 @@ class Crowdsignal_Forms_Nps_Block extends Crowdsignal_Forms_Block {
 	/**
 	 * Determines if the NPS block should be rendered or not.
 	 *
+	 * @param array $attributes The block's saved attributes.
 	 * @return bool
 	 */
 	private function should_hide_block( $attributes ) {
