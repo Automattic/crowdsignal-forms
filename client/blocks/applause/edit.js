@@ -25,7 +25,7 @@ import { STORE_NAME } from 'state';
 import withFseCheck from 'components/with-fse-check';
 
 const EditApplauseBlock = ( props ) => {
-	const { attributes, setAttributes, pollDataFromApi, context } = props;
+	const { attributes, setAttributes, pollDataFromApi } = props;
 
 	const viewResultsUrl = pollDataFromApi
 		? pollDataFromApi.viewResultsUrl
