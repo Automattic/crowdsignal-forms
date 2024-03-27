@@ -22,6 +22,7 @@ import withPollBase from 'components/with-poll-base';
 import Toolbar from './toolbar';
 import SideBar from './sidebar';
 import { STORE_NAME } from 'state';
+import withFseCheck from 'components/with-fse-check';
 
 const EditApplauseBlock = ( props ) => {
 	const { attributes, setAttributes, pollDataFromApi } = props;
@@ -68,6 +69,7 @@ const EditApplauseBlock = ( props ) => {
 };
 
 export default compose( [
+	withFseCheck,
 	withPollBase,
 	withClientId( [ 'pollId', 'answerId' ] ),
 ] )( EditApplauseBlock );

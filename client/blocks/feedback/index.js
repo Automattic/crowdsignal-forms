@@ -38,6 +38,7 @@ export default {
 		reusable: false,
 	},
 	attributes,
+	usesContext: [ 'postId', 'queryId' ],
 	example: {
 		attributes: {
 			isExample: true,

@@ -25,6 +25,7 @@ import { isPollClosed } from 'blocks/poll/util';
 import useNumberedTitle from 'components/use-numbered-title';
 import withPollBase from 'components/with-poll-base';
 import { STORE_NAME } from 'state';
+import withFseCheck from 'components/with-fse-check';
 
 const EditVoteBlock = ( props ) => {
 	const { attributes, setAttributes, className, pollDataFromApi } = props;
@@ -101,6 +102,6 @@ const EditVoteBlock = ( props ) => {
 	);
 };
 
-export default compose( [ withPollBase, withClientId( [ 'pollId' ] ) ] )(
+export default compose( [ withFseCheck, withPollBase, withClientId( [ 'pollId' ] ) ] )(
 	EditVoteBlock
 );

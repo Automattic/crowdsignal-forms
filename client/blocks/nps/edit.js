@@ -32,6 +32,7 @@ import SignalWarning from 'components/signal-warning';
 import RetryNotice from 'components/retry-notice';
 import PromotionalTooltip from 'components/promotional-tooltip';
 import { STORE_NAME } from 'state';
+import withFseCheck from 'components/with-fse-check';
 
 const EditNpsBlock = ( props ) => {
 	const [ view, setView ] = useState( views.RATING );
@@ -325,4 +326,5 @@ export default compose( [
 		};
 	} ),
 	withFallbackStyles,
+	withFseCheck,
 ] )( EditNpsBlock );

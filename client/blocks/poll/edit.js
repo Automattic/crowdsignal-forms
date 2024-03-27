@@ -43,6 +43,7 @@ import withPollBase from 'components/with-poll-base';
 import FooterBranding from 'components/footer-branding';
 import SignalWarning from 'components/signal-warning';
 import { STORE_NAME } from 'state';
+import withFseCheck from 'components/with-fse-check';
 
 const withPollAndAnswerIds = ( Element ) => {
 	return ( props ) => {
@@ -294,6 +295,7 @@ const PollBlock = ( props ) => {
 };
 
 export default compose( [
+	withFseCheck,
 	withFallbackStyles,
 	withPollBase,
 	withPollAndAnswerIds,

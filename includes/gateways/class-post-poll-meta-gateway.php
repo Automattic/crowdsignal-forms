@@ -53,7 +53,14 @@ class Post_Poll_Meta_Gateway {
 				$platform_poll_data = array();
 			}
 		} else {
-			$platform_poll_data = (array) get_post_meta( $post_id, $poll_meta_key, true );
+
+			$meta_value = get_post_meta( $post_id, $poll_meta_key, true );
+
+			if ( '' === $meta_value ) {
+				$platform_poll_data = array();
+			} else {
+				$platform_poll_data = (array) $meta_value;
+			}
 		}
 
 		if ( empty( $platform_poll_data ) ) {

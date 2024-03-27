@@ -1,7 +1,7 @@
 === Crowdsignal Forms ===
 Contributors: automattic
 Tags: polls, forms, surveys, gutenberg, block
-Requires at least: 5.0
+Requires at least: 6.0
 Requires PHP: 5.6.20
 Tested up to: 6.4.3
 Stable tag: 1.7.0

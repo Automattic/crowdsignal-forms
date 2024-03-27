@@ -18,6 +18,7 @@ export default {
 	),
 	category: 'crowdsignal-forms',
 	attributes,
+	usesContext: [ 'postId', 'queryId' ],
 	supports: {
 		multiple: false,
 		html: false,

@@ -48,6 +48,7 @@ export default {
 	edit: EditVoteBlock,
 	save: () => <InnerBlocks.Content />,
 	attributes,
+	usesContext: [ 'postId', 'queryId' ],
 	example: {
 		attributes: {
 			className: 'crowdsignal-forms-vote__example',

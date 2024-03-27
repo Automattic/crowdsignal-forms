@@ -65,7 +65,7 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 	 * @return string
 	 */
 	public function render( $attributes, $rendered_inner_blocks ) {
-		if ( $this->should_hide_block() ) {
+		if ( $this->should_hide_block( $attributes ) ) {
 			return '';
 		}
 
@@ -88,9 +88,16 @@ class Crowdsignal_Forms_Vote_Block extends Crowdsignal_Forms_Block {
 	/**
 	 * Determines if the vote block should be rendered or not.
 	 *
+	 * @param  array $attributes The block's saved attributes.
 	 * @return bool
 	 */
-	private function should_hide_block() {
+	private function should_hide_block( $attributes ) {
+		$platform_poll_data = $this->get_platform_poll_data( $attributes['pollId'] ?? null );
+
+		if ( empty( $platform_poll_data ) ) {
+			return true;
+		}
+
 		return ! $this->is_cs_connected();
 	}
 
