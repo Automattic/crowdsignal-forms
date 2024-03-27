@@ -4,7 +4,7 @@ Contributors: [Automattic](https://automattic.com)
 
 Tags: polls, forms, surveys, gutenberg, block
 
-Requires at least: 5.0
+Requires at least: 6.0
 
 Requires PHP: 5.6.20
 
