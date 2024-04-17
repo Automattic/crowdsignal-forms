@@ -503,6 +503,19 @@ export default compose( [
 			url = select( 'core' ).getSite() && select( 'core' ).getSite().url;
 		}
 		const editPost = select( 'core/edit-post' );
+
+		// Need to return same object, but values don't necessarily matter because
+		// this block won't render in FSE.
+		if ( ! editPost ) {
+			return {
+				isFullscreen: false,
+				isInserterActive: false,
+				isListViewActive: false,
+				isSidebarActive: false,
+				sourceLink: url,
+			}
+		}
+
 		const isFullscreen =
 			'isFeatureActive' in editPost
 				? editPost.isFeatureActive( 'fullscreenMode' )
