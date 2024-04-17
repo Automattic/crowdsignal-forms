@@ -39,6 +39,7 @@ import FooterBranding from 'components/footer-branding';
 import FeedbackIcon from 'components/icon/feedback';
 import PromotionalTooltip from 'components/promotional-tooltip';
 import { STORE_NAME } from 'state';
+import withFseCheck from 'components/with-fse-check';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -516,4 +517,5 @@ export default compose( [
 		};
 	} ),
 	withFallbackStyles,
+	withFseCheck,
 ] )( EditFeedbackBlock );

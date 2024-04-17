@@ -37,6 +37,7 @@ export default {
 	icon: <ApplauseIcon />,
 	edit: EditApplauseBlock,
 	attributes,
+	usesContext: [ 'postId', 'queryId' ],
 	example: {
 		attributes: {
 			size: 'large',

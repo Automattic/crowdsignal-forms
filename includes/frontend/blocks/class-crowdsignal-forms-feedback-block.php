@@ -103,6 +103,10 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 				return true;
 		}
 
+		if ( empty( $attributes['surveyId'] ) ) {
+			return true;
+		}
+
 		if ( isset( $attributes['status'] ) ) {
 			if ( self::STATUS_TYPE_CLOSED === $attributes['status'] ) {
 				return true;
