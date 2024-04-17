@@ -117,7 +117,7 @@ abstract class Crowdsignal_Forms_Block {
 			return null;
 		}
 
-		if ( $this->poll_data[ $poll_id ] ) {
+		if ( ! empty( $this->poll_data[ $poll_id ] ) ) {
 			return $this->poll_data[ $poll_id ];
 		}
 
