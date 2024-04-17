@@ -153,16 +153,18 @@ const EditNpsBlock = ( props ) => {
 					isDismissible={ false }
 					icon="visibility"
 					componentActions={ [
-						<PostPreviewButton
-							key={ 1 }
-							className={ [
-								'is-secondary',
-								'components-notice__action',
-								'crowdsignal-forms-nps__preview-button',
-								attributes.surveyId ? '' : 'is-disabled',
-							] }
-							textContent={ __( 'Preview', 'crowdsignal-forms' ) }
-						/>,
+						// Temporarily disabled to prevent block render error,
+						// until we can figure out why it is breaking (maybe a new WP version?)
+						// <PostPreviewButton
+						// 	key={ 1 }
+						// 	className={ [
+						// 		'is-secondary',
+						// 		'components-notice__action',
+						// 		'crowdsignal-forms-nps__preview-button',
+						// 		attributes.surveyId ? '' : 'is-disabled',
+						// 	] }
+						// 	textContent={ __( 'Preview', 'crowdsignal-forms' ) }
+						// />,
 					] }
 				>
 					{ sprintf(
