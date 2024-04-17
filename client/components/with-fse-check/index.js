@@ -10,7 +10,7 @@ const withFseCheck = ( Element ) => {
 	return ( props ) => {
 		const { context } = props;
 		const { postId, queryId } = context;
-console.log('fse check')
+
 		// Prevent block from loading in FSE or a query loop because save handlers don't support those contexts.
 		// - double == instead of triple === used because we need to test for both null and undefined
 		if ( null == postId ) {
@@ -18,7 +18,7 @@ console.log('fse check')
 		} else if ( null != queryId ) {
 			return <ErrorBanner>{ __( 'Crowdsignal blocks are not supported inside a query loop.', 'crowdsignal-forms' ) }</ErrorBanner>;
 		}
-console.log('allowing through')
+
 		return <Element { ...props } />;
 	};
 };
