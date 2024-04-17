@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 6.0
 Requires PHP: 5.6.20
 Tested up to: 6.4.3
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,18 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 4. Use the poll block inside of other blocks
 
 == Changelog ==
+
+= 1.7.1 =
+* bump "Tested up to" to 6.5
+* check for empty cached poll data to prevent warning on load of editor (#278)
+* check for null `core/edit-post` selector which is causing a crash in 6.5 (#277)
+* disable PostPreviewButton because it is crashing the block on re-renders (#274)
+* Prevent blocks from being used in the Site Editor (#272)
+* bump tested up to 6.4.3 (#271)
+* crowdsignal applause block: Only try to fetch poll data if a pollId exists (php 8.1 warning) (#270)
+* Update message banner for closed, hidden and voted polls  (#269)
+* Update @wordpress/scripts and webpack to latest versions (#266)
+* Block Sidebar: group settings together (#265)
 
 = 1.7.0 =
 * Optimize frontend components (#263)
