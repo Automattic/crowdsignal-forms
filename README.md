@@ -8,7 +8,7 @@ Requires at least: 6.0
 
 Requires PHP: 5.6.20
 
-Tested up to: 6.4.3
+Tested up to: 6.5
 
 Stable tag: 1.4.5
 

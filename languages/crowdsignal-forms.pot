@@ -1,15 +1,15 @@
-# Copyright (C) 2023 Automattic
+# Copyright (C) 2024 Automattic
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Crowdsignal Forms 1.7.0\n"
+"Project-Id-Version: Crowdsignal Forms 1.7.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/crowdsignal-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-03T18:49:09+00:00\n"
+"POT-Creation-Date: 2024-04-17T16:14:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: crowdsignal-forms\n"
@@ -228,62 +228,62 @@ msgstr ""
 msgid "Crowdsignal"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:146
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:150
 #: build/editor.js:4
 msgid "Your Email"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:154
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:158
 #: build/editor.js:4
 msgid "Please let us know how we can do better…"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:158
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:162
 #: build/editor.js:4
 msgid "👋 Hey there!"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:170
-#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:154
-#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:155
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:174
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:155
+#: includes/frontend/blocks/class-crowdsignal-forms-poll-block.php:157
 #: build/editor.js:3
 #: build/editor.js:4
 #: build/editor.js:6
 msgid "Submit"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:174
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:178
 #: build/editor.js:4
 msgid "Thanks for letting us know!"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:189
+#: includes/frontend/blocks/class-crowdsignal-forms-feedback-block.php:193
 #: build/editor.js:3
 #: build/editor.js:4
 msgid "Feedback"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:121
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:122
 #: build/editor.js:3
 msgid "Please help us understand your rating"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:128
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:129
 #: build/editor.js:3
 msgid "Thanks so much for your response! How could we do better?"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:139
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:140
 #: build/editor.js:3
 msgid "Extremely likely"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:143
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:144
 #: build/editor.js:3
 msgid "Not likely at all"
 msgstr ""
 
-#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:147
+#: includes/frontend/blocks/class-crowdsignal-forms-nps-block.php:148
 #: build/editor.js:3
 msgid "How likely is it that you would recommend this project to a friend or colleague?"
 msgstr ""
@@ -490,6 +490,18 @@ msgid "Hide poll"
 msgstr ""
 
 #: build/editor.js:3
+msgid "Answer settings"
+msgstr ""
+
+#: build/editor.js:3
+msgid "One response per computer"
+msgstr ""
+
+#: build/editor.js:3
+msgid "Randomize answer order"
+msgstr ""
+
+#: build/editor.js:3
 #: build/editor.js:6
 msgid "Block styling"
 msgstr ""
@@ -553,18 +565,6 @@ msgid "Inline"
 msgstr ""
 
 #: build/editor.js:3
-msgid "Answer settings"
-msgstr ""
-
-#: build/editor.js:3
-msgid "One response per computer"
-msgstr ""
-
-#: build/editor.js:3
-msgid "Randomize answer order"
-msgstr ""
-
-#: build/editor.js:3
 msgid "Choose one answer"
 msgstr ""
 
@@ -602,6 +602,14 @@ msgstr ""
 
 #: build/editor.js:3
 msgid "exceeded 2500 signals."
+msgstr ""
+
+#: build/editor.js:3
+msgid "Crowdsignal blocks cannot be used outside of a post or page. The Site Editor is not supported."
+msgstr ""
+
+#: build/editor.js:3
+msgid "Crowdsignal blocks are not supported inside a query loop."
 msgstr ""
 
 #: build/editor.js:3
@@ -889,17 +897,17 @@ msgstr ""
 
 #: build/editor.js:3
 #: build/editor.js:6
+msgid "Close on"
+msgstr ""
+
+#: build/editor.js:3
+#: build/editor.js:6
 msgid "Button color"
 msgstr ""
 
 #: build/editor.js:3
 #: build/editor.js:6
 msgid "Button text color"
-msgstr ""
-
-#: build/editor.js:3
-#: build/editor.js:6
-msgid "Close on"
 msgstr ""
 
 #: build/editor.js:3
@@ -945,10 +953,6 @@ msgstr ""
 
 #: build/editor.js:3
 msgid "Crowdsignal NPS"
-msgstr ""
-
-#: build/editor.js:3
-msgid "Preview"
 msgstr ""
 
 #. translators: %d: number of pageviews
@@ -1051,14 +1055,6 @@ msgid "Responses will be sent to %s"
 msgstr ""
 
 #: build/editor.js:6
-msgid "Feedback Button"
-msgstr ""
-
-#: build/editor.js:6
-msgid "Hide Shadow"
-msgstr ""
-
-#: build/editor.js:6
 msgid "Show feedback form on:"
 msgstr ""
 
@@ -1076,6 +1072,14 @@ msgstr ""
 
 #: build/editor.js:6
 msgid "Require email address"
+msgstr ""
+
+#: build/editor.js:6
+msgid "Feedback Button"
+msgstr ""
+
+#: build/editor.js:6
+msgid "Hide Shadow"
 msgstr ""
 
 #: build/editor.js:6
