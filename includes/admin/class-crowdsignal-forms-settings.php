@@ -39,6 +39,13 @@ class Crowdsignal_Forms_Settings {
 	protected $settings = array();
 
 	/**
+	 * Settings group.
+	 *
+	 * @var string
+	 */
+	private $settings_group;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
