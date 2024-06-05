@@ -39,9 +39,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 						echo wp_kses_post(
 							sprintf(
-								// translators: Argument is a link to Crowdsignal's contact page.
+								// translators: %1$s is a link to Crowdsignal's support page.
 								__(
-									'Do you want to know more about Crowdsignal? <a href="%1s" target="_blank">Learn more</a>.',
+									'Do you want to know more about Crowdsignal? <a href="%1$s" target="_blank">Learn more</a>.',
 									'crowdsignal-forms'
 								),
 								'https://crowdsignal.com/support/'
