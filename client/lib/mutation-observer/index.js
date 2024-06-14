@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import { camelCase, isEmpty, forEach } from 'lodash';
 
 const MutationObserver = ( dataAttributeName, blockBuilder ) => {
-	if ( 'complete' === document.readyState ) {
+	if ( 'complete' === document.readyState || 'interactive' === document.readyState ) {
 		return blockObserver( dataAttributeName, blockBuilder );
 	}
 
