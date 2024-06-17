@@ -19,36 +19,36 @@ RUN \
 		wget \
 		less \
 		gettext \
-		libapache2-mod-php8.1 \
+		libapache2-mod-php8.2 \
 		libsodium23 \
 		mysql-client \
 		nano \
 		php-apcu \
 		php-xdebug \
-		php8.1 \
-		php8.1-common \
-		php8.1-mysqli \
-		php8.1-xml \
-		php8.1-xmlrpc \
-		php8.1-curl \
-		php8.1-gd \
-		php8.1-imagick \
-		php8.1-cli \
-		php8.1-dev \
-		php8.1-imap \
-		php8.1-mbstring \
-		php8.1-opcache \
-		php8.1-soap \
-		php8.1-zip \
-		php8.1-intl \
+		php8.2 \
+		php8.2-common \
+		php8.2-mysqli \
+		php8.2-xml \
+		php8.2-xmlrpc \
+		php8.2-curl \
+		php8.2-gd \
+		php8.2-imagick \
+		php8.2-cli \
+		php8.2-dev \
+		php8.2-imap \
+		php8.2-mbstring \
+		php8.2-opcache \
+		php8.2-soap \
+		php8.2-zip \
+		php8.2-intl \
 		ssmtp \
 		subversion \
 		sudo \
 		vim \
 	&& rm -rf /var/lib/apt/lists/*
 
-# force php 8.1 since with new versions of ubuntu, new php will be enabled on cli.
-RUN sudo update-alternatives --set php /usr/bin/php8.1
+# force php 8.2 since with new versions of ubuntu, new php will be enabled on cli.
+RUN sudo update-alternatives --set php /usr/bin/php8.2
 
 # Enable mod_rewrite in Apache
 RUN a2enmod rewrite
@@ -70,8 +70,8 @@ RUN curl https://phar.phpunit.de/phpunit-9.5.phar -L -o phpunit.phar \
 COPY ./config/apache_default /etc/apache2/sites-available/000-default.conf
 
 # Copy a default set of settings for PHP (php.ini)
-COPY ./config/php.ini /etc/php/8.1/apache2/conf.d/20-jetpack-wordpress.ini
-COPY ./config/php.ini /etc/php/8.1/cli/conf.d/20-jetpack-wordpress.ini
+COPY ./config/php.ini /etc/php/8.2/apache2/conf.d/20-jetpack-wordpress.ini
+COPY ./config/php.ini /etc/php/8.2/cli/conf.d/20-jetpack-wordpress.ini
 
 # Copy single site htaccess to tmp. run.sh will move it to the site's base dir if there's none present.
 COPY ./config/htaccess /tmp/htaccess
