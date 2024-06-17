@@ -23,7 +23,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="crowdsignal-setup__content">
 		<div class="crowdsignal-setup__description">
 				<h1><?php esc_html_e( 'Welcome to Crowdsignal Forms', 'crowdsignal-forms' ); ?></h1>
-				<p><?php echo wp_kses_post( 'To collect and manage responses you need to connect the plugin to <a href="https://crowdsignal.com">Crowdsignal</a>. <br />It will take less than a minute and it’s free.', 'crowdsignal-forms' ); ?></p>
+				<p>
+					<?php
+						echo wp_kses_post(
+							sprintf(
+								// translators: %1$s is a link to Crowdsignal's home page.
+								__(
+									'To collect and manage responses you need to connect the plugin to <a href="%1$s">Crowdsignal</a>. <br />It will take less than a minute and it’s free.',
+									'crowdsignal-forms'
+								),
+								'https://crowdsignal.com'
+							)
+						);
+					?>
+				</p>
 		</div>
 
 		<div class="wrap crowdsignal-settings-wrap">
