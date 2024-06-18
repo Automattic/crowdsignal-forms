@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								'https://crowdsignal.com'
 							)
 						);
-					?>
+						?>
 				</p>
 		</div>
 
