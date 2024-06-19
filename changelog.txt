@@ -1,3 +1,9 @@
+= 1.7.2 =
+* Fix: Made string translatable in html-admin-setup-step-1.php file (#281)
+* Fix dynamic property (#282)
+* Load blockObserver on DOM ready instead of window load (#268)
+* i18n: Fix omitted dollar signs in printf placeholders (#283)
+
 = 1.7.1 =
 * bump "Tested up to" to 6.5
 * check for empty cached poll data to prevent warning on load of editor (#278)
