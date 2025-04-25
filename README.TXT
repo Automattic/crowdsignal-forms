@@ -68,7 +68,7 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 == Changelog ==
 
 = 1.7.3 =
-* Add `crowdsignal_forms_allow_activation_redirect` filter to prevent redirect on activation. (#286)
+* Add `crowdsignal_forms_allow_activation_redirect` filter to prevent redirect on activation. (#293)
 
 = 1.7.2 =
 * Fix: Made string translatable in html-admin-setup-step-1.php file (#281)
