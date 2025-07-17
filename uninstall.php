@@ -28,3 +28,17 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// Include the main plugin file to access classes
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-crowdsignal-forms-item-registry.php';
+
+// Drop the items registry table
+\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::drop_table();
+
+// Delete all options
+delete_option( 'crowdsignal_forms_api_key' );
+delete_option( 'crowdsignal_forms_user_code' );
+delete_option( 'crowdsignal_forms_do_activation_redirect' );
+delete_option( 'crowdsignal_forms_admin_notices' );
+delete_option( 'crowdsignal_forms_items_table_version' );
+delete_option( 'crowdsignal_forms_items_migration_version' );
