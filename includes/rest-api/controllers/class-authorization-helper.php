@@ -37,8 +37,7 @@ class Authorization_Helper {
 		// Find the post containing this item.
 		$post_id = self::find_post_containing_item( $item_id, $item_type );
 		if ( ! $post_id ) {
-			// If no post found, fall back to publish_posts check.
-			return \current_user_can( 'publish_posts' );
+			return false; // if the item is not found, the user cannot edit it.
 		}
 
 		// Check if user can edit the specific post.
@@ -67,8 +66,7 @@ class Authorization_Helper {
 		$post_id = self::find_post_containing_client_id( $client_id );
 
 		if ( ! $post_id ) {
-			// If no post found, fall back to publish_posts check.
-			return \current_user_can( 'publish_posts' );
+			return false; // if the item is not found, the user cannot edit it.
 		}
 
 		// Check if user can edit the specific post.
