@@ -10,6 +10,7 @@ namespace Crowdsignal_Forms\Rest_Api\Controllers;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Poll;
+use Crowdsignal_Forms\Rest_Api\Controllers\Authorization_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -100,7 +101,7 @@ class Polls_Controller {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_post_poll_by_uuid' ),
-					'permission_callback' => array( $this, 'get_poll_permissions_check' ),
+					'permission_callback' => array( $this, 'get_post_poll_permissions_check' ),
 				),
 			)
 		);
@@ -250,9 +251,29 @@ class Polls_Controller {
 	 *
 	 * @since 0.9.0
 	 *
+	 * @param \WP_REST_Request $request The REST request.
 	 * @return bool
 	 **/
-	public function create_or_update_poll_permissions_check() {
+	public function create_or_update_poll_permissions_check( $request = null ) {
+		// For new poll creation, check publish_posts capability
+		if ( ! $request ) {
+			return current_user_can( 'publish_posts' );
+		}
+
+		// For updates, check if user can edit the poll
+		$poll_id = $request->get_param( 'poll_id' );
+		if ( $poll_id ) {
+			return Authorization_Helper::can_user_edit_item( $poll_id, 'poll' );
+		}
+
+		// For post-based polls, check post edit permissions
+		$post_id = $request->get_param( 'post_id' );
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		if ( $post_id && $poll_uuid ) {
+			return Authorization_Helper::can_user_edit_item_by_client_id( $poll_uuid, $post_id );
+		}
+
+		// Fallback to publish_posts for new polls
 		return current_user_can( 'publish_posts' );
 	}
 
@@ -394,6 +415,18 @@ class Polls_Controller {
 	 **/
 	public function get_poll_permissions_check() {
 		return true;
+	}
+
+	/**
+	 * The permission check for getting a post poll by UUID.
+	 *
+	 * @since 1.7.3
+	 *
+	 * @param \WP_REST_Request $request The REST request.
+	 * @return bool
+	 **/
+	public function get_post_poll_permissions_check( $request ) {
+		return Authorization_Helper::can_user_edit_post_from_request( $request );
 	}
 
 	/**

@@ -11,6 +11,7 @@ namespace Crowdsignal_Forms\Rest_Api\Controllers;
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Nps_Survey;
 use Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Nps_Block;
+use Crowdsignal_Forms\Rest_Api\Controllers\Authorization_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -144,13 +145,33 @@ class Nps_Controller {
 	}
 
 	/**
-	 * The permission check for creating a new poll.
+	 * The permission check for creating a new NPS survey.
 	 *
 	 * @since 1.4.0
 	 *
+	 * @param \WP_REST_Request $request The REST request.
 	 * @return bool
 	 */
-	public function create_or_update_nps_permissions_check() {
+	public function create_or_update_nps_permissions_check( $request = null ) {
+		// For new NPS creation, check publish_posts capability
+		if ( ! $request ) {
+			return current_user_can( 'publish_posts' );
+		}
+
+		// For updates, check if user can edit the NPS survey
+		$survey_id = $request->get_param( 'survey_id' );
+		if ( $survey_id ) {
+			return Authorization_Helper::can_user_edit_item( $survey_id, 'nps' );
+		}
+
+		// For post-based NPS, check post edit permissions
+		$post_id = $request->get_param( 'post_id' );
+		$client_id = $request->get_param( 'client_id' );
+		if ( $post_id && $client_id ) {
+			return Authorization_Helper::can_user_edit_item_by_client_id( $client_id, $post_id );
+		}
+
+		// Fallback to publish_posts for new NPS surveys
 		return current_user_can( 'publish_posts' );
 	}
 

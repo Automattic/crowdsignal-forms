@@ -11,10 +11,13 @@ namespace Crowdsignal_Forms\Rest_Api\Controllers;
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Feedback_Survey;
 use Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Feedback_Block;
+use Crowdsignal_Forms\Rest_Api\Controllers\Authorization_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
+
+
 
 /**
  * Feedback Controller Class
@@ -135,13 +138,33 @@ class Feedback_Controller {
 	}
 
 	/**
-	 * The permission check for creating a new poll.
+	 * The permission check for creating a new feedback survey.
 	 *
 	 * @since 1.5.1
 	 *
+	 * @param \WP_REST_Request $request The REST request.
 	 * @return bool
 	 */
-	public function create_or_update_feedback_permissions_check() {
+	public function create_or_update_feedback_permissions_check( $request = null ) {
+		// For new feedback creation, check publish_posts capability.
+		if ( ! $request ) {
+			return current_user_can( 'publish_posts' );
+		}
+
+		// Get data from request body (JSON).
+		$data = $request->get_json_params();
+		// For updates, check if user can edit the feedback survey.
+		$survey_id = $request->get_param( 'survey_id' );
+		if ( $survey_id ) {
+			return Authorization_Helper::can_user_edit_item( $survey_id, 'feedback' );
+		}
+		// For post-based feedback, check post edit permissions.
+		$post_id   = isset( $data['post_id'] ) ? $data['post_id'] : null;
+		$client_id = isset( $data['client_id'] ) ? $data['client_id'] : null;
+		if ( $post_id && $client_id ) {
+			return Authorization_Helper::can_user_edit_item_by_client_id( $client_id, $post_id );
+		}
+		// Fallback to publish_posts for new feedback surveys.
 		return current_user_can( 'publish_posts' );
 	}
 
