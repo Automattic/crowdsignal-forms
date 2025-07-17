@@ -48,6 +48,10 @@ class Crowdsignal_Forms_Migration {
 			return true; // Migration already completed.
 		}
 
+		if ( ! \is_admin() ) {
+			return false;
+		}
+
 		// Check if we need to create the table.
 		if ( ! Crowdsignal_Forms_Item_Registry::table_exists() ) {
 			Crowdsignal_Forms_Item_Registry::create_table();
