@@ -89,7 +89,7 @@ class Crowdsignal_Forms_Item_Registry {
 		global $wpdb;
 
 		$table_name = self::get_table_name();
-		$result = $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
+		$result     = $wpdb->query( "DROP TABLE IF EXISTS $table_name" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange
 
 		if ( false !== $result ) {
 			\delete_option( 'crowdsignal_forms_items_table_version' );
@@ -114,8 +114,7 @@ class Crowdsignal_Forms_Item_Registry {
 
 		$post_id = $wpdb->get_var(
 			$wpdb->prepare(
-				'SELECT post_id FROM %s WHERE item_id = %d AND item_type = %s LIMIT 1',
-				$table_name,
+				"SELECT post_id FROM $table_name WHERE item_id = %d AND item_type = %s LIMIT 1", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				$item_id,
 				$item_type
 			)
@@ -142,8 +141,7 @@ class Crowdsignal_Forms_Item_Registry {
 		if ( $item_type ) {
 			$items = $wpdb->get_results(
 				$wpdb->prepare(
-					'SELECT * FROM %s WHERE post_id = %d AND item_type = %s ORDER BY created_at DESC',
-					$table_name,
+					"SELECT * FROM $table_name WHERE post_id = %d AND item_type = %s ORDER BY created_at DESC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 					$post_id,
 					$item_type
 				),
@@ -152,8 +150,7 @@ class Crowdsignal_Forms_Item_Registry {
 		} else {
 			$items = $wpdb->get_results(
 				$wpdb->prepare(
-					'SELECT * FROM %s WHERE post_id = %d ORDER BY created_at DESC',
-					$table_name,
+					"SELECT * FROM $table_name WHERE post_id = %d ORDER BY created_at DESC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 					$post_id
 				),
 				ARRAY_A
@@ -179,8 +176,7 @@ class Crowdsignal_Forms_Item_Registry {
 		if ( $item_type ) {
 			$items = $wpdb->get_results(
 				$wpdb->prepare(
-					'SELECT * FROM %s WHERE user_id = %d AND item_type = %s ORDER BY created_at DESC',
-					$table_name,
+					"SELECT * FROM $table_name WHERE user_id = %d AND item_type = %s ORDER BY created_at DESC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 					$user_id,
 					$item_type
 				),
@@ -189,8 +185,7 @@ class Crowdsignal_Forms_Item_Registry {
 		} else {
 			$items = $wpdb->get_results(
 				$wpdb->prepare(
-					'SELECT * FROM %s WHERE user_id = %d ORDER BY created_at DESC',
-					$table_name,
+					"SELECT * FROM $table_name WHERE user_id = %d ORDER BY created_at DESC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 					$user_id
 				),
 				ARRAY_A
@@ -218,8 +213,7 @@ class Crowdsignal_Forms_Item_Registry {
 		// Check if item already exists.
 		$existing = $wpdb->get_var(
 			$wpdb->prepare(
-				'SELECT id FROM %s WHERE item_id = %d AND item_type = %s LIMIT 1',
-				$table_name,
+				"SELECT id FROM $table_name WHERE item_id = %d AND item_type = %s LIMIT 1", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				$item_id,
 				$item_type
 			)
