@@ -153,25 +153,25 @@ class Nps_Controller {
 	 * @return bool
 	 */
 	public function create_or_update_nps_permissions_check( $request = null ) {
-		// For new NPS creation, check publish_posts capability
+		// For new NPS creation, check publish_posts capability.
 		if ( ! $request ) {
 			return current_user_can( 'publish_posts' );
 		}
 
-		// For updates, check if user can edit the NPS survey
+		// For updates, check if user can edit the NPS survey.
 		$survey_id = $request->get_param( 'survey_id' );
 		if ( $survey_id ) {
 			return Authorization_Helper::can_user_edit_item( $survey_id, 'nps' );
 		}
 
-		// For post-based NPS, check post edit permissions
-		$post_id = $request->get_param( 'post_id' );
+		// For post-based NPS, check post edit permissions.
+		$post_id   = $request->get_param( 'post_id' );
 		$client_id = $request->get_param( 'client_id' );
 		if ( $post_id && $client_id ) {
 			return Authorization_Helper::can_user_edit_item_by_client_id( $client_id, $post_id );
 		}
 
-		// Fallback to publish_posts for new NPS surveys
+		// Fallback to publish_posts for new NPS surveys.
 		return current_user_can( 'publish_posts' );
 	}
 
@@ -197,7 +197,7 @@ class Nps_Controller {
 	protected function get_nps_fetch_params() {
 		return array(
 			'survey_id' => array(
-				'validate_callback' => function ( $param, $request, $key ) {
+				'validate_callback' => function ( $param, $request, $key ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 					return is_numeric( $param );
 				},
 			),

@@ -102,7 +102,7 @@ class Authorization_Helper {
 		// For NPS surveys, search in post content since they don't use postmeta.
 		if ( 'nps' === $item_type ) {
 			$result = self::find_post_containing_nps_survey( $item_id );
-			\set_transient( $cache_key, $result, 30 ); // Cache for 30 seconds
+			\set_transient( $cache_key, $result, 30 ); // Cache for 30 seconds.
 			return $result;
 		}
 
@@ -126,6 +126,7 @@ class Authorization_Helper {
 					ORDER BY meta_id DESC
 					LIMIT {$batch_size} OFFSET {$offset}";
 
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$results = $wpdb->get_results( $sql );
 
 				if ( empty( $results ) ) {

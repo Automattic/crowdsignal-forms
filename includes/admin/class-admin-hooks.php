@@ -99,7 +99,7 @@ class Admin_Hooks {
 	 *
 	 * @since 1.8.0
 	 */
-	public function update_items_registry( $post_id, $post, $update ) {
+	public function update_items_registry( $post_id, $post, $update ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 		// Skip autosaves and revisions.
 		if ( \wp_is_post_autosave( $post_id ) || \wp_is_post_revision( $post_id ) ) {
@@ -142,15 +142,15 @@ class Admin_Hooks {
 	 * @since 1.8.0
 	 */
 	private function extract_items_from_post( $post ) {
-		$items = array();
+		$items  = array();
 		$blocks = \parse_blocks( $post->post_content );
 
-		// Extract items from blocks
+		// Extract items from blocks.
 		$items = array_merge( $items, $this->extract_items_from_blocks( $blocks ) );
 
-		// Extract polls from postmeta (for backward compatibility)
+		// Extract polls from postmeta (for backward compatibility).
 		$poll_items = $this->extract_polls_from_postmeta( $post->ID );
-		$items = array_merge( $items, $poll_items );
+		$items      = array_merge( $items, $poll_items );
 
 		return $items;
 	}
@@ -186,7 +186,7 @@ class Admin_Hooks {
 			// Check inner blocks.
 			if ( ! empty( $block['innerBlocks'] ) ) {
 				$inner_items = $this->extract_items_from_blocks( $block['innerBlocks'] );
-				$items = array_merge( $items, $inner_items );
+				$items       = array_merge( $items, $inner_items );
 			}
 		}
 
@@ -205,11 +205,9 @@ class Admin_Hooks {
 		global $wpdb;
 
 		$items = array();
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$poll_meta_keys = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT meta_key FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key LIKE '_cs_poll_%'",
-				$post_id
-			)
+			'SELECT meta_key FROM {$wpdb->postmeta} WHERE post_id = ' . intval( $post_id ) . ' AND meta_key LIKE "_cs_poll_%"'
 		);
 
 		foreach ( $poll_meta_keys as $meta_key ) {

@@ -252,7 +252,7 @@ final class Crowdsignal_Forms {
 	 *
 	 * @return $this
 	 */
-	public function setup_hooks( $init_all = false ) {
+	public function setup_hooks( $init_all = false ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'init', array( $this->blocks_assets, 'register' ) );
 		add_action( 'init', array( $this->blocks, 'register' ) );
@@ -463,7 +463,7 @@ final class Crowdsignal_Forms {
 	 * @param array   $categories Array of existing categories.
 	 * @param WP_Post $post The post being edited.
 	 */
-	public function add_block_category( $categories, $post ) {
+	public function add_block_category( $categories, $post ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		return array_merge(
 			$categories,
 			array(

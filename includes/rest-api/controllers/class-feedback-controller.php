@@ -190,7 +190,7 @@ class Feedback_Controller {
 	protected function get_feedback_fetch_params() {
 		return array(
 			'survey_id' => array(
-				'validate_callback' => function ( $param, $request, $key ) {
+				'validate_callback' => function ( $param, $request, $key ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 					return is_numeric( $param );
 				},
 			),

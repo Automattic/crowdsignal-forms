@@ -255,25 +255,25 @@ class Polls_Controller {
 	 * @return bool
 	 **/
 	public function create_or_update_poll_permissions_check( $request = null ) {
-		// For new poll creation, check publish_posts capability
+		// For new poll creation, check publish_posts capability.
 		if ( ! $request ) {
 			return current_user_can( 'publish_posts' );
 		}
 
-		// For updates, check if user can edit the poll
+		// For updates, check if user can edit the poll.
 		$poll_id = $request->get_param( 'poll_id' );
 		if ( $poll_id ) {
 			return Authorization_Helper::can_user_edit_item( $poll_id, 'poll' );
 		}
 
-		// For post-based polls, check post edit permissions
-		$post_id = $request->get_param( 'post_id' );
+		// For post-based polls, check post edit permissions.
+		$post_id   = $request->get_param( 'post_id' );
 		$poll_uuid = $request->get_param( 'poll_uuid' );
 		if ( $post_id && $poll_uuid ) {
 			return Authorization_Helper::can_user_edit_item_by_client_id( $poll_uuid, $post_id );
 		}
 
-		// Fallback to publish_posts for new polls
+		// Fallback to publish_posts for new polls.
 		return current_user_can( 'publish_posts' );
 	}
 
@@ -449,7 +449,7 @@ class Polls_Controller {
 	protected function get_poll_fetch_params() {
 		return array(
 			'poll_id' => array(
-				'validate_callback' => function( $param, $request, $key ) {
+				'validate_callback' => function ( $param, $request, $key ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 					return true;
 				},
 			),

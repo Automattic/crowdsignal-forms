@@ -109,6 +109,7 @@ class Post_Poll_Meta_Gateway {
 		$poll_meta_key = $this->get_poll_meta_key( $client_id );
 
 		// Use existing efficient exact key lookup.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$post_id = $wpdb->get_var(
 			$wpdb->prepare(
 				'SELECT post_id FROM %s WHERE meta_key = %s LIMIT 1',
