@@ -155,6 +155,9 @@ final class Crowdsignal_Forms {
 		add_action( 'admin_init', array( $this, 'activate_redirect' ) );
 		register_deactivation_hook( CROWDSIGNAL_FORMS_PLUGIN_FILE, array( $this, 'deactivation' ) );
 		register_activation_hook( CROWDSIGNAL_FORMS_PLUGIN_FILE, array( $this, 'activate' ) );
+
+		// Initialize the items registry table.
+		$this->init_items_registry();
 	}
 
 	/**
@@ -204,6 +207,21 @@ final class Crowdsignal_Forms {
 	 * @since 0.9.0
 	 */
 	public function deactivation() {
+	}
+
+	/**
+	 * Initialize the items registry table.
+	 *
+	 * @since 1.8.0
+	 */
+	private function init_items_registry() {
+		// Check if we need to create the table.
+		if ( ! Crowdsignal_Forms_Item_Registry::table_exists() ) {
+			Crowdsignal_Forms_Item_Registry::create_table();
+		}
+
+		// Run migration if needed.
+		Crowdsignal_Forms_Migration::maybe_migrate();
 	}
 
 	/**
@@ -342,7 +360,7 @@ final class Crowdsignal_Forms {
 			return $headers;
 		}
 
-		// check if we have it already.
+		// Check if we have it already.
 		$transient_key     = $api_key . '-' . (int) get_current_user_id();
 		$transient_headers = get_transient( $transient_key );
 		if ( $transient_headers ) {
