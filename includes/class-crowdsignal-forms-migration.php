@@ -44,13 +44,13 @@ class Crowdsignal_Forms_Migration {
 	public static function maybe_migrate() {
 		$current_version = \get_option( self::MIGRATION_OPTION, '0.0' );
 
-		// Only run if in wp-admin to reduce load.
-		if ( ! \is_admin() ) {
-			return false;
-		}
-
 		if ( version_compare( $current_version, self::MIGRATION_VERSION, '>=' ) ) {
 			return true; // Migration already completed.
+		}
+
+		// Check if we need to create the table.
+		if ( ! Crowdsignal_Forms_Item_Registry::table_exists() ) {
+			Crowdsignal_Forms_Item_Registry::create_table();
 		}
 
 		return self::migrate_items_to_registry();

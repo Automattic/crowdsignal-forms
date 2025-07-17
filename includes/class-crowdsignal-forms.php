@@ -157,7 +157,7 @@ final class Crowdsignal_Forms {
 		register_activation_hook( CROWDSIGNAL_FORMS_PLUGIN_FILE, array( $this, 'activate' ) );
 
 		// Initialize the items registry table.
-		$this->init_items_registry();
+		Crowdsignal_Forms_Migration::maybe_migrate();
 	}
 
 	/**
@@ -207,21 +207,6 @@ final class Crowdsignal_Forms {
 	 * @since 0.9.0
 	 */
 	public function deactivation() {
-	}
-
-	/**
-	 * Initialize the items registry table.
-	 *
-	 * @since 1.8.0
-	 */
-	private function init_items_registry() {
-		// Check if we need to create the table.
-		if ( ! Crowdsignal_Forms_Item_Registry::table_exists() ) {
-			Crowdsignal_Forms_Item_Registry::create_table();
-		}
-
-		// Run migration if needed.
-		Crowdsignal_Forms_Migration::maybe_migrate();
 	}
 
 	/**
