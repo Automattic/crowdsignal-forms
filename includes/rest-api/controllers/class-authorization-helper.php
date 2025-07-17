@@ -149,25 +149,6 @@ class Authorization_Helper {
 			\set_transient( $cache_key, null, 10 ); // Cache for 10 seconds.
 			return null;
 		}
-
-		// For other item types, use a similar optimized approach.
-		$meta_key_pattern = '_cs_' . $item_type . '_%';
-
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$post_id = $wpdb->get_var(
-			$wpdb->prepare(
-				"SELECT post_id FROM {$wpdb->postmeta} 
-				WHERE meta_key LIKE %s 
-				AND meta_value LIKE %s 
-				LIMIT 1",
-				$meta_key_pattern,
-				'%"id":' . intval( $item_id ) . '%'
-			)
-		);
-
-		$result = $post_id ? intval( $post_id ) : null;
-		\set_transient( $cache_key, $result, 10 ); // Cache for 10 seconds.
-		return $result;
 	}
 
 	/**
