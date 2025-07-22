@@ -15,6 +15,7 @@ use Crowdsignal_Forms\Auth\Crowdsignal_Forms_Api_Authenticator;
 use Crowdsignal_Forms\Synchronization\Post_Sync_Entity;
 use Crowdsignal_Forms\Synchronization\Comment_Sync_Entity;
 use Crowdsignal_Forms\Synchronization\Poll_Block_Synchronizer;
+use Crowdsignal_Forms\Rest_Api\Controllers\Authorization_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -225,6 +226,30 @@ class Admin_Hooks {
 	}
 
 	/**
+	 * Check if the current user can edit the post that this comment belongs to.
+	 *
+	 * @param int $comment_id The comment id.
+	 * @return bool
+	 *
+	 * @since 1.8.0
+	 */
+	private function can_commenter_edit_poll( $comment_id ) {
+		// Get the comment and post information.
+		$comment = \get_comment( $comment_id );
+		if ( ! $comment ) {
+			return false;
+		}
+
+		// Check if the current user can edit the post that this comment belongs to.
+		if ( ! Authorization_Helper::can_user_edit_post_from_request( new \WP_REST_Request( 'POST', '', array( 'post_id' => $comment->comment_post_ID ) ) ) ) {
+			// If no user is logged in or user lacks permissions, don't process blocks in comments.
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Save polls in new comments.
 	 *
 	 * @param  int        $comment_id       The comment id.
@@ -238,6 +263,10 @@ class Admin_Hooks {
 	 * @since 1.0.0
 	 */
 	public function save_polls_to_api_from_new_comment( $comment_id, $comment_approved, $commentdata ) {
+		if ( ! $this->can_commenter_edit_poll( $comment_id ) ) {
+			return false;
+		}
+
 		$saver        = new Comment_Sync_Entity( $comment_id, $comment_approved, $commentdata );
 		$synchronizer = new Poll_Block_Synchronizer( $saver );
 		return $synchronizer->synchronize();
@@ -256,6 +285,10 @@ class Admin_Hooks {
 	 * @since 1.0.0
 	 */
 	public function save_polls_to_api_from_updated_comment( $comment_id, $commentdata ) {
+		if ( ! $this->can_commenter_edit_poll( $comment_id ) ) {
+			return false;
+		}
+
 		$saver        = new Comment_Sync_Entity( $comment_id, null, $commentdata );
 		$synchronizer = new Poll_Block_Synchronizer( $saver );
 		return $synchronizer->synchronize();
