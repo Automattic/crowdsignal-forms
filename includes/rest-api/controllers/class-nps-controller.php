@@ -158,10 +158,21 @@ class Nps_Controller {
 			return current_user_can( 'publish_posts' );
 		}
 
+		$data   = $request->get_json_params();
+		$survey = Nps_Survey::from_block_attributes( $data );
+
 		// For updates, check if user can edit the NPS survey.
 		$survey_id = $request->get_param( 'survey_id' );
 		if ( $survey_id ) {
+			if ( $survey->get_id() !== $survey_id ) {
+				return false;
+			}
 			return Authorization_Helper::can_user_edit_item( $survey_id, 'nps' );
+		}
+
+		// If the survey is in the request, check if the user can edit it.
+		if ( $survey && $survey->get_id() ) {
+			return Authorization_Helper::can_user_edit_item( $survey->get_id(), 'nps' );
 		}
 
 		// For post-based NPS, check post edit permissions.
