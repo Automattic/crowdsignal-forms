@@ -12,6 +12,7 @@ import { TextareaControl } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
 import { PostPreviewButton } from '@wordpress/editor';
 import { dispatch, withSelect, useSelect } from '@wordpress/data';
+import { useEntityId } from '@wordpress/core-data';
 import { compose } from '@wordpress/compose';
 import { __, _n, sprintf } from '@wordpress/i18n';
 
@@ -56,6 +57,8 @@ const EditNpsBlock = ( props ) => {
 		viewThreshold,
 	} = attributes;
 
+	const postId = useEntityId( 'postType', 'post' );
+
 	const { error: saveError, save: saveBlock } = useAutosave(
 		async ( data ) => {
 			dispatch( 'core/editor' ).lockPostSaving( clientId );
@@ -67,6 +70,7 @@ const EditNpsBlock = ( props ) => {
 					sourceLink: data.sourceLink,
 					surveyId: data.surveyId,
 					title: data.title || data.ratingQuestion,
+					postId,
 				} );
 
 				if ( ! data.surveyId ) {
