@@ -119,10 +119,10 @@ class Authorization_Helper {
 			$batch_size = 2;
 
 			while ( true ) {
-				$sql = "SELECT post_id, meta_value FROM {$wpdb->postmeta}
-					WHERE meta_key LIKE '_cs_poll_%'
+				$sql = 'SELECT post_id, meta_value FROM ' . $wpdb->postmeta . '
+					WHERE meta_key LIKE "_cs_poll_%"
 					ORDER BY meta_id DESC
-					LIMIT {$batch_size} OFFSET {$offset}";
+					LIMIT ' . $batch_size . ' OFFSET ' . $offset;
 
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$results = $wpdb->get_results( $sql );

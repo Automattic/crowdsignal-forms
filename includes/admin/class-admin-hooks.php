@@ -208,7 +208,7 @@ class Admin_Hooks {
 		$items = array();
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$poll_meta_keys = $wpdb->get_col(
-			'SELECT meta_key FROM {$wpdb->postmeta} WHERE post_id = ' . intval( $post_id ) . ' AND meta_key LIKE "_cs_poll_%"'
+			'SELECT meta_key FROM ' . $wpdb->postmeta . ' WHERE post_id = ' . intval( $post_id ) . ' AND meta_key LIKE "_cs_poll_"'
 		);
 
 		foreach ( $poll_meta_keys as $meta_key ) {

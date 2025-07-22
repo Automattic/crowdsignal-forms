@@ -79,7 +79,7 @@ class Crowdsignal_Forms_Migration {
 
 		// Migrate polls from postmeta.
 		$poll_meta_keys = $wpdb->get_col(
-			"SELECT meta_key FROM {$wpdb->postmeta} WHERE meta_key LIKE '_cs_poll_%'"
+			'SELECT meta_key FROM ' . $wpdb->postmeta . ' WHERE meta_key LIKE "_cs_poll_%"'
 		);
 
 		foreach ( $poll_meta_keys as $meta_key ) {
@@ -88,7 +88,7 @@ class Crowdsignal_Forms_Migration {
 			// Get post ID for this poll.
 			$post_id = $wpdb->get_var(
 				$wpdb->prepare(
-					"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s LIMIT 1",
+					'SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key = %s LIMIT 1',
 					$meta_key
 				)
 			);
