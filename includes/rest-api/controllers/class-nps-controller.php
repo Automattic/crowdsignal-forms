@@ -98,6 +98,17 @@ class Nps_Controller {
 			return $result;
 		}
 
+		// Register the newly created/updated survey in the item registry.
+		$post_id = $request->get_param( 'post_id' );
+		if ( $post_id && $result->get_id() ) {
+			\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::register_item(
+				$result->get_id(),
+				'nps',
+				$post_id,
+				get_current_user_id()
+			);
+		}
+
 		return rest_ensure_response( $result->to_block_attributes() );
 	}
 
@@ -158,13 +169,19 @@ class Nps_Controller {
 			return current_user_can( 'publish_posts' );
 		}
 
+		// For post-based NPS, check post edit permissions first (most reliable).
+		$post_id = $request->get_param( 'post_id' );
+		if ( $post_id ) {
+			return current_user_can( 'edit_post', $post_id );
+		}
+
 		$data   = $request->get_json_params();
 		$survey = Nps_Survey::from_block_attributes( $data );
 
 		// For updates, check if user can edit the NPS survey.
 		$survey_id = $request->get_param( 'survey_id' );
 		if ( $survey_id ) {
-			if ( $survey->get_id() !== $survey_id ) {
+			if ( $survey->get_id() !== intval( $survey_id ) ) {
 				return false;
 			}
 			return Authorization_Helper::can_user_edit_item( $survey_id, 'nps' );
@@ -175,8 +192,7 @@ class Nps_Controller {
 			return Authorization_Helper::can_user_edit_item( $survey->get_id(), 'nps' );
 		}
 
-		// For post-based NPS, check post edit permissions.
-		$post_id   = $request->get_param( 'post_id' );
+		// For post-based NPS with client_id, check post edit permissions.
 		$client_id = $request->get_param( 'client_id' );
 		if ( $post_id && $client_id ) {
 			return Authorization_Helper::can_user_edit_item_by_client_id( $client_id, $post_id );
