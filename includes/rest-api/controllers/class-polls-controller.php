@@ -259,11 +259,21 @@ class Polls_Controller {
 		if ( ! $request ) {
 			return current_user_can( 'publish_posts' );
 		}
+		$data = $request->get_json_params();
+		$poll = Poll::from_array( $data );
 
 		// For updates, check if user can edit the poll.
 		$poll_id = $request->get_param( 'poll_id' );
 		if ( $poll_id ) {
+			if ( $poll->get_id() !== $poll_id ) {
+				return false;
+			}
 			return Authorization_Helper::can_user_edit_item( $poll_id, 'poll' );
+		}
+
+		// If the poll is in the request, check if the user can edit it.
+		if ( $poll && $poll->get_id() ) {
+			return Authorization_Helper::can_user_edit_item( $poll->get_id(), 'poll' );
 		}
 
 		// For post-based polls, check post edit permissions.
