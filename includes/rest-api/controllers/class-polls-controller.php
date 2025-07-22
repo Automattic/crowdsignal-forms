@@ -265,7 +265,7 @@ class Polls_Controller {
 		// For updates, check if user can edit the poll.
 		$poll_id = $request->get_param( 'poll_id' );
 		if ( $poll_id ) {
-			if ( $poll->get_id() !== $poll_id ) {
+			if ( $poll->get_id() !== intval( $poll_id ) ) {
 				return false;
 			}
 			return Authorization_Helper::can_user_edit_item( $poll_id, 'poll' );
