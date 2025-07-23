@@ -77,51 +77,24 @@ class Crowdsignal_Forms_Migration {
 		$migrated_count = 0;
 		$errors         = array();
 
-		// Migrate polls from postmeta.
-		$poll_meta_keys = $wpdb->get_col(
-			'SELECT meta_key FROM ' . $wpdb->postmeta . ' WHERE meta_key LIKE "_cs_poll_%"'
-		);
+		// Migrate polls from posts that contain poll blocks.
+		$poll_posts = self::find_posts_with_blocks( 'crowdsignal-forms/poll' );
+		foreach ( $poll_posts as $post ) {
+			$poll_items = self::extract_poll_items_from_post( $post );
 
-		foreach ( $poll_meta_keys as $meta_key ) {
-			$client_id = str_replace( '_cs_poll_', '', $meta_key );
+			foreach ( $poll_items as $item ) {
+				$result = Crowdsignal_Forms_Item_Registry::register_item(
+					$item['poll_id'],
+					'poll',
+					$post->ID,
+					$post->post_author
+				);
 
-			// Get post ID for this poll.
-			$post_id = $wpdb->get_var(
-				$wpdb->prepare(
-					'SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key = %s LIMIT 1',
-					$meta_key
-				)
-			);
-
-			if ( ! $post_id ) {
-				continue;
-			}
-
-			// Get poll data.
-			$poll_data = \get_post_meta( $post_id, $meta_key, true );
-
-			if ( ! is_array( $poll_data ) || empty( $poll_data['id'] ) ) {
-				continue;
-			}
-
-			// Get post author.
-			$post = \get_post( $post_id );
-			if ( ! $post ) {
-				continue;
-			}
-
-			// Register the poll.
-			$result = Crowdsignal_Forms_Item_Registry::register_item(
-				$poll_data['id'],
-				'poll',
-				$post_id,
-				$post->post_author
-			);
-
-			if ( $result ) {
-				$migrated_count++;
-			} else {
-				$errors[] = "Failed to migrate poll {$poll_data['id']} from post {$post_id}";
+				if ( $result ) {
+					++$migrated_count;
+				} else {
+					$errors[] = "Failed to migrate poll {$item['poll_id']} from post {$post->ID}";
+				}
 			}
 		}
 
@@ -169,7 +142,7 @@ class Crowdsignal_Forms_Migration {
 
 		// Log migration results.
 		if ( ! empty( $errors ) ) {
-			\error_log( 'Crowdsignal Forms Migration Errors: ' . implode( ', ', $errors ) );
+			\error_log( 'Crowdsignal Forms Migration Errors: ' . implode( ', ', $errors ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 		}
 
 		// Update migration version.
@@ -188,14 +161,49 @@ class Crowdsignal_Forms_Migration {
 	private static function find_posts_with_blocks( $block_name ) {
 		global $wpdb;
 
-		$posts = $wpdb->get_results(
-			"SELECT ID, post_author, post_content FROM {$wpdb->posts} 
+		$sql   = "SELECT ID, post_author, post_content FROM {$wpdb->posts}
 			WHERE post_content LIKE '%" . $wpdb->esc_like( $block_name ) . "%'
 			AND post_status IN ('publish', 'draft', 'pending', 'private')
-			ORDER BY ID DESC"
-		);
+			ORDER BY ID DESC";
+		$posts = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		return $posts ? $posts : array();
+	}
+
+	/**
+	 * Extract poll items from post content.
+	 *
+	 * @since 1.8.0
+	 * @param \WP_Post $post The post object.
+	 * @return array Array of poll items with poll_id.
+	 */
+	private static function extract_poll_items_from_post( $post ) {
+		$items  = array();
+		$blocks = \parse_blocks( $post->post_content );
+
+		foreach ( $blocks as $block ) {
+			if ( 'crowdsignal-forms/poll' === $block['blockName'] && ! empty( $block['attrs']['pollId'] ) ) {
+				$client_id = $block['attrs']['pollId'];
+
+				// Get poll data from postmeta using the client ID.
+				$poll_data = \get_post_meta( $post->ID, "_cs_poll_{$client_id}", true );
+
+				// Only migrate if we have valid poll data AND the block exists in the post content.
+				if ( is_array( $poll_data ) && ! empty( $poll_data['id'] ) ) {
+					$items[] = array(
+						'poll_id' => $poll_data['id'],
+					);
+				}
+			}
+
+			// Check inner blocks.
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$inner_items = self::extract_poll_items_from_blocks( $block['innerBlocks'], $post->ID );
+				$items       = array_merge( $items, $inner_items );
+			}
+		}
+
+		return $items;
 	}
 
 	/**
@@ -234,7 +242,7 @@ class Crowdsignal_Forms_Migration {
 	 * @return array Array of feedback items with surveyId.
 	 */
 	private static function extract_feedback_items_from_post( $post ) {
-		$items = array();
+		$items  = array();
 		$blocks = \parse_blocks( $post->post_content );
 
 		foreach ( $blocks as $block ) {
@@ -282,6 +290,42 @@ class Crowdsignal_Forms_Migration {
 	}
 
 	/**
+	 * Extract poll items from blocks recursively.
+	 *
+	 * @since 1.8.0
+	 * @param array $blocks Array of blocks.
+	 * @param int   $post_id The post ID for looking up postmeta.
+	 * @return array Array of poll items.
+	 */
+	private static function extract_poll_items_from_blocks( $blocks, $post_id ) {
+		$items = array();
+
+		foreach ( $blocks as $block ) {
+			if ( 'crowdsignal-forms/poll' === $block['blockName'] && ! empty( $block['attrs']['pollId'] ) ) {
+				$client_id = $block['attrs']['pollId'];
+
+				// Get poll data from postmeta using the client ID.
+				$poll_data = \get_post_meta( $post_id, "_cs_poll_{$client_id}", true );
+
+				// Only migrate if we have valid poll data AND the block exists in the post content.
+				if ( is_array( $poll_data ) && ! empty( $poll_data['id'] ) ) {
+					$items[] = array(
+						'poll_id' => $poll_data['id'],
+					);
+				}
+			}
+
+			// Check inner blocks.
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$inner_items = self::extract_poll_items_from_blocks( $block['innerBlocks'], $post_id );
+				$items       = array_merge( $items, $inner_items );
+			}
+		}
+
+		return $items;
+	}
+
+	/**
 	 * Extract feedback items from blocks recursively.
 	 *
 	 * @since 1.8.0
@@ -301,7 +345,7 @@ class Crowdsignal_Forms_Migration {
 			// Check inner blocks.
 			if ( ! empty( $block['innerBlocks'] ) ) {
 				$inner_items = self::extract_feedback_items_from_blocks( $block['innerBlocks'] );
-				$items = array_merge( $items, $inner_items );
+				$items       = array_merge( $items, $inner_items );
 			}
 		}
 
@@ -326,4 +370,4 @@ class Crowdsignal_Forms_Migration {
 	public static function reset_migration() {
 		\delete_option( self::MIGRATION_OPTION );
 	}
-} 
+}
