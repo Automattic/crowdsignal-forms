@@ -83,7 +83,6 @@ class Authorization_Helper {
 	private static function find_post_containing_item( $item_id, $item_type = 'poll' ) {
 		// Check if registry usage is disabled via constant.
 		if ( ! \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::is_disabled() ) {
-			error_log( 'registry is not disabled' );
 			// First, try to find the item using the new registry table.
 			$post_id = \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::get_post_id_for_item( $item_id, $item_type );
 			if ( $post_id ) {
