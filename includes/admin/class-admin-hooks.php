@@ -112,6 +112,11 @@ class Admin_Hooks {
 			return;
 		}
 
+		// Skip registry operations if disabled.
+		if ( \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::is_disabled() ) {
+			return;
+		}
+
 		// Clear existing items for this post.
 		\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::unregister_items_for_post( $post_id );
 
@@ -131,6 +136,11 @@ class Admin_Hooks {
 	 * @since 1.8.0
 	 */
 	public function cleanup_items_registry( $post_id ) {
+		// Skip registry operations if disabled.
+		if ( \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::is_disabled() ) {
+			return;
+		}
+
 		\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::unregister_items_for_post( $post_id );
 	}
 

@@ -100,7 +100,7 @@ class Nps_Controller {
 
 		// Register the newly created/updated survey in the item registry.
 		$post_id = $request->get_param( 'post_id' );
-		if ( $post_id && $result->get_id() ) {
+		if ( $post_id && $result->get_id() && ! \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::is_disabled() ) {
 			\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::register_item(
 				$result->get_id(),
 				'nps',

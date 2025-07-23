@@ -81,10 +81,14 @@ class Authorization_Helper {
 	 * @return int|null The post ID if found, null otherwise.
 	 */
 	private static function find_post_containing_item( $item_id, $item_type = 'poll' ) {
-		// First, try to find the item using the new registry table.
-		$post_id = \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::get_post_id_for_item( $item_id, $item_type );
-		if ( $post_id ) {
-			return $post_id;
+		// Check if registry usage is disabled via constant.
+		if ( ! \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::is_disabled() ) {
+			error_log( 'registry is not disabled' );
+			// First, try to find the item using the new registry table.
+			$post_id = \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::get_post_id_for_item( $item_id, $item_type );
+			if ( $post_id ) {
+				return $post_id;
+			}
 		}
 		// Fallback to old methods for backward compatibility.
 		global $wpdb;
@@ -191,7 +195,7 @@ class Authorization_Helper {
 		$result = $post ? intval( $post->ID ) : null;
 		\set_transient( $cache_key, $result, 10 ); // Cache for 10 seconds.
 
-		if ( $result ) {
+		if ( $result && ! \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::is_disabled() ) {
 			\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::register_item(
 				$survey_id,
 				'nps',

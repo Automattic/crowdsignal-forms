@@ -42,6 +42,11 @@ class Crowdsignal_Forms_Migration {
 	 * @return bool True if migration was successful or not needed, false on failure.
 	 */
 	public static function maybe_migrate() {
+		// Skip migration entirely if registry is disabled.
+		if ( Crowdsignal_Forms_Item_Registry::is_disabled() ) {
+			return true; // Return true to avoid blocking functionality.
+		}
+
 		$current_version = \get_option( self::MIGRATION_OPTION, '0.0' );
 
 		if ( version_compare( $current_version, self::MIGRATION_VERSION, '>=' ) ) {

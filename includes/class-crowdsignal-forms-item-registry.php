@@ -30,6 +30,16 @@ class Crowdsignal_Forms_Item_Registry {
 	const TABLE_NAME = 'crowdsignal_forms_items';
 
 	/**
+	 * Check if the registry is disabled via constant.
+	 *
+	 * @since 1.8.0
+	 * @return bool True if registry is disabled, false otherwise.
+	 */
+	public static function is_disabled() {
+		return defined( 'CROWDSIGNAL_FORMS_DISABLE_REGISTRY' ) && CROWDSIGNAL_FORMS_DISABLE_REGISTRY;
+	}
+
+	/**
 	 * Get the full table name with WordPress prefix.
 	 *
 	 * @return string
