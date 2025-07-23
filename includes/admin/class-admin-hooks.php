@@ -216,12 +216,31 @@ class Admin_Hooks {
 		global $wpdb;
 
 		$items = array();
+
+		// Get the post content to validate against.
+		$post = \get_post( $post_id );
+		if ( ! $post ) {
+			return $items;
+		}
+
+		// Parse blocks to get all poll client IDs that actually exist in the post.
+		$blocks                = \parse_blocks( $post->post_content );
+		$valid_poll_client_ids = $this->extract_poll_client_ids_from_blocks( $blocks );
+
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$poll_meta_keys = $wpdb->get_col(
-			'SELECT meta_key FROM ' . $wpdb->postmeta . ' WHERE post_id = ' . intval( $post_id ) . ' AND meta_key LIKE "_cs_poll_"'
+			'SELECT meta_key FROM ' . $wpdb->postmeta . ' WHERE post_id = ' . intval( $post_id ) . ' AND meta_key LIKE "_cs_poll_%"'
 		);
 
 		foreach ( $poll_meta_keys as $meta_key ) {
+			// Extract client ID from meta key (e.g., "_cs_poll_abc123" -> "abc123").
+			$client_id = str_replace( '_cs_poll_', '', $meta_key );
+
+			// Only process if this client ID actually exists in the post content.
+			if ( ! in_array( $client_id, $valid_poll_client_ids, true ) ) {
+				continue;
+			}
+
 			$poll_data = \get_post_meta( $post_id, $meta_key, true );
 
 			if ( is_array( $poll_data ) && ! empty( $poll_data['id'] ) ) {
@@ -233,6 +252,33 @@ class Admin_Hooks {
 		}
 
 		return $items;
+	}
+
+	/**
+	 * Extract poll client IDs from blocks recursively.
+	 *
+	 * @param array $blocks Array of blocks.
+	 * @return array Array of poll client IDs.
+	 *
+	 * @since 1.8.0
+	 */
+	private function extract_poll_client_ids_from_blocks( $blocks ) {
+		$client_ids = array();
+
+		foreach ( $blocks as $block ) {
+			// Poll blocks.
+			if ( 'crowdsignal-forms/poll' === $block['blockName'] && ! empty( $block['attrs']['pollId'] ) ) {
+				$client_ids[] = $block['attrs']['pollId'];
+			}
+
+			// Check inner blocks.
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$inner_client_ids = $this->extract_poll_client_ids_from_blocks( $block['innerBlocks'] );
+				$client_ids       = array_merge( $client_ids, $inner_client_ids );
+			}
+		}
+
+		return $client_ids;
 	}
 
 	/**
