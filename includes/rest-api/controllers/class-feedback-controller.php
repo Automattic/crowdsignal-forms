@@ -58,7 +58,7 @@ class Feedback_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<survey_id>\d+)',
+			'/' . $this->rest_base . '/(?P<survey_uuid>[a-f0-9\-]{36})',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
@@ -70,7 +70,7 @@ class Feedback_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<survey_id>\d+)/response',
+			'/' . $this->rest_base . '/(?P<survey_uuid>[a-f0-9\-]{36})/response',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
@@ -116,8 +116,13 @@ class Feedback_Controller {
 	 * @return \WP_REST_Response|WP_ERROR
 	 */
 	public function upsert_feedback_response( \WP_REST_Request $request ) {
-		$data      = $request->get_json_params();
-		$survey_id = $request->get_param( 'survey_id' );
+		$data        = $request->get_json_params();
+		$survey_uuid = $request->get_param( 'survey_uuid' );
+		$survey_id   = Authorization_Helper::convert_uuid_to_sequential_id( $survey_uuid, 'feedback' );
+
+		if ( ! $survey_id ) {
+			return new \WP_Error( 'invalid_survey', 'Survey not found for UUID', array( 'status' => 404 ) );
+		}
 
 		$verifies = Crowdsignal_Forms_Feedback_Block::verify_nonce( $data['nonce'] );
 
@@ -153,10 +158,10 @@ class Feedback_Controller {
 
 		// Get data from request body (JSON).
 		$data = $request->get_json_params();
-		// For updates, check if user can edit the feedback survey.
-		$survey_id = $request->get_param( 'survey_id' );
-		if ( $survey_id ) {
-			return Authorization_Helper::can_user_edit_item( $survey_id, 'feedback' );
+		// For updates, check if user can edit the feedback survey by UUID.
+		$survey_uuid = $request->get_param( 'survey_uuid' );
+		if ( $survey_uuid ) {
+			return Authorization_Helper::can_user_edit_item_by_uuid( $survey_uuid, 'feedback' );
 		}
 		// For post-based feedback, check post edit permissions.
 		$post_id   = isset( $data['post_id'] ) ? $data['post_id'] : null;

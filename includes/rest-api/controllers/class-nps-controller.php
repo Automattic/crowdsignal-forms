@@ -56,7 +56,7 @@ class Nps_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<survey_id>\d+)',
+			'/' . $this->rest_base . '/(?P<survey_uuid>[a-f0-9\-]{36})',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
@@ -68,7 +68,7 @@ class Nps_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<survey_id>\d+)/response',
+			'/' . $this->rest_base . '/(?P<survey_uuid>[a-f0-9\-]{36})/response',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
@@ -126,8 +126,13 @@ class Nps_Controller {
 	 * @return \WP_REST_Response|WP_ERROR
 	 */
 	public function upsert_nps_response( \WP_REST_Request $request ) {
-		$data      = $request->get_json_params();
-		$survey_id = $request->get_param( 'survey_id' );
+		$data        = $request->get_json_params();
+		$survey_uuid = $request->get_param( 'survey_uuid' );
+		$survey_id   = Authorization_Helper::convert_uuid_to_sequential_id( $survey_uuid, 'nps' );
+
+		if ( ! $survey_id ) {
+			return new \WP_Error( 'invalid_survey', 'Survey not found for UUID', array( 'status' => 404 ) );
+		}
 
 		$verifies = Crowdsignal_Forms_Nps_Block::verify_nonce( $data['nonce'] );
 
@@ -178,13 +183,18 @@ class Nps_Controller {
 		$data   = $request->get_json_params();
 		$survey = Nps_Survey::from_block_attributes( $data );
 
-		// For updates, check if user can edit the NPS survey.
-		$survey_id = $request->get_param( 'survey_id' );
-		if ( $survey_id ) {
-			if ( $survey->get_id() !== intval( $survey_id ) ) {
-				return false;
+		// For updates, check if user can edit the NPS survey by UUID.
+		$survey_uuid = $request->get_param( 'survey_uuid' );
+		if ( $survey_uuid ) {
+			// Validate that the UUID exists and convert to sequential ID.
+			$sequential_id = Authorization_Helper::convert_uuid_to_sequential_id( $survey_uuid, 'nps' );
+			if ( ! $sequential_id ) {
+				return false; // UUID not found.
 			}
-			return Authorization_Helper::can_user_edit_item( $survey_id, 'nps' );
+			if ( $survey->get_id() && $survey->get_id() !== $sequential_id ) {
+				return false; // Mismatch between request data and URL parameter.
+			}
+			return Authorization_Helper::can_user_edit_item_by_uuid( $survey_uuid, 'nps' );
 		}
 
 		// If the survey is in the request, check if the user can edit it.

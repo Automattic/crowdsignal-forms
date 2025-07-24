@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { times, get } from 'lodash';
 import classnames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * WordPress dependencies
@@ -34,6 +35,20 @@ import RetryNotice from 'components/retry-notice';
 import PromotionalTooltip from 'components/promotional-tooltip';
 import { STORE_NAME } from 'state';
 import withFseCheck from 'components/with-fse-check';
+
+const withClientId = ( Element ) => {
+	return ( props ) => {
+		const { attributes, setAttributes } = props;
+
+		useEffect( () => {
+			if ( ! attributes.clientId ) {
+				setAttributes( { clientId: uuidv4() } );
+			}
+		}, [] );
+
+		return <Element { ...props } />;
+	};
+};
 
 const EditNpsBlock = ( props ) => {
 	const [ view, setView ] = useState( views.RATING );
@@ -333,4 +348,5 @@ export default compose( [
 	} ),
 	withFallbackStyles,
 	withFseCheck,
+	withClientId,
 ] )( EditNpsBlock );

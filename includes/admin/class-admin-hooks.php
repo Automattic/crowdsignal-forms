@@ -72,6 +72,7 @@ class Admin_Hooks {
 
 		add_action( 'save_post', array( $this, 'save_polls_to_api' ), 10, 3 );
 		add_action( 'save_post', array( $this, 'update_items_registry' ), 20, 3 );
+		add_action( 'save_post', array( $this, 'create_uuid_postmeta' ), 15, 3 );
 		add_action( 'before_delete_post', array( $this, 'cleanup_items_registry' ), 10, 1 );
 
 		/**
@@ -125,6 +126,78 @@ class Admin_Hooks {
 
 		if ( ! empty( $items ) ) {
 			\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::register_items_for_post( $post_id, $items, $post->post_author );
+		}
+	}
+
+	/**
+	 * Create UUID postmeta for NPS and Feedback blocks when a post is saved.
+	 *
+	 * @param int      $post_id The post ID.
+	 * @param \WP_Post $post    The post object.
+	 * @param bool     $update  Whether this is an update.
+	 *
+	 * @since 1.9.0
+	 */
+	public function create_uuid_postmeta( $post_id, $post, $update ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		// Skip autosaves and revisions.
+		if ( \wp_is_post_autosave( $post_id ) || \wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		// Skip if post is not published, draft, pending, or private.
+		if ( ! in_array( $post->post_status, array( 'publish', 'draft', 'pending', 'private' ), true ) ) {
+			return;
+		}
+
+		// Parse blocks and create postmeta for NPS and Feedback blocks with clientId.
+		$blocks = \parse_blocks( $post->post_content );
+		$this->process_blocks_for_uuid_postmeta( $blocks, $post_id );
+	}
+
+	/**
+	 * Process blocks recursively to create UUID postmeta for NPS and Feedback blocks.
+	 *
+	 * @param array $blocks  Array of blocks.
+	 * @param int   $post_id The post ID.
+	 *
+	 * @since 1.9.0
+	 */
+	private function process_blocks_for_uuid_postmeta( $blocks, $post_id ) {
+		foreach ( $blocks as $block ) {
+			// Process NPS blocks with clientId.
+			if ( 'crowdsignal-forms/nps' === $block['blockName'] &&
+				 ! empty( $block['attrs']['clientId'] ) &&
+				 ! empty( $block['attrs']['surveyId'] ) ) {
+
+				$meta_key = '_cs_nps_' . $block['attrs']['clientId'];
+				$meta_value = array(
+					'surveyId' => $block['attrs']['surveyId'],
+					'clientId' => $block['attrs']['clientId'],
+					'title' => $block['attrs']['title'] ?? '',
+				);
+
+				\update_post_meta( $post_id, $meta_key, $meta_value );
+			}
+
+			// Process Feedback blocks with clientId.
+			if ( 'crowdsignal-forms/feedback' === $block['blockName'] &&
+				 ! empty( $block['attrs']['clientId'] ) &&
+				 ! empty( $block['attrs']['surveyId'] ) ) {
+
+				$meta_key = '_cs_feedback_' . $block['attrs']['clientId'];
+				$meta_value = array(
+					'surveyId' => $block['attrs']['surveyId'],
+					'clientId' => $block['attrs']['clientId'],
+					'title' => $block['attrs']['title'] ?? '',
+				);
+
+				\update_post_meta( $post_id, $meta_key, $meta_value );
+			}
+
+			// Process inner blocks recursively.
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$this->process_blocks_for_uuid_postmeta( $block['innerBlocks'], $post_id );
+			}
 		}
 	}
 

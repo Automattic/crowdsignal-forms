@@ -74,6 +74,112 @@ class Authorization_Helper {
 	}
 
 	/**
+	 * Validate if a string is a valid UUID format.
+	 *
+	 * @param string $uuid The UUID string to validate.
+	 * @return bool True if valid UUID format, false otherwise.
+	 */
+	public static function is_valid_uuid( $uuid ) {
+		if ( ! is_string( $uuid ) ) {
+			return false;
+		}
+
+		// UUID v4 pattern: 8-4-4-4-12 hex characters with dashes.
+		$pattern = '/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i';
+		return (bool) preg_match( $pattern, $uuid );
+	}
+
+	/**
+	 * Find the post ID that contains a specific item by its UUID.
+	 *
+	 * @param string $item_uuid The item UUID.
+	 * @param string $item_type The item type (nps, feedback, poll).
+	 * @return int|null The post ID if found, null otherwise.
+	 */
+	public static function find_post_by_item_uuid( $item_uuid, $item_type ) {
+		if ( ! self::is_valid_uuid( $item_uuid ) ) {
+			return null;
+		}
+
+		// Use caching to avoid repeated queries.
+		$cache_key      = "cs_{$item_type}_uuid_{$item_uuid}_post_id";
+		$cached_post_id = \get_transient( $cache_key );
+
+		if ( false !== $cached_post_id ) {
+			return $cached_post_id;
+		}
+
+		// Search for posts with the specific UUID postmeta.
+		$meta_key = "_cs_{$item_type}_{$item_uuid}";
+		$posts = \get_posts( array(
+			'meta_key'       => $meta_key,
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+			'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+			'post_type'      => 'any',
+		) );
+
+		$result = ! empty( $posts ) ? $posts[0] : null;
+		\set_transient( $cache_key, $result, 30 ); // Cache for 30 seconds.
+
+		return $result;
+	}
+
+	/**
+	 * Get item data from UUID postmeta.
+	 *
+	 * @param string $item_uuid The item UUID.
+	 * @param string $item_type The item type (nps, feedback, poll).
+	 * @return array|null The item data if found, null otherwise.
+	 */
+	public static function get_item_data_by_uuid( $item_uuid, $item_type ) {
+		$post_id = self::find_post_by_item_uuid( $item_uuid, $item_type );
+
+		if ( ! $post_id ) {
+			return null;
+		}
+
+		$meta_key = "_cs_{$item_type}_{$item_uuid}";
+		$item_data = \get_post_meta( $post_id, $meta_key, true );
+
+		return is_array( $item_data ) ? $item_data : null;
+	}
+
+	/**
+	 * Convert UUID to sequential ID for API calls.
+	 *
+	 * @param string $item_uuid The item UUID.
+	 * @param string $item_type The item type (nps, feedback).
+	 * @return int|null The sequential ID if found, null otherwise.
+	 */
+	public static function convert_uuid_to_sequential_id( $item_uuid, $item_type ) {
+		$item_data = self::get_item_data_by_uuid( $item_uuid, $item_type );
+
+		if ( ! $item_data || empty( $item_data['surveyId'] ) ) {
+			return null;
+		}
+
+		return intval( $item_data['surveyId'] );
+	}
+
+	/**
+	 * Check if a user can edit an item by its UUID.
+	 *
+	 * @param string $item_uuid The item UUID.
+	 * @param string $item_type The item type (nps, feedback, poll).
+	 * @return bool True if user can edit, false otherwise.
+	 */
+	public static function can_user_edit_item_by_uuid( $item_uuid, $item_type ) {
+		$post_id = self::find_post_by_item_uuid( $item_uuid, $item_type );
+
+		if ( ! $post_id ) {
+			return false;
+		}
+
+		return \current_user_can( 'edit_post', $post_id );
+	}
+
+	/**
 	 * Find the post ID that contains a specific Crowdsignal item.
 	 *
 	 * @param int|string $item_id The Crowdsignal item ID.
@@ -185,7 +291,7 @@ class Authorization_Helper {
 		// Search for posts containing NPS blocks with the specific survey ID.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$post = $wpdb->get_row(
-			"SELECT ID, post_author FROM {$wpdb->posts} 
+			"SELECT ID, post_author FROM {$wpdb->posts}
 			WHERE post_content LIKE '%\"surveyId\":" . intval( $survey_id ) . "%'
 			AND post_status IN ('publish', 'draft', 'pending', 'private')
 			LIMIT 1"
@@ -225,7 +331,7 @@ class Authorization_Helper {
 		// Search for posts containing feedback blocks with the specific survey ID.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$post_id = $wpdb->get_var(
-			"SELECT ID FROM {$wpdb->posts} 
+			"SELECT ID FROM {$wpdb->posts}
 			WHERE post_content LIKE '%\"surveyId\":" . intval( $survey_id ) . "%'
 			AND post_status IN ('publish', 'draft', 'pending', 'private')
 			LIMIT 1"

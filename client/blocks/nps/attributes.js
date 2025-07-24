@@ -64,6 +64,10 @@ export default {
 		type: 'number',
 		default: null,
 	},
+	clientId: {
+		type: 'string',
+		default: null,
+	},
 	textColor: {
 		type: 'string',
 	},
