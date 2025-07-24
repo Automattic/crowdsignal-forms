@@ -63,7 +63,7 @@ class Authorization_Helper {
 		}
 
 		// Find the post containing this client_id.
-		$post_id = self::find_post_containing_client_id( $client_id );
+		$post_id = self::get_post_id_for_client_id( $client_id );
 
 		if ( ! $post_id ) {
 			return false; // if the item is not found, the user cannot edit it.
@@ -71,6 +71,43 @@ class Authorization_Helper {
 
 		// Check if user can edit the specific post.
 		return \current_user_can( 'edit_post', $post_id );
+	}
+
+	/**
+	 * Get the post ID for a client ID.
+	 *
+	 * @param string $client_id The client ID (UUID).
+	 * @return int|null The post ID if found, null otherwise.
+	 */
+	public static function get_post_id_for_client_id( $client_id ) {
+		// Extract the item uuid and item type from the client id.
+		$item_uuid = self::extract_item_uuid_from_client_id( $client_id );
+		$item_type = self::extract_item_type_from_client_id( $client_id );
+
+		// Find the post containing this client_id.
+		return self::find_post_by_item_uuid( $item_uuid, $item_type );
+	}
+
+	/**
+	 * Extract the item uuid from the client id.
+	 *
+	 * @param string $client_id The client ID (UUID).
+	 * @return string The item UUID.
+	 */
+	public static function extract_item_uuid_from_client_id( $client_id ) {
+		// client_id is in the format of "cs_<item_type>_<uuid>".
+		return substr( $client_id, strrpos( $client_id, '_' ) + 1 );
+	}
+
+	/**
+	 * Extract the item type from the client id.
+	 *
+	 * @param string $client_id The client ID (UUID).
+	 * @return string The item type.
+	 */
+	public static function extract_item_type_from_client_id( $client_id ) {
+		// client_id is in the format of "cs_<item_type>_<uuid>".
+		return substr( $client_id, 3, strrpos( $client_id, '_' ) - 3 );
 	}
 
 	/**
@@ -109,15 +146,17 @@ class Authorization_Helper {
 			return $cached_post_id;
 		}
 
-		// Search for posts with the specific UUID postmeta.
+		// All item types use the same postmeta format: _cs_{item_type}_{uuid}.
 		$meta_key = "_cs_{$item_type}_{$item_uuid}";
-		$posts = \get_posts( array(
-			'meta_key'       => $meta_key,
-			'posts_per_page' => 1,
-			'fields'         => 'ids',
-			'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
-			'post_type'      => 'any',
-		) );
+		$posts    = \get_posts(
+			array(
+				'meta_key'       => $meta_key,
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+				'post_type'      => 'any',
+			)
+		);
 
 		$result = ! empty( $posts ) ? $posts[0] : null;
 		\set_transient( $cache_key, $result, 30 ); // Cache for 30 seconds.
@@ -139,7 +178,7 @@ class Authorization_Helper {
 			return null;
 		}
 
-		$meta_key = "_cs_{$item_type}_{$item_uuid}";
+		$meta_key  = "_cs_{$item_type}_{$item_uuid}";
 		$item_data = \get_post_meta( $post_id, $meta_key, true );
 
 		return is_array( $item_data ) ? $item_data : null;
@@ -149,13 +188,25 @@ class Authorization_Helper {
 	 * Convert UUID to sequential ID for API calls.
 	 *
 	 * @param string $item_uuid The item UUID.
-	 * @param string $item_type The item type (nps, feedback).
+	 * @param string $item_type The item type (nps, feedback, poll).
 	 * @return int|null The sequential ID if found, null otherwise.
 	 */
 	public static function convert_uuid_to_sequential_id( $item_uuid, $item_type ) {
 		$item_data = self::get_item_data_by_uuid( $item_uuid, $item_type );
 
-		if ( ! $item_data || empty( $item_data['surveyId'] ) ) {
+		if ( ! $item_data ) {
+			return null;
+		}
+
+		if ( 'poll' === $item_type ) {
+			if ( empty( $item_data['id'] ) ) {
+				return null;
+			}
+
+			return intval( $item_data['id'] );
+		}
+
+		if ( empty( $item_data['surveyId'] ) ) {
 			return null;
 		}
 
@@ -170,6 +221,7 @@ class Authorization_Helper {
 	 * @return bool True if user can edit, false otherwise.
 	 */
 	public static function can_user_edit_item_by_uuid( $item_uuid, $item_type ) {
+		// Use the unified UUID lookup method for all item types.
 		$post_id = self::find_post_by_item_uuid( $item_uuid, $item_type );
 
 		if ( ! $post_id ) {
@@ -177,6 +229,24 @@ class Authorization_Helper {
 		}
 
 		return \current_user_can( 'edit_post', $post_id );
+	}
+
+	/**
+	 * Check if a user can edit an item in a specific post.
+	 *
+	 * @param int    $post_id   The post ID.
+	 * @param string $item_uuid The item UUID.
+	 * @param string $item_type The item type (nps, feedback, poll).
+	 * @return bool True if user can edit and item exists in post, false otherwise.
+	 */
+	public static function can_user_edit_item_in_post( $post_id, $item_uuid, $item_type ) {
+		// First check if user can edit the post.
+		if ( ! \current_user_can( 'edit_post', $post_id ) ) {
+			return false;
+		}
+
+		// Then verify the item actually exists in that post.
+		return self::item_exists_in_post( $post_id, $item_uuid, $item_type );
 	}
 
 	/**
@@ -251,19 +321,6 @@ class Authorization_Helper {
 	}
 
 	/**
-	 * Find the post ID that contains a specific client ID.
-	 *
-	 * @param string $client_id The client ID (UUID).
-	 * @return int|null The post ID if found, null otherwise.
-	 */
-	private static function find_post_containing_client_id( $client_id ) {
-		// Use the existing efficient method from Post_Poll_Meta_Gateway.
-		return Crowdsignal_Forms::instance()
-			->get_post_poll_meta_gateway()
-			->get_post_id_for_client_id( $client_id );
-	}
-
-	/**
 	 * Find the post ID that contains a specific NPS survey ID by searching post content.
 	 *
 	 * @param int $survey_id The NPS survey ID.
@@ -291,7 +348,7 @@ class Authorization_Helper {
 
 		$result = $post ? intval( $post->ID ) : null;
 		\set_transient( $cache_key, $result, 10 ); // Cache for 10 seconds.
-		
+
 		return $result;
 	}
 
@@ -340,6 +397,26 @@ class Authorization_Helper {
 		}
 
 		return \current_user_can( 'edit_post', $post_id );
+	}
+
+	/**
+	 * Check if a specific item UUID exists in a given post.
+	 *
+	 * @param int    $post_id   The post ID to check.
+	 * @param string $item_uuid The item UUID to look for.
+	 * @param string $item_type The item type (nps, feedback, poll).
+	 * @return bool True if the item exists in the post, false otherwise.
+	 */
+	public static function item_exists_in_post( $post_id, $item_uuid, $item_type ) {
+		if ( ! $post_id || ! $item_uuid || ! $item_type ) {
+			return false;
+		}
+
+		// Check if the item's postmeta exists for this specific post.
+		$meta_key   = "_cs_{$item_type}_{$item_uuid}";
+		$meta_value = \get_post_meta( $post_id, $meta_key, true );
+
+		return ! empty( $meta_value );
 	}
 
 	/**

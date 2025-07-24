@@ -166,41 +166,38 @@ class Nps_Controller {
 			return current_user_can( 'publish_posts' );
 		}
 
-		// For post-based NPS, check post edit permissions first (most reliable).
-		$post_id = $request->get_param( 'post_id' );
-		if ( $post_id ) {
-			return current_user_can( 'edit_post', $post_id );
+		$data = $request->get_json_params();
+
+		// clientId is mandatory for all POST operations.
+		if ( empty( $data['clientId'] ) ) {
+			return false; // No clientId provided - reject request.
 		}
 
-		$data   = $request->get_json_params();
-		$survey = Nps_Survey::from_block_attributes( $data );
+		$client_id = $data['clientId'];
 
-		// For updates, check if user can edit the NPS survey by UUID.
+		// For URL-based operations (updates), check if user can edit the NPS survey by UUID.
 		$survey_uuid = $request->get_param( 'survey_uuid' );
 		if ( $survey_uuid ) {
-			// Validate that the UUID exists and convert to sequential ID.
-			$sequential_id = Authorization_Helper::convert_uuid_to_sequential_id( $survey_uuid, 'nps' );
-			if ( ! $sequential_id ) {
-				return false; // UUID not found.
-			}
-			if ( $survey->get_id() && $survey->get_id() !== $sequential_id ) {
-				return false; // Mismatch between request data and URL parameter.
+			// Ensure the URL UUID matches the clientId in the request data.
+			if ( $survey_uuid !== $client_id ) {
+				return false; // UUID mismatch between URL and request data.
 			}
 			return Authorization_Helper::can_user_edit_item_by_uuid( $survey_uuid, 'nps' );
 		}
 
-		// If the survey is in the request, check if the user can edit it.
-		if ( $survey && $survey->get_id() ) {
-			return Authorization_Helper::can_user_edit_item( $survey->get_id(), 'nps' );
+		// For post-based NPS operations, check post edit permissions and verify NPS block exists.
+		$post_id = $request->get_param( 'post_id' );
+		if ( $post_id ) {
+			// Verify both user permissions and that NPS block exists in the post.
+			return Authorization_Helper::can_user_edit_item_in_post( $post_id, $client_id, 'nps' );
 		}
 
-		// For post-based NPS with client_id, check post edit permissions.
-		$client_id = $request->get_param( 'client_id' );
-		if ( $post_id && $client_id ) {
-			return Authorization_Helper::can_user_edit_item_by_client_id( $client_id, $post_id );
+		// Also check for post_id in request data.
+		if ( ! empty( $data['post_id'] ) ) {
+			return Authorization_Helper::can_user_edit_item_in_post( $data['post_id'], $client_id, 'nps' );
 		}
 
-		// Fallback to publish_posts for new NPS surveys.
+		// For new NPS surveys without post context, check publish_posts capability.
 		return current_user_can( 'publish_posts' );
 	}
 

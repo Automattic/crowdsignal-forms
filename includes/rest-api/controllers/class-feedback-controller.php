@@ -156,20 +156,38 @@ class Feedback_Controller {
 			return current_user_can( 'publish_posts' );
 		}
 
-		// Get data from request body (JSON).
 		$data = $request->get_json_params();
-		// For updates, check if user can edit the feedback survey by UUID.
+
+		// clientId is mandatory for all POST operations.
+		if ( empty( $data['clientId'] ) ) {
+			return false; // No clientId provided - reject request.
+		}
+
+		$client_id = $data['clientId'];
+
+		// For URL-based operations (updates), check if user can edit the feedback survey by UUID.
 		$survey_uuid = $request->get_param( 'survey_uuid' );
 		if ( $survey_uuid ) {
+			// Ensure the URL UUID matches the clientId in the request data.
+			if ( $survey_uuid !== $client_id ) {
+				return false; // UUID mismatch between URL and request data.
+			}
 			return Authorization_Helper::can_user_edit_item_by_uuid( $survey_uuid, 'feedback' );
 		}
-		// For post-based feedback, check post edit permissions.
-		$post_id   = isset( $data['post_id'] ) ? $data['post_id'] : null;
-		$client_id = isset( $data['client_id'] ) ? $data['client_id'] : null;
-		if ( $post_id && $client_id ) {
-			return Authorization_Helper::can_user_edit_item_by_client_id( $client_id, $post_id );
+
+		// For post-based feedback operations, check post edit permissions and verify feedback block exists.
+		$post_id = $request->get_param( 'post_id' );
+		if ( $post_id ) {
+			// Verify both user permissions and that feedback block exists in the post.
+			return Authorization_Helper::can_user_edit_item_in_post( $post_id, $client_id, 'feedback' );
 		}
-		// Fallback to publish_posts for new feedback surveys.
+
+		// Also check for post_id in request data.
+		if ( ! empty( $data['post_id'] ) ) {
+			return Authorization_Helper::can_user_edit_item_in_post( $data['post_id'], $client_id, 'feedback' );
+		}
+
+		// For new feedback surveys without post context, check publish_posts capability.
 		return current_user_can( 'publish_posts' );
 	}
 
