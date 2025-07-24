@@ -71,9 +71,7 @@ class Admin_Hooks {
 		}
 
 		add_action( 'save_post', array( $this, 'save_polls_to_api' ), 10, 3 );
-		add_action( 'save_post', array( $this, 'update_items_registry' ), 20, 3 );
 		add_action( 'save_post', array( $this, 'create_uuid_postmeta' ), 15, 3 );
-		add_action( 'before_delete_post', array( $this, 'cleanup_items_registry' ), 10, 1 );
 
 		/**
 		 * Should we synchronize poll blocks in comments too?
@@ -92,42 +90,6 @@ class Admin_Hooks {
 		return $this;
 	}
 
-	/**
-	 * Update the items registry when a post is saved.
-	 *
-	 * @param int      $post_id The post ID.
-	 * @param \WP_Post $post    The post object.
-	 * @param bool     $update  Whether this is an update.
-	 *
-	 * @since 1.8.0
-	 */
-	public function update_items_registry( $post_id, $post, $update ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-
-		// Skip autosaves and revisions.
-		if ( \wp_is_post_autosave( $post_id ) || \wp_is_post_revision( $post_id ) ) {
-			return;
-		}
-
-		// Skip if post is not published, draft, pending, or private.
-		if ( ! in_array( $post->post_status, array( 'publish', 'draft', 'pending', 'private' ), true ) ) {
-			return;
-		}
-
-		// Skip registry operations if disabled.
-		if ( \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::is_disabled() ) {
-			return;
-		}
-
-		// Clear existing items for this post.
-		\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::unregister_items_for_post( $post_id );
-
-		// Extract and register new items.
-		$items = $this->extract_items_from_post( $post );
-
-		if ( ! empty( $items ) ) {
-			\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::register_items_for_post( $post_id, $items, $post->post_author );
-		}
-	}
 
 	/**
 	 * Create UUID postmeta for NPS and Feedback blocks when a post is saved.
@@ -166,14 +128,14 @@ class Admin_Hooks {
 		foreach ( $blocks as $block ) {
 			// Process NPS blocks with clientId.
 			if ( 'crowdsignal-forms/nps' === $block['blockName'] &&
-				 ! empty( $block['attrs']['clientId'] ) &&
-				 ! empty( $block['attrs']['surveyId'] ) ) {
+				! empty( $block['attrs']['clientId'] ) &&
+				! empty( $block['attrs']['surveyId'] ) ) {
 
-				$meta_key = '_cs_nps_' . $block['attrs']['clientId'];
+				$meta_key   = '_cs_nps_' . $block['attrs']['clientId'];
 				$meta_value = array(
 					'surveyId' => $block['attrs']['surveyId'],
 					'clientId' => $block['attrs']['clientId'],
-					'title' => $block['attrs']['title'] ?? '',
+					'title'    => $block['attrs']['title'] ?? '',
 				);
 
 				\update_post_meta( $post_id, $meta_key, $meta_value );
@@ -181,14 +143,14 @@ class Admin_Hooks {
 
 			// Process Feedback blocks with clientId.
 			if ( 'crowdsignal-forms/feedback' === $block['blockName'] &&
-				 ! empty( $block['attrs']['clientId'] ) &&
-				 ! empty( $block['attrs']['surveyId'] ) ) {
+				! empty( $block['attrs']['clientId'] ) &&
+				! empty( $block['attrs']['surveyId'] ) ) {
 
-				$meta_key = '_cs_feedback_' . $block['attrs']['clientId'];
+				$meta_key   = '_cs_feedback_' . $block['attrs']['clientId'];
 				$meta_value = array(
 					'surveyId' => $block['attrs']['surveyId'],
 					'clientId' => $block['attrs']['clientId'],
-					'title' => $block['attrs']['title'] ?? '',
+					'title'    => $block['attrs']['title'] ?? '',
 				);
 
 				\update_post_meta( $post_id, $meta_key, $meta_value );
@@ -199,159 +161,6 @@ class Admin_Hooks {
 				$this->process_blocks_for_uuid_postmeta( $block['innerBlocks'], $post_id );
 			}
 		}
-	}
-
-	/**
-	 * Clean up the items registry when a post is deleted.
-	 *
-	 * @param int $post_id The post ID.
-	 *
-	 * @since 1.8.0
-	 */
-	public function cleanup_items_registry( $post_id ) {
-		// Skip registry operations if disabled.
-		if ( \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::is_disabled() ) {
-			return;
-		}
-
-		\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::unregister_items_for_post( $post_id );
-	}
-
-	/**
-	 * Extract all Crowdsignal items from a post.
-	 *
-	 * @param \WP_Post $post The post object.
-	 * @return array Array of items with item_id and item_type.
-	 *
-	 * @since 1.8.0
-	 */
-	private function extract_items_from_post( $post ) {
-		$items  = array();
-		$blocks = \parse_blocks( $post->post_content );
-
-		// Extract items from blocks.
-		$items = array_merge( $items, $this->extract_items_from_blocks( $blocks ) );
-
-		// Extract polls from postmeta (for backward compatibility).
-		$poll_items = $this->extract_polls_from_postmeta( $post->ID );
-		$items      = array_merge( $items, $poll_items );
-
-		return $items;
-	}
-
-	/**
-	 * Extract items from blocks recursively.
-	 *
-	 * @param array $blocks Array of blocks.
-	 * @return array Array of items.
-	 *
-	 * @since 1.8.0
-	 */
-	private function extract_items_from_blocks( $blocks ) {
-		$items = array();
-
-		foreach ( $blocks as $block ) {
-			// NPS blocks.
-			if ( 'crowdsignal-forms/nps' === $block['blockName'] && ! empty( $block['attrs']['surveyId'] ) ) {
-				$items[] = array(
-					'item_id'   => $block['attrs']['surveyId'],
-					'item_type' => 'nps',
-				);
-			}
-
-			// Feedback blocks.
-			if ( 'crowdsignal-forms/feedback' === $block['blockName'] && ! empty( $block['attrs']['surveyId'] ) ) {
-				$items[] = array(
-					'item_id'   => $block['attrs']['surveyId'],
-					'item_type' => 'feedback',
-				);
-			}
-
-			// Check inner blocks.
-			if ( ! empty( $block['innerBlocks'] ) ) {
-				$inner_items = $this->extract_items_from_blocks( $block['innerBlocks'] );
-				$items       = array_merge( $items, $inner_items );
-			}
-		}
-
-		return $items;
-	}
-
-	/**
-	 * Extract polls from postmeta for backward compatibility.
-	 *
-	 * @param int $post_id The post ID.
-	 * @return array Array of poll items.
-	 *
-	 * @since 1.8.0
-	 */
-	private function extract_polls_from_postmeta( $post_id ) {
-		global $wpdb;
-
-		$items = array();
-
-		// Get the post content to validate against.
-		$post = \get_post( $post_id );
-		if ( ! $post ) {
-			return $items;
-		}
-
-		// Parse blocks to get all poll client IDs that actually exist in the post.
-		$blocks                = \parse_blocks( $post->post_content );
-		$valid_poll_client_ids = $this->extract_poll_client_ids_from_blocks( $blocks );
-
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$poll_meta_keys = $wpdb->get_col(
-			'SELECT meta_key FROM ' . $wpdb->postmeta . ' WHERE post_id = ' . intval( $post_id ) . ' AND meta_key LIKE "_cs_poll_%"'
-		);
-
-		foreach ( $poll_meta_keys as $meta_key ) {
-			// Extract client ID from meta key (e.g., "_cs_poll_abc123" -> "abc123").
-			$client_id = str_replace( '_cs_poll_', '', $meta_key );
-
-			// Only process if this client ID actually exists in the post content.
-			if ( ! in_array( $client_id, $valid_poll_client_ids, true ) ) {
-				continue;
-			}
-
-			$poll_data = \get_post_meta( $post_id, $meta_key, true );
-
-			if ( is_array( $poll_data ) && ! empty( $poll_data['id'] ) ) {
-				$items[] = array(
-					'item_id'   => $poll_data['id'],
-					'item_type' => 'poll',
-				);
-			}
-		}
-
-		return $items;
-	}
-
-	/**
-	 * Extract poll client IDs from blocks recursively.
-	 *
-	 * @param array $blocks Array of blocks.
-	 * @return array Array of poll client IDs.
-	 *
-	 * @since 1.8.0
-	 */
-	private function extract_poll_client_ids_from_blocks( $blocks ) {
-		$client_ids = array();
-
-		foreach ( $blocks as $block ) {
-			// Poll blocks.
-			if ( 'crowdsignal-forms/poll' === $block['blockName'] && ! empty( $block['attrs']['pollId'] ) ) {
-				$client_ids[] = $block['attrs']['pollId'];
-			}
-
-			// Check inner blocks.
-			if ( ! empty( $block['innerBlocks'] ) ) {
-				$inner_client_ids = $this->extract_poll_client_ids_from_blocks( $block['innerBlocks'] );
-				$client_ids       = array_merge( $client_ids, $inner_client_ids );
-			}
-		}
-
-		return $client_ids;
 	}
 
 	/**

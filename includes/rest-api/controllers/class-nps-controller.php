@@ -98,16 +98,8 @@ class Nps_Controller {
 			return $result;
 		}
 
-		// Register the newly created/updated survey in the item registry.
-		$post_id = $request->get_param( 'post_id' );
-		if ( $post_id && $result->get_id() && ! \Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::is_disabled() ) {
-			\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::register_item(
-				$result->get_id(),
-				'nps',
-				$post_id,
-				get_current_user_id()
-			);
-		}
+		// Note: Registry table registration is now disabled in favor of UUID postmeta system.
+		// UUID postmeta is created automatically via post save hooks in Admin_Hooks::create_uuid_postmeta().
 
 		return rest_ensure_response( $result->to_block_attributes() );
 	}

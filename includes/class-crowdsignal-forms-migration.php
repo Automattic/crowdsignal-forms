@@ -2,7 +2,7 @@
 /**
  * Crowdsignal Forms Migration
  *
- * Handles migration of existing Crowdsignal items to the new registry table.
+ * Handles UUID postmeta migration for existing Crowdsignal blocks.
  *
  * @package Crowdsignal_Forms
  * @since 1.8.0
@@ -42,10 +42,6 @@ class Crowdsignal_Forms_Migration {
 	 * @return bool True if migration was successful or not needed, false on failure.
 	 */
 	public static function maybe_migrate() {
-		// Skip migration entirely if registry is disabled.
-		if ( Crowdsignal_Forms_Item_Registry::is_disabled() ) {
-			return true; // Return true to avoid blocking functionality.
-		}
 
 		$current_version = \get_option( self::MIGRATION_OPTION, '0.0' );
 
@@ -57,103 +53,18 @@ class Crowdsignal_Forms_Migration {
 			return false;
 		}
 
-		// Check if we need to create the table.
-		if ( ! Crowdsignal_Forms_Item_Registry::table_exists() ) {
-			Crowdsignal_Forms_Item_Registry::create_table();
-		}
-
-		return self::migrate_items_to_registry();
+		// Run UUID postmeta migration only.
+		return self::migrate_uuid_postmeta();
 	}
 
 	/**
-	 * Migrate existing items to the registry.
+	 * Get migration status.
 	 *
 	 * @since 1.8.0
-	 * @return bool True on success, false on failure.
+	 * @return string Current migration version.
 	 */
-	private static function migrate_items_to_registry() {
-		global $wpdb;
-
-		// Check if registry table exists.
-		if ( ! Crowdsignal_Forms_Item_Registry::table_exists() ) {
-			return false;
-		}
-
-		$migrated_count = 0;
-		$errors         = array();
-
-		// Migrate polls from posts that contain poll blocks.
-		$poll_posts = self::find_posts_with_blocks( 'crowdsignal-forms/poll' );
-		foreach ( $poll_posts as $post ) {
-			$poll_items = self::extract_poll_items_from_post( $post );
-
-			foreach ( $poll_items as $item ) {
-				$result = Crowdsignal_Forms_Item_Registry::register_item(
-					$item['poll_id'],
-					'poll',
-					$post->ID,
-					$post->post_author
-				);
-
-				if ( $result ) {
-					++$migrated_count;
-				} else {
-					$errors[] = "Failed to migrate poll {$item['poll_id']} from post {$post->ID}";
-				}
-			}
-		}
-
-		// Migrate NPS blocks from post content.
-		$nps_posts = self::find_posts_with_blocks( 'crowdsignal-forms/nps' );
-		foreach ( $nps_posts as $post ) {
-			$nps_items = self::extract_nps_items_from_post( $post );
-
-			foreach ( $nps_items as $item ) {
-				$result = Crowdsignal_Forms_Item_Registry::register_item(
-					$item['surveyId'],
-					'nps',
-					$post->ID,
-					$post->post_author
-				);
-
-				if ( $result ) {
-					++$migrated_count;
-				} else {
-					$errors[] = "Failed to migrate NPS {$item['surveyId']} from post {$post->ID}";
-				}
-			}
-		}
-
-		// Migrate feedback blocks from post content.
-		$feedback_posts = self::find_posts_with_blocks( 'crowdsignal-forms/feedback' );
-		foreach ( $feedback_posts as $post ) {
-			$feedback_items = self::extract_feedback_items_from_post( $post );
-
-			foreach ( $feedback_items as $item ) {
-				$result = Crowdsignal_Forms_Item_Registry::register_item(
-					$item['surveyId'],
-					'feedback',
-					$post->ID,
-					$post->post_author
-				);
-
-				if ( $result ) {
-					++$migrated_count;
-				} else {
-					$errors[] = "Failed to migrate feedback {$item['surveyId']} from post {$post->ID}";
-				}
-			}
-		}
-
-		// Log migration results.
-		if ( ! empty( $errors ) ) {
-			\error_log( 'Crowdsignal Forms Migration Errors: ' . implode( ', ', $errors ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-		}
-
-		// Update migration version.
-		\update_option( self::MIGRATION_OPTION, self::MIGRATION_VERSION );
-
-		return true;
+	public static function get_migration_status() {
+		return \get_option( self::MIGRATION_OPTION, '0.0' );
 	}
 
 	/**
@@ -176,195 +87,175 @@ class Crowdsignal_Forms_Migration {
 	}
 
 	/**
-	 * Extract poll items from post content.
+	 * Migrate existing NPS and Feedback blocks to use UUID postmeta.
 	 *
-	 * @since 1.8.0
-	 * @param \WP_Post $post The post object.
-	 * @return array Array of poll items with poll_id.
+	 * This migration creates UUID postmeta for existing NPS and Feedback blocks
+	 * that have surveyId but no clientId, enabling the new UUID-based authorization system.
+	 *
+	 * @since 1.9.0
+	 * @return bool True on success, false on failure.
 	 */
-	private static function extract_poll_items_from_post( $post ) {
-		$items  = array();
-		$blocks = \parse_blocks( $post->post_content );
+	private static function migrate_uuid_postmeta() {
+		$migrated_count = 0;
+		$errors         = array();
+
+		// Generate UUIDs for existing NPS blocks without clientId.
+		$nps_posts = self::find_posts_with_blocks( 'crowdsignal-forms/nps' );
+		foreach ( $nps_posts as $post ) {
+			$result = self::create_uuid_postmeta_for_post( $post, 'nps' );
+			if ( is_wp_error( $result ) ) {
+				$errors[] = "Failed to migrate NPS UUIDs for post {$post->ID}: " . $result->get_error_message();
+			} else {
+				$migrated_count += $result;
+			}
+		}
+
+		// Generate UUIDs for existing Feedback blocks without clientId.
+		$feedback_posts = self::find_posts_with_blocks( 'crowdsignal-forms/feedback' );
+		foreach ( $feedback_posts as $post ) {
+			$result = self::create_uuid_postmeta_for_post( $post, 'feedback' );
+			if ( is_wp_error( $result ) ) {
+				$errors[] = "Failed to migrate Feedback UUIDs for post {$post->ID}: " . $result->get_error_message();
+			} else {
+				$migrated_count += $result;
+			}
+		}
+
+		// Log any errors encountered during migration.
+		if ( ! empty( $errors ) ) {
+			\error_log( 'Crowdsignal Forms UUID Migration Errors: ' . implode( ', ', $errors ) );
+		}
+
+		// Log migration success.
+		if ( $migrated_count > 0 ) {
+			\error_log( "Crowdsignal Forms UUID Migration: Created {$migrated_count} UUID postmeta records" );
+		}
+
+		return true; // Always return true to avoid blocking the migration.
+	}
+
+	/**
+	 * Create UUID postmeta for NPS/Feedback blocks in a specific post.
+	 *
+	 * @since 1.9.0
+	 * @param \WP_Post $post The post object.
+	 * @param string   $block_type The block type ('nps' or 'feedback').
+	 * @return int|\WP_Error Number of postmeta records created, or WP_Error on failure.
+	 */
+	private static function create_uuid_postmeta_for_post( $post, $block_type ) {
+		$blocks        = \parse_blocks( $post->post_content );
+		$created_count = 0;
 
 		foreach ( $blocks as $block ) {
-			if ( 'crowdsignal-forms/poll' === $block['blockName'] && ! empty( $block['attrs']['pollId'] ) ) {
-				$client_id = $block['attrs']['pollId'];
+			$result = self::process_block_for_uuid_migration( $block, $post->ID, $block_type );
+			if ( is_wp_error( $result ) ) {
+				return $result;
+			}
+			$created_count += $result;
+		}
 
-				// Get poll data from postmeta using the client ID.
-				$poll_data = \get_post_meta( $post->ID, "_cs_poll_{$client_id}", true );
+		return $created_count;
+	}
 
-				// Only migrate if we have valid poll data AND the block exists in the post content.
-				if ( is_array( $poll_data ) && ! empty( $poll_data['id'] ) ) {
-					$items[] = array(
-						'poll_id' => $poll_data['id'],
-					);
+	/**
+	 * Process a block recursively for UUID migration.
+	 *
+	 * @since 1.9.0
+	 * @param array  $block The block data.
+	 * @param int    $post_id The post ID.
+	 * @param string $block_type The block type ('nps' or 'feedback').
+	 * @return int|\WP_Error Number of postmeta records created, or WP_Error on failure.
+	 */
+	private static function process_block_for_uuid_migration( $block, $post_id, $block_type ) {
+		$created_count = 0;
+		$block_name    = "crowdsignal-forms/{$block_type}";
+
+		// Process the current block if it matches our target type.
+		if ( $block_name === $block['blockName'] &&
+			! empty( $block['attrs']['surveyId'] ) &&
+			empty( $block['attrs']['clientId'] ) ) {
+
+			// Generate a new UUID for this block.
+			$client_uuid = self::generate_uuid();
+			$meta_key    = "_cs_{$block_type}_{$client_uuid}";
+
+			// Check if postmeta already exists for this surveyId.
+			$existing_meta = self::find_existing_uuid_meta( $post_id, $block_type, $block['attrs']['surveyId'] );
+			if ( ! $existing_meta ) {
+				$meta_value = array(
+					'surveyId' => $block['attrs']['surveyId'],
+					'clientId' => $client_uuid,
+					'title'    => $block['attrs']['title'] ?? '',
+				);
+
+				$result = \update_post_meta( $post_id, $meta_key, $meta_value );
+				if ( $result ) {
+					++$created_count;
 				}
 			}
+		}
 
-			// Check inner blocks.
-			if ( ! empty( $block['innerBlocks'] ) ) {
-				$inner_items = self::extract_poll_items_from_blocks( $block['innerBlocks'], $post->ID );
-				$items       = array_merge( $items, $inner_items );
+		// Process inner blocks recursively.
+		if ( ! empty( $block['innerBlocks'] ) ) {
+			foreach ( $block['innerBlocks'] as $inner_block ) {
+				$result = self::process_block_for_uuid_migration( $inner_block, $post_id, $block_type );
+				if ( is_wp_error( $result ) ) {
+					return $result;
+				}
+				$created_count += $result;
 			}
 		}
 
-		return $items;
+		return $created_count;
 	}
 
 	/**
-	 * Extract NPS items from post content.
+	 * Check if UUID postmeta already exists for a surveyId.
 	 *
-	 * @since 1.8.0
-	 * @param \WP_Post $post The post object.
-	 * @return array Array of NPS items with surveyId.
+	 * @since 1.9.0
+	 * @param int    $post_id The post ID.
+	 * @param string $block_type The block type ('nps' or 'feedback').
+	 * @param int    $survey_id The survey ID to check.
+	 * @return array|null Existing meta value if found, null otherwise.
 	 */
-	private static function extract_nps_items_from_post( $post ) {
-		$items  = array();
-		$blocks = \parse_blocks( $post->post_content );
+	private static function find_existing_uuid_meta( $post_id, $block_type, $survey_id ) {
+		$meta_prefix = "_cs_{$block_type}_";
+		$all_meta    = \get_post_meta( $post_id );
 
-		foreach ( $blocks as $block ) {
-			if ( 'crowdsignal-forms/nps' === $block['blockName'] && ! empty( $block['attrs']['surveyId'] ) ) {
-				$items[] = array(
-					'surveyId' => $block['attrs']['surveyId'],
-				);
-			}
-
-			// Check inner blocks.
-			if ( ! empty( $block['innerBlocks'] ) ) {
-				$inner_items = self::extract_nps_items_from_blocks( $block['innerBlocks'] );
-				$items       = array_merge( $items, $inner_items );
-			}
-		}
-
-		return $items;
-	}
-
-	/**
-	 * Extract feedback items from post content.
-	 *
-	 * @since 1.8.0
-	 * @param \WP_Post $post The post object.
-	 * @return array Array of feedback items with surveyId.
-	 */
-	private static function extract_feedback_items_from_post( $post ) {
-		$items  = array();
-		$blocks = \parse_blocks( $post->post_content );
-
-		foreach ( $blocks as $block ) {
-			if ( 'crowdsignal-forms/feedback' === $block['blockName'] && ! empty( $block['attrs']['surveyId'] ) ) {
-				$items[] = array(
-					'surveyId' => $block['attrs']['surveyId'],
-				);
-			}
-
-			// Check inner blocks.
-			if ( ! empty( $block['innerBlocks'] ) ) {
-				$inner_items = self::extract_feedback_items_from_blocks( $block['innerBlocks'] );
-				$items       = array_merge( $items, $inner_items );
-			}
-		}
-
-		return $items;
-	}
-
-	/**
-	 * Extract NPS items from blocks recursively.
-	 *
-	 * @since 1.8.0
-	 * @param array $blocks Array of blocks.
-	 * @return array Array of NPS items.
-	 */
-	private static function extract_nps_items_from_blocks( $blocks ) {
-		$items = array();
-
-		foreach ( $blocks as $block ) {
-			if ( 'crowdsignal-forms/nps' === $block['blockName'] && ! empty( $block['attrs']['surveyId'] ) ) {
-				$items[] = array(
-					'surveyId' => $block['attrs']['surveyId'],
-				);
-			}
-
-			// Check inner blocks.
-			if ( ! empty( $block['innerBlocks'] ) ) {
-				$inner_items = self::extract_nps_items_from_blocks( $block['innerBlocks'] );
-				$items       = array_merge( $items, $inner_items );
-			}
-		}
-
-		return $items;
-	}
-
-	/**
-	 * Extract poll items from blocks recursively.
-	 *
-	 * @since 1.8.0
-	 * @param array $blocks Array of blocks.
-	 * @param int   $post_id The post ID for looking up postmeta.
-	 * @return array Array of poll items.
-	 */
-	private static function extract_poll_items_from_blocks( $blocks, $post_id ) {
-		$items = array();
-
-		foreach ( $blocks as $block ) {
-			if ( 'crowdsignal-forms/poll' === $block['blockName'] && ! empty( $block['attrs']['pollId'] ) ) {
-				$client_id = $block['attrs']['pollId'];
-
-				// Get poll data from postmeta using the client ID.
-				$poll_data = \get_post_meta( $post_id, "_cs_poll_{$client_id}", true );
-
-				// Only migrate if we have valid poll data AND the block exists in the post content.
-				if ( is_array( $poll_data ) && ! empty( $poll_data['id'] ) ) {
-					$items[] = array(
-						'poll_id' => $poll_data['id'],
-					);
+		foreach ( $all_meta as $key => $values ) {
+			if ( strpos( $key, $meta_prefix ) === 0 ) {
+				$meta_data = maybe_unserialize( $values[0] );
+				if ( is_array( $meta_data ) &&
+					isset( $meta_data['surveyId'] ) &&
+					intval( $meta_data['surveyId'] ) === intval( $survey_id ) ) {
+					return $meta_data;
 				}
 			}
-
-			// Check inner blocks.
-			if ( ! empty( $block['innerBlocks'] ) ) {
-				$inner_items = self::extract_poll_items_from_blocks( $block['innerBlocks'], $post_id );
-				$items       = array_merge( $items, $inner_items );
-			}
 		}
 
-		return $items;
+		return null;
 	}
 
 	/**
-	 * Extract feedback items from blocks recursively.
+	 * Generate a UUID v4.
 	 *
-	 * @since 1.8.0
-	 * @param array $blocks Array of blocks.
-	 * @return array Array of feedback items.
+	 * @since 1.9.0
+	 * @return string A UUID v4 string.
 	 */
-	private static function extract_feedback_items_from_blocks( $blocks ) {
-		$items = array();
+	private static function generate_uuid() {
+		// Generate UUID v4 using PHP's built-in functions.
+		$data    = random_bytes( 16 );
+		$data[6] = chr( ord( $data[6] ) & 0x0f | 0x40 ); // Version 4.
+		$data[8] = chr( ord( $data[8] ) & 0x3f | 0x80 ); // Variant bits.
 
-		foreach ( $blocks as $block ) {
-			if ( 'crowdsignal-forms/feedback' === $block['blockName'] && ! empty( $block['attrs']['surveyId'] ) ) {
-				$items[] = array(
-					'surveyId' => $block['attrs']['surveyId'],
-				);
-			}
-
-			// Check inner blocks.
-			if ( ! empty( $block['innerBlocks'] ) ) {
-				$inner_items = self::extract_feedback_items_from_blocks( $block['innerBlocks'] );
-				$items       = array_merge( $items, $inner_items );
-			}
-		}
-
-		return $items;
-	}
-
-	/**
-	 * Get migration status.
-	 *
-	 * @since 1.8.0
-	 * @return string Current migration version.
-	 */
-	public static function get_migration_status() {
-		return \get_option( self::MIGRATION_OPTION, '0.0' );
+		return sprintf(
+			'%08x-%04x-%04x-%04x-%012x',
+			unpack( 'N', substr( $data, 0, 4 ) )[1],
+			unpack( 'n', substr( $data, 4, 2 ) )[1],
+			unpack( 'n', substr( $data, 6, 2 ) )[1],
+			unpack( 'n', substr( $data, 8, 2 ) )[1],
+			unpack( 'N', substr( $data, 10, 4 ) )[1] . unpack( 'n', substr( $data, 14, 2 ) )[1]
+		);
 	}
 
 	/**

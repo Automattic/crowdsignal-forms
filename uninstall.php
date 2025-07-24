@@ -29,11 +29,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-// Include the main plugin file to access classes
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-crowdsignal-forms-item-registry.php';
-
-// Drop the items registry table
-\Crowdsignal_Forms\Crowdsignal_Forms_Item_Registry::drop_table();
+// Registry table system removed - no custom tables to drop
 
 // Delete all options
 delete_option( 'crowdsignal_forms_api_key' );
