@@ -1,4 +1,3 @@
-version: '3.3'
 
 volumes:
   ## For making sure the ./docker dir is not bound recursively.
@@ -6,8 +5,12 @@ volumes:
 
 services:
   db:
-    platform: linux/x86_64
-    image: mysql:5.7
+    ## For Apple silicon. Change to linux/amd64 or linux/x86_64 as needed.
+    platform: linux/arm64/v8
+
+    ## Same as core as of WP 6.9.
+    image: mysql:8.0
+
     container_name: cs_forms_mysql
     volumes:
       - ./data/mysql:/var/lib/mysql

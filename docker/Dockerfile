@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:noble
 
 VOLUME ["/var/www/html"]
 
