@@ -141,7 +141,8 @@ Connecting to your MySQL database from outside the container, use:
 - Pass: `wordpress`
 - Database: `wordpress`
 
-You can also see your database files via local file system at `./docker/data/mysql`
+You can also see your database files via local file system at `./docker/data/mysql`.
+Note: Old (local) database files may cause database connection errors when reinstalling WordPress. They are not reset/deleted automatically when uninstalling.
 
 ## Must Use Plugins directory
 
