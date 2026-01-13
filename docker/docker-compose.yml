@@ -1,13 +1,12 @@
-version: '3.3'
-
 volumes:
   ## For making sure the ./docker dir is not bound recursively.
   dockerdirectory:
 
 services:
   db:
-    platform: linux/x86_64
-    image: mysql:5.7
+    ## MySQL version as used in core WP 6.9.
+    image: mysql:8.4
+
     container_name: cs_forms_mysql
     volumes:
       - ./data/mysql:/var/lib/mysql
