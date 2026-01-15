@@ -155,6 +155,9 @@ final class Crowdsignal_Forms {
 		add_action( 'admin_init', array( $this, 'activate_redirect' ) );
 		register_deactivation_hook( CROWDSIGNAL_FORMS_PLUGIN_FILE, array( $this, 'deactivation' ) );
 		register_activation_hook( CROWDSIGNAL_FORMS_PLUGIN_FILE, array( $this, 'activate' ) );
+
+		// Initialize the items registry table.
+		Crowdsignal_Forms_Migration::maybe_migrate();
 	}
 
 	/**
@@ -234,7 +237,7 @@ final class Crowdsignal_Forms {
 	 *
 	 * @return $this
 	 */
-	public function setup_hooks( $init_all = false ) {
+	public function setup_hooks( $init_all = false ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'init', array( $this->blocks_assets, 'register' ) );
 		add_action( 'init', array( $this->blocks, 'register' ) );
@@ -342,7 +345,7 @@ final class Crowdsignal_Forms {
 			return $headers;
 		}
 
-		// check if we have it already.
+		// Check if we have it already.
 		$transient_key     = $api_key . '-' . (int) get_current_user_id();
 		$transient_headers = get_transient( $transient_key );
 		if ( $transient_headers ) {
@@ -445,7 +448,7 @@ final class Crowdsignal_Forms {
 	 * @param array   $categories Array of existing categories.
 	 * @param WP_Post $post The post being edited.
 	 */
-	public function add_block_category( $categories, $post ) {
+	public function add_block_category( $categories, $post ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		return array_merge(
 			$categories,
 			array(

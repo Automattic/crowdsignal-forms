@@ -181,6 +181,10 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 				'type'    => 'number',
 				'default' => null,
 			),
+			'clientId'               => array(
+				'type'    => 'string',
+				'default' => null,
+			),
 			'textColor'              => array(
 				'type' => 'string',
 			),

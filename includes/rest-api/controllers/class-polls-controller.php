@@ -10,6 +10,7 @@ namespace Crowdsignal_Forms\Rest_Api\Controllers;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Poll;
+use Crowdsignal_Forms\Rest_Api\Controllers\Authorization_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -65,10 +66,10 @@ class Polls_Controller {
 			)
 		);
 
-		// GET polls/:poll_id route.
+		// GET polls/:poll_uuid route.
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>[a-zA-Z0-9\-\_]+)',
+			'/' . $this->rest_base . '/(?P<poll_uuid>[a-f0-9\-]{36})',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
@@ -79,15 +80,15 @@ class Polls_Controller {
 			)
 		);
 
-		// GET polls/:poll_id/results route.
+		// GET polls/:poll_uuid/results route.
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>[a-zA-Z0-9\-\_]+)/results',
+			'/' . $this->rest_base . '/(?P<poll_uuid>[a-f0-9\-]{36})/results',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_poll_results' ),
-					'permission_callback' => array( $this, 'get_poll_permissions_check' ),
+					'permission_callback' => array( $this, 'get_poll_results_permissions_check' ),
 				),
 			)
 		);
@@ -100,19 +101,19 @@ class Polls_Controller {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_post_poll_by_uuid' ),
-					'permission_callback' => array( $this, 'get_poll_permissions_check' ),
+					'permission_callback' => array( $this, 'get_post_poll_permissions_check' ),
 				),
 			)
 		);
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>\d+)',
+			'/' . $this->rest_base . '/(?P<poll_uuid>[a-f0-9\-]{36})',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'update_poll' ),
-					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
+					'permission_callback' => array( $this, 'update_poll_permissions_check' ),
 					'args'                => $this->get_poll_fetch_params(),
 				),
 			)
@@ -123,12 +124,12 @@ class Polls_Controller {
 		 */
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>\d+)/archive',
+			'/' . $this->rest_base . '/(?P<poll_uuid>[a-f0-9\-]{36})/archive',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'archive_poll' ),
-					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
+					'permission_callback' => array( $this, 'archive_poll_permissions_check' ),
 				),
 			)
 		);
@@ -138,12 +139,12 @@ class Polls_Controller {
 		 */
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>\d+)/unarchive',
+			'/' . $this->rest_base . '/(?P<poll_uuid>[a-f0-9\-]{36})/unarchive',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'unarchive_poll' ),
-					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
+					'permission_callback' => array( $this, 'unarchive_poll_permissions_check' ),
 				),
 			)
 		);
@@ -180,11 +181,23 @@ class Polls_Controller {
 	 * @since 0.9.0
 	 */
 	public function update_poll( \WP_REST_Request $request ) {
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		$poll_id   = Authorization_Helper::convert_uuid_to_sequential_id( $poll_uuid, 'poll' );
+
+		if ( ! $poll_id ) {
+			return new \WP_Error( 'invalid_poll', 'Poll not found for UUID', array( 'status' => 404 ) );
+		}
+
 		$data              = $request->get_json_params();
 		$poll              = Poll::from_array( $data );
 		$valid_or_wp_error = $poll->validate();
 		if ( is_wp_error( $valid_or_wp_error ) ) {
 			return $valid_or_wp_error;
+		}
+
+		// Ensure the poll ID matches the UUID.
+		if ( $poll->get_id() !== $poll_id ) {
+			$poll->set_id( $poll_id );
 		}
 
 		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->update_poll( $poll );
@@ -203,13 +216,11 @@ class Polls_Controller {
 	 * @since 0.9.0
 	 */
 	public function archive_poll( \WP_REST_Request $request ) {
-		$poll_id = $request->get_param( 'poll_id' );
-		if ( ! isset( $poll_id ) ) {
-			return new \WP_Error(
-				'no-poll-id',
-				__( 'No Poll ID was provided.', 'crowdsignal-forms' ),
-				array( 'status' => 400 )
-			);
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		$poll_id   = Authorization_Helper::convert_uuid_to_sequential_id( $poll_uuid, 'poll' );
+
+		if ( ! $poll_id ) {
+			return new \WP_Error( 'invalid_poll', 'Poll not found for UUID', array( 'status' => 404 ) );
 		}
 
 		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->archive_poll( $poll_id );
@@ -228,13 +239,11 @@ class Polls_Controller {
 	 * @since 0.9.0
 	 */
 	public function unarchive_poll( \WP_REST_Request $request ) {
-		$poll_id = $request->get_param( 'poll_id' );
-		if ( ! isset( $poll_id ) ) {
-			return new \WP_Error(
-				'no-poll-id',
-				__( 'No Poll ID was provided.', 'crowdsignal-forms' ),
-				array( 'status' => 400 )
-			);
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		$poll_id   = Authorization_Helper::convert_uuid_to_sequential_id( $poll_uuid, 'poll' );
+
+		if ( ! $poll_id ) {
+			return new \WP_Error( 'invalid_poll', 'Poll not found for UUID', array( 'status' => 404 ) );
 		}
 
 		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->unarchive_poll( $poll_id );
@@ -246,13 +255,86 @@ class Polls_Controller {
 	}
 
 	/**
+	 * The permission check for updating a poll by UUID.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param \WP_REST_Request $request The REST request.
+	 * @return bool
+	 **/
+	public function update_poll_permissions_check( $request ) {
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		return Authorization_Helper::can_user_edit_item_by_uuid( $poll_uuid, 'poll' );
+	}
+
+	/**
+	 * The permission check for archiving a poll by UUID.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param \WP_REST_Request $request The REST request.
+	 * @return bool
+	 **/
+	public function archive_poll_permissions_check( $request ) {
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		return Authorization_Helper::can_user_edit_item_by_uuid( $poll_uuid, 'poll' );
+	}
+
+	/**
+	 * The permission check for unarchiving a poll by UUID.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param \WP_REST_Request $request The REST request.
+	 * @return bool
+	 **/
+	public function unarchive_poll_permissions_check( $request ) {
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		return Authorization_Helper::can_user_edit_item_by_uuid( $poll_uuid, 'poll' );
+	}
+
+	/**
+	 * The permission check for getting poll results by UUID.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param \WP_REST_Request $request The REST request.
+	 * @return bool
+	 **/
+	public function get_poll_results_permissions_check( $request ) {
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		return Authorization_Helper::can_user_edit_item_by_uuid( $poll_uuid, 'poll' );
+	}
+
+	/**
 	 * The permission check for creating a new poll.
 	 *
 	 * @since 0.9.0
 	 *
+	 * @param \WP_REST_Request $request The REST request.
 	 * @return bool
 	 **/
-	public function create_or_update_poll_permissions_check() {
+	public function create_or_update_poll_permissions_check( $request = null ) {
+		// For new poll creation, check publish_posts capability.
+		if ( ! $request ) {
+			return current_user_can( 'publish_posts' );
+		}
+		$data = $request->get_json_params();
+		$poll = Poll::from_array( $data );
+
+		// If the poll is in the request, check if the user can edit it.
+		if ( $poll && $poll->get_id() ) {
+			return Authorization_Helper::can_user_edit_item( $poll->get_id(), 'poll' );
+		}
+
+		// For post-based polls, check post edit permissions.
+		$post_id   = $request->get_param( 'post_id' );
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		if ( $post_id && $poll_uuid ) {
+			return Authorization_Helper::can_user_edit_item_by_client_id( $poll_uuid, $post_id );
+		}
+
+		// Fallback to publish_posts for new polls.
 		return current_user_can( 'publish_posts' );
 	}
 
@@ -279,7 +361,7 @@ class Polls_Controller {
 	}
 
 	/**
-	 * Get a poll by ID.
+	 * Get a poll by UUID.
 	 *
 	 * @since 0.9.0
 	 *
@@ -288,11 +370,11 @@ class Polls_Controller {
 	 * @return \WP_REST_Response|\WP_Error
 	 **/
 	public function get_poll( $request ) {
-		$poll_id = $request->get_param( 'poll_id' );
-		if ( null === $poll_id ) {
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		if ( null === $poll_uuid ) {
 			return new \WP_Error(
-				'invalid-poll-id',
-				__( 'Invalid poll ID', 'crowdsignal-forms' ),
+				'invalid-poll-uuid',
+				__( 'Invalid poll UUID', 'crowdsignal-forms' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -300,23 +382,21 @@ class Polls_Controller {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$use_cached = isset( $_REQUEST['cached'] );
 
-		if ( ! is_numeric( $poll_id ) ) {
-			$poll_client_id     = $poll_id;
-			$poll_saved_in_meta = Crowdsignal_Forms::instance()
-				->get_post_poll_meta_gateway()
-				->get_poll_data_for_poll_client_id( null, $poll_client_id );
+		// Get poll data from postmeta using UUID.
+		$poll_saved_in_meta = Crowdsignal_Forms::instance()
+			->get_post_poll_meta_gateway()
+			->get_poll_data_for_poll_client_id( null, $poll_uuid );
 
-			if ( empty( $poll_saved_in_meta ) ) {
-				return $this->resource_not_found();
-			}
-
-			if ( $use_cached ) {
-				return rest_ensure_response( Poll::from_array( $poll_saved_in_meta )->to_array() );
-			}
-
-			$poll_id = $poll_saved_in_meta['id'];
+		if ( empty( $poll_saved_in_meta ) ) {
+			return $this->resource_not_found();
 		}
-		$poll = Crowdsignal_Forms::instance()->get_api_gateway()->get_poll( $poll_id );
+
+		if ( $use_cached ) {
+			return rest_ensure_response( Poll::from_array( $poll_saved_in_meta )->to_array() );
+		}
+
+		$poll_id = $poll_saved_in_meta['id'];
+		$poll    = Crowdsignal_Forms::instance()->get_api_gateway()->get_poll( $poll_id );
 
 		if ( is_wp_error( $poll ) ) {
 			return rest_ensure_response( $poll );
@@ -372,21 +452,27 @@ class Polls_Controller {
 	}
 
 	/**
-	 * Get poll results by ID.
+	 * Get poll results by UUID.
 	 *
 	 * @since 0.9.0
 	 *
 	 * @param \WP_REST_Request $request
 	 *
-	 * @return \WP_REST_Response
+	 * @return \WP_REST_Response|\WP_Error
 	 **/
 	public function get_poll_results( $request ) {
-		$poll_id = $request->get_param( 'poll_id' );
+		$poll_uuid = $request->get_param( 'poll_uuid' );
+		$poll_id   = Authorization_Helper::convert_uuid_to_sequential_id( $poll_uuid, 'poll' );
+
+		if ( ! $poll_id ) {
+			return new \WP_Error( 'invalid_poll', 'Poll not found for UUID', array( 'status' => 404 ) );
+		}
+
 		return rest_ensure_response( Crowdsignal_Forms::instance()->get_api_gateway()->get_poll_results( $poll_id ) );
 	}
 
 	/**
-	 * The get-a-poll by ID permission check.
+	 * Permission to get polls and results.
 	 *
 	 * @since 0.9.0
 	 *
@@ -394,6 +480,18 @@ class Polls_Controller {
 	 **/
 	public function get_poll_permissions_check() {
 		return true;
+	}
+
+	/**
+	 * The permission check for getting a post poll by UUID.
+	 *
+	 * @since 1.7.3
+	 *
+	 * @param \WP_REST_Request $request The REST request.
+	 * @return bool
+	 **/
+	public function get_post_poll_permissions_check( $request ) {
+		return Authorization_Helper::can_user_edit_post_from_request( $request );
 	}
 
 	/**
@@ -407,7 +505,7 @@ class Polls_Controller {
 	}
 
 	/**
-	 * Returns a validator array for the get-a-poll by ID params.
+	 * Returns a validator array for the get-a-poll by UUID params.
 	 *
 	 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
 	 * @since 0.9.0
@@ -415,9 +513,9 @@ class Polls_Controller {
 	 */
 	protected function get_poll_fetch_params() {
 		return array(
-			'poll_id' => array(
-				'validate_callback' => function( $param, $request, $key ) {
-					return true;
+			'poll_uuid' => array(
+				'validate_callback' => function ( $param, $request, $key ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+					return Authorization_Helper::is_valid_uuid( $param );
 				},
 			),
 		);

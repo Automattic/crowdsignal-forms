@@ -92,4 +92,31 @@ class Post_Poll_Meta_Gateway {
 	private function get_poll_meta_key( $poll_id_on_block ) {
 		return self::META_PREFIX . $poll_id_on_block;
 	}
+
+	/**
+	 * Get the post ID for a client ID.
+	 *
+	 * @param string $client_id The client ID.
+	 * @return int|null
+	 */
+	public function get_post_id_for_client_id( $client_id ) {
+		global $wpdb;
+
+		if ( null === $client_id ) {
+			return null;
+		}
+
+		$poll_meta_key = $this->get_poll_meta_key( $client_id );
+
+		// Use existing efficient exact key lookup.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$post_id = $wpdb->get_var(
+			$wpdb->prepare(
+				'SELECT post_id FROM ' . $wpdb->postmeta . ' WHERE meta_key = %s LIMIT 1',
+				$poll_meta_key
+			)
+		);
+
+		return $post_id ? intval( $post_id ) : null;
+	}
 }

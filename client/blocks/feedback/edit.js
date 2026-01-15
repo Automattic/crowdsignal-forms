@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import classnames from 'classnames';
 import { get, max } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * WordPress depenencies
@@ -40,6 +41,20 @@ import FeedbackIcon from 'components/icon/feedback';
 import PromotionalTooltip from 'components/promotional-tooltip';
 import { STORE_NAME } from 'state';
 import withFseCheck from 'components/with-fse-check';
+
+const withClientId = ( Element ) => {
+	return ( props ) => {
+		const { attributes, setAttributes } = props;
+
+		useEffect( () => {
+			if ( ! attributes.clientId ) {
+				setAttributes( { clientId: uuidv4() } );
+			}
+		}, [] );
+
+		return <Element { ...props } />;
+	};
+};
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -531,4 +546,5 @@ export default compose( [
 	} ),
 	withFallbackStyles,
 	withFseCheck,
+	withClientId,
 ] )( EditFeedbackBlock );

@@ -28,3 +28,13 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// Registry table system removed - no custom tables to drop
+
+// Delete all options
+delete_option( 'crowdsignal_forms_api_key' );
+delete_option( 'crowdsignal_forms_user_code' );
+delete_option( 'crowdsignal_forms_do_activation_redirect' );
+delete_option( 'crowdsignal_forms_admin_notices' );
+delete_option( 'crowdsignal_forms_items_table_version' );
+delete_option( 'crowdsignal_forms_items_migration_version' );

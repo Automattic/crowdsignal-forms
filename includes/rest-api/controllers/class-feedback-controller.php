@@ -11,10 +11,13 @@ namespace Crowdsignal_Forms\Rest_Api\Controllers;
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Feedback_Survey;
 use Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Feedback_Block;
+use Crowdsignal_Forms\Rest_Api\Controllers\Authorization_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
+
+
 
 /**
  * Feedback Controller Class
@@ -55,7 +58,7 @@ class Feedback_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<survey_id>\d+)',
+			'/' . $this->rest_base . '/(?P<survey_uuid>[a-f0-9\-]{36})',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
@@ -67,7 +70,7 @@ class Feedback_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<survey_id>\d+)/response',
+			'/' . $this->rest_base . '/(?P<survey_uuid>[a-f0-9\-]{36})/response',
 			array(
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
@@ -113,8 +116,13 @@ class Feedback_Controller {
 	 * @return \WP_REST_Response|WP_ERROR
 	 */
 	public function upsert_feedback_response( \WP_REST_Request $request ) {
-		$data      = $request->get_json_params();
-		$survey_id = $request->get_param( 'survey_id' );
+		$data        = $request->get_json_params();
+		$survey_uuid = $request->get_param( 'survey_uuid' );
+		$survey_id   = Authorization_Helper::convert_uuid_to_sequential_id( $survey_uuid, 'feedback' );
+
+		if ( ! $survey_id ) {
+			return new \WP_Error( 'invalid_survey', 'Survey not found for UUID', array( 'status' => 404 ) );
+		}
 
 		$verifies = Crowdsignal_Forms_Feedback_Block::verify_nonce( $data['nonce'] );
 
@@ -135,13 +143,51 @@ class Feedback_Controller {
 	}
 
 	/**
-	 * The permission check for creating a new poll.
+	 * The permission check for creating a new feedback survey.
 	 *
 	 * @since 1.5.1
 	 *
+	 * @param \WP_REST_Request $request The REST request.
 	 * @return bool
 	 */
-	public function create_or_update_feedback_permissions_check() {
+	public function create_or_update_feedback_permissions_check( $request = null ) {
+		// For new feedback creation, check publish_posts capability.
+		if ( ! $request ) {
+			return current_user_can( 'publish_posts' );
+		}
+
+		$data = $request->get_json_params();
+
+		// clientId is mandatory for all POST operations.
+		if ( empty( $data['clientId'] ) ) {
+			return false; // No clientId provided - reject request.
+		}
+
+		$client_id = $data['clientId'];
+
+		// For URL-based operations (updates), check if user can edit the feedback survey by UUID.
+		$survey_uuid = $request->get_param( 'survey_uuid' );
+		if ( $survey_uuid ) {
+			// Ensure the URL UUID matches the clientId in the request data.
+			if ( $survey_uuid !== $client_id ) {
+				return false; // UUID mismatch between URL and request data.
+			}
+			return Authorization_Helper::can_user_edit_item_by_uuid( $survey_uuid, 'feedback' );
+		}
+
+		// For post-based feedback operations, check post edit permissions and verify feedback block exists.
+		$post_id = $request->get_param( 'post_id' );
+		if ( $post_id ) {
+			// Verify both user permissions and that feedback block exists in the post.
+			return Authorization_Helper::can_user_edit_item_in_post( $post_id, $client_id, 'feedback' );
+		}
+
+		// Also check for post_id in request data.
+		if ( ! empty( $data['post_id'] ) ) {
+			return Authorization_Helper::can_user_edit_item_in_post( $data['post_id'], $client_id, 'feedback' );
+		}
+
+		// For new feedback surveys without post context, check publish_posts capability.
 		return current_user_can( 'publish_posts' );
 	}
 
@@ -167,7 +213,7 @@ class Feedback_Controller {
 	protected function get_feedback_fetch_params() {
 		return array(
 			'survey_id' => array(
-				'validate_callback' => function ( $param, $request, $key ) {
+				'validate_callback' => function ( $param, $request, $key ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 					return is_numeric( $param );
 				},
 			),

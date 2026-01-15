@@ -32,7 +32,7 @@ define( 'CROWDSIGNAL_FORMS_VERSION', '1.7.2' );
 define( 'CROWDSIGNAL_FORMS_PLUGIN_FILE', __FILE__ );
 define( 'CROWDSIGNAL_FORMS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
-$crowdsignal_forms_plugin_dir = dirname( __FILE__ );
+$crowdsignal_forms_plugin_dir = __DIR__;
 
 require_once $crowdsignal_forms_plugin_dir . '/includes/class-autoloader.php';
 
