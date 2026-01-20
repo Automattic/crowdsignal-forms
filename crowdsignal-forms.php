@@ -15,7 +15,7 @@
  * Plugin Name:       Crowdsignal Forms
  * Plugin URI:        https://crowdsignal.com/crowdsignal-forms/
  * Description:       Crowdsignal Form Blocks
- * Version:           1.7.2
+ * Version:           1.7.3
  * Author:            Automattic
  * Author URI:        https://automattic.com/
  * License:           GPL-2.0+

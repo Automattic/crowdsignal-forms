@@ -175,6 +175,17 @@ final class Crowdsignal_Forms {
 	 * @since 0.9.0
 	 */
 	public function activate() {
+		/**
+		 * Allow plugins to skip the activation redirect.
+		 *
+		 * @since 1.7.3
+		 *
+		 * @param bool $allow_activation Whether to allow the activation redirect.
+		 */
+		if ( apply_filters( 'crowdsignal_forms_allow_activation_redirect', true ) === false ) {
+			return;
+		}
+
 		Crowdsignal_Forms_Admin_Notices::add_notice( Crowdsignal_Forms_Admin_Notices::NOTICE_CORE_SETUP );
 		add_option( 'crowdsignal_forms_do_activation_redirect', true );
 	}
