@@ -153,7 +153,7 @@ class Poll_Settings {
 			? $data['close_status']
 			: self::CLOSE_TYPE_OPEN;
 
-		$data['close_after'] = strtotime( $data['close_after'] );
+		$data['close_after'] = isset( $data['close_after'] ) ? strtotime( $data['close_after'] ) : false;
 
 		$allowed_after_vote_options = array(
 			self::AFTER_VOTE_RESULTS,

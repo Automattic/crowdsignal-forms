@@ -11,8 +11,8 @@ class Crowdsignal_Forms_Unit_Test_Case extends WP_UnitTestCase {
 	/**
 	 * Sets up each test.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->default_user_id = get_current_user_id();
 	}

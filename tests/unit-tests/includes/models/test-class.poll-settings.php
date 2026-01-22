@@ -12,15 +12,6 @@ use Crowdsignal_Forms\Models\Poll_Settings;
  */
 class Poll_SettingsTest extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
-		* Set this up.
-		*
-	 * @since 0.9.0
-	 */
-	public function setUp() {
-		parent::setUp();
-	}
-
-	/**
 	 * @covers \Crowdsignal_Forms\Models\Poll_Settings::from_block
 	 *
 	 * @since 0.9.0
