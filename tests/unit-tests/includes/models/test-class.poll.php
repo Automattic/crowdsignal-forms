@@ -12,7 +12,7 @@ use Crowdsignal_Forms\Models\Poll;
  */
 class Poll_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
-	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Poll::from_array
+	 * @covers \Crowdsignal_Forms\Models\Poll::from_array
 	 *
 	 * @since 0.9.0
 	 */
@@ -25,7 +25,7 @@ class Poll_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	}
 
 	/**
-	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Poll::from_array
+	 * @covers \Crowdsignal_Forms\Models\Poll::from_array
 	 *
 	 * @since 0.9.0
 	 */
