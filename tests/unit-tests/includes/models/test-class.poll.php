@@ -8,7 +8,7 @@
 use Crowdsignal_Forms\Models\Poll;
 
 /**
- * Class Polls_Controller_Test
+ * Class Poll_Test
  */
 class Poll_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
