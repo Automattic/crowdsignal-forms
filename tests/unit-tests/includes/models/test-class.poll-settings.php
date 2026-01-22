@@ -12,7 +12,7 @@ use Crowdsignal_Forms\Models\Poll_Settings;
  */
 class Poll_SettingsTest extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
-	 * @covers \Crowdsignal_Forms\Models\Poll_Settings::from_block
+	 * @covers \Crowdsignal_Forms\Models\Poll_Settings::from_array
 	 *
 	 * @since 0.9.0
 	 */
