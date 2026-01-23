@@ -8,20 +8,11 @@
 use Crowdsignal_Forms\Models\Poll;
 
 /**
- * Class Polls_Controller_Test
+ * Class Poll_Test
  */
 class Poll_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
-		* Set this up.
-		*
-	 * @since 0.9.0
-	 */
-	public function setUp() {
-		parent::setUp();
-	}
-
-	/**
-	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Poll::from_array
+	 * @covers \Crowdsignal_Forms\Models\Poll::from_array
 	 *
 	 * @since 0.9.0
 	 */
@@ -34,7 +25,7 @@ class Poll_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	}
 
 	/**
-	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Poll::from_array
+	 * @covers \Crowdsignal_Forms\Models\Poll::from_array
 	 *
 	 * @since 0.9.0
 	 */

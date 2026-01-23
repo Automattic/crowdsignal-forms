@@ -24,8 +24,8 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	 *
 	 * @since 0.9.0
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 		global $wp_rest_server;
 		$wp_rest_server = new WP_REST_Server();
 		$this->server   = $wp_rest_server;
@@ -38,8 +38,8 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	 * Test specific teardown.
 	 * @since 0.9.0
 	 */
-	public function tearDown() {
-		parent::tearDown();
+	public function tear_down() {
+		parent::tear_down();
 
 		global $wp_rest_server;
 		$wp_rest_server = null;
