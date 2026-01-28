@@ -81,9 +81,11 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 		}
 	);
 
+	const styleVars = getStyleVars( attributes, fallbackStyles );
+
 	const styles = {
 		...position,
-		...getStyleVars( attributes, fallbackStyles ),
+		...styleVars,
 	};
 
 	return (
@@ -108,7 +110,10 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 						/>
 					) }
 					renderContent={ () => (
-						<FeedbackPopover attributes={ attributes } />
+						<FeedbackPopover
+							attributes={ attributes }
+							styleVars={ styleVars }
+						/>
 					) }
 				/>
 			</div>
