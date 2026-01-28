@@ -92,6 +92,11 @@ COPY ./bin/install_composer.sh /usr/local/bin/install_composer.sh
 # Install composer
 RUN /usr/local/bin/install_composer.sh && mv /tmp/composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
+# Install Node.js 18 and pnpm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g pnpm@9
+
 # Make our cmd script be executable
 RUN chmod +x /usr/local/bin/run
 

@@ -8,7 +8,7 @@ Requires at least: 6.0
 
 Requires PHP: 5.6.20
 
-Tested up to: 6.8
+Tested up to: 6.9
 
 Stable tag: 1.4.5
 
@@ -88,6 +88,80 @@ Applause block and custom colors:
 Feedback Button block:
 
 ![image](https://user-images.githubusercontent.com/157240/116735866-7c0fe500-a9c5-11eb-8358-a3fd01a1cfd2.png)
+
+
+## Development
+
+### Requirements
+
+- Node.js 18.13.0 (see `.nvmrc`)
+- pnpm 9+
+- PHP 8.1+
+- Composer
+- Docker (for local WordPress environment)
+
+### Setup
+
+```bash
+# Install dependencies
+pnpm install
+composer install
+
+# Build the plugin
+pnpm build
+```
+
+### Docker Environment
+
+A Docker-based WordPress environment is provided for development and testing.
+
+```bash
+# Build and start containers (creates docker/.env from default.env if needed)
+make docker_build
+make docker_up
+
+# Or run in background
+make docker_up_d
+```
+
+The local WordPress site will be available at http://localhost:8000/
+
+Default credentials (see `docker/default.env`):
+- Username: `wordpress`
+- Password: `wordpress`
+
+Other useful commands:
+
+```bash
+make docker_sh        # Shell into WordPress container
+make docker_stop      # Stop containers
+make docker_down      # Stop and remove containers
+make phpunit          # Run PHP unit tests
+make phpcs            # Run PHP CodeSniffer
+```
+
+### Building
+
+```bash
+pnpm build            # Full production build
+pnpm run build:poll   # Build specific block
+pnpm run build:styles # Compile SCSS only
+```
+
+### Testing
+
+```bash
+pnpm test             # Run JavaScript tests
+make phpunit          # Run PHP tests (requires Docker)
+```
+
+### Linting
+
+```bash
+pnpm run lint:js      # ESLint
+pnpm run lint:styles  # Stylelint
+./vendor/bin/phpcs    # PHP CodeSniffer
+```
 
 
 ## Changelog

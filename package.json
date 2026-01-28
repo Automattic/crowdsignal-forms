@@ -47,7 +47,6 @@
 		"@wordpress/scripts": "^26.11.0",
 		"clean-webpack-plugin": "^4.0.0",
 		"eslint-import-resolver-webpack": "^0.13.2",
-		"extends": "link:@babel/runtime/helpers/extends",
 		"prop-types": "^15.8.1",
 		"sass": "^1.97.0",
 		"webpack": "^5.88.2"
