@@ -53,6 +53,11 @@ RUN sudo update-alternatives --set php /usr/bin/php8.1
 # Enable mod_rewrite in Apache
 RUN a2enmod rewrite
 
+# Install pcov for code coverage
+RUN pecl config-set php_ini /etc/php/8.1/cli/php.ini \
+	&& pear config-set php_ini /etc/php/8.1/cli/php.ini \
+	&& pecl install pcov
+
 # Install wp-cli
 RUN curl -o /usr/local/bin/wp -SL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& chmod +x /usr/local/bin/wp
