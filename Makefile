@@ -28,13 +28,14 @@ clean:
 clean-release: clean
 	rm -rf release
 
-docker_build:
+# Create docker/.env from default.env if it doesn't exist
+docker_env:
+	@test -f docker/.env || cp docker/default.env docker/.env
+
+docker_build: docker_env
 	docker-compose -f docker/docker-compose.yml build
 
-docker_up:
-	docker-compose -f docker/docker-compose.yml up
-
-docker_up_d:
+docker_up: docker_env
 	docker-compose -f docker/docker-compose.yml up -d
 
 docker_stop:
@@ -70,4 +71,4 @@ composer:
 pot:
 	./scripts/makepot.sh
 
-.PHONY: install install-node install-php client clean clean-release docker_up_d docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpcs phpcbf composer release pot
+.PHONY: install install-node install-php client clean clean-release docker_env docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpcs phpcbf composer release pot
