@@ -16,7 +16,7 @@ import FeedbackForm from './form';
 import FeedbackSubmit from './submit';
 import FooterBranding from 'components/footer-branding';
 
-const FeedbackPopover = ( { attributes } ) => {
+const FeedbackPopover = ( { attributes, styleVars } ) => {
 	const [ view, setView ] = useState( views.QUESTION );
 	const [ height, setHeight ] = useState( 'auto' );
 
@@ -29,6 +29,7 @@ const FeedbackPopover = ( { attributes } ) => {
 
 	const styles = {
 		height,
+		...styleVars,
 	};
 
 	return (
