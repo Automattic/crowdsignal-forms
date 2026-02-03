@@ -15,6 +15,19 @@ services:
       - default.env
       - .env
 
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: cs_forms_phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - "${PORT_CS_PHPMYADMIN:-5050}:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: somewordpress
+    restart: always
+
   wordpress:
     container_name: cs_forms_wordpress
     depends_on:
