@@ -66,10 +66,9 @@ class Crowdsignal_Forms_Admin {
 	 * Adds pages to admin menu.
 	 */
 	public function admin_menu() {
-		if (
-			isset( $_GET['page'] )
-			&& ( 'crowdsignal-forms-settings' === $_GET['page'] || 'crowdsignal-forms-setup' === $_GET['page'] )
-		) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading query param for redirect, no form processing.
+		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+		if ( 'crowdsignal-forms-settings' === $page || 'crowdsignal-forms-setup' === $page ) {
 			wp_safe_redirect( admin_url( 'options-general.php?page=crowdsignal-settings' ) );
 			die();
 		}
