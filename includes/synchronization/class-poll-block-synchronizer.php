@@ -207,7 +207,7 @@ class Poll_Block_Synchronizer {
 
 			} else {
 				// TODO: Pretty serious, we didn't get a poll response. What to do? Throw!
-				throw new \Exception( $result->get_error_code() );
+				throw new \Exception( esc_html( $result->get_error_code() ) );
 			}
 		}
 
