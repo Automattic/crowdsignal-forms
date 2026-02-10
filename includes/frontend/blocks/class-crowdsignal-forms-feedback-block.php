@@ -8,6 +8,7 @@
 
 namespace Crowdsignal_Forms\Frontend\Blocks;
 
+use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks_Assets;
 use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Block;
 
@@ -71,6 +72,15 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 	 * @return string
 	 */
 	public function render( $attributes ) {
+		// Look up surveyId from post_meta if not in attributes but surveyClientId is present.
+		if ( empty( $attributes['surveyId'] ) && ! empty( $attributes['surveyClientId'] ) ) {
+			$meta_gateway = Crowdsignal_Forms::instance()->get_post_survey_meta_gateway();
+			$survey_data  = $meta_gateway->get_survey_data_for_client_id( get_the_ID(), $attributes['surveyClientId'] );
+			if ( ! empty( $survey_data['id'] ) ) {
+				$attributes['surveyId'] = $survey_data['id'];
+			}
+		}
+
 		if ( $this->should_hide_block( $attributes ) ) {
 			return '';
 		}
@@ -80,6 +90,10 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 
 		$attributes['hideBranding'] = $this->should_hide_branding();
 		$attributes['nonce']        = $this->create_nonce();
+
+		// Remove surveyClientId from rendered output - it's only needed server-side
+		// for post_meta lookup and should not be exposed to the public.
+		unset( $attributes['surveyClientId'] );
 
 		return sprintf(
 			'<div class="crowdsignal-feedback-wrapper" data-crowdsignal-feedback="%s"></div>',
@@ -179,6 +193,10 @@ class Crowdsignal_Forms_Feedback_Block extends Crowdsignal_Forms_Block {
 			),
 			'surveyId'               => array(
 				'type'    => 'number',
+				'default' => null,
+			),
+			'surveyClientId'         => array(
+				'type'    => 'string',
 				'default' => null,
 			),
 			'textColor'              => array(

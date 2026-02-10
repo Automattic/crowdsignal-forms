@@ -65,7 +65,7 @@ class Nps_Survey {
 	 */
 	public static function from_array( $data ) {
 		return new Nps_Survey(
-			$data['id'],
+			(int) $data['id'],
 			$data['title'],
 			$data['rating_text'],
 			$data['feedback_text'],

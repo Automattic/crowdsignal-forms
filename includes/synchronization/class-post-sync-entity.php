@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package Crowdsignal_Forms\Synchronization
  */
-class Post_Sync_Entity implements Synchronizable_Entity {
+class Post_Sync_Entity implements Synchronizable_Entity, Synchronizable_Survey_Entity {
 
 	/**
 	 * The poll ids meta key.
@@ -162,5 +162,83 @@ class Post_Sync_Entity implements Synchronizable_Entity {
 	 */
 	public function update_poll_ids_present_in_entity( $poll_ids_present_in_content ) {
 		return update_post_meta( $this->post_id, self::CROWDSIGNAL_FORMS_POLL_IDS, $poll_ids_present_in_content );
+	}
+
+	/**
+	 * Get the post ID.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return int
+	 */
+	public function get_post_id() {
+		return $this->post_id;
+	}
+
+	/**
+	 * Check if the entity contains any survey blocks (NPS or Feedback).
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return bool
+	 */
+	public function has_survey_blocks() {
+		return has_blocks( $this->post ) && (
+			has_block( 'crowdsignal-forms/nps', $this->post ) ||
+			has_block( 'crowdsignal-forms/feedback', $this->post )
+		);
+	}
+
+	/**
+	 * Gets the survey IDs the entity has in its content.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return array
+	 */
+	public function get_survey_ids_saved_in_entity() {
+		$survey_ids = get_post_meta( $this->post_id, Survey_Block_Synchronizer::CROWDSIGNAL_FORMS_SURVEY_IDS, true );
+		return is_array( $survey_ids ) ? $survey_ids : array();
+	}
+
+	/**
+	 * Get the survey data saved in the entity for the specified client id.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $survey_client_id The survey unique client id.
+	 * @return array|null
+	 */
+	public function get_entity_survey_data( $survey_client_id ) {
+		return Crowdsignal_Forms::instance()
+			->get_post_survey_meta_gateway()
+			->get_survey_data_for_client_id( $this->post_id, $survey_client_id );
+	}
+
+	/**
+	 * Update the survey data saved in the entity for the specified client id.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string $survey_client_id The survey unique client id.
+	 * @param array  $result_array     An updated survey array.
+	 * @return mixed
+	 */
+	public function update_entity_survey_data( $survey_client_id, $result_array ) {
+		return Crowdsignal_Forms::instance()
+			->get_post_survey_meta_gateway()
+			->update_survey_data_for_client_id( $this->post_id, $survey_client_id, $result_array );
+	}
+
+	/**
+	 * Updates the list of survey IDs saved in entity.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array $survey_ids The surveys that are currently part of the content.
+	 * @return mixed
+	 */
+	public function update_survey_ids_present_in_entity( $survey_ids ) {
+		return update_post_meta( $this->post_id, Survey_Block_Synchronizer::CROWDSIGNAL_FORMS_SURVEY_IDS, $survey_ids );
 	}
 }

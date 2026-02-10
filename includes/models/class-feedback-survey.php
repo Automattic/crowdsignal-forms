@@ -75,12 +75,12 @@ class Feedback_Survey {
 	 */
 	public static function from_array( $data ) {
 		return new Feedback_Survey(
-			$data['id'],
+			(int) $data['id'],
 			$data['title'],
 			$data['feedback_text'],
 			$data['email_text'],
 			! empty( $data['source_link'] ) ? $data['source_link'] : '',
-			$data['email_responses']
+			! empty( $data['email_responses'] ) ? $data['email_responses'] : false
 		);
 	}
 

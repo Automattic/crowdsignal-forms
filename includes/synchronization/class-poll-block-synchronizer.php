@@ -10,6 +10,7 @@ namespace Crowdsignal_Forms\Synchronization;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
 use Crowdsignal_Forms\Models\Poll;
+use Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway;
 use \WP_Block_Type_Registry;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -165,6 +166,8 @@ class Poll_Block_Synchronizer {
 			$blocks_to_process = $blocks_to_process_next_iteration;
 		}
 
+		$post_poll_meta_gateway = Crowdsignal_Forms::instance()->get_post_poll_meta_gateway();
+
 		// process the found blocks.
 		foreach ( $poll_blocks as $poll_block ) {
 			$poll_client_id = $poll_block['attrs']['pollId'];
@@ -175,6 +178,17 @@ class Poll_Block_Synchronizer {
 			}
 
 			$platform_poll_data = $this->entity_bridge->get_entity_poll_data( $poll_client_id );
+
+			// Security check: Verify user can edit copied polls.
+			// If this poll client_id is mapped to a different post/comment (copy/paste scenario),
+			// the user must have edit permission on the original post or comment.
+			$current_post_id    = isset( $platform_poll_data['post_id'] ) ? (int) $platform_poll_data['post_id'] : 0;
+			$current_comment_id = isset( $platform_poll_data['comment_id'] ) ? (int) $platform_poll_data['comment_id'] : 0;
+			if ( $current_post_id > 0 && ! $this->can_sync_poll( $poll_client_id, $current_post_id, $current_comment_id, $post_poll_meta_gateway ) ) {
+				// User doesn't have permission to edit the original post/comment - skip syncing this poll.
+				// The poll remains in content but won't be updated on the platform.
+				continue;
+			}
 
 			$poll = Poll::from_array( $platform_poll_data );
 
@@ -233,5 +247,68 @@ class Poll_Block_Synchronizer {
 		 * @since 1.0.0
 		 */
 		do_action( 'crowdsignal_forms_poll_sync_exception', $sync_exception, $this );
+	}
+
+	/**
+	 * Check if the current user can sync a poll.
+	 *
+	 * If the poll client_id is mapped to a different post/comment (copy/paste scenario),
+	 * the user must have edit permission on the original post or comment.
+	 *
+	 * All 4 copy/paste scenarios:
+	 * - Post → Post: require edit_post on original post
+	 * - Post → Comment: require edit_post on original post
+	 * - Comment → Post: require edit_comment on original comment
+	 * - Comment → Comment: require edit_comment on original comment
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param string                 $poll_client_id         The poll client ID.
+	 * @param int                    $current_post_id        The current post ID being saved.
+	 * @param int                    $current_comment_id     The current comment ID (0 if saving a post).
+	 * @param Post_Poll_Meta_Gateway $post_poll_meta_gateway The meta gateway instance.
+	 * @return bool True if the user can sync this poll.
+	 */
+	private function can_sync_poll( $poll_client_id, $current_post_id, $current_comment_id, $post_poll_meta_gateway ) {
+		// Get the original location (post and/or comment) for this client_id.
+		$original_location = $post_poll_meta_gateway->get_original_location_for_client_id( $poll_client_id );
+		$original_post_id  = $original_location['post_id'];
+
+		if ( null === $original_post_id ) {
+			// Not mapped yet - this is a new poll, allow it.
+			return true;
+		}
+
+		// Check if the poll is being edited in its original location.
+		$original_comment_id = $original_location['comment_id'];
+		$is_original_location = false;
+
+		if ( $original_comment_id ) {
+			// Original was in a comment.
+			$is_original_location = ( $current_comment_id === $original_comment_id );
+		} else {
+			// Original was in a post.
+			$is_original_location = ( $current_post_id === $original_post_id && 0 === $current_comment_id );
+		}
+
+		if ( $is_original_location ) {
+			// Same location - this is the original poll, allow it.
+			return true;
+		}
+
+		// Poll is mapped to a different location - check appropriate permission.
+		if ( $original_comment_id ) {
+			// Poll originated in a comment - require edit_comment on original comment.
+			if ( ! current_user_can( 'edit_comment', $original_comment_id ) ) {
+				return false;
+			}
+		} else {
+			// Poll originated in a post - require edit_post on original post.
+			if ( ! current_user_can( 'edit_post', $original_post_id ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

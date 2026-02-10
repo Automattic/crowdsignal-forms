@@ -13,6 +13,7 @@ use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks;
 use Crowdsignal_Forms\Gateways\Api_Gateway_Interface;
 use Crowdsignal_Forms\Gateways\Api_Gateway;
 use Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway;
+use Crowdsignal_Forms\Gateways\Post_Survey_Meta_Gateway;
 use Crowdsignal_Forms\Logging\Webservice_Logger;
 use Crowdsignal_Forms\Rest_Api\Controllers\Nps_Controller;
 use Crowdsignal_Forms\Rest_Api\Controllers\Feedback_Controller;
@@ -110,6 +111,14 @@ final class Crowdsignal_Forms {
 	 * @var Post_Poll_Meta_Gateway
 	 */
 	private $post_poll_meta_gateway = null;
+
+	/**
+	 * For saving/updating survey data (NPS/Feedback) from the api into post meta.
+	 *
+	 * @since 1.8.0
+	 * @var Post_Survey_Meta_Gateway
+	 */
+	private $post_survey_meta_gateway = null;
 
 	/**
 	 * The logger we use to record our webservice conversations.
@@ -385,6 +394,35 @@ final class Crowdsignal_Forms {
 	 */
 	public function set_post_poll_meta_gateway( $gateway ) {
 		$this->post_poll_meta_gateway = $gateway;
+		return $this;
+	}
+
+	/**
+	 * Get the survey meta gateway.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return Post_Survey_Meta_Gateway
+	 */
+	public function get_post_survey_meta_gateway() {
+		if ( null === $this->post_survey_meta_gateway ) {
+			$this->post_survey_meta_gateway = new Post_Survey_Meta_Gateway();
+		}
+
+		return $this->post_survey_meta_gateway;
+	}
+
+	/**
+	 * Set the survey meta gateway.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param Post_Survey_Meta_Gateway $gateway The gateway.
+	 *
+	 * @return $this
+	 */
+	public function set_post_survey_meta_gateway( $gateway ) {
+		$this->post_survey_meta_gateway = $gateway;
 		return $this;
 	}
 
