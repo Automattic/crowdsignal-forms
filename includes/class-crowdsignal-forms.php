@@ -244,7 +244,7 @@ final class Crowdsignal_Forms {
 	 * @return $this
 	 */
 	public function setup_hooks( $init_all = false ) {
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+
 		add_action( 'init', array( $this->blocks_assets, 'register' ) );
 		add_action( 'init', array( $this->blocks, 'register' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_api_routes' ) );
@@ -435,18 +435,6 @@ final class Crowdsignal_Forms {
 	 */
 	public function get_webservice_logger() {
 		return $this->webservice_logger;
-	}
-
-	/**
-	 * Loads the plugin textdomain.
-	 *
-	 * @since 0.9.0
-	 *
-	 * @return void
-	 */
-	public function load_textdomain() {
-		$language_path = basename( $this->plugin_dir ) . '/languages';
-		load_plugin_textdomain( $this->plugin_textdomain, false, $language_path );
 	}
 
 	/**
