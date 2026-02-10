@@ -1,3 +1,13 @@
+= 1.8.0 =
+* Harden survey and poll data handling (#302)
+* Tests: Fix typo in `@covers` annotation (#301)
+* Fix feedback popover background color on frontend (#300)
+* Docker: Add phpMyAdmin and pcov (#299)
+* Fix development infrastructure and add documentation (#298)
+* Fix PHPUnit and PHPCS by Updating Dependencies (#297)
+* Build tools: Fix and update (#296)
+* Bump tested to version to 6.8 (#295)
+
 = 1.7.2 =
 * Fix: Made string translatable in html-admin-setup-step-1.php file (#281)
 * Fix dynamic property (#282)
