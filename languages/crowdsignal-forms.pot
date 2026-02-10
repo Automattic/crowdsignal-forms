@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-10T12:33:46+00:00\n"
+"POT-Creation-Date: 2026-02-10T14:18:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: crowdsignal-forms\n"
@@ -47,7 +47,7 @@ msgstr ""
 msgid "You don&#8217;t have permission to do this."
 msgstr ""
 
-#: includes/admin/class-crowdsignal-forms-admin.php:92
+#: includes/admin/class-crowdsignal-forms-admin.php:91
 #: build/editor.js:3
 #: build/editor.js:7
 msgid "Settings"
@@ -107,51 +107,51 @@ msgstr ""
 msgid "Skip Setup"
 msgstr ""
 
-#: includes/admin/views/html-admin-settings.php:12
+#: includes/admin/views/html-admin-settings.php:15
 msgid "Account Settings"
 msgstr ""
 
-#: includes/admin/views/html-admin-settings.php:18
+#: includes/admin/views/html-admin-settings.php:21
 msgid "API Key"
 msgstr ""
 
 #. translators: Placeholder is the text "Crowdsignal".
-#: includes/admin/views/html-admin-settings.php:23
+#: includes/admin/views/html-admin-settings.php:26
 #, php-format
 msgid "Your website is connected to a %s account to collect responses and data from your visitors."
 msgstr ""
 
 #. translators: Placeholder is the text "Crowdsignal acount page".
-#: includes/admin/views/html-admin-settings.php:31
+#: includes/admin/views/html-admin-settings.php:34
 #, php-format
 msgid "Visit your %s to find out more about your settings."
 msgstr ""
 
-#: includes/admin/views/html-admin-settings.php:34
+#: includes/admin/views/html-admin-settings.php:37
 msgid "Crowdsignal account page"
 msgstr ""
 
-#: includes/admin/views/html-admin-settings.php:40
+#: includes/admin/views/html-admin-settings.php:43
 msgid "If you have a Crowdsignal account, click the \"Get API Key\" button to connect. This will open a new window."
 msgstr ""
 
-#: includes/admin/views/html-admin-settings.php:44
+#: includes/admin/views/html-admin-settings.php:47
 msgid "Get API Key"
 msgstr ""
 
-#: includes/admin/views/html-admin-settings.php:51
+#: includes/admin/views/html-admin-settings.php:54
 msgid "Settings successfully saved"
 msgstr ""
 
-#: includes/admin/views/html-admin-settings.php:58
+#: includes/admin/views/html-admin-settings.php:61
 msgid "Your Crowdsignal API Key"
 msgstr ""
 
-#: includes/admin/views/html-admin-settings.php:78
+#: includes/admin/views/html-admin-settings.php:81
 msgid "Disconnect"
 msgstr ""
 
-#: includes/admin/views/html-admin-settings.php:84
+#: includes/admin/views/html-admin-settings.php:87
 msgid "Connect"
 msgstr ""
 
@@ -241,7 +241,7 @@ msgstr ""
 msgid "Do you want to know more about Crowdsignal and our blocks? <a href=\"%1$s\" target=\"_blank\">Learn more</a>."
 msgstr ""
 
-#: includes/class-crowdsignal-forms.php:492
+#: includes/class-crowdsignal-forms.php:480
 msgid "Crowdsignal"
 msgstr ""
 
