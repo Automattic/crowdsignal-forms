@@ -29,10 +29,12 @@ const Sidebar = ( {
 	setAttributes,
 	shouldPromote,
 	signalWarning,
+	resolvedSurveyId,
 } ) => {
 	const handleChangeTitle = ( title ) => setAttributes( { title } );
 
-	const resultsUrl = `https://app.crowdsignal.com/surveys/${ attributes.surveyId }/report/overview`;
+	const surveyId = attributes.surveyId || resolvedSurveyId;
+	const resultsUrl = `https://app.crowdsignal.com/surveys/${ surveyId }/report/overview`;
 
 	const handleChangeAttribute = ( attribute ) => ( value ) =>
 		setAttributes( {
@@ -53,7 +55,7 @@ const Sidebar = ( {
 				initialOpen={ true }
 			>
 				<p>
-					{ attributes.surveyId
+					{ surveyId
 						? __( 'Manage results on ', 'crowdsignal-forms' )
 						: __(
 								'Save the block to track results on ',
@@ -66,7 +68,7 @@ const Sidebar = ( {
 				<p>
 					<Button
 						isSecondary
-						disabled={ ! attributes.surveyId }
+						disabled={ ! surveyId }
 						href={ resultsUrl }
 						target="blank"
 					>

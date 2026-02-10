@@ -13,6 +13,7 @@ use Crowdsignal_Forms\Frontend\Crowdsignal_Forms_Blocks;
 use Crowdsignal_Forms\Gateways\Api_Gateway_Interface;
 use Crowdsignal_Forms\Gateways\Api_Gateway;
 use Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway;
+use Crowdsignal_Forms\Gateways\Post_Survey_Meta_Gateway;
 use Crowdsignal_Forms\Logging\Webservice_Logger;
 use Crowdsignal_Forms\Rest_Api\Controllers\Nps_Controller;
 use Crowdsignal_Forms\Rest_Api\Controllers\Feedback_Controller;
@@ -110,6 +111,14 @@ final class Crowdsignal_Forms {
 	 * @var Post_Poll_Meta_Gateway
 	 */
 	private $post_poll_meta_gateway = null;
+
+	/**
+	 * For saving/updating survey data (NPS/Feedback) from the api into post meta.
+	 *
+	 * @since 1.8.0
+	 * @var Post_Survey_Meta_Gateway
+	 */
+	private $post_survey_meta_gateway = null;
 
 	/**
 	 * The logger we use to record our webservice conversations.
@@ -235,7 +244,7 @@ final class Crowdsignal_Forms {
 	 * @return $this
 	 */
 	public function setup_hooks( $init_all = false ) {
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+
 		add_action( 'init', array( $this->blocks_assets, 'register' ) );
 		add_action( 'init', array( $this->blocks, 'register' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_api_routes' ) );
@@ -389,6 +398,35 @@ final class Crowdsignal_Forms {
 	}
 
 	/**
+	 * Get the survey meta gateway.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return Post_Survey_Meta_Gateway
+	 */
+	public function get_post_survey_meta_gateway() {
+		if ( null === $this->post_survey_meta_gateway ) {
+			$this->post_survey_meta_gateway = new Post_Survey_Meta_Gateway();
+		}
+
+		return $this->post_survey_meta_gateway;
+	}
+
+	/**
+	 * Set the survey meta gateway.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param Post_Survey_Meta_Gateway $gateway The gateway.
+	 *
+	 * @return $this
+	 */
+	public function set_post_survey_meta_gateway( $gateway ) {
+		$this->post_survey_meta_gateway = $gateway;
+		return $this;
+	}
+
+	/**
 	 * Get our webservice logger.
 	 *
 	 * @since 0.9.0
@@ -397,18 +435,6 @@ final class Crowdsignal_Forms {
 	 */
 	public function get_webservice_logger() {
 		return $this->webservice_logger;
-	}
-
-	/**
-	 * Loads the plugin textdomain.
-	 *
-	 * @since 0.9.0
-	 *
-	 * @return void
-	 */
-	public function load_textdomain() {
-		$language_path = basename( $this->plugin_dir ) . '/languages';
-		load_plugin_textdomain( $this->plugin_textdomain, false, $language_path );
 	}
 
 	/**

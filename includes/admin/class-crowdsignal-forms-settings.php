@@ -160,7 +160,11 @@ class Crowdsignal_Forms_Settings {
 				if ( isset( $option['std'] ) ) {
 					add_option( $option['name'], $option['std'] );
 				}
-				register_setting( $this->settings_group, $option['name'] );
+				register_setting(
+					$this->settings_group,
+					$option['name'],
+					array( 'sanitize_callback' => 'sanitize_text_field' )
+				);
 			}
 		}
 	}

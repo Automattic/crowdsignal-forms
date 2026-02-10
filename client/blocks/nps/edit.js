@@ -4,14 +4,14 @@
 import React, { useEffect, useState } from 'react';
 import { times, get } from 'lodash';
 import classnames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * WordPress dependencies
  */
 import { TextareaControl } from '@wordpress/components';
 import { RichText } from '@wordpress/block-editor';
-import { PostPreviewButton } from '@wordpress/editor';
-import { dispatch, withSelect, useSelect } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { __, _n, sprintf } from '@wordpress/i18n';
 
@@ -19,9 +19,7 @@ import { __, _n, sprintf } from '@wordpress/i18n';
  * Internal dependencies
  */
 import ConnectToCrowdsignal from 'components/connect-to-crowdsignal';
-import { useAutosave } from 'components/use-autosave';
 import { withFallbackStyles } from 'components/with-fallback-styles';
-import { updateNps } from 'data/nps/edit';
 import { views } from './constants';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
@@ -29,69 +27,36 @@ import { getStyleVars } from './util';
 import EditorNotice from 'components/editor-notice';
 import FooterBranding from 'components/footer-branding';
 import SignalWarning from 'components/signal-warning';
-import RetryNotice from 'components/retry-notice';
 import PromotionalTooltip from 'components/promotional-tooltip';
 import { STORE_NAME } from 'state';
 import withFseCheck from 'components/with-fse-check';
+import useSurveyId from 'hooks/use-survey-id';
 
 const EditNpsBlock = ( props ) => {
 	const [ view, setView ] = useState( views.RATING );
 
 	const {
 		attributes,
-		clientId,
 		fallbackStyles,
 		isSelected,
 		setAttributes,
 		renderStyleProbe,
-		sourceLink,
 	} = props;
 
 	const {
 		feedbackQuestion,
 		ratingQuestion,
-		surveyId,
-		title,
 		isExample,
 		viewThreshold,
+		surveyClientId,
 	} = attributes;
 
-	const { error: saveError, save: saveBlock } = useAutosave(
-		async ( data ) => {
-			dispatch( 'core/editor' ).lockPostSaving( clientId );
-
-			try {
-				const response = await updateNps( {
-					feedbackQuestion: data.feedbackQuestion,
-					ratingQuestion: data.ratingQuestion,
-					sourceLink: data.sourceLink,
-					surveyId: data.surveyId,
-					title: data.title || data.ratingQuestion,
-				} );
-
-				if ( ! data.surveyId ) {
-					setAttributes( { surveyId: response.surveyId } );
-				}
-			} finally {
-				dispatch( 'core/editor' ).unlockPostSaving( clientId );
-			}
-		},
-		{
-			feedbackQuestion,
-			ratingQuestion,
-			sourceLink,
-			surveyId,
-			title,
-		}
-	);
-
-	// Force a save to Crowdsignal.com as soon as a new block is created
+	// Generate surveyClientId for new blocks (including legacy blocks without one)
 	useEffect( () => {
-		if ( isExample || attributes.surveyId ) {
+		if ( isExample || surveyClientId || attributes.surveyId ) {
 			return;
 		}
-
-		saveBlock();
+		setAttributes( { surveyClientId: uuidv4() } );
 	}, [] );
 
 	useEffect( () => {
@@ -114,6 +79,8 @@ const EditNpsBlock = ( props ) => {
 	const accountInfo = useSelect( ( select ) =>
 		select( STORE_NAME ).getAccountInfo()
 	);
+
+	const resolvedSurveyId = useSurveyId( surveyClientId, 'nps' );
 
 	const hideBranding = get( accountInfo, 'capabilities', [] ).includes(
 		'hide-branding'
@@ -141,12 +108,10 @@ const EditNpsBlock = ( props ) => {
 			<Sidebar
 				shouldPromote={ shouldPromote }
 				signalWarning={ signalWarning }
+				resolvedSurveyId={ resolvedSurveyId }
 				{ ...props }
 			/>
 			{ ! isExample && signalWarning && <SignalWarning /> }
-			{ ! isExample && saveError && (
-				<RetryNotice retryHandler={ saveBlock } />
-			) }
 
 			{ ! isExample && (
 				<EditorNotice
@@ -318,15 +283,6 @@ const EditNpsBlock = ( props ) => {
 };
 
 export default compose( [
-	withSelect( ( select ) => {
-		let url = select( 'core/editor' ).getPermalink();
-		if ( ! url ) {
-			url = select( 'core' ).getSite() && select( 'core' ).getSite().url;
-		}
-		return {
-			sourceLink: url,
-		};
-	} ),
 	withFallbackStyles,
 	withFseCheck,
 ] )( EditNpsBlock );

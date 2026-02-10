@@ -63,6 +63,10 @@ export default {
 		type: 'number',
 		default: null,
 	},
+	surveyClientId: {
+		type: 'string',
+		default: null,
+	},
 	textColor: {
 		type: 'string',
 	},

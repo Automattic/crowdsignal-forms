@@ -119,9 +119,6 @@ A Docker-based WordPress environment is provided for development and testing.
 # Build and start containers (creates docker/.env from default.env if needed)
 make docker_build
 make docker_up
-
-# Or run in background
-make docker_up_d
 ```
 
 The local WordPress site will be available at http://localhost:8000/

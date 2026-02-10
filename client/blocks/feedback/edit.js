@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import classnames from 'classnames';
 import { get, max } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * WordPress depenencies
@@ -30,16 +31,14 @@ import { getFeedbackButtonPosition } from 'components/feedback/util';
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
 import { getStyleVars, isWidgetEditor } from './util';
-import { useAutosave } from 'components/use-autosave';
-import { updateFeedback } from 'data/feedback/edit';
 import SignalWarning from 'components/signal-warning';
 import { views, FeedbackStatus } from './constants';
-import RetryNotice from 'components/retry-notice';
 import FooterBranding from 'components/footer-branding';
 import FeedbackIcon from 'components/icon/feedback';
 import PromotionalTooltip from 'components/promotional-tooltip';
 import { STORE_NAME } from 'state';
 import withFseCheck from 'components/with-fse-check';
+import useSurveyId from 'hooks/use-survey-id';
 
 const EditFeedbackBlock = ( props ) => {
 	const [ view, setView ] = useState( views.QUESTION );
@@ -55,19 +54,12 @@ const EditFeedbackBlock = ( props ) => {
 		fallbackStyles,
 		isSelected,
 		setAttributes,
-		clientId,
-		sourceLink,
 		setPosition,
 	} = props;
 
 	const {
 		isExample,
-		feedbackPlaceholder,
-		emailPlaceholder,
-		surveyId,
-		title,
-		header,
-		emailResponses,
+		surveyClientId,
 		triggerLabel,
 	} = attributes;
 
@@ -80,46 +72,17 @@ const EditFeedbackBlock = ( props ) => {
 	const triggerButton = useRef( null );
 	const popover = useRef( null );
 
-	const { error: saveError, save: saveBlock } = useAutosave(
-		async ( data ) => {
-			dispatch( 'core/editor' ).lockPostSaving( clientId );
-
-			try {
-				const response = await updateFeedback( {
-					feedbackPlaceholder: data.feedbackPlaceholder,
-					emailPlaceholder: data.emailPlaceholder,
-					sourceLink: data.sourceLink,
-					surveyId: data.surveyId,
-					title: data.title || data.header,
-					emailResponses: data.emailResponses,
-				} );
-
-				if ( ! data.surveyId ) {
-					setAttributes( { surveyId: response.surveyId } );
-				}
-			} finally {
-				dispatch( 'core/editor' ).unlockPostSaving( clientId );
-			}
-		},
-		{
-			feedbackPlaceholder,
-			emailPlaceholder,
-			sourceLink,
-			surveyId,
-			title,
-			header,
-			emailResponses,
-		}
-	);
-
-	// Force a save to Crowdsignal.com as soon as a new block is created
+	// Generate surveyClientId for new blocks (including legacy blocks without one)
 	// Also make sure isWidget flag is set correctly
 	useEffect( () => {
-		if ( isExample || attributes.surveyId ) {
+		if ( isExample ) {
 			return;
 		}
 
-		saveBlock();
+		if ( ! surveyClientId && ! attributes.surveyId ) {
+			setAttributes( { surveyClientId: uuidv4() } );
+		}
+
 		setAttributes( {
 			isWidget: widgetEditor,
 		} );
@@ -271,6 +234,8 @@ const EditFeedbackBlock = ( props ) => {
 
 	const email = get( accountInfo, [ 'account', 'email' ] );
 
+	const resolvedSurveyId = useSurveyId( surveyClientId, 'feedback' );
+
 	const classes = classnames(
 		'crowdsignal-forms-feedback',
 		`align-${ attributes.x }`,
@@ -329,6 +294,7 @@ const EditFeedbackBlock = ( props ) => {
 				shouldPromote={ shouldPromote }
 				signalWarning={ signalWarning }
 				email={ email }
+				resolvedSurveyId={ resolvedSurveyId }
 				{ ...props }
 			/>
 
@@ -336,9 +302,6 @@ const EditFeedbackBlock = ( props ) => {
 				<>
 					{ ! isExample && ! widgetEditor && signalWarning && (
 						<SignalWarning />
-					) }
-					{ ! isExample && ! widgetEditor && saveError && (
-						<RetryNotice retryHandler={ saveBlock } />
 					) }
 					<EditorNotice
 						icon="warning"
@@ -387,9 +350,6 @@ const EditFeedbackBlock = ( props ) => {
 							{ ! isExample &&
 								! widgetEditor &&
 								signalWarning && <SignalWarning /> }
-							{ ! isExample && ! widgetEditor && saveError && (
-								<RetryNotice retryHandler={ saveBlock } />
-							) }
 
 							{ view === views.QUESTION && (
 								<div
@@ -498,10 +458,6 @@ const EditFeedbackBlock = ( props ) => {
 
 export default compose( [
 	withSelect( ( select ) => {
-		let url = select( 'core/editor' ).getPermalink();
-		if ( ! url ) {
-			url = select( 'core' ).getSite() && select( 'core' ).getSite().url;
-		}
 		const editPost = select( 'core/edit-post' );
 
 		// Need to return same object, but values don't necessarily matter because
@@ -512,8 +468,7 @@ export default compose( [
 				isInserterActive: false,
 				isListViewActive: false,
 				isSidebarActive: false,
-				sourceLink: url,
-			}
+			};
 		}
 
 		const isFullscreen =
@@ -526,7 +481,6 @@ export default compose( [
 			isInserterActive: editPost.isInserterOpened(),
 			isListViewActive: editPost.isListViewOpened(),
 			isSidebarActive: editPost.isEditorSidebarOpened(),
-			sourceLink: url,
 		};
 	} ),
 	withFallbackStyles,

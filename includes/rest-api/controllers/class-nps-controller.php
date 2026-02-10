@@ -9,7 +9,6 @@
 namespace Crowdsignal_Forms\Rest_Api\Controllers;
 
 use Crowdsignal_Forms\Crowdsignal_Forms;
-use Crowdsignal_Forms\Models\Nps_Survey;
 use Crowdsignal_Forms\Frontend\Blocks\Crowdsignal_Forms_Nps_Block;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,34 +36,27 @@ class Nps_Controller {
 	protected $rest_base = 'nps';
 
 	/**
-	 * Register the routes for manipulating NPS blocks
+	 * Register the routes for NPS response submissions.
+	 *
+	 * Note: Create/update routes have been removed. Survey creation
+	 * and updates now happen via a `post_save` hook rather than
+	 * WP REST API endpoints.
 	 *
 	 * @since 1.4.0
 	 */
 	public function register_routes() {
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base,
+			'/' . $this->rest_base . '/(?P<survey_client_id>[a-zA-Z0-9\-\_]+)',
 			array(
 				array(
-					'methods'             => \WP_REST_Server::CREATABLE,
-					'callback'            => array( $this, 'upsert_nps' ),
-					'permission_callback' => array( $this, 'create_or_update_nps_permissions_check' ),
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_survey' ),
+					'permission_callback' => array( $this, 'get_survey_permissions_check' ),
 				),
 			)
 		);
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/(?P<survey_id>\d+)',
-			array(
-				array(
-					'methods'             => \WP_REST_Server::EDITABLE,
-					'callback'            => array( $this, 'upsert_nps' ),
-					'permission_callback' => array( $this, 'create_or_update_nps_permissions_check' ),
-					'args'                => $this->get_nps_fetch_params(),
-				),
-			)
-		);
+
 		register_rest_route(
 			$this->namespace,
 			'/' . $this->rest_base . '/(?P<survey_id>\d+)/response',
@@ -80,24 +72,48 @@ class Nps_Controller {
 	}
 
 	/**
-	 * Updates an NPS Survey. Creates one if no ID is given.
+	 * Get cached survey data by client ID (UUID).
 	 *
-	 * @since 1.4.0
+	 * @since 1.8.0
 	 *
 	 * @param  \WP_REST_Request $request The API Request.
-	 * @return \WP_REST_Response|WP_Error
+	 * @return \WP_REST_Response|\WP_Error
 	 */
-	public function upsert_nps( \WP_REST_Request $request ) {
-		$data   = $request->get_json_params();
-		$survey = Nps_Survey::from_block_attributes( $data );
+	public function get_survey( \WP_REST_Request $request ) {
+		$survey_client_id = $request->get_param( 'survey_client_id' );
 
-		$result = Crowdsignal_Forms::instance()->get_api_gateway()->update_nps( $survey );
-
-		if ( is_wp_error( $result ) ) {
-			return $result;
+		if ( null === $survey_client_id ) {
+			return new \WP_Error(
+				'invalid-survey-client-id',
+				__( 'Invalid survey client ID', 'crowdsignal-forms' ),
+				array( 'status' => 400 )
+			);
 		}
 
-		return rest_ensure_response( $result->to_block_attributes() );
+		$survey_data = Crowdsignal_Forms::instance()
+			->get_post_survey_meta_gateway()
+			->get_survey_data_for_client_id( null, $survey_client_id );
+
+		if ( empty( $survey_data ) || ! isset( $survey_data['id'] ) ) {
+			return new \WP_Error(
+				'resource-not-found',
+				__( 'Resource not found', 'crowdsignal-forms' ),
+				array( 'status' => 404 )
+			);
+		}
+
+		return rest_ensure_response( $survey_data );
+	}
+
+	/**
+	 * The permission check for getting survey data.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @return bool
+	 */
+	public function get_survey_permissions_check() {
+		return true;
 	}
 
 	/**
@@ -141,17 +157,6 @@ class Nps_Controller {
 		$result['checksum'] = $this->get_response_checksum( $result['r'], $data['nonce'] );
 
 		return rest_ensure_response( $result );
-	}
-
-	/**
-	 * The permission check for creating a new poll.
-	 *
-	 * @since 1.4.0
-	 *
-	 * @return bool
-	 */
-	public function create_or_update_nps_permissions_check() {
-		return current_user_can( 'publish_posts' );
 	}
 
 	/**

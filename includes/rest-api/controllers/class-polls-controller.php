@@ -18,6 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Polls Controller Class
  *
+ * Poll mutations (create, update, archive) are handled via the save_post hook
+ * in Poll_Block_Synchronizer, not through REST API endpoints. This controller
+ * only provides read-only endpoints for fetching poll data.
+ *
  * @since 0.9.0
  **/
 class Polls_Controller {
@@ -36,7 +40,7 @@ class Polls_Controller {
 	protected $rest_base = 'polls';
 
 	/**
-	 * Register the routes for manipulating polls
+	 * Register the routes for fetching polls
 	 *
 	 * @since 0.9.0
 	 **/
@@ -50,17 +54,6 @@ class Polls_Controller {
 					'callback'            => array( $this, 'get_polls' ),
 					'permission_callback' => array( $this, 'get_polls_permissions_check' ),
 					'args'                => $this->get_collection_params(),
-				),
-			)
-		);
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base,
-			array(
-				array(
-					'methods'             => \WP_REST_Server::CREATABLE,
-					'callback'            => array( $this, 'create_poll' ),
-					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
 				),
 			)
 		);
@@ -92,7 +85,7 @@ class Polls_Controller {
 			)
 		);
 
-		// GET post-polls/:post_id.
+		// GET post-polls/:post_id/:poll_uuid route.
 		register_rest_route(
 			$this->namespace,
 			'/post-polls/(?P<post_id>\d+)/(?P<poll_uuid>[a-zA-Z0-9\-\_]+)',
@@ -104,156 +97,6 @@ class Polls_Controller {
 				),
 			)
 		);
-
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>\d+)',
-			array(
-				array(
-					'methods'             => \WP_REST_Server::EDITABLE,
-					'callback'            => array( $this, 'update_poll' ),
-					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
-					'args'                => $this->get_poll_fetch_params(),
-				),
-			)
-		);
-
-		/**
-		 * Archives a poll
-		 */
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>\d+)/archive',
-			array(
-				array(
-					'methods'             => \WP_REST_Server::EDITABLE,
-					'callback'            => array( $this, 'archive_poll' ),
-					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
-				),
-			)
-		);
-
-		/**
-		 * Un-archives a poll, moving it to the last used user folder
-		 */
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/(?P<poll_id>\d+)/unarchive',
-			array(
-				array(
-					'methods'             => \WP_REST_Server::EDITABLE,
-					'callback'            => array( $this, 'unarchive_poll' ),
-					'permission_callback' => array( $this, 'create_or_update_poll_permissions_check' ),
-				),
-			)
-		);
-	}
-
-	/**
-	 * Create a new poll.
-	 *
-	 * @param \WP_REST_Request $request The API Request.
-	 * @return \WP_REST_Response|\WP_Error
-	 * @since 0.9.0
-	 */
-	public function create_poll( \WP_REST_Request $request ) {
-		$data              = $request->get_json_params();
-		$poll              = Poll::from_array( $data );
-		$valid_or_wp_error = $poll->validate();
-		if ( is_wp_error( $valid_or_wp_error ) ) {
-			return $valid_or_wp_error;
-		}
-
-		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->create_poll( $poll );
-		if ( is_wp_error( $resulting_poll ) ) {
-			return $resulting_poll;
-		}
-
-		return rest_ensure_response( $resulting_poll->to_array() );
-	}
-
-	/**
-	 * Update a poll.
-	 *
-	 * @param \WP_REST_Request $request The API Request.
-	 * @return \WP_REST_Response|\WP_Error
-	 * @since 0.9.0
-	 */
-	public function update_poll( \WP_REST_Request $request ) {
-		$data              = $request->get_json_params();
-		$poll              = Poll::from_array( $data );
-		$valid_or_wp_error = $poll->validate();
-		if ( is_wp_error( $valid_or_wp_error ) ) {
-			return $valid_or_wp_error;
-		}
-
-		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->update_poll( $poll );
-		if ( is_wp_error( $resulting_poll ) ) {
-			return $resulting_poll;
-		}
-
-		return rest_ensure_response( $resulting_poll->to_array() );
-	}
-
-	/**
-	 * Archive a poll (Moves poll to the archive folder, does not delete).
-	 *
-	 * @param \WP_REST_Request $request The API Request.
-	 * @return \WP_REST_Response|\WP_Error
-	 * @since 0.9.0
-	 */
-	public function archive_poll( \WP_REST_Request $request ) {
-		$poll_id = $request->get_param( 'poll_id' );
-		if ( ! isset( $poll_id ) ) {
-			return new \WP_Error(
-				'no-poll-id',
-				__( 'No Poll ID was provided.', 'crowdsignal-forms' ),
-				array( 'status' => 400 )
-			);
-		}
-
-		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->archive_poll( $poll_id );
-		if ( is_wp_error( $resulting_poll ) ) {
-			return $resulting_poll;
-		}
-
-		return rest_ensure_response( $resulting_poll->to_array() );
-	}
-
-	/**
-	 * Un-archive a poll (Moves poll to the most recently used user folder).
-	 *
-	 * @param \WP_REST_Request $request The API Request.
-	 * @return \WP_REST_Response|\WP_Error
-	 * @since 0.9.0
-	 */
-	public function unarchive_poll( \WP_REST_Request $request ) {
-		$poll_id = $request->get_param( 'poll_id' );
-		if ( ! isset( $poll_id ) ) {
-			return new \WP_Error(
-				'no-poll-id',
-				__( 'No Poll ID was provided.', 'crowdsignal-forms' ),
-				array( 'status' => 400 )
-			);
-		}
-
-		$resulting_poll = Crowdsignal_Forms::instance()->get_api_gateway()->unarchive_poll( $poll_id );
-		if ( is_wp_error( $resulting_poll ) ) {
-			return $resulting_poll;
-		}
-
-		return rest_ensure_response( $resulting_poll->to_array() );
-	}
-
-	/**
-	 * The permission check for creating a new poll.
-	 *
-	 * @since 0.9.0
-	 *
-	 * @return bool
-	 **/
-	public function create_or_update_poll_permissions_check() {
-		return current_user_can( 'publish_posts' );
 	}
 
 	/**
@@ -416,7 +259,7 @@ class Polls_Controller {
 	protected function get_poll_fetch_params() {
 		return array(
 			'poll_id' => array(
-				'validate_callback' => function( $param, $request, $key ) {
+				'validate_callback' => function ( $param, $request, $key ) {
 					return true;
 				},
 			),

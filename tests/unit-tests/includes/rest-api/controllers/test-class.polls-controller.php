@@ -11,6 +11,10 @@ use Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller;
 
 /**
  * Class Polls_Controller_Test
+ *
+ * Note: Poll mutation endpoints (create, update, archive) have been removed.
+ * Poll mutations are handled via save_post hook in Poll_Block_Synchronizer.
+ * This test class only covers the read-only endpoints.
  */
 class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 
@@ -74,6 +78,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
 		$this->assertTrue( $response->get_status() === 200 );
 	}
+
 	/**
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
 	 *
@@ -82,7 +87,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	public function test_get_poll() {
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
 		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id',  1 );
+		$req->set_param( 'poll_id', 1 );
 		$response = $this->controller->get_poll( $req );
 		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
 		$this->assertTrue( $response->get_status() === 200 );
@@ -96,99 +101,9 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	public function test_get_poll_results() {
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
 		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id',  1 );
+		$req->set_param( 'poll_id', 1 );
 		$response = $this->controller->get_poll_results( $req );
 		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
 		$this->assertTrue( $response->get_status() === 200 );
-	}
-
-	/**
-	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::update_poll
-	 *
-	 * @since 0.9.0
-	 */
-	public function test_update_poll_400_when_incorrect_user_perms() {
-		$this->login_as_default_user();
-		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
-		$request = new \WP_REST_Request( 'POST', '/crowdsignal-forms/v1/polls' );
-		$request->set_param( 'poll_id',  1 );
-
-		$response = $this->server->dispatch( $request );
-		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
-		$this->assertTrue( $response->get_status() === 401 );
-	}
-
-	/**
-	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::update_poll
-	 *
-	 * @since 0.9.0
-	 */
-	public function test_update_poll_succeed_when_correct_user_perms() {
-		$this->login_as_editor();
-		$gateway = $this->createMock( '\Crowdsignal_Forms\Gateways\Api_Gateway' );
-		$gateway->expects( $this->once() )->method( 'update_poll' )->will(
-			$this->returnValue(
-				Poll::from_array(
-					array(
-						'id' => 1,
-						'question' => 'Favorite polling plaftorm?',
-						'answers' => array(
-							array(
-								'id' => 1,
-								'answer_text' => 'Crowdsignal',
-							),
-							array(
-								'id' => 2,
-								'answer_text' => 'Crowdsignal I said!',
-							)
-						),
-					)
-				)
-			)
-		);
-		$gateway->expects( $this->never() )->method( 'create_poll' );
-
-		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( $gateway );
-
-		$request = new \WP_REST_Request( 'POST', '/crowdsignal-forms/v1/polls/1'  );
-		$request->set_header( 'content-type', 'application/json' );
-		$request->set_param( 'poll_id',  1 );
-		$request->set_body( json_encode( array(
-			'question' => 'Hello?',
-		) ) );
-
-		$response = $this->server->dispatch( $request );
-		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
-		$this->assertTrue( 200 === $response->get_status() );
-	}
-
-	/**
-	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::archive_poll
-	 *
-	 * @since 0.9.0
-	 */
-	public function test_archive_poll_400_when_incorrect_user_perms() {
-		$this->login_as_default_user();
-		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
-		$request = new \WP_REST_Request( 'POST', '/crowdsignal-forms/v1/polls/1/archive' );
-
-		$response = $this->server->dispatch( $request );
-		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
-		$this->assertTrue( $response->get_status() === 401 );
-	}
-
-	/**
-	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::archive_poll
-	 *
-	 * @since 0.9.0
-	 */
-	public function test_archive_poll_succeeded() {
-		$this->login_as_editor();
-		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
-		$request = new \WP_REST_Request( 'POST', '/crowdsignal-forms/v1/polls/1/archive' );
-		$request->set_param( 'poll_id',  1 );
-		$response = $this->server->dispatch( $request );
-		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
-		$this->assertTrue( 200 === $response->get_status() );
 	}
 }
