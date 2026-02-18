@@ -5,18 +5,17 @@ test.describe( 'Poll block in the editor', () => {
 		// Create a new post to open the block editor.
 		await page.goto( '/wp-admin/post-new.php' );
 
-		// Dismiss any welcome guide / modal that may appear on first load.
-		const welcomeModal = page.locator(
-			'role=dialog >> text=/welcome|get started/i'
+		// Dismiss the welcome modal that appears on first editor load.
+		// It uses a screen overlay that blocks all pointer events.
+		const modalCloseButton = page.locator(
+			'.components-modal__header button[aria-label="Close"]'
 		);
-		if ( await welcomeModal.isVisible( { timeout: 5_000 } ).catch( () => false ) ) {
-			// Close via the X button or the "Get started" / "Close" button.
-			const closeButton = page.locator(
-				'role=dialog >> role=button >> text=/close|get started/i'
-			);
-			if ( await closeButton.isVisible().catch( () => false ) ) {
-				await closeButton.click();
-			}
+		if (
+			await modalCloseButton
+				.isVisible( { timeout: 5_000 } )
+				.catch( () => false )
+		) {
+			await modalCloseButton.click();
 		}
 
 		// Open the block inserter via the top-bar toggle button.
