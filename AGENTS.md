@@ -14,7 +14,7 @@ Crowdsignal Forms is a WordPress Gutenberg plugin that adds interactive blocks (
 
 ```bash
 make setup     # First-time: install deps + start Docker + build
-make verify    # Before submitting: build + all tests + lint
+make verify    # Before submitting: build + all tests + E2E
 ```
 
 ## Directory Structure
@@ -70,13 +70,13 @@ build/                   Compiled JS + CSS (generated, do not edit)
 | `make setup` | First-time setup: install + Docker + build |
 | `make install` | Install Node + PHP dependencies |
 | `make client` | Build all blocks + styles |
-| `make verify` | Full verification: build + PHPUnit + Jest + lint + E2E |
+| `make verify` | Full verification: build + Jest + PHPUnit + E2E |
 | `make phpunit` | Run PHPUnit tests in Docker |
 | `make phpunit ARGS="--filter TestName"` | Run a single PHPUnit test |
 | `pnpm test` | Run Jest unit tests |
 | `make e2e` | Run Playwright E2E tests |
-| `pnpm lint:all` | Lint JS + SCSS |
-| `make phpcs` | Lint PHP (WordPress Coding Standards) |
+| `pnpm lint:all` | Lint JS + SCSS (has pre-existing errors; not in `verify`) |
+| `make phpcs` | Lint PHP (has pre-existing errors; not in `verify`) |
 | `make phpcbf` | Auto-fix PHP lint issues |
 | `make docker_up` | Start Docker containers |
 | `make docker_down` | Stop and remove Docker containers |

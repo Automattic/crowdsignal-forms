@@ -3,13 +3,13 @@
 ## Quick Reference
 
 ```bash
-make verify                              # FULL verification (build + all tests + lint)
+make verify                              # FULL verification (build + Jest + PHPUnit + E2E)
 make phpunit                             # PHP integration tests
 make phpunit ARGS="--filter TestName"    # Single PHP test
 pnpm test                                # Jest JS unit tests
 make e2e                                 # Playwright E2E tests
-pnpm lint:all                            # JS + SCSS lint
-make phpcs                               # PHP lint
+pnpm lint:all                            # JS + SCSS lint (pre-existing errors)
+make phpcs                               # PHP lint (pre-existing errors)
 ```
 
 **ALWAYS run `make verify` before submitting any changes.**
@@ -117,6 +117,10 @@ pnpm exec playwright test --config e2e/playwright.config.ts --debug
 **Tier 2 (requires API credentials):** Full poll lifecycle, API integration. These tests check for `CROWDSIGNAL_FORMS_API_PARTNER_GUID` in `docker/.env` and skip if not set.
 
 ## Linting
+
+> **Note:** Both `pnpm lint:all` and `make phpcs` have pre-existing failures on
+> master and are NOT included in `make verify`. Run them separately to check
+> your own changes, but expect unrelated errors.
 
 ```bash
 # All linting (JS + SCSS + PHP)
