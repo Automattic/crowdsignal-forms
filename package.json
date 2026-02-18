@@ -29,7 +29,6 @@
 		"lint:styles": "wp-scripts lint-style ./assets/stylesheets ./client/**/*.scss",
 		"lint:all": "npm run lint:js && npm run lint:styles",
 		"test": "wp-scripts test-unit-js ./client",
-		"test:e2e": "playwright test --config=e2e/playwright.config.ts",
 		"build": "wp-scripts build ./client/editor.js ./client/poll.js ./client/applause.js ./client/vote.js ./client/feedback.js ./client/nps.js && pnpm build:apifetch && pnpm run build:styles",
 		"analyze": "wp-scripts build ./client/poll.js --webpack-bundle-analyzer"
 	},

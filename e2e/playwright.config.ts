@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
 const baseURL = process.env.WP_BASE_URL || 'http://localhost:8000';
 
@@ -34,7 +34,6 @@ export default defineConfig( {
 		{
 			name: 'chromium',
 			use: {
-				...devices[ 'Desktop Chrome' ],
 				storageState: 'e2e/.auth/storage-state.json',
 			},
 			dependencies: [ 'auth-setup' ],

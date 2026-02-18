@@ -24,10 +24,9 @@ setup( 'authenticate as WordPress admin', async ( { page } ) => {
 	await page.locator( '#user_pass' ).fill( 'wordpress' );
 	await page.locator( '#wp-submit' ).click();
 
-	// Wait for the dashboard to confirm login succeeded.
-	await expect( page.locator( '#wpadminbar' ) ).toBeVisible( {
-		timeout: 15_000,
-	} );
+	// Wait for the post-login redirect to complete before checking the admin bar.
+	await page.waitForURL( '**/wp-admin/**', { timeout: 30_000 } );
+	await expect( page.locator( '#wpadminbar' ) ).toBeVisible();
 
 	await page.context().storageState( { path: authFile } );
 } );

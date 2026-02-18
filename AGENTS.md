@@ -14,7 +14,7 @@ Crowdsignal Forms is a WordPress Gutenberg plugin that adds interactive blocks (
 
 ```bash
 make setup     # First-time: install deps + start Docker + build
-make verify    # Before submitting: build + all tests + E2E
+make verify    # Before submitting: build + Jest + PHPUnit + E2E (lint excluded)
 ```
 
 ## Directory Structure
