@@ -71,4 +71,23 @@ composer:
 pot:
 	./scripts/makepot.sh
 
-.PHONY: install install-node install-php client clean clean-release docker_env docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpcs phpcbf composer release pot
+# Run Playwright E2E tests against Docker WordPress
+e2e:
+	pnpm exec playwright test --config e2e/playwright.config.ts
+
+# Full verification: build + all tests + lint
+verify: client
+	pnpm test
+	pnpm lint:all
+	$(MAKE) phpcs
+	$(MAKE) phpunit
+	$(MAKE) e2e
+
+# One-command first-time setup
+setup: install docker_env docker_build docker_up
+	@echo "Waiting for MySQL to initialize..."
+	sleep 10
+	$(MAKE) docker_install
+	$(MAKE) client
+
+.PHONY: install install-node install-php client clean clean-release docker_env docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpcs phpcbf composer release pot e2e verify setup
