@@ -3,8 +3,8 @@ import path from 'path';
 
 const authFile = path.join( __dirname, '..', '.auth', 'storage-state.json' );
 
-setup( 'authenticate as WordPress admin', async ( { page, baseURL } ) => {
-	await page.goto( `${ baseURL }/wp-login.php` );
+setup( 'authenticate as WordPress admin', async ( { page } ) => {
+	await page.goto( '/wp-login.php' );
 
 	await page.locator( '#user_login' ).fill( 'wordpress' );
 	await page.locator( '#user_pass' ).fill( 'wordpress' );

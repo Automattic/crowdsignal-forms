@@ -20,9 +20,10 @@ test.describe( 'Poll block in the editor', () => {
 		}
 
 		// Open the block inserter via the top-bar toggle button.
+		// Label changed from "Toggle block inserter" to "Block Inserter" in WP 6.5.
 		const inserterToggle = page.locator(
-			'button[aria-label="Toggle block inserter"]'
-		);
+			'button[aria-label="Toggle block inserter"], button[aria-label="Block Inserter"]'
+		).first();
 		await inserterToggle.click( { timeout: 10_000 } );
 
 		// Search for the poll block.

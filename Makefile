@@ -84,7 +84,7 @@ verify: client
 	$(MAKE) e2e
 
 # One-command first-time setup
-setup: install docker_env docker_build docker_up
+setup: install docker_build docker_up
 	@echo "Waiting for MySQL to initialize..."
 	sleep 10
 	$(MAKE) docker_install
