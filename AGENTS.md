@@ -72,7 +72,8 @@ build/                   Compiled JS + CSS (generated, do not edit)
 | `make client` | Build all blocks + styles |
 | `make verify` | Full verification: build + Jest + PHPUnit + E2E |
 | `make phpunit` | Run PHPUnit tests in Docker |
-| `make phpunit ARGS="--filter TestName"` | Run a single PHPUnit test |
+| `make phpunit-studio` | Run PHPUnit locally via WordPress Studio (SQLite, no Docker) |
+| `make phpunit ARGS="--filter TestName"` | Run a single PHPUnit test (also works with `phpunit-studio`) |
 | `pnpm test` | Run Jest unit tests |
 | `make e2e` | Run Playwright E2E tests |
 | `pnpm lint:all` | Lint JS + SCSS (has pre-existing errors; not in `verify`) |
@@ -173,13 +174,13 @@ Controllers in `includes/rest-api/controllers/`:
 5. **Node version is exact** — must be 18.13.0 per `.nvmrc`. Use `nvm use` before running build commands.
 6. **SCSS builds are per-block** — changing one block's SCSS doesn't rebuild others. Run `pnpm build:styles` to rebuild all.
 7. **Do not edit files in `build/`** — these are generated. Edit source in `client/` and `assets/stylesheets/`.
-8. **PHPUnit needs Docker** — tests run inside the WordPress container against a test database. Use `make phpunit`.
+8. **PHPUnit has two modes** — `make phpunit` runs inside the Docker container (MySQL); `make phpunit-studio` runs locally against WordPress Studio (SQLite, no Docker). Both produce identical results.
 9. **Frontend rendering is PHP** — blocks render server-side via PHP classes, not React save functions.
 10. **Crowdsignal API key required for full functionality** — the plugin needs a Crowdsignal.com API key to create/fetch polls. Without it, the editor blocks load but can't communicate with the API. See docker-dev-environment skill for setup.
 
 ## Testing Strategy
 
-- **PHPUnit** (`make phpunit`): PHP integration tests. Test models, gateways, synchronizers, REST controllers. Extend `Crowdsignal_Forms_Unit_Test_Case`.
+- **PHPUnit** (`make phpunit` or `make phpunit-studio`): PHP integration tests. Test models, gateways, synchronizers, REST controllers. Extend `Crowdsignal_Forms_Unit_Test_Case`. The `phpunit-studio` variant runs locally against WordPress Studio (SQLite) without Docker.
 - **Jest** (`pnpm test`): JS unit tests. Test React components and utilities. Mocks for `@wordpress/blocks` and `@wordpress/i18n` in `tests-js/mocks/`.
 - **Playwright** (`make e2e`): E2E browser tests. Verify blocks work in the WordPress editor and frontend. Tier 1 tests run without API credentials; Tier 2 requires them.
 - **ALWAYS run `make verify` before submitting changes.**

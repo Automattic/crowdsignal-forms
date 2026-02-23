@@ -4,8 +4,9 @@
 
 ```bash
 make verify                              # FULL verification (build + Jest + PHPUnit + E2E)
-make phpunit                             # PHP integration tests
-make phpunit ARGS="--filter TestName"    # Single PHP test
+make phpunit                             # PHP integration tests (Docker + MySQL)
+make phpunit-studio                      # PHP integration tests (local, SQLite, no Docker)
+make phpunit ARGS="--filter TestName"    # Single PHP test (also works with phpunit-studio)
 pnpm test                                # Jest JS unit tests
 make e2e                                 # Playwright E2E tests
 pnpm lint:all                            # JS + SCSS lint (pre-existing errors)
@@ -16,22 +17,30 @@ make phpcs                               # PHP lint (pre-existing errors)
 
 ## PHPUnit (PHP Tests)
 
-Tests run inside the Docker WordPress container against a test database.
+PHPUnit tests can run in two modes:
+
+### Option A: Docker (MySQL) — `make phpunit`
+
+Tests run inside the Docker WordPress container against a MySQL test database.
 
 **Prerequisites:** Docker containers must be running (`make docker_up`).
 
 ```bash
-# Run all PHP tests
 make phpunit
-
-# Run a specific test class
 make phpunit ARGS="--filter Crowdsignal_Forms_Poll_Test"
-
-# Run a specific test method
-make phpunit ARGS="--filter test_create_poll"
-
-# Run with coverage
 make phpunit ARGS="--coverage-text"
+```
+
+### Option B: Studio (SQLite, no Docker) — `make phpunit-studio`
+
+Tests run locally against a WordPress Studio installation using SQLite. No Docker needed — faster startup, same results.
+
+**Prerequisites:** WordPress Studio site at `~/Studio/my-wordpress-website/` with the SQLite drop-in.
+
+```bash
+make phpunit-studio
+make phpunit-studio ARGS="--filter Crowdsignal_Forms_Poll_Test"
+make phpunit-studio ARGS="--filter test_create_poll"
 ```
 
 **Adding a new PHPUnit test:**
@@ -135,7 +144,7 @@ make phpcbf              # Fix PHP formatting
 
 | Failure | Likely Cause |
 |---------|-------------|
-| PHPUnit "WordPress not found" | Docker not running or test framework not mounted |
+| PHPUnit "WordPress not found" | Docker not running (for `make phpunit`) or Studio site missing (for `make phpunit-studio`) |
 | Jest module not found | Missing mock in `tests-js/mocks/` or wrong import path |
 | E2E timeout | Docker WordPress not responding on localhost:8000 |
 | PHPCS errors | WordPress coding standards violation — run `make phpcbf` to auto-fix |
