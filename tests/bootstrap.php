@@ -1,5 +1,10 @@
 <?php
 
+// Allow overriding the WP test config path via env var (e.g. for Studio/SQLite).
+if ( getenv( 'WP_TESTS_CONFIG_FILE_PATH' ) ) {
+    define( 'WP_TESTS_CONFIG_FILE_PATH', getenv( 'WP_TESTS_CONFIG_FILE_PATH' ) );
+}
+
 class Crowdsignal_Forms_Unit_Tests_Bootstrap {
     /** @var Crowdsignal_Forms_Unit_Tests_Bootstrap instance */
     protected static $instance = null;
