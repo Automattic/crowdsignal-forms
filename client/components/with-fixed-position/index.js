@@ -78,9 +78,11 @@ export const withFixedPositionControl = ( BlockEdit ) => {
 
 		const setPosition = useCallback(
 			( value ) => {
-				setOffset[ props.clientId ](
-					pick( value, [ 'top', 'left', 'right', 'bottom' ] )
-				);
+				if ( typeof setOffset[ props.clientId ] === 'function' ) {
+					setOffset[ props.clientId ](
+						pick( value, [ 'top', 'left', 'right', 'bottom' ] )
+					);
+				}
 			},
 			[ props.clientId ]
 		);

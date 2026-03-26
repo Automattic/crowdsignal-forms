@@ -62,7 +62,7 @@ export const isAnswerEmpty = ( answer ) =>
  *
  * @param {*} font The name of the Google font
  */
-export const loadCustomFont = ( font ) => {
+export const loadCustomFont = ( font, doc = document ) => {
 	if (
 		isEmpty( font ) ||
 		FontFamilyType.THEME_DEFAULT === font ||
@@ -73,15 +73,15 @@ export const loadCustomFont = ( font ) => {
 
 	const googleFontsLink = `https://fonts.googleapis.com/css2?family=${ font }:wght@400;600;700&display=swap`;
 	const crowdsignalFonts = filter(
-		Array.from( document.head.childNodes ),
+		Array.from( doc.head.childNodes ),
 		( node ) =>
 			node.nodeName.toLowerCase() === 'link' &&
 			node.href === googleFontsLink
 	);
 
 	if ( crowdsignalFonts.length === 0 ) {
-		document.head.appendChild(
-			tap( document.createElement( 'link' ), ( link ) => {
+		doc.head.appendChild(
+			tap( doc.createElement( 'link' ), ( link ) => {
 				link.type = 'text/css';
 				link.rel = 'stylesheet';
 				link.href = googleFontsLink;

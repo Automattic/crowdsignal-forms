@@ -3,18 +3,18 @@
  */
 import { isObject } from 'lodash';
 
-const addFrameOffsets = ( offset, frame ) => ( {
-	left: offset.left + frame.x + window.scrollX,
+const addFrameOffsets = ( offset, frame, win = window ) => ( {
+	left: offset.left + frame.x + win.scrollX,
 	right:
 		offset.right +
-		( window.innerWidth > frame.left + frame.width
-			? window.innerWidth - frame.left - frame.width
+		( win.innerWidth > frame.left + frame.width
+			? win.innerWidth - frame.left - frame.width
 			: 0 ),
-	top: offset.top + frame.y + window.scrollY,
+	top: offset.top + frame.y + win.scrollY,
 	bottom:
 		offset.bottom +
-		( window.innerHeight > frame.top + frame.height
-			? window.innerHeight - frame.top - frame.height
+		( win.innerHeight > frame.top + frame.height
+			? win.innerHeight - frame.top - frame.height
 			: 0 ),
 } );
 
@@ -25,10 +25,10 @@ const getFeedbackButtonHorizontalPosition = ( align, width, offset ) => {
 	};
 };
 
-const getFeedbackButtonVerticalPosition = ( verticalAlign, height, offset ) => {
+const getFeedbackButtonVerticalPosition = ( verticalAlign, height, offset, win = window ) => {
 	if ( verticalAlign === 'center' ) {
 		return {
-			top: ( window.innerHeight - height ) / 2,
+			top: ( win.innerHeight - height ) / 2,
 			bottom: null,
 		};
 	}
@@ -45,7 +45,8 @@ export const getFeedbackButtonPosition = (
 	width,
 	height,
 	padding,
-	frameElement = null
+	frameElement = null,
+	win = window
 ) => {
 	let offset = {
 		left: isObject( padding ) ? padding.left : padding,
@@ -57,12 +58,13 @@ export const getFeedbackButtonPosition = (
 	if ( frameElement ) {
 		offset = addFrameOffsets(
 			offset,
-			frameElement.getBoundingClientRect()
+			frameElement.getBoundingClientRect(),
+			win
 		);
 	}
 
 	return {
 		...getFeedbackButtonHorizontalPosition( align, width, offset ),
-		...getFeedbackButtonVerticalPosition( verticalAlign, height, offset ),
+		...getFeedbackButtonVerticalPosition( verticalAlign, height, offset, win ),
 	};
 };
