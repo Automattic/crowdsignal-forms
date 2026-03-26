@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { useState } from '@wordpress/element';
-import { View } from '@wordpress/primitives';
+import { useBlockProps } from '@wordpress/block-editor';
 /**
  * Internal dependencies
  */
@@ -25,6 +25,7 @@ import Toolbar from './toolbar';
 import { STORE_NAME } from 'state';
 
 const EmbedForm = ( { attributes, setAttributes } ) => {
+	const blockProps = useBlockProps();
 	const [ isEditingURL, setIsEditingURL ] = useState( true );
 
 	const {
@@ -85,7 +86,7 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 
 	if ( fetching ) {
 		return (
-			<View>
+			<div { ...blockProps }>
 				<Sidebar
 					attributes={ attributes }
 					shouldPromote={ shouldPromote }
@@ -95,12 +96,12 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 				<Placeholder>
 					<EmbedLoading />
 				</Placeholder>
-			</View>
+			</div>
 		);
 	}
 
 	return (
-		<View>
+		<div { ...blockProps }>
 			<Sidebar
 				attributes={ attributes }
 				shouldPromote={ shouldPromote }
@@ -154,7 +155,7 @@ const EmbedForm = ( { attributes, setAttributes } ) => {
 					</ExternalLink>
 				</Placeholder>
 			) }
-		</View>
+		</div>
 	);
 };
 export default EmbedForm;

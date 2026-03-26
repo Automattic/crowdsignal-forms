@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 /**
  * WordPress depenencies
  */
-import { RichText } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { TextControl, TextareaControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withSelect, dispatch, useSelect } from '@wordpress/data';
@@ -280,8 +280,15 @@ const EditFeedbackBlock = ( props ) => {
 		'hide-branding'
 	);
 
+	const blockProps = useBlockProps();
+	const mergedRef = ( node ) => {
+		if ( typeof blockProps.ref === 'function' ) blockProps.ref( node );
+		else if ( blockProps.ref ) blockProps.ref.current = node;
+		if ( props.fallbackStylesRef ) props.fallbackStylesRef( node );
+	};
+
 	return (
-		<div ref={ props.fallbackStylesRef }>
+		<div { ...blockProps } ref={ mergedRef }>
 		<ConnectToCrowdsignal
 			blockName={ __( 'Feedback Button', 'crowdsignal-forms' ) }
 			blockIcon={ <FeedbackIcon /> }

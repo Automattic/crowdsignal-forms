@@ -13,6 +13,7 @@ import attributes from './attributes';
 import variations from './variations';
 
 export default {
+	apiVersion: 3,
 	title: __( 'Survey', 'crowdsignal-forms' ),
 	description: __(
 		'Create a multipage survey on crowdsignal.com and embed it.',
@@ -28,7 +29,4 @@ export default {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 	},
-	getEditWrapperProps: ( { align } ) => ( {
-		'data-align': align,
-	} ),
 };

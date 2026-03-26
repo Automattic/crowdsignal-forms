@@ -6,6 +6,7 @@ import React from 'react';
 /**
  * WordPress dependencies
  */
+import { useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 
 /**
@@ -19,8 +20,15 @@ import { withFallbackStyles } from 'components/with-fallback-styles';
 const EditVoteItemBlock = ( props ) => {
 	const { attributes, className, fallbackStyles, fallbackStylesRef, renderStyleProbe } = props;
 
+	const blockProps = useBlockProps();
+	const mergedRef = ( node ) => {
+		if ( typeof blockProps.ref === 'function' ) blockProps.ref( node );
+		else if ( blockProps.ref ) blockProps.ref.current = node;
+		if ( fallbackStylesRef ) fallbackStylesRef( node );
+	};
+
 	return (
-		<div ref={ fallbackStylesRef }>
+		<div { ...blockProps } ref={ mergedRef }>
 			<SideBar { ...props } />
 
 			<VoteItem

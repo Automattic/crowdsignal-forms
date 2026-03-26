@@ -8,7 +8,7 @@ import { get } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { InnerBlocks } from '@wordpress/block-editor';
+import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
@@ -29,6 +29,7 @@ import withFseCheck from 'components/with-fse-check';
 
 const EditVoteBlock = ( props ) => {
 	const { attributes, setAttributes, className, pollDataFromApi } = props;
+	const blockProps = useBlockProps();
 
 	useNumberedTitle(
 		props.name,
@@ -72,6 +73,7 @@ const EditVoteBlock = ( props ) => {
 			get( accountInfo, [ 'signalCount', 'userLimit' ] );
 
 	return (
+		<div { ...blockProps }>
 		<ConnectToCrowdsignal
 			blockIcon={ null }
 			blockName={ __( 'Crowdsignal Vote', 'crowdsignal-forms' ) }
@@ -99,6 +101,7 @@ const EditVoteBlock = ( props ) => {
 				</div>
 			</div>
 		</ConnectToCrowdsignal>
+		</div>
 	);
 };
 

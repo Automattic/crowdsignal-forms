@@ -12,6 +12,7 @@ import EditPollBlock from './edit';
 import attributes from './attributes';
 
 export default {
+	apiVersion: 3,
 	title: __( 'Poll', 'crowdsignal-forms' ),
 	description: __(
 		'Create polls and get your audience’s opinion — powered by Crowdsignal.',
@@ -39,9 +40,6 @@ export default {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 	},
-	getEditWrapperProps: ( { align } ) => ( {
-		'data-align': align,
-	} ),
 	example: {
 		attributes: {
 			question: __( 'How did you hear about us?', 'crowdsignal-forms' ),

@@ -11,6 +11,7 @@ import attributes from './attributes';
 import EditFeedbackBlock from './edit';
 
 export default {
+	apiVersion: 3,
 	title: __( 'Feedback Button', 'crowdsignal-forms' ),
 	description: __(
 		'Add an always visible button that allows your audience to share feedback anytime.',

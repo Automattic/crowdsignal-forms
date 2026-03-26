@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
  * WordPress dependencies
  */
 import { TextareaControl } from '@wordpress/components';
-import { RichText } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { __, _n, sprintf } from '@wordpress/i18n';
@@ -96,8 +96,15 @@ const EditNpsBlock = ( props ) => {
 		get( accountInfo, [ 'signalCount', 'count' ] ) >=
 			get( accountInfo, [ 'signalCount', 'userLimit' ] );
 
+	const blockProps = useBlockProps();
+	const mergedRef = ( node ) => {
+		if ( typeof blockProps.ref === 'function' ) blockProps.ref( node );
+		else if ( blockProps.ref ) blockProps.ref.current = node;
+		if ( fallbackStylesRef ) fallbackStylesRef( node );
+	};
+
 	return (
-		<div ref={ fallbackStylesRef }>
+		<div { ...blockProps } ref={ mergedRef }>
 		<ConnectToCrowdsignal
 			blockIcon={ null }
 			blockName={ __( 'Crowdsignal NPS', 'crowdsignal-forms' ) }

@@ -7,7 +7,7 @@ import { get, filter, isEmpty, map, round, some } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { RichText } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { ResizableBox } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
@@ -81,6 +81,8 @@ const PollBlock = ( props ) => {
 		renderStyleProbe,
 		pollDataFromApi,
 	} = props;
+
+	const blockProps = useBlockProps();
 
 	const [ isPollEditable, setIsPollEditable ] = useState( true );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
@@ -159,6 +161,7 @@ const PollBlock = ( props ) => {
 			get( accountInfo, [ 'signalCount', 'userLimit' ] );
 
 	return (
+		<div { ...blockProps }>
 		<ConnectToCrowdsignal
 			blockIcon={ <PollIcon /> }
 			blockName={ __( 'Crowdsignal Poll', 'crowdsignal-forms' ) }
@@ -293,6 +296,7 @@ const PollBlock = ( props ) => {
 				</div>
 			</ResizableBox>
 		</ConnectToCrowdsignal>
+		</div>
 	);
 };
 

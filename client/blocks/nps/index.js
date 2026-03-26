@@ -11,6 +11,7 @@ import attributes from './attributes';
 import edit from './edit';
 
 export default {
+	apiVersion: 3,
 	title: __( 'Measure NPS', 'crowdsignal-forms' ),
 	description: __(
 		'Calculate your Net Promoter Score! Collect feedback and track customer satisfaction over time. — powered by Crowdsignal.',

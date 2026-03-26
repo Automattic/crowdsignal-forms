@@ -11,6 +11,7 @@ import EditApplauseBlock from './edit';
 import attributes from './attributes';
 
 export default {
+	apiVersion: 3,
 	title: __( 'Applause', 'crowdsignal-forms' ),
 	description: __(
 		'Let your audience cheer with a big round of applause — powered by Crowdsignal.',
