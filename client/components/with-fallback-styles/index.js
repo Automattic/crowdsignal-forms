@@ -35,9 +35,11 @@ const getStyles = ( node ) => {
 	const h3Node = node.querySelector( 'h3' );
 	const wideContentNode = node.querySelector( '.alignwide' );
 
+	const computedStyle = node.ownerDocument.defaultView.getComputedStyle;
+
 	let accentColor = getBackgroundColor( buttonNode );
 	const backgroundColor = getBackgroundColor( textNode );
-	const textColor = window.getComputedStyle( textNode ).color;
+	const textColor = computedStyle( textNode ).color;
 
 	// Ensure that we don't end up with the same color for surface and accent.
 	// Falls back to button border color, then text color.
@@ -50,11 +52,11 @@ const getStyles = ( node ) => {
 		accentColor,
 		backgroundColor,
 		textColor,
-		textColorInverted: window.getComputedStyle( buttonNode ).color,
-		textFont: window.getComputedStyle( textNode ).fontFamily,
-		textSize: window.getComputedStyle( textNode ).fontSize,
-		headingFont: window.getComputedStyle( h3Node ).fontFamily,
-		contentWideWidth: window.getComputedStyle( wideContentNode ).maxWidth,
+		textColorInverted: computedStyle( buttonNode ).color,
+		textFont: computedStyle( textNode ).fontFamily,
+		textSize: computedStyle( textNode ).fontSize,
+		headingFont: computedStyle( h3Node ).fontFamily,
+		contentWideWidth: computedStyle( wideContentNode ).maxWidth,
 	};
 };
 
@@ -65,7 +67,7 @@ export const withFallbackStyles = ( WrappedComponent ) => {
 		),
 	} ) );
 
-	return getFallbackStyles( ( { fallbackStyles, ...props } ) => {
+	return getFallbackStyles( ( { fallbackStyles, fallbackStylesRef, ...props } ) => {
 		const renderProbe = () => {
 			if ( fallbackStyles ) {
 				return null;
@@ -77,6 +79,7 @@ export const withFallbackStyles = ( WrappedComponent ) => {
 		return (
 			<WrappedComponent
 				fallbackStyles={ fallbackStyles || {} }
+				fallbackStylesRef={ fallbackStylesRef }
 				renderStyleProbe={ renderProbe }
 				{ ...props }
 			/>

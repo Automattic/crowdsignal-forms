@@ -281,6 +281,7 @@ const EditFeedbackBlock = ( props ) => {
 	);
 
 	return (
+		<div ref={ props.fallbackStylesRef }>
 		<ConnectToCrowdsignal
 			blockName={ __( 'Feedback Button', 'crowdsignal-forms' ) }
 			blockIcon={ <FeedbackIcon /> }
@@ -453,6 +454,7 @@ const EditFeedbackBlock = ( props ) => {
 
 			{ props.renderStyleProbe() }
 		</ConnectToCrowdsignal>
+		</div>
 	);
 };
 

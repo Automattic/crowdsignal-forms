@@ -17,7 +17,7 @@ import BrandLink from 'components/brand-link';
 import ApplauseAnimation from './animation';
 
 const Applause = ( props ) => {
-	const { attributes, fallbackStyles, renderStyleProbe } = props;
+	const { attributes, fallbackStyles, fallbackStylesRef, renderStyleProbe } = props;
 	const apiPollId = attributes.apiPollData ? attributes.apiPollData.id : null;
 	const { hasVoted, vote } = usePollVote( apiPollId, true );
 	const [ currentVote, setCurrentVote ] = useState( 0 );
@@ -85,6 +85,7 @@ const Applause = ( props ) => {
 	return (
 		<>
 			<div
+				ref={ fallbackStylesRef }
 				className={ classes }
 				style={ styleVars }
 				onClick={ handleVote }

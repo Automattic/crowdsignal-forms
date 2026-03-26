@@ -32,7 +32,7 @@ import { CrowdsignalFormsError } from 'data/poll';
 import ErrorBanner from './error-banner';
 import SubmitMessage from './submit-message';
 
-const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
+const Poll = ( { attributes, fallbackStyles, fallbackStylesRef, renderStyleProbe } ) => {
 	const [ randomAnswerSeed ] = useState( Math.random() );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
 	const [ dismissSubmitMessage, setDismissSubmitMessage ] = useState( false );
@@ -152,7 +152,7 @@ const Poll = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	}
 
 	return (
-		<div className={ classes } style={ blockStyle }>
+		<div ref={ fallbackStylesRef } className={ classes } style={ blockStyle }>
 			{ errorMessage && <ErrorBanner>{ errorMessage }</ErrorBanner> }
 
 			<div className={ contentClasses }>

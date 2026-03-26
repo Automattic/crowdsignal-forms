@@ -75,6 +75,7 @@ const PollBlock = ( props ) => {
 		attributes,
 		className,
 		fallbackStyles,
+		fallbackStylesRef,
 		isSelected,
 		setAttributes,
 		renderStyleProbe,
@@ -181,6 +182,7 @@ const PollBlock = ( props ) => {
 				resizeRatio={ 2 }
 			>
 				<div
+					ref={ fallbackStylesRef }
 					className={ getBlockCssClasses(
 						attributes,
 						className,

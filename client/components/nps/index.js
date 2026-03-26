@@ -24,6 +24,7 @@ const Nps = ( {
 	attributes,
 	contentWidth,
 	fallbackStyles,
+	fallbackStylesRef,
 	onClose,
 	renderStyleProbe,
 } ) => {
@@ -52,7 +53,7 @@ const Nps = ( {
 	};
 
 	return (
-		<>
+		<div ref={ fallbackStylesRef }>
 			<div className="crowdsignal-forms-nps" style={ style }>
 				<h3
 					className="crowdsignal-forms-nps__question"
@@ -99,7 +100,7 @@ const Nps = ( {
 			</div>
 
 			{ renderStyleProbe() }
-		</>
+		</div>
 	);
 };
 
