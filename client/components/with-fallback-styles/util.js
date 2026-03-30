@@ -8,16 +8,17 @@
  * @return {string}  The background colour of the node
  */
 export const getBackgroundColor = ( backgroundColorNode ) => {
-	const computedStyle =
-		backgroundColorNode.ownerDocument.defaultView.getComputedStyle;
-	let backgroundColor = computedStyle( backgroundColorNode ).backgroundColor;
+	const view = backgroundColorNode.ownerDocument.defaultView;
+	let backgroundColor = view.getComputedStyle( backgroundColorNode )
+		.backgroundColor;
 	while (
 		backgroundColor === 'rgba(0, 0, 0, 0)' &&
 		backgroundColorNode.parentNode &&
 		backgroundColorNode.parentNode.nodeType === 1
 	) {
 		backgroundColorNode = backgroundColorNode.parentNode;
-		backgroundColor = computedStyle( backgroundColorNode ).backgroundColor;
+		backgroundColor = view.getComputedStyle( backgroundColorNode )
+			.backgroundColor;
 	}
 	return backgroundColor;
 };
@@ -31,11 +32,11 @@ export const getBackgroundColor = ( backgroundColorNode ) => {
  * @return {string|null} The border colour value of null if invalid
  */
 export const getBorderColor = ( borderNode ) => {
-	const computedStyle =
-		borderNode.ownerDocument.defaultView.getComputedStyle;
-	const borderWidth = computedStyle( borderNode ).borderBlockStartWidth;
+	const view = borderNode.ownerDocument.defaultView;
+	const borderWidth = view.getComputedStyle( borderNode )
+		.borderBlockStartWidth;
 	return borderWidth !== '0px'
-		? computedStyle( borderNode ).borderBlockStartColor
+		? view.getComputedStyle( borderNode ).borderBlockStartColor
 		: null;
 };
 
