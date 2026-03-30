@@ -15,7 +15,7 @@ import { withFallbackStyles } from 'components/with-fallback-styles';
 import BrandLink from 'components/brand-link';
 import { isPollClosed } from 'blocks/poll/util';
 
-const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
+const Vote = ( { attributes, fallbackStyles, fallbackStylesRef, renderStyleProbe } ) => {
 	const apiPollId = attributes.apiPollData.id;
 	const [ votedOnId, setVotedOnId ] = useState( 0 );
 	const { hasVoted, vote, storedCookieValue } = usePollVote(
@@ -56,7 +56,7 @@ const Vote = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	);
 
 	return (
-		<div className={ classes } style={ voteStyleVars }>
+		<div ref={ fallbackStylesRef } className={ classes } style={ voteStyleVars }>
 			<div className="crowdsignal-forms-vote__items">
 				{ map( attributes.innerBlocks, ( voteAttributes ) => {
 					const apiAnswerId =

@@ -38,6 +38,7 @@ const EditNpsBlock = ( props ) => {
 	const {
 		attributes,
 		fallbackStyles,
+		fallbackStylesRef,
 		isSelected,
 		setAttributes,
 		renderStyleProbe,
@@ -96,6 +97,7 @@ const EditNpsBlock = ( props ) => {
 			get( accountInfo, [ 'signalCount', 'userLimit' ] );
 
 	return (
+		<div ref={ fallbackStylesRef }>
 		<ConnectToCrowdsignal
 			blockIcon={ null }
 			blockName={ __( 'Crowdsignal NPS', 'crowdsignal-forms' ) }
@@ -279,6 +281,7 @@ const EditNpsBlock = ( props ) => {
 
 			{ renderStyleProbe() }
 		</ConnectToCrowdsignal>
+		</div>
 	);
 };
 

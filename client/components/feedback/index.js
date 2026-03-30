@@ -38,7 +38,7 @@ const adjustFrameOffset = ( position, verticalAlign, width, height ) => {
 	};
 };
 
-const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
+const Feedback = ( { attributes, fallbackStyles, fallbackStylesRef, renderStyleProbe } ) => {
 	const [ position, setPosition ] = useState( {} );
 
 	const toggle = useRef( null );
@@ -89,7 +89,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 	};
 
 	return (
-		<>
+		<div ref={ fallbackStylesRef }>
 			<div className={ classes } style={ styles }>
 				<Dropdown
 					popoverProps={ {
@@ -119,7 +119,7 @@ const Feedback = ( { attributes, fallbackStyles, renderStyleProbe } ) => {
 			</div>
 
 			{ renderStyleProbe() }
-		</>
+		</div>
 	);
 };
 

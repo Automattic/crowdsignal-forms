@@ -17,10 +17,10 @@ import VoteItem from 'components/vote/vote-item';
 import { withFallbackStyles } from 'components/with-fallback-styles';
 
 const EditVoteItemBlock = ( props ) => {
-	const { attributes, className, fallbackStyles, renderStyleProbe } = props;
+	const { attributes, className, fallbackStyles, fallbackStylesRef, renderStyleProbe } = props;
 
 	return (
-		<>
+		<div ref={ fallbackStylesRef }>
 			<SideBar { ...props } />
 
 			<VoteItem
@@ -33,7 +33,7 @@ const EditVoteItemBlock = ( props ) => {
 			/>
 
 			{ renderStyleProbe() }
-		</>
+		</div>
 	);
 };
 

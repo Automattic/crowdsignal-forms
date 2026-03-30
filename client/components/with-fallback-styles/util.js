@@ -8,15 +8,16 @@
  * @return {string}  The background colour of the node
  */
 export const getBackgroundColor = ( backgroundColorNode ) => {
-	let backgroundColor = window.getComputedStyle( backgroundColorNode )
+	const view = backgroundColorNode.ownerDocument.defaultView;
+	let backgroundColor = view.getComputedStyle( backgroundColorNode )
 		.backgroundColor;
 	while (
 		backgroundColor === 'rgba(0, 0, 0, 0)' &&
 		backgroundColorNode.parentNode &&
-		backgroundColorNode.parentNode.nodeType === window.Node.ELEMENT_NODE
+		backgroundColorNode.parentNode.nodeType === 1
 	) {
 		backgroundColorNode = backgroundColorNode.parentNode;
-		backgroundColor = window.getComputedStyle( backgroundColorNode )
+		backgroundColor = view.getComputedStyle( backgroundColorNode )
 			.backgroundColor;
 	}
 	return backgroundColor;
@@ -31,10 +32,11 @@ export const getBackgroundColor = ( backgroundColorNode ) => {
  * @return {string|null} The border colour value of null if invalid
  */
 export const getBorderColor = ( borderNode ) => {
-	const borderWidth = window.getComputedStyle( borderNode )
+	const view = borderNode.ownerDocument.defaultView;
+	const borderWidth = view.getComputedStyle( borderNode )
 		.borderBlockStartWidth;
 	return borderWidth !== '0px'
-		? window.getComputedStyle( borderNode ).borderBlockStartColor
+		? view.getComputedStyle( borderNode ).borderBlockStartColor
 		: null;
 };
 
@@ -101,16 +103,12 @@ export const withWordPressFallbackStyles = ( mapNodeToProps ) =>
 			}
 
 			render() {
-				const wrappedComponent = (
+				return (
 					<WrappedComponent
 						{ ...this.props }
 						{ ...this.state.fallbackStyles }
+						fallbackStylesRef={ this.bindRef }
 					/>
-				);
-				return this.props.node ? (
-					wrappedComponent
-				) : (
-					<div ref={ this.bindRef }> { wrappedComponent } </div>
 				);
 			}
 		};
