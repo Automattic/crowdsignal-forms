@@ -148,9 +148,11 @@ const PollBlock = ( props ) => {
 
 	const answerStyle = getAnswerStyle( attributes, className );
 
-	if ( attributes.fontFamily && blockRef.current ) {
-		loadCustomFont( attributes.fontFamily, blockRef.current.ownerDocument );
-	}
+	useEffect( () => {
+		if ( attributes.fontFamily && blockRef.current ) {
+			loadCustomFont( attributes.fontFamily, blockRef.current.ownerDocument );
+		}
+	}, [ attributes.fontFamily ] );
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',
