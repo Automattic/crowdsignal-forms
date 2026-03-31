@@ -13,7 +13,6 @@ import {
 	Popover,
 	TextControl,
 	ToolbarGroup,
-	Toolbar,
 } from '@wordpress/components';
 
 /**
@@ -61,7 +60,7 @@ const ToolBar = ( { attributes, setAttributes } ) => {
 					};
 				} ) }
 			/>
-			<Toolbar
+			<ToolbarGroup
 				controls={ [
 					{
 						icon: BorderIcon,
