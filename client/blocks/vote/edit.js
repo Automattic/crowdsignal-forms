@@ -74,33 +74,33 @@ const EditVoteBlock = ( props ) => {
 
 	return (
 		<div { ...blockProps }>
-		<ConnectToCrowdsignal
-			blockIcon={ null }
-			blockName={ __( 'Crowdsignal Vote', 'crowdsignal-forms' ) }
-		>
-			<SideBar
-				{ ...props }
-				shouldPromote={ shouldPromote }
-				signalWarning={ signalWarning }
-				viewResultsUrl={ viewResultsUrl }
-			/>
-			<ToolBar { ...props } />
+			<ConnectToCrowdsignal
+				blockIcon={ null }
+				blockName={ __( 'Crowdsignal Vote', 'crowdsignal-forms' ) }
+			>
+				<SideBar
+					{ ...props }
+					shouldPromote={ shouldPromote }
+					signalWarning={ signalWarning }
+					viewResultsUrl={ viewResultsUrl }
+				/>
+				<ToolBar { ...props } />
 
-			<div className={ classes } style={ voteItemStyleVars }>
-				<div className="crowdsignal-forms-vote__items">
-					<InnerBlocks
-						template={ [
-							[ 'crowdsignal-forms/vote-item', { type: 'up' } ],
-							[ 'crowdsignal-forms/vote-item', { type: 'down' } ],
-						] }
-						templateInsertUpdatesSelection={ false }
-						allowedBlocks={ [ 'crowdsignal-forms/vote-item' ] }
-						orientation="horizontal"
-						__experimentalMoverDirection="horizontal" // required for pre WP 5.5, post 5.5 only requires `orientation` to be set
-					/>
+				<div className={ classes } style={ voteItemStyleVars }>
+					<div className="crowdsignal-forms-vote__items">
+						<InnerBlocks
+							template={ [
+								[ 'crowdsignal-forms/vote-item', { type: 'up' } ],
+								[ 'crowdsignal-forms/vote-item', { type: 'down' } ],
+							] }
+							templateInsertUpdatesSelection={ false }
+							allowedBlocks={ [ 'crowdsignal-forms/vote-item' ] }
+							orientation="horizontal"
+							__experimentalMoverDirection="horizontal" // required for pre WP 5.5, post 5.5 only requires `orientation` to be set
+						/>
+					</div>
 				</div>
-			</div>
-		</ConnectToCrowdsignal>
+			</ConnectToCrowdsignal>
 		</div>
 	);
 };

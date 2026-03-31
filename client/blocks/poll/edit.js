@@ -162,140 +162,140 @@ const PollBlock = ( props ) => {
 
 	return (
 		<div { ...blockProps }>
-		<ConnectToCrowdsignal
-			blockIcon={ <PollIcon /> }
-			blockName={ __( 'Crowdsignal Poll', 'crowdsignal-forms' ) }
-		>
-			<Toolbar { ...props } />
-			<SideBar
-				{ ...props }
-				viewResultsUrl={ viewResultsUrl }
-				shouldPromote={ shouldPromote }
-				signalWarning={ signalWarning }
-			/>
-			{ signalWarning && <SignalWarning /> }
-			<ResizableBox
-				className="crowdsignal-forms-poll__resize-wrapper"
-				size={ { height: 'auto', width: blockWidth } }
-				minWidth="25%"
-				maxWidth="100%"
-				enable={ { left: true, right: true } }
-				onResizeStop={ handleResize }
-				showHandle={ isResizable }
-				resizeRatio={ 2 }
+			<ConnectToCrowdsignal
+				blockIcon={ <PollIcon /> }
+				blockName={ __( 'Crowdsignal Poll', 'crowdsignal-forms' ) }
 			>
-				<div
-					ref={ fallbackStylesRef }
-					className={ getBlockCssClasses(
-						attributes,
-						className,
-						{
-							'is-selected-in-editor': isSelected,
-							'is-closed': isClosed,
-							'is-hidden': isHidden,
-						},
-						'crowdsignal-forms-poll'
-					) }
-					style={ getStyleVars( attributes, fallbackStyles ) }
+				<Toolbar { ...props } />
+				<SideBar
+					{ ...props }
+					viewResultsUrl={ viewResultsUrl }
+					shouldPromote={ shouldPromote }
+					signalWarning={ signalWarning }
+				/>
+				{ signalWarning && <SignalWarning /> }
+				<ResizableBox
+					className="crowdsignal-forms-poll__resize-wrapper"
+					size={ { height: 'auto', width: blockWidth } }
+					minWidth="25%"
+					maxWidth="100%"
+					enable={ { left: true, right: true } }
+					onResizeStop={ handleResize }
+					showHandle={ isResizable }
+					resizeRatio={ 2 }
 				>
-					{ showEditBar && (
-						<EditBar
-							onEditClick={ () => {
-								setIsPollEditable( true );
-							} }
-						/>
-					) }
-					{ errorMessage && (
-						<ErrorBanner>{ errorMessage }</ErrorBanner>
-					) }
-					<div className="crowdsignal-forms-poll__content">
-						{ isPollEditable ? (
-							<RichText
-								tagName="h3"
-								className="crowdsignal-forms-poll__question"
-								placeholder={ __(
-									'Enter your question',
-									'crowdsignal-forms'
-								) }
-								onChange={ handleChangeQuestion }
-								value={ attributes.question }
-								allowedFormats={ [] }
-								disableLineBreaks={ true }
+					<div
+						ref={ fallbackStylesRef }
+						className={ getBlockCssClasses(
+							attributes,
+							className,
+							{
+								'is-selected-in-editor': isSelected,
+								'is-closed': isClosed,
+								'is-hidden': isHidden,
+							},
+							'crowdsignal-forms-poll'
+						) }
+						style={ getStyleVars( attributes, fallbackStyles ) }
+					>
+						{ showEditBar && (
+							<EditBar
+								onEditClick={ () => {
+									setIsPollEditable( true );
+								} }
 							/>
-						) : (
-							<h3 className="crowdsignal-forms-poll__question">
-								{ attributes.question ||
-									__(
+						) }
+						{ errorMessage && (
+							<ErrorBanner>{ errorMessage }</ErrorBanner>
+						) }
+						<div className="crowdsignal-forms-poll__content">
+							{ isPollEditable ? (
+								<RichText
+									tagName="h3"
+									className="crowdsignal-forms-poll__question"
+									placeholder={ __(
 										'Enter your question',
 										'crowdsignal-forms'
 									) }
-							</h3>
-						) }
-
-						{ showNote &&
-							( isPollEditable ? (
-								<RichText
-									tagName="p"
-									className="crowdsignal-forms-poll__note"
-									placeholder={ __(
-										'Add a note (optional)',
-										'crowdsignal-forms'
-									) }
-									onChange={ handleChangeNote }
-									value={ attributes.note }
+									onChange={ handleChangeQuestion }
+									value={ attributes.question }
 									allowedFormats={ [] }
 									disableLineBreaks={ true }
 								/>
 							) : (
-								<div className="crowdsignal-forms-poll__note">
-									{ attributes.note ||
+								<h3 className="crowdsignal-forms-poll__question">
+									{ attributes.question ||
 										__(
+											'Enter your question',
+											'crowdsignal-forms'
+										) }
+								</h3>
+							) }
+
+							{ showNote &&
+								( isPollEditable ? (
+									<RichText
+										tagName="p"
+										className="crowdsignal-forms-poll__note"
+										placeholder={ __(
 											'Add a note (optional)',
 											'crowdsignal-forms'
 										) }
-								</div>
-							) ) }
+										onChange={ handleChangeNote }
+										value={ attributes.note }
+										allowedFormats={ [] }
+										disableLineBreaks={ true }
+									/>
+								) : (
+									<div className="crowdsignal-forms-poll__note">
+										{ attributes.note ||
+											__(
+												'Add a note (optional)',
+												'crowdsignal-forms'
+											) }
+									</div>
+								) ) }
 
-						{ ! showResults && (
-							<EditAnswers
-								{ ...props }
-								setAttributes={ setAttributes }
-								disabled={ ! isPollEditable }
-								answerStyle={ answerStyle }
-								buttonAlignment={ attributes.buttonAlignment }
+							{ ! showResults && (
+								<EditAnswers
+									{ ...props }
+									setAttributes={ setAttributes }
+									disabled={ ! isPollEditable }
+									answerStyle={ answerStyle }
+									buttonAlignment={ attributes.buttonAlignment }
+								/>
+							) }
+
+							{ showResults && (
+								<PollResults
+									answers={ addApiAnswerIds(
+										filter(
+											attributes.answers,
+											( answer ) => ! isAnswerEmpty( answer )
+										),
+										answerIdMap
+									) }
+									pollIdFromApi={ pollIdFromApi }
+									hideBranding={ hideBranding }
+									setErrorMessage={ setErrorMessage }
+								/>
+							) }
+							{ ! hideBranding && (
+								<FooterBranding />
+							) }
+						</div>
+
+						{ isClosed && (
+							<ClosedBanner
+								isPollHidden={ isHidden }
+								isPollClosed={ isClosed }
 							/>
 						) }
 
-						{ showResults && (
-							<PollResults
-								answers={ addApiAnswerIds(
-									filter(
-										attributes.answers,
-										( answer ) => ! isAnswerEmpty( answer )
-									),
-									answerIdMap
-								) }
-								pollIdFromApi={ pollIdFromApi }
-								hideBranding={ hideBranding }
-								setErrorMessage={ setErrorMessage }
-							/>
-						) }
-						{ ! hideBranding && (
-							<FooterBranding />
-						) }
+						{ renderStyleProbe() }
 					</div>
-
-					{ isClosed && (
-						<ClosedBanner
-							isPollHidden={ isHidden }
-							isPollClosed={ isClosed }
-						/>
-					) }
-
-					{ renderStyleProbe() }
-				</div>
-			</ResizableBox>
-		</ConnectToCrowdsignal>
+				</ResizableBox>
+			</ConnectToCrowdsignal>
 		</div>
 	);
 };

@@ -105,189 +105,189 @@ const EditNpsBlock = ( props ) => {
 
 	return (
 		<div { ...blockProps } ref={ mergedRef }>
-		<ConnectToCrowdsignal
-			blockIcon={ null }
-			blockName={ __( 'Crowdsignal NPS', 'crowdsignal-forms' ) }
-		>
-			<Toolbar
-				currentView={ view }
-				onViewChange={ setView }
-				{ ...props }
-			/>
-			<Sidebar
-				shouldPromote={ shouldPromote }
-				signalWarning={ signalWarning }
-				resolvedSurveyId={ resolvedSurveyId }
-				{ ...props }
-			/>
-			{ ! isExample && signalWarning && <SignalWarning /> }
+			<ConnectToCrowdsignal
+				blockIcon={ null }
+				blockName={ __( 'Crowdsignal NPS', 'crowdsignal-forms' ) }
+			>
+				<Toolbar
+					currentView={ view }
+					onViewChange={ setView }
+					{ ...props }
+				/>
+				<Sidebar
+					shouldPromote={ shouldPromote }
+					signalWarning={ signalWarning }
+					resolvedSurveyId={ resolvedSurveyId }
+					{ ...props }
+				/>
+				{ ! isExample && signalWarning && <SignalWarning /> }
 
-			{ ! isExample && (
-				<EditorNotice
-					isDismissible={ false }
-					icon="visibility"
-					componentActions={ [
-						// Temporarily disabled to prevent block render error,
-						// until we can figure out why it is breaking (maybe a new WP version?)
-						// <PostPreviewButton
-						// 	key={ 1 }
-						// 	className={ [
-						// 		'is-secondary',
-						// 		'components-notice__action',
-						// 		'crowdsignal-forms-nps__preview-button',
-						// 		attributes.surveyId ? '' : 'is-disabled',
-						// 	] }
-						// 	textContent={ __( 'Preview', 'crowdsignal-forms' ) }
-						// />,
-					] }
-				>
-					{ sprintf(
-						/* translators: %d: number of pageviews */
-						_n(
-							'This block will appear as a popup window to people who have visited this page at least %d time.',
-							'This block will appear as a popup window to people who have visited this page at least %d times.',
-							viewThreshold,
-							'crowdsignal-forms'
-						),
-						viewThreshold
-					) }
-				</EditorNotice>
-			) }
-
-			{ ( view === views.RATING || ! isSelected ) && (
-				<div
-					className={ classes }
-					style={ getStyleVars( attributes, fallbackStyles ) }
-				>
-					<RichText
-						tagName="h3"
-						className="crowdsignal-forms-nps__question"
-						placeholder={ __(
-							'Enter your rating question',
-							'crowdsignal-forms'
+				{ ! isExample && (
+					<EditorNotice
+						isDismissible={ false }
+						icon="visibility"
+						componentActions={ [
+							// Temporarily disabled to prevent block render error,
+							// until we can figure out why it is breaking (maybe a new WP version?)
+							// <PostPreviewButton
+							// 	key={ 1 }
+							// 	className={ [
+							// 		'is-secondary',
+							// 		'components-notice__action',
+							// 		'crowdsignal-forms-nps__preview-button',
+							// 		attributes.surveyId ? '' : 'is-disabled',
+							// 	] }
+							// 	textContent={ __( 'Preview', 'crowdsignal-forms' ) }
+							// />,
+						] }
+					>
+						{ sprintf(
+							/* translators: %d: number of pageviews */
+							_n(
+								'This block will appear as a popup window to people who have visited this page at least %d time.',
+								'This block will appear as a popup window to people who have visited this page at least %d times.',
+								viewThreshold,
+								'crowdsignal-forms'
+							),
+							viewThreshold
 						) }
-						onChange={ handleChangeAttribute( 'ratingQuestion' ) }
-						value={ ratingQuestion }
-						allowedFormats={ [] }
-					/>
+					</EditorNotice>
+				) }
 
-					<div className="crowdsignal-forms-nps__rating">
-						<div className="crowdsignal-forms-nps__rating-labels">
-							<RichText
-								tagName="span"
-								placeholder={ __(
-									'Not likely',
-									'crowdsignal-forms'
-								) }
-								onChange={ handleChangeAttribute(
-									'lowRatingLabel'
-								) }
-								value={ attributes.lowRatingLabel }
-								allowedFormats={ [] }
-								multiline={ false }
-								disableLineBreaks={ true }
-							/>
-							<RichText
-								tagName="span"
-								placeholder={ __(
-									'Very likely',
-									'crowdsignal-forms'
-								) }
-								onChange={ handleChangeAttribute(
-									'highRatingLabel'
-								) }
-								value={ attributes.highRatingLabel }
-								allowedFormats={ [] }
-								multiline={ false }
-								disableLineBreaks={ true }
-							/>
-						</div>
-
-						<div className="crowdsignal-forms-nps__rating-scale">
-							{ times( 11, ( n ) => (
-								<div
-									key={ `rating-${ n }` }
-									className="crowdsignal-forms-nps__rating-button"
-								>
-									{ n }
-								</div>
-							) ) }
-						</div>
-
-						{ ! hideBranding && (
-							<FooterBranding
-								trackRef="cs-forms-nps"
-								message={ __(
-									'Collect your own feedback with Crowdsignal',
-									'crowdsignal-forms'
-								) }
-							>
-								<PromotionalTooltip />
-							</FooterBranding>
-						) }
-					</div>
-				</div>
-			) }
-
-			{ view === views.FEEDBACK && isSelected && (
-				<div
-					className={ classes }
-					style={ getStyleVars( attributes, fallbackStyles ) }
-				>
-					<div className="crowdsignal-forms-nps__feedback">
+				{ ( view === views.RATING || ! isSelected ) && (
+					<div
+						className={ classes }
+						style={ getStyleVars( attributes, fallbackStyles ) }
+					>
 						<RichText
 							tagName="h3"
 							className="crowdsignal-forms-nps__question"
 							placeholder={ __(
-								'Enter your feedback question',
+								'Enter your rating question',
 								'crowdsignal-forms'
 							) }
-							onChange={ handleChangeAttribute(
-								'feedbackQuestion'
-							) }
-							value={ feedbackQuestion }
+							onChange={ handleChangeAttribute( 'ratingQuestion' ) }
+							value={ ratingQuestion }
 							allowedFormats={ [] }
 						/>
 
-						<TextareaControl
-							className="crowdsignal-forms-nps__feedback-text"
-							rows={ 6 }
-							onChange={ handleChangeAttribute(
-								'feedbackPlaceholder'
+						<div className="crowdsignal-forms-nps__rating">
+							<div className="crowdsignal-forms-nps__rating-labels">
+								<RichText
+									tagName="span"
+									placeholder={ __(
+										'Not likely',
+										'crowdsignal-forms'
+									) }
+									onChange={ handleChangeAttribute(
+										'lowRatingLabel'
+									) }
+									value={ attributes.lowRatingLabel }
+									allowedFormats={ [] }
+									multiline={ false }
+									disableLineBreaks={ true }
+								/>
+								<RichText
+									tagName="span"
+									placeholder={ __(
+										'Very likely',
+										'crowdsignal-forms'
+									) }
+									onChange={ handleChangeAttribute(
+										'highRatingLabel'
+									) }
+									value={ attributes.highRatingLabel }
+									allowedFormats={ [] }
+									multiline={ false }
+									disableLineBreaks={ true }
+								/>
+							</div>
+
+							<div className="crowdsignal-forms-nps__rating-scale">
+								{ times( 11, ( n ) => (
+									<div
+										key={ `rating-${ n }` }
+										className="crowdsignal-forms-nps__rating-button"
+									>
+										{ n }
+									</div>
+								) ) }
+							</div>
+
+							{ ! hideBranding && (
+								<FooterBranding
+									trackRef="cs-forms-nps"
+									message={ __(
+										'Collect your own feedback with Crowdsignal',
+										'crowdsignal-forms'
+									) }
+								>
+									<PromotionalTooltip />
+								</FooterBranding>
 							) }
-							value={ attributes.feedbackPlaceholder }
-						/>
-
-						<div className="wp-block-button crowdsignal-forms-nps__feedback-button-wrapper">
-							<RichText
-								className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
-								onChange={ handleChangeAttribute(
-									'submitButtonLabel'
-								) }
-								value={ attributes.submitButtonLabel }
-								allowedFormats={ [] }
-								multiline={ false }
-								disableLineBreaks={ true }
-							/>
 						</div>
+					</div>
+				) }
 
-						{ ! hideBranding && (
-							<FooterBranding
-								trackRef="cs-forms-nps"
-								message={ __(
-									'Collect your own feedback with Crowdsignal',
+				{ view === views.FEEDBACK && isSelected && (
+					<div
+						className={ classes }
+						style={ getStyleVars( attributes, fallbackStyles ) }
+					>
+						<div className="crowdsignal-forms-nps__feedback">
+							<RichText
+								tagName="h3"
+								className="crowdsignal-forms-nps__question"
+								placeholder={ __(
+									'Enter your feedback question',
 									'crowdsignal-forms'
 								) }
-							>
-								<PromotionalTooltip />
-							</FooterBranding>
-						) }
-					</div>
-				</div>
-			) }
+								onChange={ handleChangeAttribute(
+									'feedbackQuestion'
+								) }
+								value={ feedbackQuestion }
+								allowedFormats={ [] }
+							/>
 
-			{ renderStyleProbe() }
-		</ConnectToCrowdsignal>
+							<TextareaControl
+								className="crowdsignal-forms-nps__feedback-text"
+								rows={ 6 }
+								onChange={ handleChangeAttribute(
+									'feedbackPlaceholder'
+								) }
+								value={ attributes.feedbackPlaceholder }
+							/>
+
+							<div className="wp-block-button crowdsignal-forms-nps__feedback-button-wrapper">
+								<RichText
+									className="wp-block-button__link crowdsignal-forms-nps__feedback-button"
+									onChange={ handleChangeAttribute(
+										'submitButtonLabel'
+									) }
+									value={ attributes.submitButtonLabel }
+									allowedFormats={ [] }
+									multiline={ false }
+									disableLineBreaks={ true }
+								/>
+							</div>
+
+							{ ! hideBranding && (
+								<FooterBranding
+									trackRef="cs-forms-nps"
+									message={ __(
+										'Collect your own feedback with Crowdsignal',
+										'crowdsignal-forms'
+									) }
+								>
+									<PromotionalTooltip />
+								</FooterBranding>
+							) }
+						</div>
+					</div>
+				) }
+
+				{ renderStyleProbe() }
+			</ConnectToCrowdsignal>
 		</div>
 	);
 };

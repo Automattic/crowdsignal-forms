@@ -55,19 +55,19 @@ const EditApplauseBlock = ( props ) => {
 
 	return (
 		<div { ...blockProps }>
-		<ConnectToCrowdsignal
-			blockIcon={ null }
-			blockName={ __( 'Crowdsignal Applause', 'crowdsignal-forms' ) }
-		>
-			<SideBar
-				{ ...props }
-				shouldPromote={ shouldPromote }
-				signalWarning={ signalWarning }
-				viewResultsUrl={ viewResultsUrl }
-			/>
-			<Toolbar { ...props } />
-			<Applause { ...props } />
-		</ConnectToCrowdsignal>
+			<ConnectToCrowdsignal
+				blockIcon={ null }
+				blockName={ __( 'Crowdsignal Applause', 'crowdsignal-forms' ) }
+			>
+				<SideBar
+					{ ...props }
+					shouldPromote={ shouldPromote }
+					signalWarning={ signalWarning }
+					viewResultsUrl={ viewResultsUrl }
+				/>
+				<Toolbar { ...props } />
+				<Applause { ...props } />
+			</ConnectToCrowdsignal>
 		</div>
 	);
 };
