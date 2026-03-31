@@ -100,7 +100,8 @@ const EditFeedbackBlock = ( props ) => {
 		// The sidebar itself is rendered off the same setting
 		// hence the need to wait until it's re-rendered
 		// so we can measure it properly.
-		window.requestAnimationFrame( () =>
+		const win = blockElement.current?.ownerDocument.defaultView ?? window;
+		win.requestAnimationFrame( () =>
 			setSidebarChanged( ! sidebarChanged )
 		);
 	}, [ isInserterActive, isListViewActive, isSidebarActive ] );
@@ -109,6 +110,9 @@ const EditFeedbackBlock = ( props ) => {
 		if ( isExample || ! triggerButton.current || widgetEditor ) {
 			return;
 		}
+
+		const doc = blockElement.current.ownerDocument;
+		const win = doc.defaultView;
 
 		setPosition(
 			getFeedbackButtonPosition(
@@ -122,9 +126,10 @@ const EditFeedbackBlock = ( props ) => {
 					top: isSelected ? 80 : 20,
 					bottom: 20,
 				},
-				document.getElementsByClassName(
+				doc.getElementsByClassName(
 					'interface-interface-skeleton__content'
-				)[ 0 ]
+				)[ 0 ],
+				win
 			),
 			triggerButton.current.offsetWidth,
 			triggerButton.current.offsetHeight
@@ -183,10 +188,18 @@ const EditFeedbackBlock = ( props ) => {
 			return;
 		}
 
-		if (
-			triggerButton.current &&
-			triggerButton.current.ownerDocument !== document
-		) {
+		if ( ! triggerButton.current ) {
+			return;
+		}
+
+		const doc = triggerButton.current.ownerDocument;
+		const win = doc.defaultView;
+
+		const contentWrapper = doc.getElementsByClassName(
+			'interface-interface-skeleton__content'
+		)[ 0 ];
+
+		if ( ! contentWrapper ) {
 			setOverlayPosition( {
 				bottom: 0,
 				left: 0,
@@ -197,15 +210,12 @@ const EditFeedbackBlock = ( props ) => {
 			return;
 		}
 
-		const contentWrapper = document.getElementsByClassName(
-			'interface-interface-skeleton__content'
-		)[ 0 ];
 		const contentBox = contentWrapper.getBoundingClientRect();
 
 		setOverlayPosition( {
-			bottom: window.innerHeight - ( contentBox.top + contentBox.height ),
+			bottom: win.innerHeight - ( contentBox.top + contentBox.height ),
 			left: contentBox.left,
-			right: window.innerWidth - ( contentBox.left + contentBox.width ),
+			right: win.innerWidth - ( contentBox.left + contentBox.width ),
 			top: contentBox.top,
 		} );
 	}, [ sidebarChanged, isFullscreen, isSelected, triggerButton.current ] );

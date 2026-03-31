@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { get, filter, isEmpty, map, round, some } from 'lodash';
 
 /**
@@ -83,6 +83,7 @@ const PollBlock = ( props ) => {
 	} = props;
 
 	const blockProps = useBlockProps();
+	const blockRef = useRef( null );
 
 	const [ isPollEditable, setIsPollEditable ] = useState( true );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
@@ -147,9 +148,11 @@ const PollBlock = ( props ) => {
 
 	const answerStyle = getAnswerStyle( attributes, className );
 
-	if ( attributes.fontFamily ) {
-		loadCustomFont( attributes.fontFamily );
-	}
+	useEffect( () => {
+		if ( attributes.fontFamily && blockRef.current ) {
+			loadCustomFont( attributes.fontFamily, blockRef.current.ownerDocument );
+		}
+	}, [ attributes.fontFamily ] );
 
 	const shouldPromote = get( accountInfo, [
 		'signalCount',
@@ -160,8 +163,14 @@ const PollBlock = ( props ) => {
 		get( accountInfo, [ 'signalCount', 'count' ] ) >=
 			get( accountInfo, [ 'signalCount', 'userLimit' ] );
 
+	const mergedBlockRef = ( node ) => {
+		if ( typeof blockProps.ref === 'function' ) blockProps.ref( node );
+		else if ( blockProps.ref ) blockProps.ref.current = node;
+		blockRef.current = node;
+	};
+
 	return (
-		<div { ...blockProps }>
+		<div { ...blockProps } ref={ mergedBlockRef }>
 			<ConnectToCrowdsignal
 				blockIcon={ <PollIcon /> }
 				blockName={ __( 'Crowdsignal Poll', 'crowdsignal-forms' ) }
