@@ -8,7 +8,7 @@ import { get } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { InnerBlocks } from '@wordpress/block-editor';
+import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
@@ -29,6 +29,7 @@ import withFseCheck from 'components/with-fse-check';
 
 const EditVoteBlock = ( props ) => {
 	const { attributes, setAttributes, className, pollDataFromApi } = props;
+	const blockProps = useBlockProps();
 
 	useNumberedTitle(
 		props.name,
@@ -72,33 +73,35 @@ const EditVoteBlock = ( props ) => {
 			get( accountInfo, [ 'signalCount', 'userLimit' ] );
 
 	return (
-		<ConnectToCrowdsignal
-			blockIcon={ null }
-			blockName={ __( 'Crowdsignal Vote', 'crowdsignal-forms' ) }
-		>
-			<SideBar
-				{ ...props }
-				shouldPromote={ shouldPromote }
-				signalWarning={ signalWarning }
-				viewResultsUrl={ viewResultsUrl }
-			/>
-			<ToolBar { ...props } />
+		<div { ...blockProps }>
+			<ConnectToCrowdsignal
+				blockIcon={ null }
+				blockName={ __( 'Crowdsignal Vote', 'crowdsignal-forms' ) }
+			>
+				<SideBar
+					{ ...props }
+					shouldPromote={ shouldPromote }
+					signalWarning={ signalWarning }
+					viewResultsUrl={ viewResultsUrl }
+				/>
+				<ToolBar { ...props } />
 
-			<div className={ classes } style={ voteItemStyleVars }>
-				<div className="crowdsignal-forms-vote__items">
-					<InnerBlocks
-						template={ [
-							[ 'crowdsignal-forms/vote-item', { type: 'up' } ],
-							[ 'crowdsignal-forms/vote-item', { type: 'down' } ],
-						] }
-						templateInsertUpdatesSelection={ false }
-						allowedBlocks={ [ 'crowdsignal-forms/vote-item' ] }
-						orientation="horizontal"
-						__experimentalMoverDirection="horizontal" // required for pre WP 5.5, post 5.5 only requires `orientation` to be set
-					/>
+				<div className={ classes } style={ voteItemStyleVars }>
+					<div className="crowdsignal-forms-vote__items">
+						<InnerBlocks
+							template={ [
+								[ 'crowdsignal-forms/vote-item', { type: 'up' } ],
+								[ 'crowdsignal-forms/vote-item', { type: 'down' } ],
+							] }
+							templateInsertUpdatesSelection={ false }
+							allowedBlocks={ [ 'crowdsignal-forms/vote-item' ] }
+							orientation="horizontal"
+							__experimentalMoverDirection="horizontal" // required for pre WP 5.5, post 5.5 only requires `orientation` to be set
+						/>
+					</div>
 				</div>
-			</div>
-		</ConnectToCrowdsignal>
+			</ConnectToCrowdsignal>
+		</div>
 	);
 };
 

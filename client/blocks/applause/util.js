@@ -13,12 +13,21 @@ export const getApplauseStyleVars = ( attributes, fallbackStyles ) => {
 		? fallbackStyles.textColor
 		: attributes.textColor;
 
+	// When the style probe can't detect proper theme button colors
+	// (e.g., in the iframed block editor), accentColor and textColorInverted
+	// both resolve to the same value. Don't set those CSS variables so the
+	// theme's styles apply instead.
+	const fallbacksValid =
+		fallbackStyles.accentColor !== fallbackStyles.textColorInverted;
+
 	return mapKeys(
 		{
 			bgColor:
 				attributes.backgroundColor || fallbackStyles.backgroundColor,
 			textColor,
-			hoverColor: fallbackStyles.accentColor,
+			hoverColor: fallbacksValid
+				? fallbackStyles.accentColor
+				: undefined,
 			borderRadius: `${ attributes.borderRadius || 0 }px`,
 			borderWidth: `${ attributes.borderWidth || 0 }px`,
 			borderColor: attributes.borderColor,

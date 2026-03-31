@@ -12,6 +12,7 @@ import EditVoteBlock from './edit';
 import attributes from './attributes';
 
 export default {
+	apiVersion: 3,
 	title: __( 'Vote', 'crowdsignal-forms' ),
 	description: __(
 		'Allow your audience to rate your work or express their opinion — powered by Crowdsignal.',

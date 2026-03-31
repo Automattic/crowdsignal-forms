@@ -7,6 +7,7 @@ import { get } from 'lodash';
 /**
  * WordPress dependencies
  */
+import { useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
@@ -26,6 +27,7 @@ import withFseCheck from 'components/with-fse-check';
 
 const EditApplauseBlock = ( props ) => {
 	const { attributes, setAttributes, pollDataFromApi } = props;
+	const blockProps = useBlockProps();
 
 	const viewResultsUrl = pollDataFromApi
 		? pollDataFromApi.viewResultsUrl
@@ -52,19 +54,21 @@ const EditApplauseBlock = ( props ) => {
 			get( accountInfo, [ 'signalCount', 'userLimit' ] );
 
 	return (
-		<ConnectToCrowdsignal
-			blockIcon={ null }
-			blockName={ __( 'Crowdsignal Applause', 'crowdsignal-forms' ) }
-		>
-			<SideBar
-				{ ...props }
-				shouldPromote={ shouldPromote }
-				signalWarning={ signalWarning }
-				viewResultsUrl={ viewResultsUrl }
-			/>
-			<Toolbar { ...props } />
-			<Applause { ...props } />
-		</ConnectToCrowdsignal>
+		<div { ...blockProps }>
+			<ConnectToCrowdsignal
+				blockIcon={ null }
+				blockName={ __( 'Crowdsignal Applause', 'crowdsignal-forms' ) }
+			>
+				<SideBar
+					{ ...props }
+					shouldPromote={ shouldPromote }
+					signalWarning={ signalWarning }
+					viewResultsUrl={ viewResultsUrl }
+				/>
+				<Toolbar { ...props } />
+				<Applause { ...props } />
+			</ConnectToCrowdsignal>
+		</div>
 	);
 };
 

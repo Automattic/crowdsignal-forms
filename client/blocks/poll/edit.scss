@@ -7,11 +7,16 @@
 		margin-right: 0;
 	}
 
+	// Alignment: with apiVersion 3 + useBlockProps, core puts alignwide/alignfull on the
+	// block list wrapper. Older setups used getEditWrapperProps data-align — keep both.
+	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"].alignfull .crowdsignal-forms-poll,
 	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"][data-align="full"] .crowdsignal-forms-poll {
 		border-left-width: 0;
 		border-right-width: 0;
 	}
 
+	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"].alignwide .crowdsignal-forms-poll__content,
+	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"].alignfull .crowdsignal-forms-poll__content,
 	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"][data-align="wide"] .crowdsignal-forms-poll__content,
 	.block-editor-block-list__block[data-type="crowdsignal-forms/poll"][data-align="full"] .crowdsignal-forms-poll__content {
 
