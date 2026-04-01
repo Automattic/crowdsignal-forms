@@ -18,10 +18,10 @@ import Grid from './grid';
 import Icon from './icon';
 
 const BlockAlignmentControl = ( {
-	closeOnSelectionChanged,
+	closeOnSelectionChanged = false,
 	disabled,
-	label,
-	onChange,
+	label = __( 'Change block position', 'crowdsignal-forms' ),
+	onChange = noop,
 	rows,
 	columns,
 	value,
@@ -84,12 +84,6 @@ const BlockAlignmentControl = ( {
 			} }
 		/>
 	);
-};
-
-BlockAlignmentControl.defaultProps = {
-	closeOnSelectionChanged: false,
-	label: __( 'Change block position', 'crowdsignal-forms' ),
-	onChange: noop,
 };
 
 export default BlockAlignmentControl;
