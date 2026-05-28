@@ -2,8 +2,12 @@
  * External dependencies
  */
 import React from 'react';
-import { render } from 'react-dom';
 import { forEach } from 'lodash';
+
+/**
+ * WordPress dependencies
+ */
+import { createRoot } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -49,17 +53,26 @@ window.addEventListener( 'load', () =>
 					}
 				}
 
-				const closeDialog = () => element.remove();
+				const root = createRoot( element );
+				let isUnmounted = false;
 
-				render(
+				const closeDialog = () => {
+					if ( isUnmounted ) {
+						return;
+					}
+					isUnmounted = true;
+					root.unmount();
+					element.remove();
+				};
+
+				root.render(
 					<DialogWrapper onClose={ closeDialog }>
 						<NpsBlock
 							attributes={ attributes }
 							contentWidth={ element.scrollWidth }
 							onClose={ closeDialog }
 						/>
-					</DialogWrapper>,
-					element
+					</DialogWrapper>
 				);
 			} catch ( error ) {
 				// eslint-disable-next-line no-console
