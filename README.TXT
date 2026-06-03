@@ -69,6 +69,11 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 = 1.8.1 =
 * Use a server-keyed checksum for NPS response updates (#312)
+* fix: update basic-ftp lockfile (#310)
+* Fix deprecated Toolbar and defaultProps usage (#308)
+* Make editor DOM access iframe-safe for Block API v3 (#307)
+* Migrate all blocks to Block API v3 with useBlockProps (#306)
+* Refactor withFallbackStyles to remove wrapper div and use iframe-safe APIs (#305)
 
 = 1.8.0 =
 * Harden survey and poll data handling (#302)
