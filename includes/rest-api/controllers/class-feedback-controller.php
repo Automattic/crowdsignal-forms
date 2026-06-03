@@ -122,10 +122,11 @@ class Feedback_Controller {
 	 *
 	 * @since 1.5.1
 	 *
-	 * Unlike NPS, the Crowdsignal feedback endpoint always creates a new
-	 * response server-side and ignores any client-supplied response id, so
-	 * there is no update-by-id path to bind here. The nonce check guards
-	 * against off-site form submission; it is not an ownership control.
+	 * Unlike NPS, the feedback client never issues an update-by-id request,
+	 * so there is no ownership path to bind here. This route forwards the
+	 * request data to Crowdsignal's feedback endpoint, which creates the
+	 * response server-side. The nonce check guards against off-site form
+	 * submission; it is not an ownership control.
 	 *
 	 * @param  \WP_REST_Request $request The API Request.
 	 * @return \WP_REST_Response|WP_ERROR

@@ -147,7 +147,11 @@ class Nps_Controller {
 				! hash_equals( $this->get_response_checksum( $response_id ), $checksum )
 			)
 		) {
-			return new \WP_Error( 'Forbidden' );
+			return new \WP_Error(
+				'forbidden',
+				__( 'Forbidden', 'crowdsignal-forms' ),
+				array( 'status' => 403 )
+			);
 		}
 
 		$result = Crowdsignal_Forms::instance()->get_api_gateway()->update_nps_response(
