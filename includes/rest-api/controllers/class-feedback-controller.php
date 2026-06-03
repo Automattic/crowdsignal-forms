@@ -122,9 +122,10 @@ class Feedback_Controller {
 	 *
 	 * @since 1.5.1
 	 *
-	 * @todo The nonce helps but it's still possible for someone to generate their own nonce and
-	 *       submit someone else's response id.
-	 *       The nonce needs to be tied to the response ID.
+	 * Unlike NPS, the Crowdsignal feedback endpoint always creates a new
+	 * response server-side and ignores any client-supplied response id, so
+	 * there is no update-by-id path to bind here. The nonce check guards
+	 * against off-site form submission; it is not an ownership control.
 	 *
 	 * @param  \WP_REST_Request $request The API Request.
 	 * @return \WP_REST_Response|WP_ERROR
