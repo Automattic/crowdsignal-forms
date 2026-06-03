@@ -122,9 +122,10 @@ class Nps_Controller {
 	 *
 	 * @since 1.4.0
 	 *
-	 * @todo The nonce helps but it's still possible for someone to generate their own nonce and
-	 *       submit someone else's response id.
-	 *       The nonce needs to be tied to the response ID.
+	 * Updating an existing response (when `r` is supplied) requires a checksum
+	 * keyed with a server-side secret, so a caller cannot submit someone
+	 * else's response id without the checksum issued to the original
+	 * submitter. See {@see get_response_checksum()}.
 	 *
 	 * @param  \WP_REST_Request $request The API Request.
 	 * @return \WP_REST_Response|WP_ERROR
@@ -133,16 +134,24 @@ class Nps_Controller {
 		$data      = $request->get_json_params();
 		$survey_id = $request->get_param( 'survey_id' );
 
-		$verifies = Crowdsignal_Forms_Nps_Block::verify_nonce( $data['nonce'] );
+		$nonce       = isset( $data['nonce'] ) ? $data['nonce'] : '';
+		$response_id = isset( $data['r'] ) ? $data['r'] : '';
+		$checksum    = isset( $data['checksum'] ) ? (string) $data['checksum'] : '';
+
+		$verifies = Crowdsignal_Forms_Nps_Block::verify_nonce( $nonce );
 
 		if (
 			! $verifies ||
 			(
-				$data['r'] &&
-				$data['checksum'] !== $this->get_response_checksum( $data['r'], $data['nonce'] )
+				$response_id &&
+				! hash_equals( $this->get_response_checksum( $response_id ), $checksum )
 			)
 		) {
-			return new \WP_Error( 'Forbidden' );
+			return new \WP_Error(
+				'forbidden',
+				__( 'Forbidden', 'crowdsignal-forms' ),
+				array( 'status' => 403 )
+			);
 		}
 
 		$result = Crowdsignal_Forms::instance()->get_api_gateway()->update_nps_response(
@@ -154,7 +163,7 @@ class Nps_Controller {
 			return $result;
 		}
 
-		$result['checksum'] = $this->get_response_checksum( $result['r'], $data['nonce'] );
+		$result['checksum'] = $this->get_response_checksum( $result['r'] );
 
 		return rest_ensure_response( $result );
 	}
@@ -189,13 +198,20 @@ class Nps_Controller {
 	}
 
 	/**
-	 * Creates a checksum hash for a response ID and nonce combination.
+	 * Creates a keyed checksum for a response ID.
+	 *
+	 * The checksum binds an update to whoever received it back from the
+	 * original submission, so it must be unforgeable by a caller who only
+	 * knows the response ID. It is therefore keyed with a server-side secret
+	 * ( `wp_salt()` ): an attacker cannot recompute it for a response ID they
+	 * did not create. The previous `sha1( $response_id . $nonce )` provided no
+	 * authorization because every input was attacker-known (the nonce is the
+	 * same shared value for all anonymous visitors).
 	 *
 	 * @param  string $response_id Response ID.
-	 * @param  string $nonce       Nonce.
 	 * @return string
 	 */
-	private function get_response_checksum( $response_id, $nonce ) {
-		return hash( 'sha1', $response_id . $nonce );
+	private function get_response_checksum( $response_id ) {
+		return hash_hmac( 'sha256', (string) $response_id, wp_salt( 'nonce' ) );
 	}
 }
