@@ -1,0 +1,2 @@
+# Auth storage state is machine-specific; never commit it.
+storage-state.json

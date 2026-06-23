@@ -6,6 +6,10 @@ vendor
 node_modules
 build
 release
+## Playwright
+e2e/test-results/
+e2e/playwright-report/
+
 ## docker stuff
 /docker/data/mysql/*
 !/docker/data/mysql/.gitkeep
@@ -26,7 +30,7 @@ release
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
 
 # Thumbnails
 ._*
