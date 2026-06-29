@@ -33,18 +33,18 @@ jobs:
           php-version: '8.1'
 
       - name: Setup Node version 18
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: '18.13.0'
 
       - name: Install PNPM
-        uses: pnpm/action-setup@eae0cfeb286e66ffb5155f1a79b90583a127a68b # v2.4.1
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
         with:
           version: '9'
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.inputs.buildBranch }}
 
