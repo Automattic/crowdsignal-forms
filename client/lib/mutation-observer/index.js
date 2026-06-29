@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { render } from 'react-dom';
+import { createRoot } from '@wordpress/element';
 import { camelCase, isEmpty, forEach } from 'lodash';
 
 const MutationObserver = ( dataAttributeName, blockBuilder ) => {
@@ -30,7 +30,7 @@ const initBlocks = ( dataAttributeName, blockBuilder ) =>
 
 				element.removeAttribute( dataAttributeName );
 
-				render( block, element );
+				createRoot( element ).render( block );
 			} catch ( error ) {
 				// eslint-disable-next-line
 				console.error(

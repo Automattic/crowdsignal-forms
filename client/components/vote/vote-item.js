@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 
@@ -28,6 +28,14 @@ const VoteItem = ( props ) => {
 	const { className, type } = attributes;
 
 	const [ currentVote, setCurrentVote ] = useState( 0 );
+
+	// Two refs alternated by parity so SwitchTransition's overlapping
+	// entering/exiting children each keep a stable nodeRef. Required
+	// because react-transition-group calls findDOMNode without it,
+	// which React 19 removes.
+	const refEven = useRef( null );
+	const refOdd = useRef( null );
+	const nodeRef = currentVote % 2 === 0 ? refEven : refOdd;
 
 	const handleVote = () => {
 		if ( disabled || ! onVote ) {
@@ -73,10 +81,14 @@ const VoteItem = ( props ) => {
 				<SwitchTransition mode="in-out">
 					<CSSTransition
 						key={ currentVote }
+						nodeRef={ nodeRef }
 						classNames="crowdsignal-forms-vote-item__count"
 						timeout={ 300 }
 					>
-						<div className="crowdsignal-forms-vote-item__count">
+						<div
+							ref={ nodeRef }
+							className="crowdsignal-forms-vote-item__count"
+						>
 							{ formatVoteCount( displayedVoteCount ) }
 						</div>
 					</CSSTransition>
