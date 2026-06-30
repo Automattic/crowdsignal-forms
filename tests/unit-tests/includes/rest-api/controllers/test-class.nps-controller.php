@@ -135,6 +135,51 @@ class Nps_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	}
 
 	/**
+	 * Store survey meta on a post.
+	 *
+	 * @param int    $post_id   The post id.
+	 * @param string $client_id The survey client uuid.
+	 */
+	private function setup_nps_survey_meta( $post_id, $client_id ) {
+		update_post_meta(
+			$post_id,
+			'_cs_survey_' . $client_id,
+			array(
+				'id'    => 777,
+				'title' => 'Secret NPS',
+			)
+		);
+	}
+
+	public function test_get_survey_denies_private_post() {
+		wp_set_current_user( 0 );
+		$post_id   = $this->factory->post->create( array( 'post_status' => 'private' ) );
+		$client_id = 'uuid-nps-private';
+		$this->setup_nps_survey_meta( $post_id, $client_id );
+
+		$req = new \WP_REST_Request( 'GET', '/nps' );
+		$req->set_param( 'survey_client_id', $client_id );
+
+		$response = $this->controller->get_survey( $req );
+		$this->assertWPError( $response );
+		$this->assertEquals( 404, $response->get_error_data()['status'] );
+	}
+
+	public function test_get_survey_allows_published_post() {
+		wp_set_current_user( 0 );
+		$post_id   = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$client_id = 'uuid-nps-public';
+		$this->setup_nps_survey_meta( $post_id, $client_id );
+
+		$req = new \WP_REST_Request( 'GET', '/nps' );
+		$req->set_param( 'survey_client_id', $client_id );
+
+		$response = $this->controller->get_survey( $req );
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 200, $response->get_status() );
+	}
+
+	/**
 	 * A first submission ( no r ) does not require a checksum, and the
 	 * controller returns a checksum the original submitter can later use to
 	 * update that response.
