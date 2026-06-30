@@ -89,7 +89,7 @@ class Nps_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $response );
-		$this->assertSame( 'Forbidden', $response->get_error_code() );
+		$this->assertSame( 'forbidden', $response->get_error_code() );
 	}
 
 	/**
@@ -112,7 +112,7 @@ class Nps_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $response );
-		$this->assertSame( 'Forbidden', $response->get_error_code() );
+		$this->assertSame( 'forbidden', $response->get_error_code() );
 	}
 
 	/**
@@ -131,7 +131,7 @@ class Nps_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		);
 
 		$this->assertWPError( $response );
-		$this->assertSame( 'Forbidden', $response->get_error_code() );
+		$this->assertSame( 'forbidden', $response->get_error_code() );
 	}
 
 	/**
