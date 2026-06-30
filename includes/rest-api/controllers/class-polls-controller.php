@@ -25,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 0.9.0
  **/
 class Polls_Controller {
+	use Post_Readability_Trait;
+
 	/**
 	 * The namespace.
 	 *
@@ -192,6 +194,10 @@ class Polls_Controller {
 		$the_post = get_post( $post_id );
 
 		if ( empty( $the_post ) ) {
+			return $this->resource_not_found();
+		}
+
+		if ( ! $this->is_owning_post_readable( $post_id ) ) {
 			return $this->resource_not_found();
 		}
 

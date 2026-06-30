@@ -106,4 +106,58 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$this->assertTrue( is_a( $response, \WP_REST_Response::class ) );
 		$this->assertTrue( $response->get_status() === 200 );
 	}
+
+	/**
+	 * Helper: store poll meta on a post.
+	 *
+	 * @param int    $post_id   The post id.
+	 * @param string $client_id The poll client uuid.
+	 */
+	private function setup_poll_meta( $post_id, $client_id ) {
+		update_post_meta(
+			$post_id,
+			'_cs_poll_' . $client_id,
+			array(
+				'id'       => 123,
+				'question' => 'Secret question?',
+			)
+		);
+		update_post_meta( $post_id, '_crowdsignal_forms_poll_ids', array( 123 ) );
+	}
+
+	/**
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_post_poll_by_uuid
+	 */
+	public function test_post_poll_by_uuid_denies_private_post() {
+		wp_set_current_user( 0 );
+		$post_id   = $this->factory->post->create( array( 'post_status' => 'private' ) );
+		$client_id = 'uuid-private-poll';
+		$this->setup_poll_meta( $post_id, $client_id );
+
+		$req = new \WP_REST_Request( 'GET', '/post-polls' );
+		$req->set_param( 'post_id', $post_id );
+		$req->set_param( 'poll_uuid', $client_id );
+
+		$response = $this->controller->get_post_poll_by_uuid( $req );
+		$this->assertWPError( $response );
+		$this->assertEquals( 404, $response->get_error_data()['status'] );
+	}
+
+	/**
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_post_poll_by_uuid
+	 */
+	public function test_post_poll_by_uuid_allows_published_post() {
+		wp_set_current_user( 0 );
+		$post_id   = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$client_id = 'uuid-public-poll';
+		$this->setup_poll_meta( $post_id, $client_id );
+
+		$req = new \WP_REST_Request( 'GET', '/post-polls' );
+		$req->set_param( 'post_id', $post_id );
+		$req->set_param( 'poll_uuid', $client_id );
+
+		$response = $this->controller->get_post_poll_by_uuid( $req );
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 200, $response->get_status() );
+	}
 }
