@@ -155,6 +155,14 @@ class Polls_Controller {
 				return $this->resource_not_found();
 			}
 
+			$location = Crowdsignal_Forms::instance()
+				->get_post_poll_meta_gateway()
+				->get_original_location_for_client_id( $poll_client_id );
+
+			if ( ! $this->is_owning_post_readable( $location['post_id'] ) ) {
+				return $this->resource_not_found();
+			}
+
 			if ( $use_cached ) {
 				return rest_ensure_response( Poll::from_array( $poll_saved_in_meta )->to_array() );
 			}

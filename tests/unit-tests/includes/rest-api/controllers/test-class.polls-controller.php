@@ -160,4 +160,44 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( 200, $response->get_status() );
 	}
+
+	/**
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
+	 */
+	public function test_get_poll_cached_denies_private_post() {
+		wp_set_current_user( 0 );
+		$post_id   = $this->factory->post->create( array( 'post_status' => 'private' ) );
+		$client_id = 'uuid-cached-private';
+		$this->setup_poll_meta( $post_id, $client_id );
+
+		$_REQUEST['cached'] = '1';
+		$req                = new \WP_REST_Request( 'GET', '/polls' );
+		$req->set_param( 'poll_id', $client_id );
+
+		$response = $this->controller->get_poll( $req );
+		unset( $_REQUEST['cached'] );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 404, $response->get_error_data()['status'] );
+	}
+
+	/**
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
+	 */
+	public function test_get_poll_cached_allows_published_post() {
+		wp_set_current_user( 0 );
+		$post_id   = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$client_id = 'uuid-cached-public';
+		$this->setup_poll_meta( $post_id, $client_id );
+
+		$_REQUEST['cached'] = '1';
+		$req                = new \WP_REST_Request( 'GET', '/polls' );
+		$req->set_param( 'poll_id', $client_id );
+
+		$response = $this->controller->get_poll( $req );
+		unset( $_REQUEST['cached'] );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 200, $response->get_status() );
+	}
 }
