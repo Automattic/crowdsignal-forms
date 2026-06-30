@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Nps_Controller {
 	use Post_Readability_Trait;
+
 	/**
 	 * The namespace
 	 *

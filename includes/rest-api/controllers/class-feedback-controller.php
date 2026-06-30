@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Feedback_Controller {
 	use Post_Readability_Trait;
+
 	/**
 	 * The namespace
 	 *
