@@ -140,12 +140,12 @@ class Nps_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	 * @param int    $post_id   The post id.
 	 * @param string $client_id The survey client uuid.
 	 */
-	private function setup_nps_survey_meta( $post_id, $client_id ) {
+	private function setup_nps_survey_meta( $post_id, $client_id, $survey_id = 777 ) {
 		update_post_meta(
 			$post_id,
 			'_cs_survey_' . $client_id,
 			array(
-				'id'    => 777,
+				'id'    => $survey_id,
 				'title' => 'Secret NPS',
 			)
 		);
@@ -177,6 +177,53 @@ class Nps_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$response = $this->controller->get_survey( $req );
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( 200, $response->get_status() );
+	}
+
+	public function test_get_survey_denies_password_protected_post() {
+		wp_set_current_user( 0 );
+		$post_id   = $this->factory->post->create(
+			array(
+				'post_status'   => 'publish',
+				'post_password' => 'secret',
+			)
+		);
+		$client_id = 'uuid-nps-password';
+		$this->setup_nps_survey_meta( $post_id, $client_id );
+
+		$req = new \WP_REST_Request( 'GET', '/nps' );
+		$req->set_param( 'survey_client_id', $client_id );
+
+		$response = $this->controller->get_survey( $req );
+		$this->assertWPError( $response );
+		$this->assertEquals( 404, $response->get_error_data()['status'] );
+	}
+
+	/**
+	 * When the same client_id is stored on two posts (a copy/paste scenario),
+	 * the data returned and the post whose readability is checked must come
+	 * from the same row. Here the readable (published) post has the lower
+	 * post_id, so the deterministic resolution serves ITS data - never the
+	 * private copy's - proving the two gateway queries agree on one row.
+	 */
+	public function test_get_survey_binds_data_to_the_readability_checked_post() {
+		wp_set_current_user( 0 );
+		$client_id = 'uuid-nps-shared';
+
+		// Lower post_id, published: this is the row both queries must resolve to.
+		$public_post_id = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$this->setup_nps_survey_meta( $public_post_id, $client_id, 111 );
+
+		// Higher post_id, private: must not influence the served data.
+		$private_post_id = $this->factory->post->create( array( 'post_status' => 'private' ) );
+		$this->setup_nps_survey_meta( $private_post_id, $client_id, 222 );
+
+		$req = new \WP_REST_Request( 'GET', '/nps' );
+		$req->set_param( 'survey_client_id', $client_id );
+
+		$response = $this->controller->get_survey( $req );
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( 200, $response->get_status() );
+		$this->assertSame( 111, $response->get_data()['id'] );
 	}
 
 	/**

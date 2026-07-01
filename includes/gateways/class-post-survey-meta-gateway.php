@@ -45,11 +45,15 @@ class Post_Survey_Meta_Gateway {
 		$survey_meta_key = $this->get_survey_meta_key( $client_id );
 
 		if ( null === $post_id ) {
-			// Search across all posts for this client_id.
+			// Search across all posts for this client_id. The same client_id can
+			// exist on more than one post (e.g. a copied block), so order by
+			// post_id to select deterministically: callers pair this lookup with
+			// get_original_post_id_for_client_id() to decide readability, and
+			// both must resolve to the same row or private data could leak.
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
 			$row = $wpdb->get_row(
 				$wpdb->prepare(
-					"SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s LIMIT 1",
+					"SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s ORDER BY post_id ASC LIMIT 1",
 					$survey_meta_key
 				)
 			);
@@ -97,10 +101,14 @@ class Post_Survey_Meta_Gateway {
 			return null;
 		}
 
+		// Order by post_id so this resolves to the same row as
+		// get_survey_data_for_client_id() when the client_id exists on more than
+		// one post; the readability decision is bound to the row whose data is
+		// served, so a divergent pick could leak a private post's data.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
 		$post_id = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s LIMIT 1",
+				"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s ORDER BY post_id ASC LIMIT 1",
 				$this->get_survey_meta_key( $client_id )
 			)
 		);
