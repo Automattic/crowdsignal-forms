@@ -25,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 0.9.0
  **/
 class Polls_Controller {
+	use Post_Readability_Trait;
+
 	/**
 	 * The namespace.
 	 *
@@ -153,6 +155,14 @@ class Polls_Controller {
 				return $this->resource_not_found();
 			}
 
+			$location = Crowdsignal_Forms::instance()
+				->get_post_poll_meta_gateway()
+				->get_original_location_for_client_id( $poll_client_id );
+
+			if ( ! $this->is_owning_post_readable( $location['post_id'] ) ) {
+				return $this->resource_not_found();
+			}
+
 			if ( $use_cached ) {
 				return rest_ensure_response( Poll::from_array( $poll_saved_in_meta )->to_array() );
 			}
@@ -192,6 +202,10 @@ class Polls_Controller {
 		$the_post = get_post( $post_id );
 
 		if ( empty( $the_post ) ) {
+			return $this->resource_not_found();
+		}
+
+		if ( ! $this->is_owning_post_readable( $post_id ) ) {
 			return $this->resource_not_found();
 		}
 

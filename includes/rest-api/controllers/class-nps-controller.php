@@ -21,6 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.4.0
  */
 class Nps_Controller {
+	use Post_Readability_Trait;
+
 	/**
 	 * The namespace
 	 *
@@ -95,6 +97,18 @@ class Nps_Controller {
 			->get_survey_data_for_client_id( null, $survey_client_id );
 
 		if ( empty( $survey_data ) || ! isset( $survey_data['id'] ) ) {
+			return new \WP_Error(
+				'resource-not-found',
+				__( 'Resource not found', 'crowdsignal-forms' ),
+				array( 'status' => 404 )
+			);
+		}
+
+		$post_id = Crowdsignal_Forms::instance()
+			->get_post_survey_meta_gateway()
+			->get_original_post_id_for_client_id( $survey_client_id );
+
+		if ( ! $this->is_owning_post_readable( $post_id ) ) {
 			return new \WP_Error(
 				'resource-not-found',
 				__( 'Resource not found', 'crowdsignal-forms' ),

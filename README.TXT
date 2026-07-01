@@ -67,6 +67,9 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+= 1.8.2 =
+* Security: REST endpoints that return cached poll and survey configuration now respect the owning post's visibility.
+
 = 1.8.1 =
 * Use a server-keyed checksum for NPS response updates (#312)
 * fix: update basic-ftp lockfile (#310)

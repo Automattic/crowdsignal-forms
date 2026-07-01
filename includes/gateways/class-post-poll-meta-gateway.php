@@ -40,11 +40,15 @@ class Post_Poll_Meta_Gateway {
 		$poll_meta_key = $this->get_poll_meta_key( $client_id );
 
 		if ( null === $post_id ) {
-			// Search across all posts for this client_id.
+			// Search across all posts for this client_id. The same client_id can
+			// exist on more than one post (e.g. a copied block), so order by
+			// post_id to select deterministically: callers pair this lookup with
+			// get_original_location_for_client_id() to decide readability, and
+			// both must resolve to the same row or private data could leak.
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
 			$row = $wpdb->get_row(
 				$wpdb->prepare(
-					"SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s LIMIT 1",
+					"SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s ORDER BY post_id ASC LIMIT 1",
 					$poll_meta_key
 				)
 			);
@@ -104,11 +108,15 @@ class Post_Poll_Meta_Gateway {
 
 		$poll_meta_key = $this->get_poll_meta_key( $client_id );
 
-		// Step 1: Get the meta row (post_id + meta_value with poll_id).
+		// Step 1: Get the meta row (post_id + meta_value with poll_id). Order by
+		// post_id so this resolves to the same row as
+		// get_poll_data_for_poll_client_id() when the client_id exists on more
+		// than one post; the readability decision is bound to the row whose data
+		// is served, so a divergent pick could leak a private post's data.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
 		$result = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s LIMIT 1",
+				"SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s ORDER BY post_id ASC LIMIT 1",
 				$poll_meta_key
 			)
 		);

@@ -1,3 +1,6 @@
+= 1.8.2 =
+* Security: REST endpoints that return cached poll and survey configuration now respect the owning post's visibility.
+
 = 1.8.0 =
 * Harden survey and poll data handling (#302)
 * Tests: Fix typo in `@covers` annotation (#301)
