@@ -17,16 +17,22 @@ install-php:
 client:
 	pnpm build
 
-# Package for release
-release: clean-release client pot
-	./scripts/package-for-release.sh
+# Prepare a release PR. Usage: make release VERSION=x.y.z
+release:
+	@test -n "$(VERSION)" || { echo "Usage: make release VERSION=x.y.z"; exit 1; }
+	node scripts/prepare-release.mjs $(VERSION)
 
-# Clean the build directory
+# Build dist/crowdsignal-forms/ and dist/crowdsignal-forms.zip (compiles the client first)
+build: client
+	./scripts/build-plugin.sh
+
+# Regenerate the translation POT file
+i18n:
+	./scripts/makepot.sh
+
+# Clean the build directories
 clean:
-	rm -rf build
-
-clean-release: clean
-	rm -rf release
+	rm -rf build dist release
 
 # Create docker/.env from default.env if it doesn't exist
 docker_env:
@@ -71,4 +77,4 @@ composer:
 pot:
 	./scripts/makepot.sh
 
-.PHONY: install install-node install-php client clean clean-release docker_env docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpcs phpcbf composer release pot
+.PHONY: install install-node install-php client build clean docker_env docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpcs phpcbf composer release i18n pot

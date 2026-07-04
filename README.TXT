@@ -67,10 +67,10 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
-= 1.8.2 =
+### 1.8.2
 * Security: REST endpoints that return cached poll and survey configuration now respect the owning post's visibility.
 
-= 1.8.1 =
+### 1.8.1
 * Use a server-keyed checksum for NPS response updates (#312)
 * fix: update basic-ftp lockfile (#310)
 * Fix deprecated Toolbar and defaultProps usage (#308)
@@ -78,7 +78,7 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Migrate all blocks to Block API v3 with useBlockProps (#306)
 * Refactor withFallbackStyles to remove wrapper div and use iframe-safe APIs (#305)
 
-= 1.8.0 =
+### 1.8.0
 * Harden survey and poll data handling (#302)
 * Tests: Fix typo in `@covers` annotation (#301)
 * Fix feedback popover background color on frontend (#300)
@@ -88,13 +88,13 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Build tools: Fix and update (#296)
 * Bump tested to version to 6.8 (#295)
 
-= 1.7.2 =
+### 1.7.2
 * Fix: Made string translatable in html-admin-setup-step-1.php file (#281)
 * Fix dynamic property (#282)
 * Load blockObserver on DOM ready instead of window load (#268)
 * i18n: Fix omitted dollar signs in printf placeholders (#283)
 
-= 1.7.1 =
+### 1.7.1
 * bump "Tested up to" to 6.5
 * check for empty cached poll data to prevent warning on load of editor (#278)
 * check for null `core/edit-post` selector which is causing a crash in 6.5 (#277)
@@ -105,11 +105,11 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Update @wordpress/scripts and webpack to latest versions (#266)
 * Block Sidebar: group settings together (#265)
 
-= 1.7.0 =
+### 1.7.0
 * Optimize frontend components (#263)
 * Update dependencies for node 18.13.0 (#262)
 
-= 1.6.7 =
+### 1.6.7
 * Fix block spacing for better theme compatibility (#258)
 * Fix line jumps (#259)
 * Remove RawHTML use from the blocks (#255)
@@ -117,11 +117,11 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Fix rendering on question and note (#252)
 * Update scripts to use python2 (#254)
 
-= 1.6.6 =
+### 1.6.6
 * update package lock
 * Add the site_url() to the wp-json URL so directory installs work. (#247)
 
-= 1.6.5 =
+### 1.6.5
 * Fix makefile and dependencies (#245)
 * Fix the (optional) text that shows up on the front end for email (#243)
 * GH build action for named releases (#242)
@@ -134,37 +134,37 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Build Tools: Add `allow-plugins` to `composer.json` for v2-compat (#227)
 * fix/add missing ref links to quiz variation (#233)
 
-= 1.6.4 =
+### 1.6.4
 * Update/survey help landing page (#231)
 * add/quiz variation to CS Embed block (#230)
 * add/crowdsignal-embed block (#222)
 * Fix POT compilation on the local environment (#226)
 
-= 1.6.3 =
+### 1.6.3
 * remove php8.1 from docker, PHP and php-mysql libs (#221)
 * Update filter name due to deprecation (block_categories) (#220)
 * Remove styling for Hello Dolly (#223)
 
-= 1.6.1 =
+### 1.6.1
 * Fix TwentyTwentyTwo styling issues (#218)
 * Unset border-style on crowdsignal-forms-vote class (#216)
 * Adjust code syntax to comply with standards (#215)
 
-= 1.6.0 =
+### 1.6.0
 * Remove editor dependencies (#213)
 * Remove templateLock: insert also prevents removals (#212)
 * Update documentation
 * Update Dockerfile to pull latest stable Ubuntu. Small update to .yml file (#210)
 
-= 1.5.15 =
+### 1.5.15
 * Fix CSS so it doesn't interfere with Jetpack (#208)
 * add trigger for crowdsignal_forms_get_account_info (#203)
 * fix typo on respones -> responses (#207)
 
-= 1.5.14 =
+### 1.5.14
 * Rollback to 1.5.12
 
-= 1.5.13 =
+### 1.5.13
 * Update the text and styling of the settings page. (#199)
 * Fix transient and empty user (#200)
 * Update links to settings page. (#198)
@@ -173,46 +173,46 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Some fixes along the way (#197)
 * Update and delete the dashboard login details too (#195)
 
-= 1.5.12 =
+### 1.5.12
 * Improve broken connection handling (#193)
 * Fix multiple choice poll check position (#192)
 * Rework backend code (#191)
 
-= 1.5.11 =
+### 1.5.11
 * Default polls to "Button" style (#189)
 
-= 1.5.10 =
+### 1.5.10
 * Attempt to track failed connections (#187)
 * Fix warnings and skips (#186)
 
-= 1.5.9 =
+### 1.5.9
 * Bugfix: Set the priority of withFixedPosition hook on BlockListBlock to 1 (#180)
 
-= 1.5.8 =
+### 1.5.8
 * Fix Feedback Button block on Block Widget editor. (#173)
 * Fix isPollBlock to prevent crashes when getBlocks() returns null (#175)
 * Fix toolbar/feedback overlay interactions (#172)
 
-= 1.5.7 =
+### 1.5.7
 * Fix toolbar remaining behind the feedback overlay (#170)
 * Make video iframe dimension-less, add CSS rules for it (#169)
 * Fix new interface package compatibility (#168)
 * Update dockerfile (#156)
 * Fix little typo on the welcome screen (#167)
 
-= 1.5.6 =
+### 1.5.6
 * Use poll.fm for the nonce check (#164)
 
-= 1.5.5 =
+### 1.5.5
 * Fix answer inputs (#160)
 * Fix feedback block editor overlay on the full site editor (#157)
 
-= 1.5.4 =
+### 1.5.4
 * Default to site URL on source_link prop when no permalink is returned (#155)
 * Add a widget-editor compatible interface for the feedback block (#154)
 * Fix verify info request logic (#137)
 
-= 1.5.3 =
+### 1.5.3
 * Remove the filter as it either turns problematic or doesn't solve the issue at all (#146)
 * Fix feedback form rendering issues on mobile screens (#143)
 * Add filter to control transform behavior (#142)
@@ -225,7 +225,7 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Consistently name panel section "Settings" and subsection "Status" (#133)
 * Refresh readme (#112)
 
-= 1.5.1 =
+### 1.5.1
 * Finetune footer branding (#115)
 * New Feedback block added (#110)
 * Use 'crowdsignal_forms_translations_path' filter to load translations (#61)
@@ -238,7 +238,7 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Simpler syntax, no inputs (#67)
 * move syntax, debugging error on L1 (#66)
 
-= 1.4.5 =
+### 1.4.5
 * Fix preview button causing the NPS block to break when creating a new block
 * Fix linter errors
 * Update the NPS preview button to behave identically to the editor's one
@@ -249,7 +249,7 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Change copy edits (#56)
 * Disable HTML editing and block reusability
 
-= 1.4.3 =
+### 1.4.3
 * Add NPS block
 * Fixed redirect logic for the poll block
 

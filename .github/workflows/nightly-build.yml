@@ -9,7 +9,7 @@ on:
       buildBranch:
         description: Branch to build
         required: true
-        default: master
+        default: trunk
       releaseName:
         description: Named release (no spaces/weird chars, will become the filename)
         required: true
