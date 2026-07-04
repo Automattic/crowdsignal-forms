@@ -59,6 +59,12 @@ docker_uninstall:
 phpunit:
 	docker-compose -f docker/docker-compose.yml exec wordpress bash -c "cd /var/www/html/wp-content/plugins/crowdsignal-forms && WP_TESTS_DIR=/tmp/wordpress-develop/tests/phpunit ./vendor/bin/phpunit $(ARGS)"
 
+# Run PHPUnit locally against WordPress Studio (SQLite, no Docker needed)
+phpunit-studio:
+	WP_TESTS_CONFIG_FILE_PATH=$(CURDIR)/tests/wp-tests-config-studio.php \
+	WP_TESTS_DIR=docker/wordpress-develop/tests/phpunit \
+	/opt/homebrew/bin/php vendor/bin/phpunit --configuration phpunit.xml $(ARGS)
+
 phpcs:
 	docker-compose -f docker/docker-compose.yml exec wordpress bash -c "cd /var/www/html/wp-content/plugins/crowdsignal-forms && ./vendor/bin/phpcs"
 
@@ -71,4 +77,23 @@ composer:
 pot:
 	./scripts/makepot.sh
 
-.PHONY: install install-node install-php client clean clean-release docker_env docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpcs phpcbf composer release pot
+# Run Playwright E2E tests against Docker WordPress
+e2e:
+	pnpm exec playwright test --config e2e/playwright.config.ts
+
+# Full verification: build + unit tests + E2E
+# Note: `pnpm lint:all` and `make phpcs` excluded — both have pre-existing
+# failures on master. Run them separately if needed.
+verify: client
+	pnpm test
+	$(MAKE) phpunit
+	$(MAKE) e2e
+
+# One-command first-time setup
+setup: install docker_build docker_up
+	@echo "Waiting for MySQL to initialize..."
+	sleep 10
+	$(MAKE) docker_install
+	$(MAKE) client
+
+.PHONY: install install-node install-php client clean clean-release docker_env docker_build docker_up docker_down docker_stop docker_sh docker_install docker_uninstall phpunit phpunit-studio phpcs phpcbf composer release pot e2e verify setup

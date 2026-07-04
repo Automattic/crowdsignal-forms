@@ -44,6 +44,7 @@
 	"homepage": "https://github.com/automattic/crowdsignal-forms#readme",
 	"devDependencies": {
 		"@babel/runtime": "^7.21.0",
+		"@playwright/test": "^1.58.2",
 		"@wordpress/scripts": "^26.11.0",
 		"clean-webpack-plugin": "^4.0.0",
 		"eslint-import-resolver-webpack": "^0.13.2",
@@ -52,11 +53,14 @@
 		"webpack": "^5.88.2"
 	},
 	"jest": {
+		"testEnvironment": "jsdom",
 		"modulePaths": [
 			"client"
 		],
 		"moduleNameMapper": {
 			"@wordpress/blocks": "<rootDir>/tests-js/mocks/blocks.js",
+			"@wordpress/compose": "<rootDir>/tests-js/mocks/compose.js",
+			"@wordpress/element": "<rootDir>/tests-js/mocks/element.js",
 			"@wordpress/i18n": "<rootDir>/tests-js/mocks/i18n.js"
 		}
 	},
