@@ -3,7 +3,7 @@
 	"slug": "crowdsignal-forms",
 	"mainFile": "crowdsignal-forms.php",
 	"versionConstant": "CROWDSIGNAL_FORMS_VERSION",
-	"readme": "README.TXT",
+	"readme": "readme.txt",
 	"bumpPackageJson": true,
 	"buildDir": "dist",
 	"nextVersionPlaceholder": false

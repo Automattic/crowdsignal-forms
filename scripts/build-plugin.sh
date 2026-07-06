@@ -32,7 +32,7 @@ mkdir -p "$PLUGIN_DIR"
 cp -r build "$PLUGIN_DIR/"
 cp -r includes "$PLUGIN_DIR/"
 cp -r languages "$PLUGIN_DIR/"
-cp index.php LICENSE.TXT README.TXT crowdsignal-forms.php uninstall.php "$PLUGIN_DIR/"
+cp index.php LICENSE.TXT readme.txt crowdsignal-forms.php uninstall.php "$PLUGIN_DIR/"
 
 # Never ship the canned API gateway used only for local development.
 rm -f "$PLUGIN_DIR/includes/gateways/class-canned-api-gateway.php"

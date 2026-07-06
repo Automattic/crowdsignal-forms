@@ -166,10 +166,10 @@ pnpm run lint:styles  # Stylelint
 Releases use a two-phase flow:
 
 1. `make release VERSION=x.y.z` (run from `trunk`) bumps the version, assembles the changelog from the GitHub milestone `x.y.z`, and opens a PR with the changelog editable in the body.
-2. Merging that PR runs `.github/workflows/create-release.yml`, which writes the changelog into `README.TXT`, tags, builds `dist/crowdsignal-forms.zip`, creates the GitHub release, and deploys to WordPress.org.
+2. Merging that PR runs `.github/workflows/create-release.yml`, which writes the changelog into `readme.txt`, tags, builds `dist/crowdsignal-forms.zip`, creates the GitHub release, and deploys to WordPress.org.
 
 Create a milestone named exactly `x.y.z` and assign the release's PRs to it first. WordPress.org release confirmation is enabled, so the deploy is held pending an email confirmation before it goes live.
 
 ## Changelog
 
-Recent releases are in the `== Changelog ==` section of [`README.TXT`](README.TXT); older history is in the [GitHub releases](https://github.com/Automattic/crowdsignal-forms/releases).
+Recent releases are in the `== Changelog ==` section of [`readme.txt`](readme.txt); older history is in the [GitHub releases](https://github.com/Automattic/crowdsignal-forms/releases).
