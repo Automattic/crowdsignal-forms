@@ -178,7 +178,7 @@ final class Crowdsignal_Forms {
 		/**
 		 * Allow plugins to skip the activation redirect.
 		 *
-		 * @since 1.7.3
+		 * @since 1.8.2
 		 *
 		 * @param bool $allow_activation Whether to allow the activation redirect.
 		 */
