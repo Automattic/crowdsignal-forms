@@ -1,7 +1,81 @@
-= 1.8.2 =
-* Security: REST endpoints that return cached poll and survey configuration now respect the owning post's visibility.
+=== Crowdsignal Forms ===
+Contributors: automattic
+Tags: polls, forms, surveys, gutenberg, block
+Requires at least: 6.0
+Requires PHP: 5.6.20
+Tested up to: 7.0
+Stable tag: 1.8.1
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-= 1.8.0 =
+The Crowdsignal Forms plugin allows you to create and manage polls right from within the block editor.
+
+== Description ==
+
+The Crowdsignal Forms plugin allows you to create and manage polls right from within the block editor.
+Creating polls is as simple and as fast as writing a bullet point list. No embed blocks and no copy pasting needed anymore.
+
+Customize the look and feel of your polls to match your brand, and pick your favorite color. The poll block supports the styling of your theme by default, and from there you can customize the styling of your polls the way you want.
+
+With Crowdsignal’s results page you can view all responses as they come in. See the geo-locations of your voters and analyze IP addresses for any suspicious voting behavior. See advanced stats and analytics for understanding your audience.
+
+Analyze your results and then export them in a number of different formats.
+
+Set close dates for polls, create polls with single or multiple choice answers, choose whether to show your readers the poll results or keep them private.
+
+You can create an unlimited number of polls with a free [Crowdsignal](https://crowdsignal.com/) account and your first 2,500 signals are free. A signal is a response you get to a poll. If you are on a free plan, you still have full access to the first 2,500 signals. Any further responses you collect will still be recorded but if you [upgrade](https://crowdsignal.com/pricing/) you will get access to our unlocked reports to see them. You’ll also get access to a [range of features](https://crowdsignal.com/features/) not available to free users.
+
+== Installation ==
+
+The easiest way to install this plugin is through the "Add New Plugins" page on your site.
+1. Go to the Plugins page and click "Add New".
+2. Type "Crowdsignal Forms" in the search box and press return.
+3. Click the "Install Now" button.
+
+Once installed you must connect your site to Crowdsignal.com
+1. Activate the plugin and you will be brought to the Getting Started page.
+2. Click "Let's get started" to open a popup that will allow you to login or create a new Crowdsignal account.
+3. You'll be presented with an API key to use so press Connect and you'll be brought back to your own site.
+4. The popup will disappear and the message, "You’re ready to start using Crowdsignal!" will be shown.
+5. Happy polling! Create a post and add a new "poll" block!
+
+
+== Frequently Asked Questions ==
+
+= Why Crowdsignal Forms?
+
+We’re starting with just the Crowdsignal poll block but more blocks are coming soon.
+
+= Who is Crowdsignal?
+
+Crowdsignal is built by Automattic, the company behind WordPress.com, WooCommerce, Tumblr and more. We’re here to stay!
+
+= Where can I find help with this plugin?
+
+Automattic is a distributed team working from all around the world, so it’s always business hours for our more than 250 Happiness Engineers. Check out our [support documentation](https://crowdsignal.com/support/), the [support forum](https://wordpress.org/support/plugin/crowdsignal-forms/) or [reach out to us](https://crowdsignal.com/contact/) anytime and we'll be happy to help.
+
+= What plans do you offer?
+Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or take a [product tour](https://crowdsignal.com/features/) to learn more.
+
+
+== Screenshots ==
+
+1. Create and style your polls from within the block editor
+2. Analyze your results and export them everywhere
+3. Your polls adopt your theme style
+4. Use the poll block inside of other blocks
+
+== Changelog ==
+
+### 1.8.1
+* Use a server-keyed checksum for NPS response updates (#312)
+* fix: update basic-ftp lockfile (#310)
+* Fix deprecated Toolbar and defaultProps usage (#308)
+* Make editor DOM access iframe-safe for Block API v3 (#307)
+* Migrate all blocks to Block API v3 with useBlockProps (#306)
+* Refactor withFallbackStyles to remove wrapper div and use iframe-safe APIs (#305)
+
+### 1.8.0
 * Harden survey and poll data handling (#302)
 * Tests: Fix typo in `@covers` annotation (#301)
 * Fix feedback popover background color on frontend (#300)
@@ -11,13 +85,13 @@
 * Build tools: Fix and update (#296)
 * Bump tested to version to 6.8 (#295)
 
-= 1.7.2 =
+### 1.7.2
 * Fix: Made string translatable in html-admin-setup-step-1.php file (#281)
 * Fix dynamic property (#282)
 * Load blockObserver on DOM ready instead of window load (#268)
 * i18n: Fix omitted dollar signs in printf placeholders (#283)
 
-= 1.7.1 =
+### 1.7.1
 * bump "Tested up to" to 6.5
 * check for empty cached poll data to prevent warning on load of editor (#278)
 * check for null `core/edit-post` selector which is causing a crash in 6.5 (#277)
@@ -28,11 +102,11 @@
 * Update @wordpress/scripts and webpack to latest versions (#266)
 * Block Sidebar: group settings together (#265)
 
-= 1.7.0 =
+### 1.7.0
 * Optimize frontend components (#263)
 * Update dependencies for node 18.13.0 (#262)
 
-= 1.6.7 =
+### 1.6.7
 * Fix block spacing for better theme compatibility (#258)
 * Fix line jumps (#259)
 * Remove RawHTML use from the blocks (#255)
@@ -40,13 +114,13 @@
 * Fix rendering on question and note (#252)
 * Update scripts to use python2 (#254)
 
-= 1.6.6 =
+### 1.6.6
 * update package lock
 * Add the site_url() to the wp-json URL so directory installs work. (#247)
 
-= 1.6.5 =
+### 1.6.5
 * Fix makefile and dependencies (#245)
-* fix the (optional) text that shows up on the front end for email (#243)
+* Fix the (optional) text that shows up on the front end for email (#243)
 * GH build action for named releases (#242)
 * Back to PHP 7.4 for builds (#241)
 * Create store (#234)
@@ -57,36 +131,37 @@
 * Build Tools: Add `allow-plugins` to `composer.json` for v2-compat (#227)
 * fix/add missing ref links to quiz variation (#233)
 
-= 1.6.4 =
+### 1.6.4
 * Update/survey help landing page (#231)
 * add/quiz variation to CS Embed block (#230)
 * add/crowdsignal-embed block (#222)
 * Fix POT compilation on the local environment (#226)
 
-= 1.6.3 =
-* remove php8.1 when all is said and done to avoid compatiblity issues between WP, PHP and php-mysql libs (#221)
+### 1.6.3
+* remove php8.1 from docker, PHP and php-mysql libs (#221)
 * Update filter name due to deprecation (block_categories) (#220)
 * Remove styling for Hello Dolly (#223)
 
-= 1.6.1 =
+### 1.6.1
 * Fix TwentyTwentyTwo styling issues (#218)
 * Unset border-style on crowdsignal-forms-vote class (#216)
 * Adjust code syntax to comply with standards (#215)
 
-= 1.6.0 =
+### 1.6.0
 * Remove editor dependencies (#213)
-* add api.polldaddy.com as extra host so we get legacy calls to the sandbox as well (#211)
 * Remove templateLock: insert also prevents removals (#212)
-* Update HE numbers
+* Update documentation
 * Update Dockerfile to pull latest stable Ubuntu. Small update to .yml file (#210)
-* Bump version to 1.5.15 (#209)
 
-= 1.5.15 =
+### 1.5.15
 * Fix CSS so it doesn't interfere with Jetpack (#208)
 * add trigger for crowdsignal_forms_get_account_info (#203)
 * fix typo on respones -> responses (#207)
 
-= 1.5.13 =
+### 1.5.14
+* Rollback to 1.5.12
+
+### 1.5.13
 * Update the text and styling of the settings page. (#199)
 * Fix transient and empty user (#200)
 * Update links to settings page. (#198)
@@ -95,47 +170,46 @@
 * Some fixes along the way (#197)
 * Update and delete the dashboard login details too (#195)
 
-= 1.5.12 =
+### 1.5.12
 * Improve broken connection handling (#193)
 * Fix multiple choice poll check position (#192)
 * Rework backend code (#191)
 
-= 1.5.11 =
+### 1.5.11
 * Default polls to "Button" style (#189)
 
-= 1.5.10 =
+### 1.5.10
 * Attempt to track failed connections (#187)
 * Fix warnings and skips (#186)
 
-= 1.5.9 =
+### 1.5.9
 * Bugfix: Set the priority of withFixedPosition hook on BlockListBlock to 1 (#180)
 
-= 1.5.8 =
+### 1.5.8
 * Fix Feedback Button block on Block Widget editor. (#173)
 * Fix isPollBlock to prevent crashes when getBlocks() returns null (#175)
 * Fix toolbar/feedback overlay interactions (#172)
-* Release v1.5.7 bump (#171)
 
-= 1.5.7 =
+### 1.5.7
 * Fix toolbar remaining behind the feedback overlay (#170)
 * Make video iframe dimension-less, add CSS rules for it (#169)
 * Fix new interface package compatibility (#168)
 * Update dockerfile (#156)
 * Fix little typo on the welcome screen (#167)
 
-= 1.5.6 =
-* use poll.fm for the nonce check (#164)
+### 1.5.6
+* Use poll.fm for the nonce check (#164)
 
-= 1.5.5 =
+### 1.5.5
 * Fix answer inputs (#160)
 * Fix feedback block editor overlay on the full site editor (#157)
 
-= 1.5.4 =
+### 1.5.4
 * Default to site URL on source_link prop when no permalink is returned (#155)
 * Add a widget-editor compatible interface for the feedback block (#154)
 * Fix verify info request logic (#137)
 
-= 1.5.3 =
+### 1.5.3
 * Remove the filter as it either turns problematic or doesn't solve the issue at all (#146)
 * Fix feedback form rendering issues on mobile screens (#143)
 * Add filter to control transform behavior (#142)
@@ -148,7 +222,7 @@
 * Consistently name panel section "Settings" and subsection "Status" (#133)
 * Refresh readme (#112)
 
-= 1.5.1 =
+### 1.5.1
 * Finetune footer branding (#115)
 * New Feedback block added (#110)
 * Use 'crowdsignal_forms_translations_path' filter to load translations (#61)
@@ -161,7 +235,7 @@
 * Simpler syntax, no inputs (#67)
 * move syntax, debugging error on L1 (#66)
 
-= 1.4.5 =
+### 1.4.5
 * Fix preview button causing the NPS block to break when creating a new block
 * Fix linter errors
 * Update the NPS preview button to behave identically to the editor's one
@@ -172,105 +246,14 @@
 * Change copy edits (#56)
 * Disable HTML editing and block reusability
 
-= 1.4.3 =
+### 1.4.3
 * Add NPS block
 * Fixed redirect logic for the poll block
 
-= 1.3.5 =
-* Show branding on editor and a message when free signals are exhausted (#11)
-* Remove redirect URL feature (#12)
+== Upgrade Notice ==
 
-= 1.3.4 =
-* Escape the redirect address to avoid XSS. (#7)
-* Bump tested version to 5.6 (#8)
-* Unset margins on applause count container (#6)
+= 1.6.7 =
+Better theme compatibility with button styles and block spacing. Security fixes.
 
-= 1.3.3 =
-* Unwrap all i18n calls (#1)
-* Use default theme font for Applause count (#3)
-* Fix applause branding styles (#4)
-
-= 1.3.0 =
-* Track vote to be able to tell when user has already "clapped" (#355)
-* Fix undefined warnings (#349)
-* Fix applause icon sizes (#352)
-* Update hover effects  (#353)
-* Fixes for missing vote props (#348)
-* Update Applause block meta (#341)
-* Make disabled state not react to hover nor click (#345)
-* Fix block paddings (#346)
-* Add border controls for applause block (#344)
-* Update composer libs (#347)
-* Pass required attribute to vote-item component (#343)
-* Add correct applause icon & animation (#337)
-* Update/referral link applause block (#333)
-* Update applause count parameter (#331)
-* Make clap text and count not selectable (#327)
-* Allow the colours of the applause block to be changed (#322)
-* Add branding to Applause Block (#326)
-* Display the applause claps from the API (#325)
-* Queue Claps On Click (#324)
-* Check for applause block when deciding if a poll block
-* Add close status to sidebar and close visual effect.
-* Add/block sizes (#316)
-* Add a thumbs up icon (placeholder) and some margin around it.
-* add support for syncing applause block type to crowdsignal (#318)
-* Add skeleton of applause block (#314)
-
-= 1.2.1 =
-* Center brand link with vote items (#336)
-* Fix CSS Animation for Voting Thumbs (#332)
-* Vote Block: Set focus Styling to hover styling (#329)
-* clean up attribute passing to vote-item (#323)
-* Add referral code to public Crowdsignal links (#330)
-
-= 1.2.0 =
-* add more keywords to vote and poll block (#310)
-* Show current account info on API key selection screen (#317)
-* refactor common code for poll based blocks (#311)
-* set mappings for missing meta values (#309)
-* Fix Default Title not syncing to platform (#253)
-* Consolidate Custom Mutation Observers Into Library Function (#244)
-* change Block interface into abstract class, move common helpers there. (#243)
-* Add Crowdsignal block category to house all blocks within the plugin (#246)
-* Vote block
-* Update admin notices style (#305)
-* Check API key is not empty before attempting to update connection settings
-* Adding a slight opacity change when hovering a button that has a custom bg color set. (#303)
-* Update/security fixes (#302)
-
-= 1.1.1 =
-* Don't Request User Code on Save if there is nothing to save (#284)
-* Skip the setup screen if a user code is saved (#282)
-
-= 1.1.0 =
-* Implement a poll width setting (#255)
-* fix method used when updating poll ids in post meta (#257)
-* Fix archiving of poll blocks in comments (#256)
-* Address the comments from the p2tenberg compatibility pr. (#252)
-* P2tenberg: Get The Edit Bar To Display in p2tenberg (#254)
-* keep button placeholder on focus of button answers for a less jarring editing experience (#242)
-* P2tenberg compatibility (#175)
-* Change radio/checkbox fill colour to text colour (#241)
-* Add release preparation script (#240)
-* Add Button Answer Type (with actual buttons) (#230)
-* Add a link for crowdsignal.com In Sidebar for an Unpublished Poll (#239)
-* remove ios styling from submit button (#225)
-* Move asset definitions to the `block` class to simplify adding new blocks (#224)
-* update branches that travis will build (#233)
-* Add wp-editor dependency
-
-= 1.0 =
-* Update default sidebar status
-* Increase Default Poll Margins
-* Test suite for admin hooks
-* Copy text reviews
-* Added support for loading curated list of google fonts
-* Normalize "thanks you" message
-* Fix display of "thank you" message (custom and default) on dark backgrounds
-* Add Separate Question and Body Font Family fallbacks
-* Fix styles on wp-admin not honoring margins
-* Fix submit button styling for themes with very specific selectors (ex TwentyNineteen theme)
-* Add Unverified Account Check
-* Code cleanup
-* Update translations
+= 0.9 =
+Initial release

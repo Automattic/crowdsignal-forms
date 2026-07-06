@@ -2,7 +2,7 @@
 # Development Environment
 
 Note: this file is intended for developers, the plugin readme
-is [README.txt](../README.txt)/[README.md](../README.md)
+is [readme.txt](../readme.txt)/[README.md](../README.md)
 
 ## Using docker for local dev
 

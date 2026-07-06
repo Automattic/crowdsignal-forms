@@ -1,0 +1,10 @@
+{
+	"repo": "Automattic/crowdsignal-forms",
+	"slug": "crowdsignal-forms",
+	"mainFile": "crowdsignal-forms.php",
+	"versionConstant": "CROWDSIGNAL_FORMS_VERSION",
+	"readme": "readme.txt",
+	"bumpPackageJson": true,
+	"buildDir": "dist",
+	"nextVersionPlaceholder": false
+}
