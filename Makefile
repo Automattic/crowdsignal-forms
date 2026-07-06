@@ -9,6 +9,9 @@ install-php: ## Install PHP dependencies (composer)
 	composer install
 client: ## Build the frontend client (pnpm build)
 	pnpm build
+install-hooks: ## Install git hooks (blocks direct pushes to trunk)
+	git config core.hooksPath .githooks
+	@echo "Git hooks installed (core.hooksPath = .githooks)."
 
 ## Release
 release: ## Prepare a release PR. Usage: make release VERSION=x.y.z
@@ -57,4 +60,4 @@ composer: ## Run composer install inside the container
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-18s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: all install install-node install-php client release build i18n pot clean docker_env docker_build docker_up docker_down docker_stop docker_sh docker_sh_db docker_install docker_uninstall phpunit phpcs phpcbf composer help
+.PHONY: all install install-node install-php client install-hooks release build i18n pot clean docker_env docker_build docker_up docker_down docker_stop docker_sh docker_sh_db docker_install docker_uninstall phpunit phpcs phpcbf composer help
