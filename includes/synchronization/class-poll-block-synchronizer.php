@@ -302,11 +302,9 @@ class Poll_Block_Synchronizer {
 			if ( ! current_user_can( 'edit_comment', $original_comment_id ) ) {
 				return false;
 			}
-		} else {
+		} elseif ( ! current_user_can( 'edit_post', $original_post_id ) ) {
 			// Poll originated in a post - require edit_post on original post.
-			if ( ! current_user_can( 'edit_post', $original_post_id ) ) {
-				return false;
-			}
+			return false;
 		}
 
 		return true;
