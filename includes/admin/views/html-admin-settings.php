@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<br />
 			<?php
 			printf(
-				/* translators: Placeholder is the text "Crowdsignal acount page". */
+				/* translators: Placeholder is the text "Crowdsignal account page". */
 				esc_html__( 'Visit your %s to find out more about your settings.', 'crowdsignal-forms' ),
 				sprintf(
 					'<a href="https://app.crowdsignal.com/account/">%s</a>',
