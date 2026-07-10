@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				/* translators: Placeholder is the text "Crowdsignal acount page". */
 				esc_html__( 'Visit your %s to find out more about your settings.', 'crowdsignal-forms' ),
 				sprintf(
-					'<a href="https://crowdsignal.com/account/">%s</a>',
+					'<a href="https://app.crowdsignal.com/account/">%s</a>',
 					esc_html__( 'Crowdsignal account page', 'crowdsignal-forms' )
 				)
 			);
