@@ -6,5 +6,5 @@
 	"readme": "readme.txt",
 	"bumpPackageJson": true,
 	"buildDir": "dist",
-	"nextVersionPlaceholder": false
+	"nextVersionPlaceholder": true
 }
