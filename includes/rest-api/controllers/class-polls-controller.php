@@ -334,6 +334,8 @@ class Polls_Controller {
 		if ( is_numeric( $poll_id ) ) {
 			$post_ids = $gateway->get_post_ids_for_poll_id( $poll_id );
 
+			// No local owner means a poll this site never recorded (e.g. one from another
+			// site on the same Crowdsignal account), so fail closed rather than proxy it.
 			if ( empty( $post_ids ) ) {
 				return null;
 			}
