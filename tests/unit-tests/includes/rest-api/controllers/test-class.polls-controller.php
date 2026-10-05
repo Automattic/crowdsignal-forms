@@ -287,6 +287,28 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	}
 
 	/**
+	 * Helper: build a poll fetch request.
+	 *
+	 * @param int|string $poll_id The poll id or client uuid.
+	 * @return \WP_REST_Request
+	 */
+	private function request_for( $poll_id ) {
+		$req = new \WP_REST_Request( 'GET', '/polls' );
+		$req->set_param( 'poll_id', $poll_id );
+		return $req;
+	}
+
+	/**
+	 * Helper: assert a response is a 404 not-found error.
+	 *
+	 * @param mixed $response The controller response.
+	 */
+	private function assert_not_found( $response ) {
+		$this->assertWPError( $response );
+		$this->assertEquals( 404, $response->get_error_data()['status'] );
+	}
+
+	/**
 	 * Data provider: [ owning post args ] that an anonymous user must not read.
 	 *
 	 * @return array
@@ -307,37 +329,18 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	/**
 	 * @dataProvider unreadable_post_provider
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results
 	 */
-	public function test_get_poll_by_numeric_id_denies_unreadable_post( $post_args ) {
+	public function test_numeric_poll_id_routes_deny_unreadable_post( $post_args ) {
 		wp_set_current_user( 0 );
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
 		$post_id = $this->factory->post->create( $post_args );
 		$this->setup_poll_meta( $post_id, 'uuid-numeric-denied', 456 );
 
-		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id', '456' );
+		$req = $this->request_for( '456' );
 
-		$response = $this->controller->get_poll( $req );
-		$this->assertWPError( $response );
-		$this->assertEquals( 404, $response->get_error_data()['status'] );
-	}
-
-	/**
-	 * @dataProvider unreadable_post_provider
-	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results
-	 */
-	public function test_get_poll_results_by_numeric_id_denies_unreadable_post( $post_args ) {
-		wp_set_current_user( 0 );
-		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
-		$post_id = $this->factory->post->create( $post_args );
-		$this->setup_poll_meta( $post_id, 'uuid-results-numeric-denied', 456 );
-
-		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id', '456' );
-
-		$response = $this->controller->get_poll_results( $req );
-		$this->assertWPError( $response );
-		$this->assertEquals( 404, $response->get_error_data()['status'] );
+		$this->assert_not_found( $this->controller->get_poll( $req ) );
+		$this->assert_not_found( $this->controller->get_poll_results( $req ) );
 	}
 
 	/**
@@ -351,12 +354,9 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$client_id = 'uuid-results-uuid-denied';
 		$this->setup_poll_meta( $post_id, $client_id, 456 );
 
-		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id', $client_id );
+		$req = $this->request_for( $client_id );
 
-		$response = $this->controller->get_poll_results( $req );
-		$this->assertWPError( $response );
-		$this->assertEquals( 404, $response->get_error_data()['status'] );
+		$this->assert_not_found( $this->controller->get_poll_results( $req ) );
 	}
 
 	/**
@@ -372,8 +372,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$post_id = $this->factory->post->create( array( 'post_status' => 'publish' ) );
 		$this->setup_poll_meta( $post_id, 'uuid-transition', 1 );
 
-		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id', 1 );
+		$req = $this->request_for( 1 );
 
 		$this->assertEquals( 200, $this->controller->get_poll( $req )->get_status() );
 		$this->assertEquals( 200, $this->controller->get_poll_results( $req )->get_status() );
@@ -399,16 +398,11 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		wp_set_current_user( 0 );
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
 
-		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id', '987654' );
+		$req = $this->request_for( '987654' );
 
-		$response = $this->controller->get_poll( $req );
-		$this->assertWPError( $response );
-		$this->assertEquals( 404, $response->get_error_data()['status'] );
+		$this->assert_not_found( $this->controller->get_poll( $req ) );
 
-		$response = $this->controller->get_poll_results( $req );
-		$this->assertWPError( $response );
-		$this->assertEquals( 404, $response->get_error_data()['status'] );
+		$this->assert_not_found( $this->controller->get_poll_results( $req ) );
 	}
 
 	/**
@@ -424,8 +418,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$this->setup_poll_meta( $public_post_id, 'uuid-shared-a', 321 );
 		$this->setup_poll_meta( $private_post_id, 'uuid-shared-b', 321 );
 
-		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id', '321' );
+		$req = $this->request_for( '321' );
 
 		$this->assertWPError( $this->controller->get_poll( $req ) );
 	}
@@ -441,8 +434,7 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$post_id = $this->factory->post->create( array( 'post_status' => 'private' ) );
 		$this->setup_poll_meta( $post_id, 'uuid-admin-private', 1 );
 
-		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id', 1 );
+		$req = $this->request_for( 1 );
 
 		$this->assertEquals( 200, $this->controller->get_poll( $req )->get_status() );
 	}
@@ -458,9 +450,105 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$post_id = $this->factory->post->create( array( 'post_status' => 'private' ) );
 		update_post_meta( $post_id, '_crowdsignal_forms_comment_poll_ids_5', array( 555 ) );
 
-		$req = new \WP_REST_Request( 'GET', '/polls' );
-		$req->set_param( 'poll_id', '555' );
+		$req = $this->request_for( '555' );
 
 		$this->assertWPError( $this->controller->get_poll( $req ) );
+	}
+
+	/**
+	 * Data provider: numeric-id routes that need an editing capability.
+	 *
+	 * @return array
+	 */
+	public function editor_only_route_provider() {
+		return array(
+			'numeric poll'    => array( '/crowdsignal-forms/v1/polls/456' ),
+			'poll results'    => array( '/crowdsignal-forms/v1/polls/456/results' ),
+			'uuid results'    => array( '/crowdsignal-forms/v1/polls/uuid-results/results' ),
+		);
+	}
+
+	/**
+	 * @dataProvider editor_only_route_provider
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_permissions_check
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results_permissions_check
+	 */
+	public function test_editor_only_routes_reject_anonymous_requests( $route ) {
+		wp_set_current_user( 0 );
+		$post_id = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$this->setup_poll_meta( $post_id, 'uuid-results', 456 );
+
+		$response = $this->server->dispatch( new \WP_REST_Request( 'GET', $route ) );
+
+		$this->assertEquals( 401, $response->get_status() );
+	}
+
+	/**
+	 * @dataProvider editor_only_route_provider
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_permissions_check
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results_permissions_check
+	 */
+	public function test_editor_only_routes_reject_users_who_cannot_edit_posts( $route ) {
+		wp_set_current_user( $this->factory->user->create( array( 'role' => 'subscriber' ) ) );
+		$post_id = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$this->setup_poll_meta( $post_id, 'uuid-results', 456 );
+
+		$response = $this->server->dispatch( new \WP_REST_Request( 'GET', $route ) );
+
+		$this->assertEquals( 403, $response->get_status() );
+	}
+
+	/**
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_permissions_check
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results_permissions_check
+	 */
+	public function test_editor_only_routes_allow_users_who_can_edit_posts() {
+		wp_set_current_user( $this->factory->user->create( array( 'role' => 'contributor' ) ) );
+
+		$this->assertTrue( $this->controller->get_poll_permissions_check( $this->request_for( '456' ) ) );
+		$this->assertTrue( $this->controller->get_poll_results_permissions_check() );
+	}
+
+	/**
+	 * Client UUID reads stay public (subject to owning-post readability).
+	 *
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_permissions_check
+	 */
+	public function test_uuid_poll_route_stays_public() {
+		wp_set_current_user( 0 );
+		$post_id = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		$this->setup_poll_meta( $post_id, 'uuid-public-route', 456 );
+
+		$this->assertTrue( $this->controller->get_poll_permissions_check( $this->request_for( 'uuid-public-route' ) ) );
+
+		$_REQUEST['cached'] = '1';
+		$response           = $this->server->dispatch( new \WP_REST_Request( 'GET', '/crowdsignal-forms/v1/polls/uuid-public-route' ) );
+		unset( $_REQUEST['cached'] );
+
+		$this->assertEquals( 200, $response->get_status() );
+	}
+
+	/**
+	 * Passing the capability check is not enough: the owning post must also be readable.
+	 *
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results
+	 */
+	public function test_contributor_cannot_read_poll_on_post_they_cannot_read() {
+		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
+		$author_id = $this->factory->user->create( array( 'role' => 'author' ) );
+		$post_id   = $this->factory->post->create(
+			array(
+				'post_status' => 'private',
+				'post_author' => $author_id,
+			)
+		);
+		$this->setup_poll_meta( $post_id, 'uuid-contributor-denied', 456 );
+		wp_set_current_user( $this->factory->user->create( array( 'role' => 'contributor' ) ) );
+
+		$req = $this->request_for( '456' );
+
+		$this->assert_not_found( $this->controller->get_poll( $req ) );
+		$this->assert_not_found( $this->controller->get_poll_results( $req ) );
 	}
 }

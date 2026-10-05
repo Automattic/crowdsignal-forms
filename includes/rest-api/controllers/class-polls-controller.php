@@ -82,7 +82,7 @@ class Polls_Controller {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_poll_results' ),
-					'permission_callback' => array( $this, 'get_poll_permissions_check' ),
+					'permission_callback' => array( $this, 'get_poll_results_permissions_check' ),
 				),
 			)
 		);
@@ -145,32 +145,18 @@ class Polls_Controller {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$use_cached = isset( $_REQUEST['cached'] );
 
-		if ( ! is_numeric( $poll_id ) ) {
-			$poll_client_id     = $poll_id;
-			$poll_saved_in_meta = Crowdsignal_Forms::instance()
-				->get_post_poll_meta_gateway()
-				->get_poll_data_for_poll_client_id( null, $poll_client_id );
+		$resolved = $this->resolve_readable_poll( $poll_id );
 
-			if ( empty( $poll_saved_in_meta ) ) {
-				return $this->resource_not_found();
-			}
-
-			$location = Crowdsignal_Forms::instance()
-				->get_post_poll_meta_gateway()
-				->get_original_location_for_client_id( $poll_client_id );
-
-			if ( ! $this->is_owning_post_readable( $location['post_id'] ) ) {
-				return $this->resource_not_found();
-			}
-
-			if ( $use_cached ) {
-				return rest_ensure_response( Poll::from_array( $poll_saved_in_meta )->to_array() );
-			}
-
-			$poll_id = $poll_saved_in_meta['id'];
-		} elseif ( ! $this->is_poll_id_readable( $poll_id ) ) {
+		if ( null === $resolved ) {
 			return $this->resource_not_found();
 		}
+
+		list( $poll_id, $poll_saved_in_meta ) = $resolved;
+
+		if ( $use_cached && null !== $poll_saved_in_meta ) {
+			return rest_ensure_response( Poll::from_array( $poll_saved_in_meta )->to_array() );
+		}
+
 		$poll = Crowdsignal_Forms::instance()->get_api_gateway()->get_poll( $poll_id );
 
 		if ( is_wp_error( $poll ) ) {
@@ -242,27 +228,13 @@ class Polls_Controller {
 	public function get_poll_results( $request ) {
 		$poll_id = $request->get_param( 'poll_id' );
 
-		if ( ! is_numeric( $poll_id ) ) {
-			$location = Crowdsignal_Forms::instance()
-				->get_post_poll_meta_gateway()
-				->get_original_location_for_client_id( $poll_id );
+		$resolved = $this->resolve_readable_poll( $poll_id );
 
-			if ( ! $this->is_owning_post_readable( $location['post_id'] ) ) {
-				return $this->resource_not_found();
-			}
-
-			$poll_saved_in_meta = Crowdsignal_Forms::instance()
-				->get_post_poll_meta_gateway()
-				->get_poll_data_for_poll_client_id( null, $poll_id );
-
-			if ( empty( $poll_saved_in_meta['id'] ) ) {
-				return $this->resource_not_found();
-			}
-
-			$poll_id = $poll_saved_in_meta['id'];
-		} elseif ( ! $this->is_poll_id_readable( $poll_id ) ) {
+		if ( null === $resolved ) {
 			return $this->resource_not_found();
 		}
+
+		$poll_id = $resolved[0];
 
 		return rest_ensure_response( Crowdsignal_Forms::instance()->get_api_gateway()->get_poll_results( $poll_id ) );
 	}
@@ -270,12 +242,50 @@ class Polls_Controller {
 	/**
 	 * The get-a-poll by ID permission check.
 	 *
+	 * Client UUIDs and post-bound lookups stay public, subject to the owning post's
+	 * readability. A numeric platform poll id is not needed by anonymous visitors, so
+	 * it requires an editing capability.
+	 *
 	 * @since 0.9.0
 	 *
-	 * @return bool
+	 * @param \WP_REST_Request|null $request The HTTP request.
+	 *
+	 * @return bool|\WP_Error
 	 **/
-	public function get_poll_permissions_check() {
+	public function get_poll_permissions_check( $request = null ) {
+		if ( $request && is_numeric( $request->get_param( 'poll_id' ) ) ) {
+			return $this->editor_permission_check();
+		}
+
 		return true;
+	}
+
+	/**
+	 * The get-poll-results permission check.
+	 *
+	 * @since $$next-version$$
+	 *
+	 * @return bool|\WP_Error
+	 **/
+	public function get_poll_results_permissions_check() {
+		return $this->editor_permission_check();
+	}
+
+	/**
+	 * Allow users who can edit posts; anonymous users get 401, others 403.
+	 *
+	 * @return bool|\WP_Error
+	 **/
+	private function editor_permission_check() {
+		if ( current_user_can( 'edit_posts' ) ) {
+			return true;
+		}
+
+		return new \WP_Error(
+			'rest_forbidden',
+			__( 'Sorry, you are not allowed to do that.', 'crowdsignal-forms' ),
+			array( 'status' => rest_authorization_required_code() )
+		);
 	}
 
 	/**
@@ -306,30 +316,50 @@ class Polls_Controller {
 	}
 
 	/**
-	 * Whether a numeric platform poll id may be served to the current user.
+	 * Resolve a client UUID or numeric poll id to a numeric platform poll id the
+	 * current user may read.
 	 *
-	 * Fails closed: the poll must be associated with at least one local post, and
-	 * every post it is associated with must be readable.
+	 * Fails closed: a client UUID needs saved poll data whose owning post is
+	 * readable; a numeric id needs at least one local owning post, and every
+	 * owning post must be readable.
 	 *
-	 * @param int|string $poll_id The numeric poll id.
-	 * @return bool
+	 * @param string|int $poll_id Client UUID or numeric poll id.
+	 * @return array{0: int|string, 1: array|null}|null The numeric poll id and, for a
+	 *                                                   client UUID, its saved poll data;
+	 *                                                   null if not found or unreadable.
 	 */
-	private function is_poll_id_readable( $poll_id ) {
-		$post_ids = Crowdsignal_Forms::instance()
-			->get_post_poll_meta_gateway()
-			->get_post_ids_for_poll_id( $poll_id );
+	private function resolve_readable_poll( $poll_id ) {
+		$gateway = Crowdsignal_Forms::instance()->get_post_poll_meta_gateway();
 
-		if ( empty( $post_ids ) ) {
-			return false;
-		}
+		if ( is_numeric( $poll_id ) ) {
+			$post_ids = $gateway->get_post_ids_for_poll_id( $poll_id );
 
-		foreach ( $post_ids as $post_id ) {
-			if ( ! $this->is_owning_post_readable( $post_id ) ) {
-				return false;
+			if ( empty( $post_ids ) ) {
+				return null;
 			}
+
+			foreach ( $post_ids as $post_id ) {
+				if ( ! $this->is_owning_post_readable( $post_id ) ) {
+					return null;
+				}
+			}
+
+			return array( $poll_id, null );
 		}
 
-		return true;
+		$poll_saved_in_meta = $gateway->get_poll_data_for_poll_client_id( null, $poll_id );
+
+		if ( empty( $poll_saved_in_meta['id'] ) ) {
+			return null;
+		}
+
+		$location = $gateway->get_original_location_for_client_id( $poll_id );
+
+		if ( ! $this->is_owning_post_readable( $location['post_id'] ) ) {
+			return null;
+		}
+
+		return array( $poll_saved_in_meta['id'], $poll_saved_in_meta );
 	}
 
 	/**

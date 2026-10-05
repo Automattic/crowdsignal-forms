@@ -8,6 +8,9 @@
 
 namespace Crowdsignal_Forms\Gateways;
 
+use Crowdsignal_Forms\Synchronization\Comment_Sync_Entity;
+use Crowdsignal_Forms\Synchronization\Post_Sync_Entity;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -96,8 +99,10 @@ class Post_Poll_Meta_Gateway {
 	 * through one of that post's comment polls
 	 * (_crowdsignal_forms_comment_poll_ids_{comment_id}).
 	 *
+	 * @since $$next-version$$
+	 *
 	 * @param int|string $poll_id The numeric platform poll id.
-	 * @return int[] Owning post ids, ascending. Empty if the poll is unknown locally.
+	 * @return int[] Distinct owning post ids. Empty if the poll is unknown locally.
 	 */
 	public function get_post_ids_for_poll_id( $poll_id ) {
 		global $wpdb;
@@ -114,8 +119,8 @@ class Post_Poll_Meta_Gateway {
 			$wpdb->prepare(
 				"SELECT post_id, meta_value FROM {$wpdb->postmeta}
 				 WHERE ( meta_key = %s OR meta_key LIKE %s ) AND meta_value LIKE %s",
-				'_crowdsignal_forms_poll_ids',
-				$wpdb->esc_like( '_crowdsignal_forms_comment_poll_ids_' ) . '%',
+				Post_Sync_Entity::CROWDSIGNAL_FORMS_POLL_IDS,
+				$wpdb->esc_like( Comment_Sync_Entity::CROWDSIGNAL_FORMS_POST_COMMENTS_POLL_IDS ) . '%',
 				'%' . $wpdb->esc_like( ':' . $poll_id . ';' ) . '%'
 			)
 		);
@@ -126,14 +131,11 @@ class Post_Poll_Meta_Gateway {
 			$poll_ids = maybe_unserialize( $row->meta_value );
 
 			if ( is_array( $poll_ids ) && in_array( $poll_id, array_map( 'intval', $poll_ids ), true ) ) {
-				$post_ids[] = (int) $row->post_id;
+				$post_ids[ (int) $row->post_id ] = true;
 			}
 		}
 
-		$post_ids = array_unique( $post_ids );
-		sort( $post_ids );
-
-		return $post_ids;
+		return array_keys( $post_ids );
 	}
 
 	/**
