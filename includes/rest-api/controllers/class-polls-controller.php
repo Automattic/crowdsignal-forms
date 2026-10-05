@@ -168,6 +168,8 @@ class Polls_Controller {
 			}
 
 			$poll_id = $poll_saved_in_meta['id'];
+		} elseif ( ! $this->is_poll_id_readable( $poll_id ) ) {
+			return $this->resource_not_found();
 		}
 		$poll = Crowdsignal_Forms::instance()->get_api_gateway()->get_poll( $poll_id );
 
@@ -239,6 +241,29 @@ class Polls_Controller {
 	 **/
 	public function get_poll_results( $request ) {
 		$poll_id = $request->get_param( 'poll_id' );
+
+		if ( ! is_numeric( $poll_id ) ) {
+			$location = Crowdsignal_Forms::instance()
+				->get_post_poll_meta_gateway()
+				->get_original_location_for_client_id( $poll_id );
+
+			if ( ! $this->is_owning_post_readable( $location['post_id'] ) ) {
+				return $this->resource_not_found();
+			}
+
+			$poll_saved_in_meta = Crowdsignal_Forms::instance()
+				->get_post_poll_meta_gateway()
+				->get_poll_data_for_poll_client_id( null, $poll_id );
+
+			if ( empty( $poll_saved_in_meta['id'] ) ) {
+				return $this->resource_not_found();
+			}
+
+			$poll_id = $poll_saved_in_meta['id'];
+		} elseif ( ! $this->is_poll_id_readable( $poll_id ) ) {
+			return $this->resource_not_found();
+		}
+
 		return rest_ensure_response( Crowdsignal_Forms::instance()->get_api_gateway()->get_poll_results( $poll_id ) );
 	}
 
@@ -278,6 +303,33 @@ class Polls_Controller {
 				},
 			),
 		);
+	}
+
+	/**
+	 * Whether a numeric platform poll id may be served to the current user.
+	 *
+	 * Fails closed: the poll must be associated with at least one local post, and
+	 * every post it is associated with must be readable.
+	 *
+	 * @param int|string $poll_id The numeric poll id.
+	 * @return bool
+	 */
+	private function is_poll_id_readable( $poll_id ) {
+		$post_ids = Crowdsignal_Forms::instance()
+			->get_post_poll_meta_gateway()
+			->get_post_ids_for_poll_id( $poll_id );
+
+		if ( empty( $post_ids ) ) {
+			return false;
+		}
+
+		foreach ( $post_ids as $post_id ) {
+			if ( ! $this->is_owning_post_readable( $post_id ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**

@@ -90,6 +90,53 @@ class Post_Poll_Meta_Gateway {
 	}
 
 	/**
+	 * Get the ids of every post that owns a platform poll id.
+	 *
+	 * A poll belongs to a post either directly (_crowdsignal_forms_poll_ids) or
+	 * through one of that post's comment polls
+	 * (_crowdsignal_forms_comment_poll_ids_{comment_id}).
+	 *
+	 * @param int|string $poll_id The numeric platform poll id.
+	 * @return int[] Owning post ids, ascending. Empty if the poll is unknown locally.
+	 */
+	public function get_post_ids_for_poll_id( $poll_id ) {
+		global $wpdb;
+
+		$poll_id = (int) $poll_id;
+
+		if ( $poll_id <= 0 ) {
+			return array();
+		}
+
+		// The LIKE only narrows the candidates; membership is re-checked below.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT post_id, meta_value FROM {$wpdb->postmeta}
+				 WHERE ( meta_key = %s OR meta_key LIKE %s ) AND meta_value LIKE %s",
+				'_crowdsignal_forms_poll_ids',
+				$wpdb->esc_like( '_crowdsignal_forms_comment_poll_ids_' ) . '%',
+				'%' . $wpdb->esc_like( ':' . $poll_id . ';' ) . '%'
+			)
+		);
+
+		$post_ids = array();
+
+		foreach ( $rows as $row ) {
+			$poll_ids = maybe_unserialize( $row->meta_value );
+
+			if ( is_array( $poll_ids ) && in_array( $poll_id, array_map( 'intval', $poll_ids ), true ) ) {
+				$post_ids[] = (int) $row->post_id;
+			}
+		}
+
+		$post_ids = array_unique( $post_ids );
+		sort( $post_ids );
+
+		return $post_ids;
+	}
+
+	/**
 	 * Get the original location (post and/or comment) where a client_id is mapped.
 	 *
 	 * Algorithm:
