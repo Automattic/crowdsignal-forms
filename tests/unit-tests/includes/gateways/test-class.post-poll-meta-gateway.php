@@ -16,6 +16,9 @@ use Crowdsignal_Forms\Crowdsignal_Forms;
  * - Poll originated in post
  * - Poll originated in comment
  * - Fallback to post origin
+ *
+ * Also covers get_poll_data_for_poll_client_id(), update_poll_data_for_client_id()
+ * and get_post_ids_for_poll_id().
  */
 class Post_Poll_Meta_Gateway_Test extends Crowdsignal_Forms_Unit_Test_Case {
 
@@ -422,5 +425,82 @@ class Post_Poll_Meta_Gateway_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		$result = $this->gateway->get_poll_data_for_poll_client_id( $post_id, $client_id );
 		$this->assertSame( 222, $result['id'] );
 		$this->assertSame( 'Updated?', $result['question'] );
+	}
+
+	// =========================================================================
+	// get_post_ids_for_poll_id tests
+	// =========================================================================
+
+	/**
+	 * A poll id is found on the post that holds it in its poll list.
+	 *
+	 * @covers \Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway::get_post_ids_for_poll_id
+	 */
+	public function test_get_post_ids_for_poll_id_finds_post_poll() {
+		$post_id = $this->factory->post->create();
+		update_post_meta( $post_id, '_crowdsignal_forms_poll_ids', array( 123 ) );
+
+		$this->assertSame( array( $post_id ), $this->gateway->get_post_ids_for_poll_id( 123 ) );
+		$this->assertSame( array( $post_id ), $this->gateway->get_post_ids_for_poll_id( '123' ) );
+	}
+
+	/**
+	 * A poll id is found on the post whose comment holds it.
+	 *
+	 * @covers \Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway::get_post_ids_for_poll_id
+	 */
+	public function test_get_post_ids_for_poll_id_finds_comment_poll() {
+		$post_id = $this->factory->post->create();
+		update_post_meta( $post_id, '_crowdsignal_forms_comment_poll_ids_5', array( 555 ) );
+
+		$this->assertSame( array( $post_id ), $this->gateway->get_post_ids_for_poll_id( 555 ) );
+	}
+
+	/**
+	 * Every owning post is returned once, whether it holds the poll directly or through a comment.
+	 *
+	 * @covers \Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway::get_post_ids_for_poll_id
+	 */
+	public function test_get_post_ids_for_poll_id_returns_each_owner_once() {
+		$post_a = $this->factory->post->create();
+		$post_b = $this->factory->post->create();
+		update_post_meta( $post_a, '_crowdsignal_forms_poll_ids', array( 900 ) );
+		update_post_meta( $post_a, '_crowdsignal_forms_comment_poll_ids_3', array( 900 ) );
+		update_post_meta( $post_b, '_crowdsignal_forms_comment_poll_ids_4', array( 900 ) );
+
+		$post_ids = $this->gateway->get_post_ids_for_poll_id( 900 );
+		sort( $post_ids );
+
+		$this->assertSame( array( $post_a, $post_b ), $post_ids );
+	}
+
+	/**
+	 * The serialized-value LIKE must not produce partial or array-index matches.
+	 *
+	 * @covers \Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway::get_post_ids_for_poll_id
+	 */
+	public function test_get_post_ids_for_poll_id_ignores_partial_and_index_matches() {
+		$post_a = $this->factory->post->create();
+		$post_b = $this->factory->post->create();
+		update_post_meta( $post_a, '_crowdsignal_forms_poll_ids', array( 123 ) );
+		// Serialized as a:2:{i:0;i:5;i:1;i:7;}, so "i:1;" appears as an array index.
+		update_post_meta( $post_b, '_crowdsignal_forms_poll_ids', array( 5, 7 ) );
+
+		$this->assertSame( array(), $this->gateway->get_post_ids_for_poll_id( 12 ) );
+		$this->assertSame( array(), $this->gateway->get_post_ids_for_poll_id( 1 ) );
+	}
+
+	/**
+	 * Unknown and non-positive poll ids have no owners.
+	 *
+	 * @covers \Crowdsignal_Forms\Gateways\Post_Poll_Meta_Gateway::get_post_ids_for_poll_id
+	 */
+	public function test_get_post_ids_for_poll_id_unknown_or_invalid() {
+		$post_id = $this->factory->post->create();
+		update_post_meta( $post_id, '_crowdsignal_forms_poll_ids', array( 0 ) );
+
+		$this->assertSame( array(), $this->gateway->get_post_ids_for_poll_id( 987654 ) );
+		$this->assertSame( array(), $this->gateway->get_post_ids_for_poll_id( 0 ) );
+		$this->assertSame( array(), $this->gateway->get_post_ids_for_poll_id( -1 ) );
 	}
 }

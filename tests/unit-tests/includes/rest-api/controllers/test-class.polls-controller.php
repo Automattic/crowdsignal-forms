@@ -363,6 +363,9 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	 * Regression test for the full scenario: a poll is readable while its post is
 	 * published, then 404s on every route once the post is made private.
 	 *
+	 * Calls the handlers directly, so this covers the owning-post check only; over
+	 * HTTP, anonymous requests for these routes are rejected earlier with a 401.
+	 *
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results
 	 */
@@ -384,8 +387,8 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 			)
 		);
 
-		$this->assertWPError( $this->controller->get_poll( $req ) );
-		$this->assertWPError( $this->controller->get_poll_results( $req ) );
+		$this->assert_not_found( $this->controller->get_poll( $req ) );
+		$this->assert_not_found( $this->controller->get_poll_results( $req ) );
 	}
 
 	/**
@@ -406,21 +409,43 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	}
 
 	/**
-	 * If any post carrying the poll is unreadable, deny.
+	 * Non-positive numeric ids never resolve to an owning post.
 	 *
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results
+	 */
+	public function test_non_positive_numeric_poll_id_is_not_found() {
+		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
+		wp_set_current_user( $this->factory->user->create( array( 'role' => 'editor' ) ) );
+
+		foreach ( array( '0', '-1' ) as $poll_id ) {
+			$req = $this->request_for( $poll_id );
+
+			$this->assert_not_found( $this->controller->get_poll( $req ) );
+			$this->assert_not_found( $this->controller->get_poll_results( $req ) );
+		}
+	}
+
+	/**
+	 * If any post carrying the poll is unreadable, deny.
+	 *
+	 * Uses a poll id the canned gateway knows, so only the owning-post check can deny.
+	 *
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results
 	 */
 	public function test_numeric_poll_id_shared_with_unreadable_post_is_denied() {
 		wp_set_current_user( 0 );
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
 		$public_post_id  = $this->factory->post->create( array( 'post_status' => 'publish' ) );
 		$private_post_id = $this->factory->post->create( array( 'post_status' => 'private' ) );
-		$this->setup_poll_meta( $public_post_id, 'uuid-shared-a', 321 );
-		$this->setup_poll_meta( $private_post_id, 'uuid-shared-b', 321 );
+		$this->setup_poll_meta( $public_post_id, 'uuid-shared-a', 1 );
+		$this->setup_poll_meta( $private_post_id, 'uuid-shared-b', 1 );
 
-		$req = $this->request_for( '321' );
+		$req = $this->request_for( 1 );
 
-		$this->assertWPError( $this->controller->get_poll( $req ) );
+		$this->assert_not_found( $this->controller->get_poll( $req ) );
+		$this->assert_not_found( $this->controller->get_poll_results( $req ) );
 	}
 
 	/**
@@ -440,7 +465,27 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 	}
 
 	/**
+	 * A poll that belongs to a comment on a published post is readable through that post.
+	 *
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
+	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll_results
+	 */
+	public function test_get_poll_by_numeric_id_allows_comment_poll_on_published_post() {
+		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
+		wp_set_current_user( $this->factory->user->create( array( 'role' => 'editor' ) ) );
+		$post_id = $this->factory->post->create( array( 'post_status' => 'publish' ) );
+		update_post_meta( $post_id, '_crowdsignal_forms_comment_poll_ids_5', array( 1 ) );
+
+		$req = $this->request_for( 1 );
+
+		$this->assertEquals( 200, $this->controller->get_poll( $req )->get_status() );
+		$this->assertEquals( 200, $this->controller->get_poll_results( $req )->get_status() );
+	}
+
+	/**
 	 * A poll that belongs to a comment on a private post is still gated by that post.
+	 *
+	 * Uses a poll id the canned gateway knows, so only the owning-post check can deny.
 	 *
 	 * @covers \Crowdsignal_Forms\Rest_Api\Controllers\Polls_Controller::get_poll
 	 */
@@ -448,11 +493,11 @@ class Polls_Controller_Test extends Crowdsignal_Forms_Unit_Test_Case {
 		wp_set_current_user( 0 );
 		Crowdsignal_Forms\Crowdsignal_Forms::instance()->set_api_gateway( new Canned_Api_Gateway() );
 		$post_id = $this->factory->post->create( array( 'post_status' => 'private' ) );
-		update_post_meta( $post_id, '_crowdsignal_forms_comment_poll_ids_5', array( 555 ) );
+		update_post_meta( $post_id, '_crowdsignal_forms_comment_poll_ids_5', array( 1 ) );
 
-		$req = $this->request_for( '555' );
+		$req = $this->request_for( 1 );
 
-		$this->assertWPError( $this->controller->get_poll( $req ) );
+		$this->assert_not_found( $this->controller->get_poll( $req ) );
 	}
 
 	/**
