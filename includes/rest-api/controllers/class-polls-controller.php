@@ -263,7 +263,7 @@ class Polls_Controller {
 	/**
 	 * The get-poll-results permission check.
 	 *
-	 * @since $$next-version$$
+	 * @since 1.8.3
 	 *
 	 * @return bool|\WP_Error
 	 **/
@@ -274,7 +274,7 @@ class Polls_Controller {
 	/**
 	 * Allow users who can edit posts; anonymous users get 401, others 403.
 	 *
-	 * @since $$next-version$$
+	 * @since 1.8.3
 	 *
 	 * @return bool|\WP_Error
 	 **/
