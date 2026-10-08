@@ -8,6 +8,9 @@
 
 namespace Crowdsignal_Forms\Gateways;
 
+use Crowdsignal_Forms\Synchronization\Comment_Sync_Entity;
+use Crowdsignal_Forms\Synchronization\Post_Sync_Entity;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -87,6 +90,52 @@ class Post_Poll_Meta_Gateway {
 	 */
 	private function get_poll_meta_key( $poll_id_on_block ) {
 		return self::META_PREFIX . $poll_id_on_block;
+	}
+
+	/**
+	 * Get the ids of every post that owns a platform poll id.
+	 *
+	 * A poll belongs to a post either directly (_crowdsignal_forms_poll_ids) or
+	 * through one of that post's comment polls
+	 * (_crowdsignal_forms_comment_poll_ids_{comment_id}).
+	 *
+	 * @since $$next-version$$
+	 *
+	 * @param int|string $poll_id The numeric platform poll id.
+	 * @return int[] Distinct owning post ids. Empty if the poll is unknown locally.
+	 */
+	public function get_post_ids_for_poll_id( $poll_id ) {
+		global $wpdb;
+
+		$poll_id = (int) $poll_id;
+
+		if ( $poll_id <= 0 ) {
+			return array();
+		}
+
+		// The LIKE only narrows the candidates; membership is re-checked below.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+		$rows = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT post_id, meta_value FROM {$wpdb->postmeta}
+				 WHERE ( meta_key = %s OR meta_key LIKE %s ) AND meta_value LIKE %s",
+				Post_Sync_Entity::CROWDSIGNAL_FORMS_POLL_IDS,
+				$wpdb->esc_like( Comment_Sync_Entity::CROWDSIGNAL_FORMS_POST_COMMENTS_POLL_IDS ) . '%',
+				'%' . $wpdb->esc_like( ':' . $poll_id . ';' ) . '%'
+			)
+		);
+
+		$post_ids = array();
+
+		foreach ( $rows as $row ) {
+			$poll_ids = maybe_unserialize( $row->meta_value );
+
+			if ( is_array( $poll_ids ) && in_array( $poll_id, array_map( 'intval', $poll_ids ), true ) ) {
+				$post_ids[ (int) $row->post_id ] = true;
+			}
+		}
+
+		return array_keys( $post_ids );
 	}
 
 	/**
