@@ -99,7 +99,7 @@ class Post_Poll_Meta_Gateway {
 	 * through one of that post's comment polls
 	 * (_crowdsignal_forms_comment_poll_ids_{comment_id}).
 	 *
-	 * @since $$next-version$$
+	 * @since 1.8.3
 	 *
 	 * @param int|string $poll_id The numeric platform poll id.
 	 * @return int[] Distinct owning post ids. Empty if the poll is unknown locally.
