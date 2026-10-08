@@ -73,7 +73,11 @@ VE=$(sed 's/[&\\/]/\\&/g' <<<"$VERSION")
 cd "$BASE"
 EXIT=0
 for FILE in $(git ls-files); do
-	[ "$FILE" == "scripts/replace-next-version-tag.sh" ] && continue;
+	# Skip the files that implement the placeholder convention itself: they
+	# mention the literal token and must keep it across releases.
+	case "$FILE" in
+		scripts/replace-next-version-tag.sh|scripts/check-next-version-tag.sh|.github/workflows/lint-next-version.yml) continue ;;
+	esac
 	grep -F -q '$$next-version$$' "$FILE" 2>/dev/null || continue
 	debug "Processing $FILE"
 
