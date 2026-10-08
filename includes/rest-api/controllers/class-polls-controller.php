@@ -248,12 +248,12 @@ class Polls_Controller {
 	 *
 	 * @since 0.9.0
 	 *
-	 * @param \WP_REST_Request|null $request The HTTP request.
+	 * @param \WP_REST_Request $request The HTTP request.
 	 *
 	 * @return bool|\WP_Error
 	 **/
-	public function get_poll_permissions_check( $request = null ) {
-		if ( $request && is_numeric( $request->get_param( 'poll_id' ) ) ) {
+	public function get_poll_permissions_check( $request ) {
+		if ( is_numeric( $request->get_param( 'poll_id' ) ) ) {
 			return $this->editor_permission_check();
 		}
 
@@ -273,6 +273,8 @@ class Polls_Controller {
 
 	/**
 	 * Allow users who can edit posts; anonymous users get 401, others 403.
+	 *
+	 * @since $$next-version$$
 	 *
 	 * @return bool|\WP_Error
 	 **/
@@ -321,7 +323,9 @@ class Polls_Controller {
 	 *
 	 * Fails closed: a client UUID needs saved poll data whose owning post is
 	 * readable; a numeric id needs at least one local owning post, and every
-	 * owning post must be readable.
+	 * owning post must be readable. The numeric path is deliberately stricter
+	 * than the UUID path (which checks only the first owner by post_id): a
+	 * poll id shared with any unreadable post is denied for everyone.
 	 *
 	 * @param string|int $poll_id Client UUID or numeric poll id.
 	 * @return array{0: int|string, 1: array|null}|null The numeric poll id and, for a
