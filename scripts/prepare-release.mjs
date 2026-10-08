@@ -258,9 +258,11 @@ function updatePackageJsonFiles() {
 function generatePotFiles() {
 	console.log( 'Updating translations (make i18n)...' );
 	try {
-		execSync( `make i18n 2> /dev/null` );
-	} catch {
-		throw new Error( 'POT file generation failed.' );
+		// stdio 'pipe' keeps gettext's deprecation noise off the console on
+		// success, while the catch surfaces the real stderr on failure.
+		execSync( `make i18n`, { stdio: 'pipe', encoding: 'utf8' } );
+	} catch ( err ) {
+		throw new Error( `POT file generation failed.\n${ err.stderr || '' }` );
 	}
 	if ( fs.existsSync( 'languages' ) ) {
 		execSync( `git add languages/` );
