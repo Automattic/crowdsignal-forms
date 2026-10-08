@@ -67,6 +67,12 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 
 == Changelog ==
 
+### 1.8.3 - 2026-10-08
+* Restrict numeric poll IDs and poll results REST routes to users who can edit posts (#339)
+* Update account link to app.crowdsignal.com (#331)
+* Teeny, tiny linting issue fixed (#330)
+* Stop shipping CSS source maps in the production build (#329)
+
 ### 1.8.2 - 2026-07-06
 * Add a filter that users can use to prevent redirect on activation. (#293)
 * Migrate to React 19-compatible render APIs [#309]
@@ -95,17 +101,6 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 * Fix dynamic property (#282)
 * Load blockObserver on DOM ready instead of window load (#268)
 * i18n: Fix omitted dollar signs in printf placeholders (#283)
-
-### 1.7.1
-* bump "Tested up to" to 6.5
-* check for empty cached poll data to prevent warning on load of editor (#278)
-* check for null `core/edit-post` selector which is causing a crash in 6.5 (#277)
-* disable PostPreviewButton because it is crashing the block on re-renders (#274)
-* Prevent blocks from being used in the Site Editor (#272)
-* crowdsignal applause block: Only try to fetch poll data if a pollId exists (php 8.1 warning) (#270)
-* Update message banner for closed, hidden and voted polls  (#269)
-* Update @wordpress/scripts and webpack to latest versions (#266)
-* Block Sidebar: group settings together (#265)
 
 == Upgrade Notice ==
 
